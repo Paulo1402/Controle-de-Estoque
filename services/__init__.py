@@ -5,8 +5,8 @@ import shutil
 from datetime import datetime
 from collections import namedtuple
 
-from PyQt6.QtWidgets import QMessageBox
-from PyQt6.QtSql import QSqlQuery
+from PySide6.QtWidgets import QMessageBox
+from PySide6.QtSql import QSqlQuery
 
 from services.connection import DatabaseConnection, QueryError
 from utils import get_config
@@ -14,34 +14,9 @@ from utils import get_config
 __all__ = [
     'DatabaseConnection',
     'QueryError',
-    'get_years',
-    'delete_year',
     'check_connection',
     'do_backup'
 ]
-
-
-# Retorna anos dos dados
-def get_years(database: DatabaseConnection, force_current_year: bool = True):
-    query = QSqlQuery(database.connection)
-    query.exec("SELECT DISTINCT strftime('%Y', date) FROM history ORDER BY date")
-
-    years = []
-
-    while query.next():
-        years.append(query.value(0))
-
-    if not years and force_current_year:
-        current_year = str(datetime.today().year)
-        years.append(current_year)
-
-    return years
-
-
-# Deleta todos os registros de um ano específico
-def delete_year(database: DatabaseConnection, year: str):
-    query = QSqlQuery(database.connection)
-    query.exec(f"DELETE FROM history WHERE strftime('%Y', date) LIKE {year}")
 
 
 # Checa conexão com banco de dados antes de executar uma função que requer conexão
@@ -106,19 +81,15 @@ def do_backup(database: DatabaseConnection):
 
     # Verifica se há necessidade de realizar o backup com base na configuração 'frequency'
     if last_backup:
-        if frequency == 'diary':
-            if last_backup == today:
-                return
-        elif frequency == 'weekly':
-            if last_backup.isocalendar().week == today.isocalendar().week:
-                return
-        else:
-            if last_backup.month == today.month:
-                return
-    else:
-        last_backup = today
+        if frequency == 'diary' and last_backup == today:
+            return
+        elif frequency == 'weekly' and last_backup.isocalendar().week == today.isocalendar().week:
+            return
+        elif frequency == 'monthly' and last_backup.month == today.month:
+            return
 
     # Transforma datetime em string novamente
+    last_backup = today
     last_backup = last_backup.strftime('%Y-%m-%d')
 
     # Pega o nome do mês e ano atual

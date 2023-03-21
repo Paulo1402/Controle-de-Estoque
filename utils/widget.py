@@ -1,8 +1,8 @@
 from PySide6.QtWidgets import QLineEdit, QMessageBox, QComboBox
-from PySide6.QtGui import QFocusEvent
+from PySide6.QtGui import QFocusEvent, QRegularExpressionValidator
+from PySide6.QtCore import QRegularExpression
 
-from utils import from_currency_to_float, from_float_to_currency
-from utils.dialog import CalendarDialog
+import utils
 
 
 # Template de QMessageBox com captions personalizados para botões
@@ -64,15 +64,24 @@ class Message(QMessageBox):
 
 
 class CustomComboBox(QComboBox):
+    def __init__(self, parent):
+        super().__init__(parent)
+
+        validator = QRegularExpressionValidator(
+            QRegularExpression(r"(0[1-9]|[12][0-9]|3[01])/(0[1-9]|1[12])/[12][0-9]{3}")
+        )
+
+        self.setValidator(validator)
+
     def showPopup(self) -> None:
-        CalendarDialog(self.parent(), self).show()
+        utils.CalendarDialog(self.parent(), self).show()
 
 
 # LineEdit com auto formatar moeda
 class CustomLineEdit(QLineEdit):
     # Formata para float ao receber o foco
     def focusInEvent(self, a0: QFocusEvent) -> None:
-        value = from_currency_to_float(self.text())
+        value = utils.from_volume_to_float(self.text())
         value = str(value).replace('.', ',')
         self.setText(value)
 
@@ -80,8 +89,8 @@ class CustomLineEdit(QLineEdit):
 
     # Formata para moeda ao perder o foco
     def focusOutEvent(self, a0: QFocusEvent) -> None:
-        value = from_currency_to_float(self.text())
-        value = from_float_to_currency(value)
+        value = utils.from_volume_to_float(self.text())
+        value = utils.from_float_to_volume(value)
         self.setText(value)
 
         super().focusOutEvent(a0)

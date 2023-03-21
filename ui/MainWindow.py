@@ -16,13 +16,13 @@ from PySide6.QtGui import (QAction, QBrush, QColor, QConicalGradient,
     QIcon, QImage, QKeySequence, QLinearGradient,
     QPainter, QPalette, QPixmap, QRadialGradient,
     QTransform)
-from PySide6.QtWidgets import (QApplication, QComboBox, QFrame, QGridLayout,
-    QGroupBox, QHBoxLayout, QHeaderView, QLabel,
-    QLayout, QLineEdit, QMainWindow, QMenu,
-    QMenuBar, QPushButton, QRadioButton, QSizePolicy,
-    QSpacerItem, QStackedWidget, QStatusBar, QTabWidget,
-    QTableView, QTableWidget, QTableWidgetItem, QVBoxLayout,
-    QWidget)
+from PySide6.QtWidgets import (QAbstractItemView, QApplication, QComboBox, QFormLayout,
+    QFrame, QGridLayout, QGroupBox, QHBoxLayout,
+    QHeaderView, QLabel, QLayout, QLineEdit,
+    QMainWindow, QMenu, QMenuBar, QPushButton,
+    QRadioButton, QSizePolicy, QSpacerItem, QStackedWidget,
+    QStatusBar, QTabWidget, QTableView, QTableWidget,
+    QTableWidgetItem, QVBoxLayout, QWidget)
 
 from utils.widget import CustomComboBox
 from  . import resource_rc
@@ -31,10 +31,14 @@ class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         if not MainWindow.objectName():
             MainWindow.setObjectName(u"MainWindow")
-        MainWindow.resize(935, 602)
-        MainWindow.setStyleSheet(u"")
+        MainWindow.resize(1006, 559)
+        MainWindow.setStyleSheet(u" QGroupBox {\n"
+"            border: none;\n"
+" }")
+        MainWindow.setToolButtonStyle(Qt.ToolButtonIconOnly)
         MainWindow.setDocumentMode(False)
         MainWindow.setTabShape(QTabWidget.Rounded)
+        MainWindow.setDockNestingEnabled(False)
         MainWindow.setUnifiedTitleAndToolBarOnMac(False)
         self.action_kiln = QAction(MainWindow)
         self.action_kiln.setObjectName(u"action_kiln")
@@ -63,68 +67,107 @@ class Ui_MainWindow(object):
         font = QFont()
         font.setFamilies([u"Segoe UI"])
         self.centralwidget.setFont(font)
-        self.centralwidget.setStyleSheet(u"")
+        self.centralwidget.setStyleSheet(u"QComboBox {\n"
+"	combobox-popup: 0;\n"
+"}")
         self.gridLayout = QGridLayout(self.centralwidget)
         self.gridLayout.setObjectName(u"gridLayout")
-        self.horizontalLayout_2 = QHBoxLayout()
-        self.horizontalLayout_2.setObjectName(u"horizontalLayout_2")
-        self.horizontalSpacer_4 = QSpacerItem(40, 20, QSizePolicy.Expanding, QSizePolicy.Minimum)
-
-        self.horizontalLayout_2.addItem(self.horizontalSpacer_4)
-
-        self.label_6 = QLabel(self.centralwidget)
-        self.label_6.setObjectName(u"label_6")
-        font1 = QFont()
-        font1.setFamilies([u"Trebuchet MS"])
-        font1.setPointSize(22)
-        font1.setBold(False)
-        self.label_6.setFont(font1)
-        self.label_6.setAlignment(Qt.AlignCenter)
-
-        self.horizontalLayout_2.addWidget(self.label_6)
-
-        self.label_7 = QLabel(self.centralwidget)
-        self.label_7.setObjectName(u"label_7")
-        sizePolicy = QSizePolicy(QSizePolicy.Preferred, QSizePolicy.Preferred)
-        sizePolicy.setHorizontalStretch(0)
-        sizePolicy.setVerticalStretch(0)
-        sizePolicy.setHeightForWidth(self.label_7.sizePolicy().hasHeightForWidth())
-        self.label_7.setSizePolicy(sizePolicy)
-        self.label_7.setFont(font1)
-        self.label_7.setPixmap(QPixmap(u":/icons/assets/tree-32.png"))
-        self.label_7.setAlignment(Qt.AlignCenter)
-
-        self.horizontalLayout_2.addWidget(self.label_7)
-
-        self.horizontalSpacer_5 = QSpacerItem(40, 20, QSizePolicy.Expanding, QSizePolicy.Minimum)
-
-        self.horizontalLayout_2.addItem(self.horizontalSpacer_5)
-
-
-        self.gridLayout.addLayout(self.horizontalLayout_2, 2, 0, 1, 2)
-
         self.mp_main = QStackedWidget(self.centralwidget)
         self.mp_main.setObjectName(u"mp_main")
         self.mp_main.setFrameShape(QFrame.Box)
         self.page_cycle = QWidget()
         self.page_cycle.setObjectName(u"page_cycle")
+        self.page_cycle.setStyleSheet(u"")
         self.verticalLayout_3 = QVBoxLayout(self.page_cycle)
         self.verticalLayout_3.setObjectName(u"verticalLayout_3")
-        self.frame = QFrame(self.page_cycle)
+        self.tab_widget_cycle = QTabWidget(self.page_cycle)
+        self.tab_widget_cycle.setObjectName(u"tab_widget_cycle")
+        self.tab_widget_cycle.setTabPosition(QTabWidget.North)
+        self.tab_widget_cycle.setTabShape(QTabWidget.Rounded)
+        self.tab_widget_cycle.setElideMode(Qt.ElideLeft)
+        self.tab_widget_cycle.setUsesScrollButtons(True)
+        self.tab_widget_cycle.setDocumentMode(False)
+        self.tab_widget_cycle.setTabsClosable(False)
+        self.tab_widget_cycle.setMovable(False)
+        self.tab_widget_cycle.setTabBarAutoHide(True)
+        self.tab_cycle = QWidget()
+        self.tab_cycle.setObjectName(u"tab_cycle")
+        self.tab_cycle.setStyleSheet(u"")
+        self.verticalLayout = QVBoxLayout(self.tab_cycle)
+        self.verticalLayout.setObjectName(u"verticalLayout")
+        self.frame = QFrame(self.tab_cycle)
         self.frame.setObjectName(u"frame")
         self.frame.setFrameShape(QFrame.Box)
         self.frame.setFrameShadow(QFrame.Raised)
-        self.gridLayout_2 = QGridLayout(self.frame)
-        self.gridLayout_2.setObjectName(u"gridLayout_2")
+        self.horizontalLayout_37 = QHBoxLayout(self.frame)
+        self.horizontalLayout_37.setSpacing(10)
+        self.horizontalLayout_37.setObjectName(u"horizontalLayout_37")
+        self.horizontalLayout_3 = QHBoxLayout()
+        self.horizontalLayout_3.setSpacing(6)
+        self.horizontalLayout_3.setObjectName(u"horizontalLayout_3")
+        self.horizontalLayout_3.setContentsMargins(-1, -1, 0, -1)
         self.label_9 = QLabel(self.frame)
         self.label_9.setObjectName(u"label_9")
 
-        self.gridLayout_2.addWidget(self.label_9, 1, 0, 1, 1)
+        self.horizontalLayout_3.addWidget(self.label_9)
+
+        self.cb_kiln_cycle = QComboBox(self.frame)
+        self.cb_kiln_cycle.setObjectName(u"cb_kiln_cycle")
+        sizePolicy = QSizePolicy(QSizePolicy.Minimum, QSizePolicy.Fixed)
+        sizePolicy.setHorizontalStretch(0)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(self.cb_kiln_cycle.sizePolicy().hasHeightForWidth())
+        self.cb_kiln_cycle.setSizePolicy(sizePolicy)
+        self.cb_kiln_cycle.setMinimumSize(QSize(90, 0))
+
+        self.horizontalLayout_3.addWidget(self.cb_kiln_cycle)
+
+
+        self.horizontalLayout_37.addLayout(self.horizontalLayout_3)
+
+        self.horizontalLayout_5 = QHBoxLayout()
+        self.horizontalLayout_5.setObjectName(u"horizontalLayout_5")
+        self.horizontalLayout_5.setContentsMargins(-1, -1, 0, -1)
+        self.label_2 = QLabel(self.frame)
+        self.label_2.setObjectName(u"label_2")
+
+        self.horizontalLayout_5.addWidget(self.label_2)
 
         self.txt_cycle_cycle = QLineEdit(self.frame)
         self.txt_cycle_cycle.setObjectName(u"txt_cycle_cycle")
 
-        self.gridLayout_2.addWidget(self.txt_cycle_cycle, 1, 4, 1, 1)
+        self.horizontalLayout_5.addWidget(self.txt_cycle_cycle)
+
+
+        self.horizontalLayout_37.addLayout(self.horizontalLayout_5)
+
+        self.horizontalLayout_9 = QHBoxLayout()
+        self.horizontalLayout_9.setObjectName(u"horizontalLayout_9")
+        self.horizontalLayout_9.setContentsMargins(-1, -1, 0, -1)
+        self.label_3 = QLabel(self.frame)
+        self.label_3.setObjectName(u"label_3")
+
+        self.horizontalLayout_9.addWidget(self.label_3)
+
+        self.cb_entry_date_cycle = CustomComboBox(self.frame)
+        self.cb_entry_date_cycle.setObjectName(u"cb_entry_date_cycle")
+        self.cb_entry_date_cycle.setMinimumSize(QSize(100, 0))
+        self.cb_entry_date_cycle.setEditable(True)
+        self.cb_entry_date_cycle.setInsertPolicy(QComboBox.NoInsert)
+        self.cb_entry_date_cycle.setFrame(True)
+
+        self.horizontalLayout_9.addWidget(self.cb_entry_date_cycle)
+
+
+        self.horizontalLayout_37.addLayout(self.horizontalLayout_9)
+
+        self.horizontalLayout_10 = QHBoxLayout()
+        self.horizontalLayout_10.setObjectName(u"horizontalLayout_10")
+        self.horizontalLayout_10.setContentsMargins(-1, -1, 0, -1)
+        self.label_4 = QLabel(self.frame)
+        self.label_4.setObjectName(u"label_4")
+
+        self.horizontalLayout_10.addWidget(self.label_4)
 
         self.cb_exit_date_cycle = CustomComboBox(self.frame)
         self.cb_exit_date_cycle.setObjectName(u"cb_exit_date_cycle")
@@ -133,15 +176,18 @@ class Ui_MainWindow(object):
         self.cb_exit_date_cycle.setInsertPolicy(QComboBox.NoInsert)
         self.cb_exit_date_cycle.setFrame(True)
 
-        self.gridLayout_2.addWidget(self.cb_exit_date_cycle, 1, 8, 1, 1)
+        self.horizontalLayout_10.addWidget(self.cb_exit_date_cycle)
 
-        self.cb_kiln_cycle = QComboBox(self.frame)
-        self.cb_kiln_cycle.addItem("")
-        self.cb_kiln_cycle.addItem("")
-        self.cb_kiln_cycle.setObjectName(u"cb_kiln_cycle")
-        self.cb_kiln_cycle.setMinimumSize(QSize(67, 0))
 
-        self.gridLayout_2.addWidget(self.cb_kiln_cycle, 1, 1, 1, 1)
+        self.horizontalLayout_37.addLayout(self.horizontalLayout_10)
+
+        self.horizontalLayout_11 = QHBoxLayout()
+        self.horizontalLayout_11.setObjectName(u"horizontalLayout_11")
+        self.horizontalLayout_11.setContentsMargins(-1, -1, 0, -1)
+        self.label_5 = QLabel(self.frame)
+        self.label_5.setObjectName(u"label_5")
+
+        self.horizontalLayout_11.addWidget(self.label_5)
 
         self.groupBox = QGroupBox(self.frame)
         self.groupBox.setObjectName(u"groupBox")
@@ -151,6 +197,7 @@ class Ui_MainWindow(object):
         self.horizontalLayout.setObjectName(u"horizontalLayout")
         self.rb_kd_cycle = QRadioButton(self.groupBox)
         self.rb_kd_cycle.setObjectName(u"rb_kd_cycle")
+        self.rb_kd_cycle.setChecked(True)
 
         self.horizontalLayout.addWidget(self.rb_kd_cycle)
 
@@ -160,45 +207,15 @@ class Ui_MainWindow(object):
         self.horizontalLayout.addWidget(self.rb_ht_cycle)
 
 
-        self.gridLayout_2.addWidget(self.groupBox, 1, 10, 1, 1)
-
-        self.label_3 = QLabel(self.frame)
-        self.label_3.setObjectName(u"label_3")
-
-        self.gridLayout_2.addWidget(self.label_3, 1, 5, 1, 1)
-
-        self.label_4 = QLabel(self.frame)
-        self.label_4.setObjectName(u"label_4")
-
-        self.gridLayout_2.addWidget(self.label_4, 1, 7, 1, 1)
-
-        self.cb_entry_date_cycle = CustomComboBox(self.frame)
-        self.cb_entry_date_cycle.setObjectName(u"cb_entry_date_cycle")
-        self.cb_entry_date_cycle.setMinimumSize(QSize(100, 0))
-        self.cb_entry_date_cycle.setEditable(True)
-        self.cb_entry_date_cycle.setInsertPolicy(QComboBox.NoInsert)
-        self.cb_entry_date_cycle.setFrame(True)
-
-        self.gridLayout_2.addWidget(self.cb_entry_date_cycle, 1, 6, 1, 1)
-
-        self.label_5 = QLabel(self.frame)
-        self.label_5.setObjectName(u"label_5")
-
-        self.gridLayout_2.addWidget(self.label_5, 1, 9, 1, 1)
-
-        self.label_2 = QLabel(self.frame)
-        self.label_2.setObjectName(u"label_2")
-
-        self.gridLayout_2.addWidget(self.label_2, 1, 3, 1, 1)
+        self.horizontalLayout_11.addWidget(self.groupBox)
 
 
-        self.verticalLayout_3.addWidget(self.frame)
+        self.horizontalLayout_37.addLayout(self.horizontalLayout_11)
 
-        self.verticalSpacer_3 = QSpacerItem(20, 20, QSizePolicy.Minimum, QSizePolicy.Fixed)
 
-        self.verticalLayout_3.addItem(self.verticalSpacer_3)
+        self.verticalLayout.addWidget(self.frame)
 
-        self.frame_13 = QFrame(self.page_cycle)
+        self.frame_13 = QFrame(self.tab_cycle)
         self.frame_13.setObjectName(u"frame_13")
         self.frame_13.setMinimumSize(QSize(0, 50))
         self.frame_13.setFrameShape(QFrame.Box)
@@ -238,10 +255,10 @@ class Ui_MainWindow(object):
         self.txt_volume_cycle.setSizePolicy(sizePolicy2)
         self.txt_volume_cycle.setMinimumSize(QSize(0, 0))
         self.txt_volume_cycle.setMaximumSize(QSize(16777215, 16777215))
-        font2 = QFont()
-        font2.setFamilies([u"Segoe UI"])
-        font2.setPointSize(9)
-        self.txt_volume_cycle.setFont(font2)
+        font1 = QFont()
+        font1.setFamilies([u"Segoe UI"])
+        font1.setPointSize(9)
+        self.txt_volume_cycle.setFont(font1)
         self.txt_volume_cycle.setFrame(True)
         self.txt_volume_cycle.setEchoMode(QLineEdit.Normal)
         self.txt_volume_cycle.setAlignment(Qt.AlignLeading|Qt.AlignLeft|Qt.AlignVCenter)
@@ -255,13 +272,13 @@ class Ui_MainWindow(object):
 
         self.gridLayout_12.addWidget(self.label_57, 1, 0, 1, 1)
 
-        self.txt_pack_cycle = QLineEdit(self.frame_13)
-        self.txt_pack_cycle.setObjectName(u"txt_pack_cycle")
-        sizePolicy2.setHeightForWidth(self.txt_pack_cycle.sizePolicy().hasHeightForWidth())
-        self.txt_pack_cycle.setSizePolicy(sizePolicy2)
-        self.txt_pack_cycle.setMaximumSize(QSize(16777215, 16777215))
+        self.txt_packs_cycle = QLineEdit(self.frame_13)
+        self.txt_packs_cycle.setObjectName(u"txt_packs_cycle")
+        sizePolicy2.setHeightForWidth(self.txt_packs_cycle.sizePolicy().hasHeightForWidth())
+        self.txt_packs_cycle.setSizePolicy(sizePolicy2)
+        self.txt_packs_cycle.setMaximumSize(QSize(16777215, 16777215))
 
-        self.gridLayout_12.addWidget(self.txt_pack_cycle, 1, 1, 1, 1)
+        self.gridLayout_12.addWidget(self.txt_packs_cycle, 1, 1, 1, 1)
 
         self.txt_bitola_cycle = QLineEdit(self.frame_13)
         self.txt_bitola_cycle.setObjectName(u"txt_bitola_cycle")
@@ -284,37 +301,49 @@ class Ui_MainWindow(object):
         self.verticalLayout_6 = QVBoxLayout()
         self.verticalLayout_6.setObjectName(u"verticalLayout_6")
         self.verticalLayout_6.setContentsMargins(-1, -1, 0, -1)
-        self.bt_add_cycle = QPushButton(self.frame_13)
-        self.bt_add_cycle.setObjectName(u"bt_add_cycle")
+        self.bt_add_bitola_cycle = QPushButton(self.frame_13)
+        self.bt_add_bitola_cycle.setObjectName(u"bt_add_bitola_cycle")
         sizePolicy3 = QSizePolicy(QSizePolicy.Fixed, QSizePolicy.Fixed)
         sizePolicy3.setHorizontalStretch(0)
         sizePolicy3.setVerticalStretch(0)
-        sizePolicy3.setHeightForWidth(self.bt_add_cycle.sizePolicy().hasHeightForWidth())
-        self.bt_add_cycle.setSizePolicy(sizePolicy3)
-        self.bt_add_cycle.setMinimumSize(QSize(0, 0))
+        sizePolicy3.setHeightForWidth(self.bt_add_bitola_cycle.sizePolicy().hasHeightForWidth())
+        self.bt_add_bitola_cycle.setSizePolicy(sizePolicy3)
+        self.bt_add_bitola_cycle.setMinimumSize(QSize(0, 0))
+        self.bt_add_bitola_cycle.setCursor(QCursor(Qt.PointingHandCursor))
         icon4 = QIcon()
         icon4.addFile(u":/icons/assets/add-32.png", QSize(), QIcon.Normal, QIcon.Off)
-        self.bt_add_cycle.setIcon(icon4)
-        self.bt_add_cycle.setIconSize(QSize(20, 20))
+        self.bt_add_bitola_cycle.setIcon(icon4)
+        self.bt_add_bitola_cycle.setIconSize(QSize(20, 20))
 
-        self.verticalLayout_6.addWidget(self.bt_add_cycle)
+        self.verticalLayout_6.addWidget(self.bt_add_bitola_cycle)
 
-        self.bt_remove_cycle = QPushButton(self.frame_13)
-        self.bt_remove_cycle.setObjectName(u"bt_remove_cycle")
-        sizePolicy3.setHeightForWidth(self.bt_remove_cycle.sizePolicy().hasHeightForWidth())
-        self.bt_remove_cycle.setSizePolicy(sizePolicy3)
-        self.bt_remove_cycle.setMinimumSize(QSize(0, 0))
+        self.bt_remove_bitola_cycle = QPushButton(self.frame_13)
+        self.bt_remove_bitola_cycle.setObjectName(u"bt_remove_bitola_cycle")
+        sizePolicy3.setHeightForWidth(self.bt_remove_bitola_cycle.sizePolicy().hasHeightForWidth())
+        self.bt_remove_bitola_cycle.setSizePolicy(sizePolicy3)
+        self.bt_remove_bitola_cycle.setMinimumSize(QSize(0, 0))
+        self.bt_remove_bitola_cycle.setCursor(QCursor(Qt.PointingHandCursor))
         icon5 = QIcon()
         icon5.addFile(u":/icons/assets/remove-32.png", QSize(), QIcon.Normal, QIcon.Off)
-        self.bt_remove_cycle.setIcon(icon5)
-        self.bt_remove_cycle.setIconSize(QSize(20, 20))
+        self.bt_remove_bitola_cycle.setIcon(icon5)
+        self.bt_remove_bitola_cycle.setIconSize(QSize(20, 20))
 
-        self.verticalLayout_6.addWidget(self.bt_remove_cycle)
+        self.verticalLayout_6.addWidget(self.bt_remove_bitola_cycle)
 
 
         self.gridLayout_14.addLayout(self.verticalLayout_6, 1, 1, 1, 1)
 
         self.tw_cycle = QTableWidget(self.frame_13)
+        if (self.tw_cycle.columnCount() < 4):
+            self.tw_cycle.setColumnCount(4)
+        __qtablewidgetitem = QTableWidgetItem()
+        self.tw_cycle.setHorizontalHeaderItem(0, __qtablewidgetitem)
+        __qtablewidgetitem1 = QTableWidgetItem()
+        self.tw_cycle.setHorizontalHeaderItem(1, __qtablewidgetitem1)
+        __qtablewidgetitem2 = QTableWidgetItem()
+        self.tw_cycle.setHorizontalHeaderItem(2, __qtablewidgetitem2)
+        __qtablewidgetitem3 = QTableWidgetItem()
+        self.tw_cycle.setHorizontalHeaderItem(3, __qtablewidgetitem3)
         self.tw_cycle.setObjectName(u"tw_cycle")
         sizePolicy4 = QSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
         sizePolicy4.setHorizontalStretch(1)
@@ -322,6 +351,13 @@ class Ui_MainWindow(object):
         sizePolicy4.setHeightForWidth(self.tw_cycle.sizePolicy().hasHeightForWidth())
         self.tw_cycle.setSizePolicy(sizePolicy4)
         self.tw_cycle.setMinimumSize(QSize(400, 0))
+        self.tw_cycle.setEditTriggers(QAbstractItemView.NoEditTriggers)
+        self.tw_cycle.setSelectionMode(QAbstractItemView.SingleSelection)
+        self.tw_cycle.setSelectionBehavior(QAbstractItemView.SelectRows)
+        self.tw_cycle.setGridStyle(Qt.SolidLine)
+        self.tw_cycle.setSortingEnabled(False)
+        self.tw_cycle.setColumnCount(4)
+        self.tw_cycle.verticalHeader().setVisible(False)
 
         self.gridLayout_14.addWidget(self.tw_cycle, 1, 2, 4, 15)
 
@@ -329,13 +365,19 @@ class Ui_MainWindow(object):
         self.horizontalLayout_16.addLayout(self.gridLayout_14)
 
 
-        self.verticalLayout_3.addWidget(self.frame_13)
+        self.verticalLayout.addWidget(self.frame_13)
 
         self.horizontalLayout_7 = QHBoxLayout()
         self.horizontalLayout_7.setObjectName(u"horizontalLayout_7")
-        self.bt_new_cycle = QPushButton(self.page_cycle)
+        self.bt_new_cycle = QPushButton(self.tab_cycle)
         self.bt_new_cycle.setObjectName(u"bt_new_cycle")
+        sizePolicy5 = QSizePolicy(QSizePolicy.Expanding, QSizePolicy.Fixed)
+        sizePolicy5.setHorizontalStretch(0)
+        sizePolicy5.setVerticalStretch(0)
+        sizePolicy5.setHeightForWidth(self.bt_new_cycle.sizePolicy().hasHeightForWidth())
+        self.bt_new_cycle.setSizePolicy(sizePolicy5)
         self.bt_new_cycle.setMinimumSize(QSize(0, 50))
+        self.bt_new_cycle.setCursor(QCursor(Qt.PointingHandCursor))
         icon6 = QIcon()
         icon6.addFile(u":/icons/assets/new-32.png", QSize(), QIcon.Normal, QIcon.Off)
         self.bt_new_cycle.setIcon(icon6)
@@ -343,9 +385,12 @@ class Ui_MainWindow(object):
 
         self.horizontalLayout_7.addWidget(self.bt_new_cycle)
 
-        self.bt_save_cycle = QPushButton(self.page_cycle)
+        self.bt_save_cycle = QPushButton(self.tab_cycle)
         self.bt_save_cycle.setObjectName(u"bt_save_cycle")
+        sizePolicy5.setHeightForWidth(self.bt_save_cycle.sizePolicy().hasHeightForWidth())
+        self.bt_save_cycle.setSizePolicy(sizePolicy5)
         self.bt_save_cycle.setMinimumSize(QSize(0, 50))
+        self.bt_save_cycle.setCursor(QCursor(Qt.PointingHandCursor))
         icon7 = QIcon()
         icon7.addFile(u":/icons/assets/save-32.png", QSize(), QIcon.Normal, QIcon.Off)
         self.bt_save_cycle.setIcon(icon7)
@@ -353,9 +398,12 @@ class Ui_MainWindow(object):
 
         self.horizontalLayout_7.addWidget(self.bt_save_cycle)
 
-        self.bt_delete_cycle = QPushButton(self.page_cycle)
+        self.bt_delete_cycle = QPushButton(self.tab_cycle)
         self.bt_delete_cycle.setObjectName(u"bt_delete_cycle")
+        sizePolicy5.setHeightForWidth(self.bt_delete_cycle.sizePolicy().hasHeightForWidth())
+        self.bt_delete_cycle.setSizePolicy(sizePolicy5)
         self.bt_delete_cycle.setMinimumSize(QSize(0, 50))
+        self.bt_delete_cycle.setCursor(QCursor(Qt.PointingHandCursor))
         icon8 = QIcon()
         icon8.addFile(u":/icons/assets/delete-32.png", QSize(), QIcon.Normal, QIcon.Off)
         self.bt_delete_cycle.setIcon(icon8)
@@ -364,91 +412,564 @@ class Ui_MainWindow(object):
         self.horizontalLayout_7.addWidget(self.bt_delete_cycle)
 
 
-        self.verticalLayout_3.addLayout(self.horizontalLayout_7)
+        self.verticalLayout.addLayout(self.horizontalLayout_7)
+
+        icon9 = QIcon()
+        icon9.addFile(u":/icons/assets/tag-32.png", QSize(), QIcon.Normal, QIcon.Off)
+        self.tab_widget_cycle.addTab(self.tab_cycle, icon9, "")
+        self.tab_historic_cycle = QWidget()
+        self.tab_historic_cycle.setObjectName(u"tab_historic_cycle")
+        self.verticalLayout_7 = QVBoxLayout(self.tab_historic_cycle)
+        self.verticalLayout_7.setObjectName(u"verticalLayout_7")
+        self.mp_cycle_historic = QStackedWidget(self.tab_historic_cycle)
+        self.mp_cycle_historic.setObjectName(u"mp_cycle_historic")
+        self.mp_cycle_historic.setStyleSheet(u"")
+        self.page_cycle_historic = QWidget()
+        self.page_cycle_historic.setObjectName(u"page_cycle_historic")
+        self.verticalLayout_12 = QVBoxLayout(self.page_cycle_historic)
+        self.verticalLayout_12.setObjectName(u"verticalLayout_12")
+        self.verticalLayout_12.setContentsMargins(0, 0, 0, 0)
+        self.frame_14 = QFrame(self.page_cycle_historic)
+        self.frame_14.setObjectName(u"frame_14")
+        sizePolicy2.setHeightForWidth(self.frame_14.sizePolicy().hasHeightForWidth())
+        self.frame_14.setSizePolicy(sizePolicy2)
+        self.frame_14.setMinimumSize(QSize(0, 0))
+        self.frame_14.setMaximumSize(QSize(16777215, 16777215))
+        self.frame_14.setFrameShape(QFrame.Box)
+        self.frame_14.setFrameShadow(QFrame.Raised)
+        self.horizontalLayout_17 = QHBoxLayout(self.frame_14)
+        self.horizontalLayout_17.setSpacing(10)
+        self.horizontalLayout_17.setObjectName(u"horizontalLayout_17")
+        self.formLayout = QFormLayout()
+        self.formLayout.setObjectName(u"formLayout")
+        self.formLayout.setContentsMargins(-1, 0, 0, -1)
+        self.label_47 = QLabel(self.frame_14)
+        self.label_47.setObjectName(u"label_47")
+        sizePolicy6 = QSizePolicy(QSizePolicy.Preferred, QSizePolicy.Preferred)
+        sizePolicy6.setHorizontalStretch(0)
+        sizePolicy6.setVerticalStretch(0)
+        sizePolicy6.setHeightForWidth(self.label_47.sizePolicy().hasHeightForWidth())
+        self.label_47.setSizePolicy(sizePolicy6)
+
+        self.formLayout.setWidget(0, QFormLayout.LabelRole, self.label_47)
+
+        self.cb_kiln_cycle_history = QComboBox(self.frame_14)
+        self.cb_kiln_cycle_history.setObjectName(u"cb_kiln_cycle_history")
+        sizePolicy5.setHeightForWidth(self.cb_kiln_cycle_history.sizePolicy().hasHeightForWidth())
+        self.cb_kiln_cycle_history.setSizePolicy(sizePolicy5)
+        self.cb_kiln_cycle_history.setMinimumSize(QSize(90, 0))
+        self.cb_kiln_cycle_history.setMaxVisibleItems(10)
+
+        self.formLayout.setWidget(0, QFormLayout.FieldRole, self.cb_kiln_cycle_history)
+
+        self.label_56 = QLabel(self.frame_14)
+        self.label_56.setObjectName(u"label_56")
+        sizePolicy6.setHeightForWidth(self.label_56.sizePolicy().hasHeightForWidth())
+        self.label_56.setSizePolicy(sizePolicy6)
+        self.label_56.setMaximumSize(QSize(16777215, 16777215))
+
+        self.formLayout.setWidget(1, QFormLayout.LabelRole, self.label_56)
+
+        self.cb_cycle_cycle_history = QComboBox(self.frame_14)
+        self.cb_cycle_cycle_history.setObjectName(u"cb_cycle_cycle_history")
+        sizePolicy5.setHeightForWidth(self.cb_cycle_cycle_history.sizePolicy().hasHeightForWidth())
+        self.cb_cycle_cycle_history.setSizePolicy(sizePolicy5)
+        self.cb_cycle_cycle_history.setMaxVisibleItems(10)
+        self.cb_cycle_cycle_history.setFrame(True)
+
+        self.formLayout.setWidget(1, QFormLayout.FieldRole, self.cb_cycle_cycle_history)
+
+
+        self.horizontalLayout_17.addLayout(self.formLayout)
+
+        self.formLayout_6 = QFormLayout()
+        self.formLayout_6.setObjectName(u"formLayout_6")
+        self.formLayout_6.setContentsMargins(-1, 0, 0, -1)
+        self.label_46 = QLabel(self.frame_14)
+        self.label_46.setObjectName(u"label_46")
+
+        self.formLayout_6.setWidget(0, QFormLayout.LabelRole, self.label_46)
+
+        self.label_61 = QLabel(self.frame_14)
+        self.label_61.setObjectName(u"label_61")
+        sizePolicy6.setHeightForWidth(self.label_61.sizePolicy().hasHeightForWidth())
+        self.label_61.setSizePolicy(sizePolicy6)
+
+        self.formLayout_6.setWidget(1, QFormLayout.LabelRole, self.label_61)
+
+        self.cb_entry_date_cycle_history = CustomComboBox(self.frame_14)
+        self.cb_entry_date_cycle_history.setObjectName(u"cb_entry_date_cycle_history")
+        self.cb_entry_date_cycle_history.setMinimumSize(QSize(100, 0))
+        self.cb_entry_date_cycle_history.setEditable(True)
+        self.cb_entry_date_cycle_history.setInsertPolicy(QComboBox.NoInsert)
+        self.cb_entry_date_cycle_history.setFrame(True)
+
+        self.formLayout_6.setWidget(0, QFormLayout.FieldRole, self.cb_entry_date_cycle_history)
+
+        self.cb_exit_date_cycle_history = CustomComboBox(self.frame_14)
+        self.cb_exit_date_cycle_history.setObjectName(u"cb_exit_date_cycle_history")
+        self.cb_exit_date_cycle_history.setMinimumSize(QSize(100, 0))
+        self.cb_exit_date_cycle_history.setEditable(True)
+        self.cb_exit_date_cycle_history.setInsertPolicy(QComboBox.NoInsert)
+        self.cb_exit_date_cycle_history.setFrame(True)
+
+        self.formLayout_6.setWidget(1, QFormLayout.FieldRole, self.cb_exit_date_cycle_history)
+
+
+        self.horizontalLayout_17.addLayout(self.formLayout_6)
+
+        self.formLayout_5 = QFormLayout()
+        self.formLayout_5.setObjectName(u"formLayout_5")
+        self.formLayout_5.setContentsMargins(-1, 0, 0, -1)
+        self.label_60 = QLabel(self.frame_14)
+        self.label_60.setObjectName(u"label_60")
+
+        self.formLayout_5.setWidget(0, QFormLayout.LabelRole, self.label_60)
+
+        self.label_51 = QLabel(self.frame_14)
+        self.label_51.setObjectName(u"label_51")
+        sizePolicy6.setHeightForWidth(self.label_51.sizePolicy().hasHeightForWidth())
+        self.label_51.setSizePolicy(sizePolicy6)
+
+        self.formLayout_5.setWidget(1, QFormLayout.LabelRole, self.label_51)
+
+        self.txt_bitola_cycle_history = QLineEdit(self.frame_14)
+        self.txt_bitola_cycle_history.setObjectName(u"txt_bitola_cycle_history")
+
+        self.formLayout_5.setWidget(0, QFormLayout.FieldRole, self.txt_bitola_cycle_history)
+
+        self.groupBox_5 = QGroupBox(self.frame_14)
+        self.groupBox_5.setObjectName(u"groupBox_5")
+        sizePolicy2.setHeightForWidth(self.groupBox_5.sizePolicy().hasHeightForWidth())
+        self.groupBox_5.setSizePolicy(sizePolicy2)
+        self.groupBox_5.setMinimumSize(QSize(0, 0))
+        self.groupBox_5.setMaximumSize(QSize(16777215, 33))
+        self.horizontalLayout_19 = QHBoxLayout(self.groupBox_5)
+        self.horizontalLayout_19.setObjectName(u"horizontalLayout_19")
+        self.rb_kd_cycle_history = QRadioButton(self.groupBox_5)
+        self.rb_kd_cycle_history.setObjectName(u"rb_kd_cycle_history")
+        sizePolicy.setHeightForWidth(self.rb_kd_cycle_history.sizePolicy().hasHeightForWidth())
+        self.rb_kd_cycle_history.setSizePolicy(sizePolicy)
+        self.rb_kd_cycle_history.setChecked(True)
+
+        self.horizontalLayout_19.addWidget(self.rb_kd_cycle_history)
+
+        self.rb_ht_cycle_history = QRadioButton(self.groupBox_5)
+        self.rb_ht_cycle_history.setObjectName(u"rb_ht_cycle_history")
+
+        self.horizontalLayout_19.addWidget(self.rb_ht_cycle_history)
+
+
+        self.formLayout_5.setWidget(1, QFormLayout.FieldRole, self.groupBox_5)
+
+
+        self.horizontalLayout_17.addLayout(self.formLayout_5)
+
+        self.horizontalSpacer_10 = QSpacerItem(40, 20, QSizePolicy.Expanding, QSizePolicy.Minimum)
+
+        self.horizontalLayout_17.addItem(self.horizontalSpacer_10)
+
+        self.horizontalLayout_21 = QHBoxLayout()
+        self.horizontalLayout_21.setObjectName(u"horizontalLayout_21")
+        self.horizontalLayout_21.setContentsMargins(-1, -1, 0, -1)
+        self.bt_search_cycle_history = QPushButton(self.frame_14)
+        self.bt_search_cycle_history.setObjectName(u"bt_search_cycle_history")
+        icon10 = QIcon()
+        icon10.addFile(u":/icons/assets/search-32.png", QSize(), QIcon.Normal, QIcon.Off)
+        self.bt_search_cycle_history.setIcon(icon10)
+        self.bt_search_cycle_history.setIconSize(QSize(32, 32))
+
+        self.horizontalLayout_21.addWidget(self.bt_search_cycle_history)
+
+        self.bt_clear_cycle_history = QPushButton(self.frame_14)
+        self.bt_clear_cycle_history.setObjectName(u"bt_clear_cycle_history")
+        icon11 = QIcon()
+        icon11.addFile(u":/icons/assets/erase-32.png", QSize(), QIcon.Normal, QIcon.Off)
+        self.bt_clear_cycle_history.setIcon(icon11)
+        self.bt_clear_cycle_history.setIconSize(QSize(32, 32))
+
+        self.horizontalLayout_21.addWidget(self.bt_clear_cycle_history)
+
+        self.bt_edit_cycle_history = QPushButton(self.frame_14)
+        self.bt_edit_cycle_history.setObjectName(u"bt_edit_cycle_history")
+        icon12 = QIcon()
+        icon12.addFile(u":/icons/assets/edit-32.png", QSize(), QIcon.Normal, QIcon.Off)
+        self.bt_edit_cycle_history.setIcon(icon12)
+        self.bt_edit_cycle_history.setIconSize(QSize(32, 32))
+
+        self.horizontalLayout_21.addWidget(self.bt_edit_cycle_history)
+
+
+        self.horizontalLayout_17.addLayout(self.horizontalLayout_21)
+
+
+        self.verticalLayout_12.addWidget(self.frame_14)
+
+        self.tv_cycle_history = QTableView(self.page_cycle_historic)
+        self.tv_cycle_history.setObjectName(u"tv_cycle_history")
+        self.tv_cycle_history.setSelectionMode(QAbstractItemView.SingleSelection)
+        self.tv_cycle_history.setSelectionBehavior(QAbstractItemView.SelectRows)
+        self.tv_cycle_history.setShowGrid(True)
+        self.tv_cycle_history.horizontalHeader().setDefaultSectionSize(80)
+        self.tv_cycle_history.horizontalHeader().setProperty("showSortIndicator", False)
+
+        self.verticalLayout_12.addWidget(self.tv_cycle_history)
+
+        self.mp_cycle_historic.addWidget(self.page_cycle_historic)
+        self.page_cycle_track_historic = QWidget()
+        self.page_cycle_track_historic.setObjectName(u"page_cycle_track_historic")
+        self.verticalLayout_13 = QVBoxLayout(self.page_cycle_track_historic)
+        self.verticalLayout_13.setObjectName(u"verticalLayout_13")
+        self.verticalLayout_13.setContentsMargins(0, 0, 0, 0)
+        self.frame_15 = QFrame(self.page_cycle_track_historic)
+        self.frame_15.setObjectName(u"frame_15")
+        sizePolicy2.setHeightForWidth(self.frame_15.sizePolicy().hasHeightForWidth())
+        self.frame_15.setSizePolicy(sizePolicy2)
+        self.frame_15.setMinimumSize(QSize(0, 0))
+        self.frame_15.setMaximumSize(QSize(16777215, 16777215))
+        self.frame_15.setFrameShape(QFrame.Box)
+        self.frame_15.setFrameShadow(QFrame.Raised)
+        self.horizontalLayout_22 = QHBoxLayout(self.frame_15)
+        self.horizontalLayout_22.setSpacing(10)
+        self.horizontalLayout_22.setObjectName(u"horizontalLayout_22")
+        self.formLayout_2 = QFormLayout()
+        self.formLayout_2.setObjectName(u"formLayout_2")
+        self.formLayout_2.setContentsMargins(-1, -1, 0, -1)
+        self.label_62 = QLabel(self.frame_15)
+        self.label_62.setObjectName(u"label_62")
+        self.label_62.setMinimumSize(QSize(0, 0))
+
+        self.formLayout_2.setWidget(0, QFormLayout.LabelRole, self.label_62)
+
+        self.label_63 = QLabel(self.frame_15)
+        self.label_63.setObjectName(u"label_63")
+
+        self.formLayout_2.setWidget(1, QFormLayout.LabelRole, self.label_63)
+
+        self.txt_kiln_track_history = QLineEdit(self.frame_15)
+        self.txt_kiln_track_history.setObjectName(u"txt_kiln_track_history")
+        self.txt_kiln_track_history.setReadOnly(True)
+
+        self.formLayout_2.setWidget(0, QFormLayout.FieldRole, self.txt_kiln_track_history)
+
+        self.txt_cycle_track_history = QLineEdit(self.frame_15)
+        self.txt_cycle_track_history.setObjectName(u"txt_cycle_track_history")
+        self.txt_cycle_track_history.setReadOnly(True)
+
+        self.formLayout_2.setWidget(1, QFormLayout.FieldRole, self.txt_cycle_track_history)
+
+
+        self.horizontalLayout_22.addLayout(self.formLayout_2)
+
+        self.formLayout_8 = QFormLayout()
+        self.formLayout_8.setObjectName(u"formLayout_8")
+        self.formLayout_8.setContentsMargins(-1, -1, 0, -1)
+        self.label_64 = QLabel(self.frame_15)
+        self.label_64.setObjectName(u"label_64")
+
+        self.formLayout_8.setWidget(0, QFormLayout.LabelRole, self.label_64)
+
+        self.label_65 = QLabel(self.frame_15)
+        self.label_65.setObjectName(u"label_65")
+
+        self.formLayout_8.setWidget(1, QFormLayout.LabelRole, self.label_65)
+
+        self.txt_exit_date_track_history = QLineEdit(self.frame_15)
+        self.txt_exit_date_track_history.setObjectName(u"txt_exit_date_track_history")
+        sizePolicy2.setHeightForWidth(self.txt_exit_date_track_history.sizePolicy().hasHeightForWidth())
+        self.txt_exit_date_track_history.setSizePolicy(sizePolicy2)
+        self.txt_exit_date_track_history.setReadOnly(True)
+
+        self.formLayout_8.setWidget(1, QFormLayout.FieldRole, self.txt_exit_date_track_history)
+
+        self.txt_entry_date_track_history = QLineEdit(self.frame_15)
+        self.txt_entry_date_track_history.setObjectName(u"txt_entry_date_track_history")
+        sizePolicy2.setHeightForWidth(self.txt_entry_date_track_history.sizePolicy().hasHeightForWidth())
+        self.txt_entry_date_track_history.setSizePolicy(sizePolicy2)
+        self.txt_entry_date_track_history.setReadOnly(True)
+
+        self.formLayout_8.setWidget(0, QFormLayout.FieldRole, self.txt_entry_date_track_history)
+
+
+        self.horizontalLayout_22.addLayout(self.formLayout_8)
+
+        self.formLayout_9 = QFormLayout()
+        self.formLayout_9.setObjectName(u"formLayout_9")
+        self.formLayout_9.setContentsMargins(-1, -1, 0, -1)
+        self.label_67 = QLabel(self.frame_15)
+        self.label_67.setObjectName(u"label_67")
+
+        self.formLayout_9.setWidget(0, QFormLayout.LabelRole, self.label_67)
+
+        self.label_66 = QLabel(self.frame_15)
+        self.label_66.setObjectName(u"label_66")
+
+        self.formLayout_9.setWidget(1, QFormLayout.LabelRole, self.label_66)
+
+        self.txt_bitola_track_history = QLineEdit(self.frame_15)
+        self.txt_bitola_track_history.setObjectName(u"txt_bitola_track_history")
+        self.txt_bitola_track_history.setReadOnly(True)
+
+        self.formLayout_9.setWidget(0, QFormLayout.FieldRole, self.txt_bitola_track_history)
+
+        self.groupBox_6 = QGroupBox(self.frame_15)
+        self.groupBox_6.setObjectName(u"groupBox_6")
+        self.groupBox_6.setMaximumSize(QSize(16777215, 33))
+        self.horizontalLayout_24 = QHBoxLayout(self.groupBox_6)
+        self.horizontalLayout_24.setObjectName(u"horizontalLayout_24")
+        self.rb_kd_track_history = QRadioButton(self.groupBox_6)
+        self.rb_kd_track_history.setObjectName(u"rb_kd_track_history")
+        self.rb_kd_track_history.setCheckable(True)
+        self.rb_kd_track_history.setChecked(True)
+
+        self.horizontalLayout_24.addWidget(self.rb_kd_track_history)
+
+        self.rb_ht_track_history = QRadioButton(self.groupBox_6)
+        self.rb_ht_track_history.setObjectName(u"rb_ht_track_history")
+        self.rb_ht_track_history.setCheckable(False)
+
+        self.horizontalLayout_24.addWidget(self.rb_ht_track_history)
+
+
+        self.formLayout_9.setWidget(1, QFormLayout.FieldRole, self.groupBox_6)
+
+
+        self.horizontalLayout_22.addLayout(self.formLayout_9)
+
+        self.horizontalSpacer_6 = QSpacerItem(94, 20, QSizePolicy.Expanding, QSizePolicy.Minimum)
+
+        self.horizontalLayout_22.addItem(self.horizontalSpacer_6)
+
+        self.bt_back_track_history = QPushButton(self.frame_15)
+        self.bt_back_track_history.setObjectName(u"bt_back_track_history")
+        self.bt_back_track_history.setCursor(QCursor(Qt.PointingHandCursor))
+        icon13 = QIcon()
+        icon13.addFile(u":/icons/assets/back-32.png", QSize(), QIcon.Normal, QIcon.Off)
+        self.bt_back_track_history.setIcon(icon13)
+        self.bt_back_track_history.setIconSize(QSize(32, 32))
+
+        self.horizontalLayout_22.addWidget(self.bt_back_track_history)
+
+
+        self.verticalLayout_13.addWidget(self.frame_15)
+
+        self.gridLayout_21 = QGridLayout()
+        self.gridLayout_21.setObjectName(u"gridLayout_21")
+        self.gridLayout_21.setContentsMargins(-1, -1, -1, 0)
+        self.verticalSpacer_7 = QSpacerItem(20, 40, QSizePolicy.Minimum, QSizePolicy.Expanding)
+
+        self.gridLayout_21.addItem(self.verticalSpacer_7, 3, 1, 1, 1)
+
+        self.tv_track_history = QTableView(self.page_cycle_track_historic)
+        self.tv_track_history.setObjectName(u"tv_track_history")
+        sizePolicy7 = QSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
+        sizePolicy7.setHorizontalStretch(0)
+        sizePolicy7.setVerticalStretch(0)
+        sizePolicy7.setHeightForWidth(self.tv_track_history.sizePolicy().hasHeightForWidth())
+        self.tv_track_history.setSizePolicy(sizePolicy7)
+        self.tv_track_history.setMinimumSize(QSize(560, 0))
+        self.tv_track_history.setMaximumSize(QSize(16777215, 16777215))
+        self.tv_track_history.setSelectionMode(QAbstractItemView.SingleSelection)
+        self.tv_track_history.setSelectionBehavior(QAbstractItemView.SelectRows)
+
+        self.gridLayout_21.addWidget(self.tv_track_history, 0, 0, 4, 1)
+
+        self.frame_16 = QFrame(self.page_cycle_track_historic)
+        self.frame_16.setObjectName(u"frame_16")
+        sizePolicy2.setHeightForWidth(self.frame_16.sizePolicy().hasHeightForWidth())
+        self.frame_16.setSizePolicy(sizePolicy2)
+        self.frame_16.setMinimumSize(QSize(0, 0))
+        self.frame_16.setFrameShape(QFrame.Box)
+        self.frame_16.setFrameShadow(QFrame.Raised)
+        self.gridLayout_22 = QGridLayout(self.frame_16)
+        self.gridLayout_22.setObjectName(u"gridLayout_22")
+        self.label_68 = QLabel(self.frame_16)
+        self.label_68.setObjectName(u"label_68")
+
+        self.gridLayout_22.addWidget(self.label_68, 1, 0, 1, 1)
+
+        self.label_69 = QLabel(self.frame_16)
+        self.label_69.setObjectName(u"label_69")
+
+        self.gridLayout_22.addWidget(self.label_69, 2, 0, 1, 1)
+
+        self.label_70 = QLabel(self.frame_16)
+        self.label_70.setObjectName(u"label_70")
+        sizePolicy6.setHeightForWidth(self.label_70.sizePolicy().hasHeightForWidth())
+        self.label_70.setSizePolicy(sizePolicy6)
+        self.label_70.setAlignment(Qt.AlignCenter)
+
+        self.gridLayout_22.addWidget(self.label_70, 0, 0, 1, 2)
+
+        self.txt_leaving_date_track_history = QLineEdit(self.frame_16)
+        self.txt_leaving_date_track_history.setObjectName(u"txt_leaving_date_track_history")
+        sizePolicy3.setHeightForWidth(self.txt_leaving_date_track_history.sizePolicy().hasHeightForWidth())
+        self.txt_leaving_date_track_history.setSizePolicy(sizePolicy3)
+        self.txt_leaving_date_track_history.setMaximumSize(QSize(80, 16777215))
+
+        self.gridLayout_22.addWidget(self.txt_leaving_date_track_history, 1, 1, 1, 1)
+
+        self.txt_leaving_volume_track_history = QLineEdit(self.frame_16)
+        self.txt_leaving_volume_track_history.setObjectName(u"txt_leaving_volume_track_history")
+        sizePolicy3.setHeightForWidth(self.txt_leaving_volume_track_history.sizePolicy().hasHeightForWidth())
+        self.txt_leaving_volume_track_history.setSizePolicy(sizePolicy3)
+        self.txt_leaving_volume_track_history.setMaximumSize(QSize(80, 16777215))
+
+        self.gridLayout_22.addWidget(self.txt_leaving_volume_track_history, 2, 1, 1, 1)
+
+
+        self.gridLayout_21.addWidget(self.frame_16, 0, 1, 1, 1)
+
+        self.frame_17 = QFrame(self.page_cycle_track_historic)
+        self.frame_17.setObjectName(u"frame_17")
+        sizePolicy6.setHeightForWidth(self.frame_17.sizePolicy().hasHeightForWidth())
+        self.frame_17.setSizePolicy(sizePolicy6)
+        self.frame_17.setMinimumSize(QSize(0, 40))
+        self.frame_17.setFrameShape(QFrame.Box)
+        self.frame_17.setFrameShadow(QFrame.Raised)
+        self.gridLayout_23 = QGridLayout(self.frame_17)
+        self.gridLayout_23.setObjectName(u"gridLayout_23")
+        self.label_71 = QLabel(self.frame_17)
+        self.label_71.setObjectName(u"label_71")
+
+        self.gridLayout_23.addWidget(self.label_71, 2, 0, 1, 1)
+
+        self.label_72 = QLabel(self.frame_17)
+        self.label_72.setObjectName(u"label_72")
+        self.label_72.setAlignment(Qt.AlignCenter)
+
+        self.gridLayout_23.addWidget(self.label_72, 0, 0, 1, 2)
+
+        self.txt_stock_volume_track_history = QLineEdit(self.frame_17)
+        self.txt_stock_volume_track_history.setObjectName(u"txt_stock_volume_track_history")
+        sizePolicy3.setHeightForWidth(self.txt_stock_volume_track_history.sizePolicy().hasHeightForWidth())
+        self.txt_stock_volume_track_history.setSizePolicy(sizePolicy3)
+        self.txt_stock_volume_track_history.setMaximumSize(QSize(80, 16777215))
+
+        self.gridLayout_23.addWidget(self.txt_stock_volume_track_history, 2, 1, 1, 1)
+
+
+        self.gridLayout_21.addWidget(self.frame_17, 2, 1, 1, 1)
+
+
+        self.verticalLayout_13.addLayout(self.gridLayout_21)
+
+        self.mp_cycle_historic.addWidget(self.page_cycle_track_historic)
+
+        self.verticalLayout_7.addWidget(self.mp_cycle_historic)
+
+        icon14 = QIcon()
+        icon14.addFile(u":/icons/assets/history-32.png", QSize(), QIcon.Normal, QIcon.Off)
+        self.tab_widget_cycle.addTab(self.tab_historic_cycle, icon14, "")
+
+        self.verticalLayout_3.addWidget(self.tab_widget_cycle)
 
         self.mp_main.addWidget(self.page_cycle)
         self.page_nfe = QWidget()
         self.page_nfe.setObjectName(u"page_nfe")
         self.verticalLayout_5 = QVBoxLayout(self.page_nfe)
         self.verticalLayout_5.setObjectName(u"verticalLayout_5")
-        self.frame_2 = QFrame(self.page_nfe)
+        self.tab_widget_nfe = QTabWidget(self.page_nfe)
+        self.tab_widget_nfe.setObjectName(u"tab_widget_nfe")
+        self.tab_nfe = QWidget()
+        self.tab_nfe.setObjectName(u"tab_nfe")
+        self.verticalLayout_18 = QVBoxLayout(self.tab_nfe)
+        self.verticalLayout_18.setObjectName(u"verticalLayout_18")
+        self.frame_2 = QFrame(self.tab_nfe)
         self.frame_2.setObjectName(u"frame_2")
         self.frame_2.setFrameShape(QFrame.Box)
         self.frame_2.setFrameShadow(QFrame.Raised)
-        self.gridLayout_4 = QGridLayout(self.frame_2)
-        self.gridLayout_4.setObjectName(u"gridLayout_4")
-        self.txt_pack_nfe = QLineEdit(self.frame_2)
-        self.txt_pack_nfe.setObjectName(u"txt_pack_nfe")
+        self.horizontalLayout_23 = QHBoxLayout(self.frame_2)
+        self.horizontalLayout_23.setSpacing(10)
+        self.horizontalLayout_23.setObjectName(u"horizontalLayout_23")
+        self.formLayout_7 = QFormLayout()
+        self.formLayout_7.setObjectName(u"formLayout_7")
+        self.formLayout_7.setContentsMargins(-1, -1, 0, -1)
+        self.label_13 = QLabel(self.frame_2)
+        self.label_13.setObjectName(u"label_13")
 
-        self.gridLayout_4.addWidget(self.txt_pack_nfe, 0, 5, 1, 1)
-
-        self.label_16 = QLabel(self.frame_2)
-        self.label_16.setObjectName(u"label_16")
-
-        self.gridLayout_4.addWidget(self.label_16, 0, 2, 1, 1)
+        self.formLayout_7.setWidget(0, QFormLayout.LabelRole, self.label_13)
 
         self.cb_date_nfe = CustomComboBox(self.frame_2)
         self.cb_date_nfe.setObjectName(u"cb_date_nfe")
-        self.cb_date_nfe.setMinimumSize(QSize(67, 0))
+        self.cb_date_nfe.setMinimumSize(QSize(100, 0))
         self.cb_date_nfe.setEditable(True)
         self.cb_date_nfe.setInsertPolicy(QComboBox.NoInsert)
         self.cb_date_nfe.setFrame(True)
 
-        self.gridLayout_4.addWidget(self.cb_date_nfe, 0, 1, 1, 1)
-
-        self.label_19 = QLabel(self.frame_2)
-        self.label_19.setObjectName(u"label_19")
-
-        self.gridLayout_4.addWidget(self.label_19, 2, 4, 1, 1)
-
-        self.label_13 = QLabel(self.frame_2)
-        self.label_13.setObjectName(u"label_13")
-
-        self.gridLayout_4.addWidget(self.label_13, 0, 0, 1, 1)
-
-        self.label_14 = QLabel(self.frame_2)
-        self.label_14.setObjectName(u"label_14")
-
-        self.gridLayout_4.addWidget(self.label_14, 2, 2, 1, 1)
-
-        self.label_18 = QLabel(self.frame_2)
-        self.label_18.setObjectName(u"label_18")
-
-        self.gridLayout_4.addWidget(self.label_18, 0, 4, 1, 1)
+        self.formLayout_7.setWidget(0, QFormLayout.FieldRole, self.cb_date_nfe)
 
         self.label_17 = QLabel(self.frame_2)
         self.label_17.setObjectName(u"label_17")
 
-        self.gridLayout_4.addWidget(self.label_17, 2, 0, 1, 1)
+        self.formLayout_7.setWidget(1, QFormLayout.LabelRole, self.label_17)
 
-        self.txt_client_nfe = QLineEdit(self.frame_2)
-        self.txt_client_nfe.setObjectName(u"txt_client_nfe")
+        self.cb_client_nfe = QComboBox(self.frame_2)
+        self.cb_client_nfe.setObjectName(u"cb_client_nfe")
+        sizePolicy5.setHeightForWidth(self.cb_client_nfe.sizePolicy().hasHeightForWidth())
+        self.cb_client_nfe.setSizePolicy(sizePolicy5)
 
-        self.gridLayout_4.addWidget(self.txt_client_nfe, 2, 1, 1, 1)
+        self.formLayout_7.setWidget(1, QFormLayout.FieldRole, self.cb_client_nfe)
+
+
+        self.horizontalLayout_23.addLayout(self.formLayout_7)
+
+        self.formLayout_15 = QFormLayout()
+        self.formLayout_15.setObjectName(u"formLayout_15")
+        self.formLayout_15.setContentsMargins(-1, -1, 0, -1)
+        self.label_16 = QLabel(self.frame_2)
+        self.label_16.setObjectName(u"label_16")
+
+        self.formLayout_15.setWidget(0, QFormLayout.LabelRole, self.label_16)
+
+        self.label_14 = QLabel(self.frame_2)
+        self.label_14.setObjectName(u"label_14")
+
+        self.formLayout_15.setWidget(1, QFormLayout.LabelRole, self.label_14)
 
         self.txt_nfe_nfe = QLineEdit(self.frame_2)
         self.txt_nfe_nfe.setObjectName(u"txt_nfe_nfe")
 
-        self.gridLayout_4.addWidget(self.txt_nfe_nfe, 0, 3, 1, 1)
+        self.formLayout_15.setWidget(0, QFormLayout.FieldRole, self.txt_nfe_nfe)
+
+        self.txt_total_volume_nfe = QLineEdit(self.frame_2)
+        self.txt_total_volume_nfe.setObjectName(u"txt_total_volume_nfe")
+
+        self.formLayout_15.setWidget(1, QFormLayout.FieldRole, self.txt_total_volume_nfe)
+
+
+        self.horizontalLayout_23.addLayout(self.formLayout_15)
+
+        self.formLayout_16 = QFormLayout()
+        self.formLayout_16.setObjectName(u"formLayout_16")
+        self.formLayout_16.setContentsMargins(-1, -1, 0, -1)
+        self.label_18 = QLabel(self.frame_2)
+        self.label_18.setObjectName(u"label_18")
+
+        self.formLayout_16.setWidget(0, QFormLayout.LabelRole, self.label_18)
+
+        self.label_19 = QLabel(self.frame_2)
+        self.label_19.setObjectName(u"label_19")
+
+        self.formLayout_16.setWidget(1, QFormLayout.LabelRole, self.label_19)
+
+        self.txt_packs_nfe = QLineEdit(self.frame_2)
+        self.txt_packs_nfe.setObjectName(u"txt_packs_nfe")
+
+        self.formLayout_16.setWidget(0, QFormLayout.FieldRole, self.txt_packs_nfe)
 
         self.cb_foot_nfe = QComboBox(self.frame_2)
         self.cb_foot_nfe.setObjectName(u"cb_foot_nfe")
 
-        self.gridLayout_4.addWidget(self.cb_foot_nfe, 2, 5, 1, 1)
-
-        self.txt_volume_nfe = QLineEdit(self.frame_2)
-        self.txt_volume_nfe.setObjectName(u"txt_volume_nfe")
-
-        self.gridLayout_4.addWidget(self.txt_volume_nfe, 2, 3, 1, 1)
+        self.formLayout_16.setWidget(1, QFormLayout.FieldRole, self.cb_foot_nfe)
 
 
-        self.verticalLayout_5.addWidget(self.frame_2)
+        self.horizontalLayout_23.addLayout(self.formLayout_16)
 
-        self.verticalSpacer_2 = QSpacerItem(80, 20, QSizePolicy.Minimum, QSizePolicy.Fixed)
 
-        self.verticalLayout_5.addItem(self.verticalSpacer_2)
+        self.verticalLayout_18.addWidget(self.frame_2)
 
-        self.frame_12 = QFrame(self.page_nfe)
+        self.frame_12 = QFrame(self.tab_nfe)
         self.frame_12.setObjectName(u"frame_12")
         self.frame_12.setMinimumSize(QSize(0, 50))
         self.frame_12.setFrameShape(QFrame.Box)
@@ -460,20 +981,20 @@ class Ui_MainWindow(object):
         self.gridLayout_7.setSizeConstraint(QLayout.SetDefaultConstraint)
         self.gridLayout_7.setVerticalSpacing(10)
         self.gridLayout_7.setContentsMargins(-1, -1, 0, 0)
-        self.cb_rework_nfe = QLineEdit(self.frame_12)
-        self.cb_rework_nfe.setObjectName(u"cb_rework_nfe")
-        sizePolicy2.setHeightForWidth(self.cb_rework_nfe.sizePolicy().hasHeightForWidth())
-        self.cb_rework_nfe.setSizePolicy(sizePolicy2)
-        self.cb_rework_nfe.setMinimumSize(QSize(0, 0))
-        self.cb_rework_nfe.setMaximumSize(QSize(16777215, 16777215))
-        self.cb_rework_nfe.setFont(font2)
-        self.cb_rework_nfe.setFrame(True)
-        self.cb_rework_nfe.setEchoMode(QLineEdit.Normal)
-        self.cb_rework_nfe.setAlignment(Qt.AlignLeading|Qt.AlignLeft|Qt.AlignVCenter)
-        self.cb_rework_nfe.setCursorMoveStyle(Qt.LogicalMoveStyle)
-        self.cb_rework_nfe.setClearButtonEnabled(False)
+        self.txt_rework_nfe = QLineEdit(self.frame_12)
+        self.txt_rework_nfe.setObjectName(u"txt_rework_nfe")
+        sizePolicy2.setHeightForWidth(self.txt_rework_nfe.sizePolicy().hasHeightForWidth())
+        self.txt_rework_nfe.setSizePolicy(sizePolicy2)
+        self.txt_rework_nfe.setMinimumSize(QSize(0, 0))
+        self.txt_rework_nfe.setMaximumSize(QSize(16777215, 16777215))
+        self.txt_rework_nfe.setFont(font1)
+        self.txt_rework_nfe.setFrame(True)
+        self.txt_rework_nfe.setEchoMode(QLineEdit.Normal)
+        self.txt_rework_nfe.setAlignment(Qt.AlignLeading|Qt.AlignLeft|Qt.AlignVCenter)
+        self.txt_rework_nfe.setCursorMoveStyle(Qt.LogicalMoveStyle)
+        self.txt_rework_nfe.setClearButtonEnabled(False)
 
-        self.gridLayout_7.addWidget(self.cb_rework_nfe, 3, 1, 1, 1)
+        self.gridLayout_7.addWidget(self.txt_rework_nfe, 3, 1, 1, 1)
 
         self.label_12 = QLabel(self.frame_12)
         self.label_12.setObjectName(u"label_12")
@@ -504,13 +1025,13 @@ class Ui_MainWindow(object):
 
         self.gridLayout_7.addWidget(self.label_15, 3, 0, 1, 1)
 
-        self.cb_volume_nfe = QLineEdit(self.frame_12)
-        self.cb_volume_nfe.setObjectName(u"cb_volume_nfe")
-        sizePolicy2.setHeightForWidth(self.cb_volume_nfe.sizePolicy().hasHeightForWidth())
-        self.cb_volume_nfe.setSizePolicy(sizePolicy2)
-        self.cb_volume_nfe.setMaximumSize(QSize(16777215, 16777215))
+        self.txt_volume_nfe = QLineEdit(self.frame_12)
+        self.txt_volume_nfe.setObjectName(u"txt_volume_nfe")
+        sizePolicy2.setHeightForWidth(self.txt_volume_nfe.sizePolicy().hasHeightForWidth())
+        self.txt_volume_nfe.setSizePolicy(sizePolicy2)
+        self.txt_volume_nfe.setMaximumSize(QSize(16777215, 16777215))
 
-        self.gridLayout_7.addWidget(self.cb_volume_nfe, 2, 1, 1, 1)
+        self.gridLayout_7.addWidget(self.txt_volume_nfe, 2, 1, 1, 1)
 
         self.label_10 = QLabel(self.frame_12)
         self.label_10.setObjectName(u"label_10")
@@ -539,34 +1060,58 @@ class Ui_MainWindow(object):
         self.verticalLayout_4 = QVBoxLayout()
         self.verticalLayout_4.setObjectName(u"verticalLayout_4")
         self.verticalLayout_4.setContentsMargins(-1, -1, 0, -1)
-        self.bt_add_nfe = QPushButton(self.frame_12)
-        self.bt_add_nfe.setObjectName(u"bt_add_nfe")
-        sizePolicy3.setHeightForWidth(self.bt_add_nfe.sizePolicy().hasHeightForWidth())
-        self.bt_add_nfe.setSizePolicy(sizePolicy3)
-        self.bt_add_nfe.setMinimumSize(QSize(0, 0))
-        self.bt_add_nfe.setIcon(icon4)
-        self.bt_add_nfe.setIconSize(QSize(20, 20))
+        self.bt_add_bitola_nfe = QPushButton(self.frame_12)
+        self.bt_add_bitola_nfe.setObjectName(u"bt_add_bitola_nfe")
+        sizePolicy3.setHeightForWidth(self.bt_add_bitola_nfe.sizePolicy().hasHeightForWidth())
+        self.bt_add_bitola_nfe.setSizePolicy(sizePolicy3)
+        self.bt_add_bitola_nfe.setMinimumSize(QSize(0, 0))
+        self.bt_add_bitola_nfe.setCursor(QCursor(Qt.PointingHandCursor))
+        self.bt_add_bitola_nfe.setIcon(icon4)
+        self.bt_add_bitola_nfe.setIconSize(QSize(20, 20))
 
-        self.verticalLayout_4.addWidget(self.bt_add_nfe)
+        self.verticalLayout_4.addWidget(self.bt_add_bitola_nfe)
 
-        self.bt_remove_nfe = QPushButton(self.frame_12)
-        self.bt_remove_nfe.setObjectName(u"bt_remove_nfe")
-        sizePolicy3.setHeightForWidth(self.bt_remove_nfe.sizePolicy().hasHeightForWidth())
-        self.bt_remove_nfe.setSizePolicy(sizePolicy3)
-        self.bt_remove_nfe.setMinimumSize(QSize(0, 0))
-        self.bt_remove_nfe.setIcon(icon5)
-        self.bt_remove_nfe.setIconSize(QSize(20, 20))
+        self.bt_remove_bitola_nfe = QPushButton(self.frame_12)
+        self.bt_remove_bitola_nfe.setObjectName(u"bt_remove_bitola_nfe")
+        sizePolicy3.setHeightForWidth(self.bt_remove_bitola_nfe.sizePolicy().hasHeightForWidth())
+        self.bt_remove_bitola_nfe.setSizePolicy(sizePolicy3)
+        self.bt_remove_bitola_nfe.setMinimumSize(QSize(0, 0))
+        self.bt_remove_bitola_nfe.setCursor(QCursor(Qt.PointingHandCursor))
+        self.bt_remove_bitola_nfe.setIcon(icon5)
+        self.bt_remove_bitola_nfe.setIconSize(QSize(20, 20))
 
-        self.verticalLayout_4.addWidget(self.bt_remove_nfe)
+        self.verticalLayout_4.addWidget(self.bt_remove_bitola_nfe)
 
 
         self.gridLayout_6.addLayout(self.verticalLayout_4, 1, 1, 1, 1)
 
         self.tw_nfe = QTableWidget(self.frame_12)
+        if (self.tw_nfe.columnCount() < 5):
+            self.tw_nfe.setColumnCount(5)
+        __qtablewidgetitem4 = QTableWidgetItem()
+        self.tw_nfe.setHorizontalHeaderItem(0, __qtablewidgetitem4)
+        __qtablewidgetitem5 = QTableWidgetItem()
+        self.tw_nfe.setHorizontalHeaderItem(1, __qtablewidgetitem5)
+        __qtablewidgetitem6 = QTableWidgetItem()
+        self.tw_nfe.setHorizontalHeaderItem(2, __qtablewidgetitem6)
+        __qtablewidgetitem7 = QTableWidgetItem()
+        self.tw_nfe.setHorizontalHeaderItem(3, __qtablewidgetitem7)
+        __qtablewidgetitem8 = QTableWidgetItem()
+        self.tw_nfe.setHorizontalHeaderItem(4, __qtablewidgetitem8)
         self.tw_nfe.setObjectName(u"tw_nfe")
         sizePolicy4.setHeightForWidth(self.tw_nfe.sizePolicy().hasHeightForWidth())
         self.tw_nfe.setSizePolicy(sizePolicy4)
         self.tw_nfe.setMinimumSize(QSize(400, 0))
+        self.tw_nfe.setEditTriggers(QAbstractItemView.NoEditTriggers)
+        self.tw_nfe.setSelectionMode(QAbstractItemView.SingleSelection)
+        self.tw_nfe.setSelectionBehavior(QAbstractItemView.SelectRows)
+        self.tw_nfe.horizontalHeader().setVisible(True)
+        self.tw_nfe.horizontalHeader().setCascadingSectionResizes(False)
+        self.tw_nfe.horizontalHeader().setHighlightSections(False)
+        self.tw_nfe.horizontalHeader().setProperty("showSortIndicator", False)
+        self.tw_nfe.horizontalHeader().setStretchLastSection(False)
+        self.tw_nfe.verticalHeader().setVisible(False)
+        self.tw_nfe.verticalHeader().setCascadingSectionResizes(False)
 
         self.gridLayout_6.addWidget(self.tw_nfe, 1, 2, 4, 15)
 
@@ -574,36 +1119,187 @@ class Ui_MainWindow(object):
         self.horizontalLayout_15.addLayout(self.gridLayout_6)
 
 
-        self.verticalLayout_5.addWidget(self.frame_12)
+        self.verticalLayout_18.addWidget(self.frame_12)
 
         self.horizontalLayout_8 = QHBoxLayout()
         self.horizontalLayout_8.setObjectName(u"horizontalLayout_8")
-        self.bt_new_nfe = QPushButton(self.page_nfe)
+        self.bt_new_nfe = QPushButton(self.tab_nfe)
         self.bt_new_nfe.setObjectName(u"bt_new_nfe")
         self.bt_new_nfe.setMinimumSize(QSize(0, 50))
+        self.bt_new_nfe.setCursor(QCursor(Qt.PointingHandCursor))
         self.bt_new_nfe.setIcon(icon6)
         self.bt_new_nfe.setIconSize(QSize(32, 32))
 
         self.horizontalLayout_8.addWidget(self.bt_new_nfe)
 
-        self.bt_save_nfe = QPushButton(self.page_nfe)
+        self.bt_save_nfe = QPushButton(self.tab_nfe)
         self.bt_save_nfe.setObjectName(u"bt_save_nfe")
         self.bt_save_nfe.setMinimumSize(QSize(0, 50))
+        self.bt_save_nfe.setCursor(QCursor(Qt.PointingHandCursor))
         self.bt_save_nfe.setIcon(icon7)
         self.bt_save_nfe.setIconSize(QSize(32, 32))
 
         self.horizontalLayout_8.addWidget(self.bt_save_nfe)
 
-        self.bt_delete_nfe = QPushButton(self.page_nfe)
+        self.bt_delete_nfe = QPushButton(self.tab_nfe)
         self.bt_delete_nfe.setObjectName(u"bt_delete_nfe")
         self.bt_delete_nfe.setMinimumSize(QSize(0, 50))
+        self.bt_delete_nfe.setCursor(QCursor(Qt.PointingHandCursor))
         self.bt_delete_nfe.setIcon(icon8)
         self.bt_delete_nfe.setIconSize(QSize(32, 32))
 
         self.horizontalLayout_8.addWidget(self.bt_delete_nfe)
 
 
-        self.verticalLayout_5.addLayout(self.horizontalLayout_8)
+        self.verticalLayout_18.addLayout(self.horizontalLayout_8)
+
+        icon15 = QIcon()
+        icon15.addFile(u":/icons/assets/document-32.png", QSize(), QIcon.Normal, QIcon.Off)
+        self.tab_widget_nfe.addTab(self.tab_nfe, icon15, "")
+        self.tab_historic_nfe = QWidget()
+        self.tab_historic_nfe.setObjectName(u"tab_historic_nfe")
+        self.verticalLayout_8 = QVBoxLayout(self.tab_historic_nfe)
+        self.verticalLayout_8.setObjectName(u"verticalLayout_8")
+        self.frame_24 = QFrame(self.tab_historic_nfe)
+        self.frame_24.setObjectName(u"frame_24")
+        sizePolicy2.setHeightForWidth(self.frame_24.sizePolicy().hasHeightForWidth())
+        self.frame_24.setSizePolicy(sizePolicy2)
+        self.frame_24.setMinimumSize(QSize(0, 0))
+        self.frame_24.setMaximumSize(QSize(16777215, 16777215))
+        self.frame_24.setFrameShape(QFrame.Box)
+        self.frame_24.setFrameShadow(QFrame.Raised)
+        self.horizontalLayout_35 = QHBoxLayout(self.frame_24)
+        self.horizontalLayout_35.setSpacing(10)
+        self.horizontalLayout_35.setObjectName(u"horizontalLayout_35")
+        self.formLayout_10 = QFormLayout()
+        self.formLayout_10.setObjectName(u"formLayout_10")
+        self.formLayout_10.setContentsMargins(-1, -1, 0, -1)
+        self.label_97 = QLabel(self.frame_24)
+        self.label_97.setObjectName(u"label_97")
+
+        self.formLayout_10.setWidget(0, QFormLayout.LabelRole, self.label_97)
+
+        self.label_95 = QLabel(self.frame_24)
+        self.label_95.setObjectName(u"label_95")
+
+        self.formLayout_10.setWidget(1, QFormLayout.LabelRole, self.label_95)
+
+        self.txt_nfe_nfe_history = QLineEdit(self.frame_24)
+        self.txt_nfe_nfe_history.setObjectName(u"txt_nfe_nfe_history")
+
+        self.formLayout_10.setWidget(0, QFormLayout.FieldRole, self.txt_nfe_nfe_history)
+
+        self.cb_client_nfe_history = QComboBox(self.frame_24)
+        self.cb_client_nfe_history.setObjectName(u"cb_client_nfe_history")
+
+        self.formLayout_10.setWidget(1, QFormLayout.FieldRole, self.cb_client_nfe_history)
+
+
+        self.horizontalLayout_35.addLayout(self.formLayout_10)
+
+        self.formLayout_11 = QFormLayout()
+        self.formLayout_11.setObjectName(u"formLayout_11")
+        self.formLayout_11.setContentsMargins(-1, -1, 0, -1)
+        self.label_94 = QLabel(self.frame_24)
+        self.label_94.setObjectName(u"label_94")
+
+        self.formLayout_11.setWidget(0, QFormLayout.LabelRole, self.label_94)
+
+        self.label_93 = QLabel(self.frame_24)
+        self.label_93.setObjectName(u"label_93")
+
+        self.formLayout_11.setWidget(1, QFormLayout.LabelRole, self.label_93)
+
+        self.cb_start_date_nfe_history = CustomComboBox(self.frame_24)
+        self.cb_start_date_nfe_history.setObjectName(u"cb_start_date_nfe_history")
+        sizePolicy5.setHeightForWidth(self.cb_start_date_nfe_history.sizePolicy().hasHeightForWidth())
+        self.cb_start_date_nfe_history.setSizePolicy(sizePolicy5)
+        self.cb_start_date_nfe_history.setMinimumSize(QSize(100, 0))
+        self.cb_start_date_nfe_history.setEditable(True)
+        self.cb_start_date_nfe_history.setInsertPolicy(QComboBox.NoInsert)
+        self.cb_start_date_nfe_history.setFrame(True)
+
+        self.formLayout_11.setWidget(0, QFormLayout.FieldRole, self.cb_start_date_nfe_history)
+
+        self.cb_end_date_nfe_history = CustomComboBox(self.frame_24)
+        self.cb_end_date_nfe_history.setObjectName(u"cb_end_date_nfe_history")
+        sizePolicy5.setHeightForWidth(self.cb_end_date_nfe_history.sizePolicy().hasHeightForWidth())
+        self.cb_end_date_nfe_history.setSizePolicy(sizePolicy5)
+        self.cb_end_date_nfe_history.setMinimumSize(QSize(100, 0))
+        self.cb_end_date_nfe_history.setEditable(True)
+        self.cb_end_date_nfe_history.setInsertPolicy(QComboBox.NoInsert)
+        self.cb_end_date_nfe_history.setFrame(True)
+
+        self.formLayout_11.setWidget(1, QFormLayout.FieldRole, self.cb_end_date_nfe_history)
+
+
+        self.horizontalLayout_35.addLayout(self.formLayout_11)
+
+        self.formLayout_12 = QFormLayout()
+        self.formLayout_12.setObjectName(u"formLayout_12")
+        self.formLayout_12.setContentsMargins(-1, -1, 0, -1)
+        self.label_96 = QLabel(self.frame_24)
+        self.label_96.setObjectName(u"label_96")
+
+        self.formLayout_12.setWidget(0, QFormLayout.LabelRole, self.label_96)
+
+        self.cb_foot_nfe_history = QComboBox(self.frame_24)
+        self.cb_foot_nfe_history.setObjectName(u"cb_foot_nfe_history")
+
+        self.formLayout_12.setWidget(0, QFormLayout.FieldRole, self.cb_foot_nfe_history)
+
+
+        self.horizontalLayout_35.addLayout(self.formLayout_12)
+
+        self.horizontalSpacer_11 = QSpacerItem(40, 20, QSizePolicy.Expanding, QSizePolicy.Minimum)
+
+        self.horizontalLayout_35.addItem(self.horizontalSpacer_11)
+
+        self.horizontalLayout_36 = QHBoxLayout()
+        self.horizontalLayout_36.setObjectName(u"horizontalLayout_36")
+        self.horizontalLayout_36.setContentsMargins(-1, -1, 0, -1)
+        self.bt_search_nfe_history = QPushButton(self.frame_24)
+        self.bt_search_nfe_history.setObjectName(u"bt_search_nfe_history")
+        self.bt_search_nfe_history.setCursor(QCursor(Qt.PointingHandCursor))
+        self.bt_search_nfe_history.setIcon(icon10)
+        self.bt_search_nfe_history.setIconSize(QSize(32, 32))
+
+        self.horizontalLayout_36.addWidget(self.bt_search_nfe_history)
+
+        self.bt_clear_nfe_history = QPushButton(self.frame_24)
+        self.bt_clear_nfe_history.setObjectName(u"bt_clear_nfe_history")
+        self.bt_clear_nfe_history.setCursor(QCursor(Qt.PointingHandCursor))
+        self.bt_clear_nfe_history.setIcon(icon11)
+        self.bt_clear_nfe_history.setIconSize(QSize(32, 32))
+
+        self.horizontalLayout_36.addWidget(self.bt_clear_nfe_history)
+
+        self.bt_edit_nfe_history = QPushButton(self.frame_24)
+        self.bt_edit_nfe_history.setObjectName(u"bt_edit_nfe_history")
+        self.bt_edit_nfe_history.setCursor(QCursor(Qt.PointingHandCursor))
+        self.bt_edit_nfe_history.setIcon(icon12)
+        self.bt_edit_nfe_history.setIconSize(QSize(32, 32))
+
+        self.horizontalLayout_36.addWidget(self.bt_edit_nfe_history)
+
+
+        self.horizontalLayout_35.addLayout(self.horizontalLayout_36)
+
+
+        self.verticalLayout_8.addWidget(self.frame_24)
+
+        self.tv_nfe_history = QTableView(self.tab_historic_nfe)
+        self.tv_nfe_history.setObjectName(u"tv_nfe_history")
+        self.tv_nfe_history.setMinimumSize(QSize(0, 0))
+        self.tv_nfe_history.setSelectionMode(QAbstractItemView.SingleSelection)
+        self.tv_nfe_history.setSelectionBehavior(QAbstractItemView.SelectRows)
+        self.tv_nfe_history.horizontalHeader().setProperty("showSortIndicator", False)
+
+        self.verticalLayout_8.addWidget(self.tv_nfe_history)
+
+        self.tab_widget_nfe.addTab(self.tab_historic_nfe, icon14, "")
+
+        self.verticalLayout_5.addWidget(self.tab_widget_nfe)
 
         self.mp_main.addWidget(self.page_nfe)
         self.page_stock = QWidget()
@@ -615,26 +1311,52 @@ class Ui_MainWindow(object):
         self.frame_3.setFrameShape(QFrame.Box)
         self.frame_3.setFrameShadow(QFrame.Raised)
         self.horizontalLayout_6 = QHBoxLayout(self.frame_3)
+        self.horizontalLayout_6.setSpacing(10)
         self.horizontalLayout_6.setObjectName(u"horizontalLayout_6")
+        self.horizontalLayout_12 = QHBoxLayout()
+        self.horizontalLayout_12.setObjectName(u"horizontalLayout_12")
+        self.horizontalLayout_12.setContentsMargins(-1, -1, 0, -1)
         self.label_20 = QLabel(self.frame_3)
         self.label_20.setObjectName(u"label_20")
 
-        self.horizontalLayout_6.addWidget(self.label_20)
+        self.horizontalLayout_12.addWidget(self.label_20)
 
         self.cb_cycle_stock = QComboBox(self.frame_3)
         self.cb_cycle_stock.setObjectName(u"cb_cycle_stock")
-        sizePolicy5 = QSizePolicy(QSizePolicy.Expanding, QSizePolicy.Fixed)
-        sizePolicy5.setHorizontalStretch(0)
-        sizePolicy5.setVerticalStretch(0)
         sizePolicy5.setHeightForWidth(self.cb_cycle_stock.sizePolicy().hasHeightForWidth())
         self.cb_cycle_stock.setSizePolicy(sizePolicy5)
+        self.cb_cycle_stock.setMaxVisibleItems(10)
 
-        self.horizontalLayout_6.addWidget(self.cb_cycle_stock)
+        self.horizontalLayout_12.addWidget(self.cb_cycle_stock)
 
+
+        self.horizontalLayout_6.addLayout(self.horizontalLayout_12)
+
+        self.horizontalLayout_14 = QHBoxLayout()
+        self.horizontalLayout_14.setObjectName(u"horizontalLayout_14")
+        self.horizontalLayout_14.setContentsMargins(-1, -1, 0, -1)
+        self.label_22 = QLabel(self.frame_3)
+        self.label_22.setObjectName(u"label_22")
+
+        self.horizontalLayout_14.addWidget(self.label_22)
+
+        self.cb_bitola_stock = QComboBox(self.frame_3)
+        self.cb_bitola_stock.setObjectName(u"cb_bitola_stock")
+        sizePolicy5.setHeightForWidth(self.cb_bitola_stock.sizePolicy().hasHeightForWidth())
+        self.cb_bitola_stock.setSizePolicy(sizePolicy5)
+
+        self.horizontalLayout_14.addWidget(self.cb_bitola_stock)
+
+
+        self.horizontalLayout_6.addLayout(self.horizontalLayout_14)
+
+        self.horizontalLayout_13 = QHBoxLayout()
+        self.horizontalLayout_13.setObjectName(u"horizontalLayout_13")
+        self.horizontalLayout_13.setContentsMargins(-1, -1, 0, -1)
         self.label_21 = QLabel(self.frame_3)
         self.label_21.setObjectName(u"label_21")
 
-        self.horizontalLayout_6.addWidget(self.label_21)
+        self.horizontalLayout_13.addWidget(self.label_21)
 
         self.groupBox_2 = QGroupBox(self.frame_3)
         self.groupBox_2.setObjectName(u"groupBox_2")
@@ -642,6 +1364,7 @@ class Ui_MainWindow(object):
         self.horizontalLayout_4.setObjectName(u"horizontalLayout_4")
         self.rb_kd_stock = QRadioButton(self.groupBox_2)
         self.rb_kd_stock.setObjectName(u"rb_kd_stock")
+        self.rb_kd_stock.setChecked(True)
 
         self.horizontalLayout_4.addWidget(self.rb_kd_stock)
 
@@ -651,47 +1374,50 @@ class Ui_MainWindow(object):
         self.horizontalLayout_4.addWidget(self.rb_ht_stock)
 
 
-        self.horizontalLayout_6.addWidget(self.groupBox_2)
+        self.horizontalLayout_13.addWidget(self.groupBox_2)
 
-        self.label_22 = QLabel(self.frame_3)
-        self.label_22.setObjectName(u"label_22")
 
-        self.horizontalLayout_6.addWidget(self.label_22)
+        self.horizontalLayout_6.addLayout(self.horizontalLayout_13)
 
-        self.cb_bitola_stock = QComboBox(self.frame_3)
-        self.cb_bitola_stock.setObjectName(u"cb_bitola_stock")
-        sizePolicy5.setHeightForWidth(self.cb_bitola_stock.sizePolicy().hasHeightForWidth())
-        self.cb_bitola_stock.setSizePolicy(sizePolicy5)
+        self.horizontalSpacer_9 = QSpacerItem(40, 20, QSizePolicy.Expanding, QSizePolicy.Minimum)
 
-        self.horizontalLayout_6.addWidget(self.cb_bitola_stock)
+        self.horizontalLayout_6.addItem(self.horizontalSpacer_9)
 
+        self.horizontalLayout_20 = QHBoxLayout()
+        self.horizontalLayout_20.setObjectName(u"horizontalLayout_20")
+        self.horizontalLayout_20.setContentsMargins(-1, -1, 0, -1)
         self.bt_search_stock = QPushButton(self.frame_3)
         self.bt_search_stock.setObjectName(u"bt_search_stock")
         sizePolicy3.setHeightForWidth(self.bt_search_stock.sizePolicy().hasHeightForWidth())
         self.bt_search_stock.setSizePolicy(sizePolicy3)
-        icon9 = QIcon()
-        icon9.addFile(u":/icons/assets/search-32.png", QSize(), QIcon.Normal, QIcon.Off)
-        self.bt_search_stock.setIcon(icon9)
+        self.bt_search_stock.setCursor(QCursor(Qt.PointingHandCursor))
+        self.bt_search_stock.setIcon(icon10)
         self.bt_search_stock.setIconSize(QSize(32, 32))
 
-        self.horizontalLayout_6.addWidget(self.bt_search_stock)
+        self.horizontalLayout_20.addWidget(self.bt_search_stock)
 
         self.bt_clear_stock = QPushButton(self.frame_3)
         self.bt_clear_stock.setObjectName(u"bt_clear_stock")
         sizePolicy3.setHeightForWidth(self.bt_clear_stock.sizePolicy().hasHeightForWidth())
         self.bt_clear_stock.setSizePolicy(sizePolicy3)
-        icon10 = QIcon()
-        icon10.addFile(u":/icons/assets/erase-32.png", QSize(), QIcon.Normal, QIcon.Off)
-        self.bt_clear_stock.setIcon(icon10)
+        self.bt_clear_stock.setCursor(QCursor(Qt.PointingHandCursor))
+        self.bt_clear_stock.setIcon(icon11)
         self.bt_clear_stock.setIconSize(QSize(32, 32))
 
-        self.horizontalLayout_6.addWidget(self.bt_clear_stock)
+        self.horizontalLayout_20.addWidget(self.bt_clear_stock)
+
+
+        self.horizontalLayout_6.addLayout(self.horizontalLayout_20)
 
 
         self.verticalLayout_2.addWidget(self.frame_3)
 
         self.tv_stock = QTableView(self.page_stock)
         self.tv_stock.setObjectName(u"tv_stock")
+        self.tv_stock.setSelectionMode(QAbstractItemView.SingleSelection)
+        self.tv_stock.setSelectionBehavior(QAbstractItemView.SelectRows)
+        self.tv_stock.horizontalHeader().setDefaultSectionSize(80)
+        self.tv_stock.horizontalHeader().setProperty("showSortIndicator", False)
 
         self.verticalLayout_2.addWidget(self.tv_stock)
 
@@ -700,675 +1426,365 @@ class Ui_MainWindow(object):
         self.frame_4.setMinimumSize(QSize(0, 30))
         self.frame_4.setFrameShape(QFrame.Box)
         self.frame_4.setFrameShadow(QFrame.Raised)
-        self.gridLayout_8 = QGridLayout(self.frame_4)
-        self.gridLayout_8.setObjectName(u"gridLayout_8")
-        self.txt_leaving_stock = QLineEdit(self.frame_4)
-        self.txt_leaving_stock.setObjectName(u"txt_leaving_stock")
+        self.horizontalLayout_39 = QHBoxLayout(self.frame_4)
+        self.horizontalLayout_39.setSpacing(10)
+        self.horizontalLayout_39.setObjectName(u"horizontalLayout_39")
+        self.horizontalLayout_38 = QHBoxLayout()
+        self.horizontalLayout_38.setObjectName(u"horizontalLayout_38")
+        self.horizontalLayout_38.setContentsMargins(-1, -1, 0, -1)
+        self.bt_discount_stock = QPushButton(self.frame_4)
+        self.bt_discount_stock.setObjectName(u"bt_discount_stock")
+        self.bt_discount_stock.setCursor(QCursor(Qt.PointingHandCursor))
+        self.bt_discount_stock.setIcon(icon15)
+        self.bt_discount_stock.setIconSize(QSize(32, 32))
 
-        self.gridLayout_8.addWidget(self.txt_leaving_stock, 3, 3, 1, 1)
+        self.horizontalLayout_38.addWidget(self.bt_discount_stock)
 
         self.bt_leaving_stock = QPushButton(self.frame_4)
         self.bt_leaving_stock.setObjectName(u"bt_leaving_stock")
-        icon11 = QIcon()
-        icon11.addFile(u":/icons/assets/recycling-32.png", QSize(), QIcon.Normal, QIcon.Off)
-        self.bt_leaving_stock.setIcon(icon11)
+        self.bt_leaving_stock.setCursor(QCursor(Qt.PointingHandCursor))
+        icon16 = QIcon()
+        icon16.addFile(u":/icons/assets/recycling-32.png", QSize(), QIcon.Normal, QIcon.Off)
+        self.bt_leaving_stock.setIcon(icon16)
         self.bt_leaving_stock.setIconSize(QSize(32, 32))
 
-        self.gridLayout_8.addWidget(self.bt_leaving_stock, 1, 1, 3, 1)
+        self.horizontalLayout_38.addWidget(self.bt_leaving_stock)
+
+
+        self.horizontalLayout_39.addLayout(self.horizontalLayout_38)
+
+        self.horizontalSpacer_3 = QSpacerItem(40, 20, QSizePolicy.Expanding, QSizePolicy.Minimum)
+
+        self.horizontalLayout_39.addItem(self.horizontalSpacer_3)
+
+        self.formLayout_17 = QFormLayout()
+        self.formLayout_17.setObjectName(u"formLayout_17")
+        self.formLayout_17.setContentsMargins(-1, -1, 0, -1)
+        self.label_23 = QLabel(self.frame_4)
+        self.label_23.setObjectName(u"label_23")
+
+        self.formLayout_17.setWidget(0, QFormLayout.LabelRole, self.label_23)
 
         self.txt_treatment_stock = QLineEdit(self.frame_4)
         self.txt_treatment_stock.setObjectName(u"txt_treatment_stock")
+        self.txt_treatment_stock.setReadOnly(True)
 
-        self.gridLayout_8.addWidget(self.txt_treatment_stock, 1, 3, 1, 1)
-
-        self.label_24 = QLabel(self.frame_4)
-        self.label_24.setObjectName(u"label_24")
-
-        self.gridLayout_8.addWidget(self.label_24, 1, 4, 1, 1)
+        self.formLayout_17.setWidget(0, QFormLayout.FieldRole, self.txt_treatment_stock)
 
         self.label_25 = QLabel(self.frame_4)
         self.label_25.setObjectName(u"label_25")
 
-        self.gridLayout_8.addWidget(self.label_25, 3, 2, 1, 1)
+        self.formLayout_17.setWidget(1, QFormLayout.LabelRole, self.label_25)
 
-        self.bt_discount_stock = QPushButton(self.frame_4)
-        self.bt_discount_stock.setObjectName(u"bt_discount_stock")
-        icon12 = QIcon()
-        icon12.addFile(u":/icons/assets/document-32.png", QSize(), QIcon.Normal, QIcon.Off)
-        self.bt_discount_stock.setIcon(icon12)
-        self.bt_discount_stock.setIconSize(QSize(32, 32))
+        self.txt_leaving_stock = QLineEdit(self.frame_4)
+        self.txt_leaving_stock.setObjectName(u"txt_leaving_stock")
+        self.txt_leaving_stock.setReadOnly(True)
 
-        self.gridLayout_8.addWidget(self.bt_discount_stock, 1, 0, 3, 1)
+        self.formLayout_17.setWidget(1, QFormLayout.FieldRole, self.txt_leaving_stock)
+
+
+        self.horizontalLayout_39.addLayout(self.formLayout_17)
+
+        self.formLayout_18 = QFormLayout()
+        self.formLayout_18.setObjectName(u"formLayout_18")
+        self.formLayout_18.setContentsMargins(-1, -1, 0, -1)
+        self.label_24 = QLabel(self.frame_4)
+        self.label_24.setObjectName(u"label_24")
+
+        self.formLayout_18.setWidget(0, QFormLayout.LabelRole, self.label_24)
 
         self.label_26 = QLabel(self.frame_4)
         self.label_26.setObjectName(u"label_26")
 
-        self.gridLayout_8.addWidget(self.label_26, 3, 4, 1, 1)
-
-        self.label_23 = QLabel(self.frame_4)
-        self.label_23.setObjectName(u"label_23")
-
-        self.gridLayout_8.addWidget(self.label_23, 1, 2, 1, 1)
-
-        self.txt_stock_stock = QLineEdit(self.frame_4)
-        self.txt_stock_stock.setObjectName(u"txt_stock_stock")
-
-        self.gridLayout_8.addWidget(self.txt_stock_stock, 3, 5, 1, 1)
+        self.formLayout_18.setWidget(1, QFormLayout.LabelRole, self.label_26)
 
         self.txt_sold_stock = QLineEdit(self.frame_4)
         self.txt_sold_stock.setObjectName(u"txt_sold_stock")
+        self.txt_sold_stock.setReadOnly(True)
 
-        self.gridLayout_8.addWidget(self.txt_sold_stock, 1, 5, 1, 1)
+        self.formLayout_18.setWidget(0, QFormLayout.FieldRole, self.txt_sold_stock)
+
+        self.txt_stock_stock = QLineEdit(self.frame_4)
+        self.txt_stock_stock.setObjectName(u"txt_stock_stock")
+        self.txt_stock_stock.setReadOnly(True)
+
+        self.formLayout_18.setWidget(1, QFormLayout.FieldRole, self.txt_stock_stock)
+
+
+        self.horizontalLayout_39.addLayout(self.formLayout_18)
 
 
         self.verticalLayout_2.addWidget(self.frame_4)
 
         self.mp_main.addWidget(self.page_stock)
-        self.page_history = QWidget()
-        self.page_history.setObjectName(u"page_history")
-        self.verticalLayout_8 = QVBoxLayout(self.page_history)
-        self.verticalLayout_8.setObjectName(u"verticalLayout_8")
-        self.frame_5 = QFrame(self.page_history)
-        self.frame_5.setObjectName(u"frame_5")
-        self.frame_5.setFrameShape(QFrame.Box)
-        self.frame_5.setFrameShadow(QFrame.Raised)
-        self.horizontalLayout_5 = QHBoxLayout(self.frame_5)
-        self.horizontalLayout_5.setObjectName(u"horizontalLayout_5")
-        self.bt_cycle_history = QPushButton(self.frame_5)
-        self.bt_cycle_history.setObjectName(u"bt_cycle_history")
-        icon13 = QIcon()
-        icon13.addFile(u":/icons/assets/tag-32.png", QSize(), QIcon.Normal, QIcon.Off)
-        self.bt_cycle_history.setIcon(icon13)
-        self.bt_cycle_history.setIconSize(QSize(32, 32))
-
-        self.horizontalLayout_5.addWidget(self.bt_cycle_history)
-
-        self.bt_nfe_history = QPushButton(self.frame_5)
-        self.bt_nfe_history.setObjectName(u"bt_nfe_history")
-        self.bt_nfe_history.setIcon(icon12)
-        self.bt_nfe_history.setIconSize(QSize(32, 32))
-
-        self.horizontalLayout_5.addWidget(self.bt_nfe_history)
-
-
-        self.verticalLayout_8.addWidget(self.frame_5)
-
-        self.mp_history = QStackedWidget(self.page_history)
-        self.mp_history.setObjectName(u"mp_history")
-        self.mp_history.setMinimumSize(QSize(0, 50))
-        self.mp_history.setFrameShape(QFrame.Box)
-        self.page_history_cycle = QWidget()
-        self.page_history_cycle.setObjectName(u"page_history_cycle")
-        self.verticalLayout_7 = QVBoxLayout(self.page_history_cycle)
-        self.verticalLayout_7.setObjectName(u"verticalLayout_7")
-        self.frame_7 = QFrame(self.page_history_cycle)
-        self.frame_7.setObjectName(u"frame_7")
-        sizePolicy2.setHeightForWidth(self.frame_7.sizePolicy().hasHeightForWidth())
-        self.frame_7.setSizePolicy(sizePolicy2)
-        self.frame_7.setMinimumSize(QSize(0, 0))
-        self.frame_7.setMaximumSize(QSize(16777215, 16777215))
-        self.frame_7.setFrameShape(QFrame.Box)
-        self.frame_7.setFrameShadow(QFrame.Raised)
-        self.horizontalLayout_9 = QHBoxLayout(self.frame_7)
-        self.horizontalLayout_9.setObjectName(u"horizontalLayout_9")
-        self.gridLayout_5 = QGridLayout()
-        self.gridLayout_5.setObjectName(u"gridLayout_5")
-        self.gridLayout_5.setSizeConstraint(QLayout.SetDefaultConstraint)
-        self.gridLayout_5.setVerticalSpacing(6)
-        self.txt_bitola_cycle_history = QLineEdit(self.frame_7)
-        self.txt_bitola_cycle_history.setObjectName(u"txt_bitola_cycle_history")
-
-        self.gridLayout_5.addWidget(self.txt_bitola_cycle_history, 0, 6, 1, 1)
-
-        self.label_32 = QLabel(self.frame_7)
-        self.label_32.setObjectName(u"label_32")
-
-        self.gridLayout_5.addWidget(self.label_32, 0, 2, 1, 2)
-
-        self.label_34 = QLabel(self.frame_7)
-        self.label_34.setObjectName(u"label_34")
-        sizePolicy.setHeightForWidth(self.label_34.sizePolicy().hasHeightForWidth())
-        self.label_34.setSizePolicy(sizePolicy)
-
-        self.gridLayout_5.addWidget(self.label_34, 0, 0, 1, 1)
-
-        self.groupBox_3 = QGroupBox(self.frame_7)
-        self.groupBox_3.setObjectName(u"groupBox_3")
-        sizePolicy2.setHeightForWidth(self.groupBox_3.sizePolicy().hasHeightForWidth())
-        self.groupBox_3.setSizePolicy(sizePolicy2)
-        self.groupBox_3.setMinimumSize(QSize(0, 0))
-        self.groupBox_3.setMaximumSize(QSize(16777215, 16777215))
-        self.horizontalLayout_10 = QHBoxLayout(self.groupBox_3)
-        self.horizontalLayout_10.setObjectName(u"horizontalLayout_10")
-        self.rb_kd_cycle_history = QRadioButton(self.groupBox_3)
-        self.rb_kd_cycle_history.setObjectName(u"rb_kd_cycle_history")
-        sizePolicy6 = QSizePolicy(QSizePolicy.Minimum, QSizePolicy.Fixed)
-        sizePolicy6.setHorizontalStretch(0)
-        sizePolicy6.setVerticalStretch(0)
-        sizePolicy6.setHeightForWidth(self.rb_kd_cycle_history.sizePolicy().hasHeightForWidth())
-        self.rb_kd_cycle_history.setSizePolicy(sizePolicy6)
-
-        self.horizontalLayout_10.addWidget(self.rb_kd_cycle_history)
-
-        self.rb_ht_cycle_history = QRadioButton(self.groupBox_3)
-        self.rb_ht_cycle_history.setObjectName(u"rb_ht_cycle_history")
-
-        self.horizontalLayout_10.addWidget(self.rb_ht_cycle_history)
-
-
-        self.gridLayout_5.addWidget(self.groupBox_3, 1, 6, 2, 1)
-
-        self.label_36 = QLabel(self.frame_7)
-        self.label_36.setObjectName(u"label_36")
-        sizePolicy.setHeightForWidth(self.label_36.sizePolicy().hasHeightForWidth())
-        self.label_36.setSizePolicy(sizePolicy)
-
-        self.gridLayout_5.addWidget(self.label_36, 1, 5, 2, 1)
-
-        self.label_31 = QLabel(self.frame_7)
-        self.label_31.setObjectName(u"label_31")
-        sizePolicy.setHeightForWidth(self.label_31.sizePolicy().hasHeightForWidth())
-        self.label_31.setSizePolicy(sizePolicy)
-        self.label_31.setMaximumSize(QSize(16777215, 16777215))
-
-        self.gridLayout_5.addWidget(self.label_31, 1, 0, 2, 1)
-
-        self.label_35 = QLabel(self.frame_7)
-        self.label_35.setObjectName(u"label_35")
-
-        self.gridLayout_5.addWidget(self.label_35, 0, 5, 1, 1)
-
-        self.label_33 = QLabel(self.frame_7)
-        self.label_33.setObjectName(u"label_33")
-        sizePolicy.setHeightForWidth(self.label_33.sizePolicy().hasHeightForWidth())
-        self.label_33.setSizePolicy(sizePolicy)
-
-        self.gridLayout_5.addWidget(self.label_33, 1, 2, 2, 2)
-
-        self.txt_cycle_cycle_history = QLineEdit(self.frame_7)
-        self.txt_cycle_cycle_history.setObjectName(u"txt_cycle_cycle_history")
-
-        self.gridLayout_5.addWidget(self.txt_cycle_cycle_history, 1, 1, 2, 1)
-
-        self.cb_kiln_cycle_history_2 = QComboBox(self.frame_7)
-        self.cb_kiln_cycle_history_2.setObjectName(u"cb_kiln_cycle_history_2")
-
-        self.gridLayout_5.addWidget(self.cb_kiln_cycle_history_2, 0, 1, 1, 1)
-
-        self.cb_entry_date_cycle_history = CustomComboBox(self.frame_7)
-        self.cb_entry_date_cycle_history.setObjectName(u"cb_entry_date_cycle_history")
-        self.cb_entry_date_cycle_history.setMinimumSize(QSize(67, 0))
-        self.cb_entry_date_cycle_history.setEditable(True)
-        self.cb_entry_date_cycle_history.setInsertPolicy(QComboBox.NoInsert)
-        self.cb_entry_date_cycle_history.setFrame(True)
-
-        self.gridLayout_5.addWidget(self.cb_entry_date_cycle_history, 0, 4, 1, 1)
-
-        self.cb_exit_date_cycle_history = CustomComboBox(self.frame_7)
-        self.cb_exit_date_cycle_history.setObjectName(u"cb_exit_date_cycle_history")
-        self.cb_exit_date_cycle_history.setMinimumSize(QSize(67, 0))
-        self.cb_exit_date_cycle_history.setEditable(True)
-        self.cb_exit_date_cycle_history.setInsertPolicy(QComboBox.NoInsert)
-        self.cb_exit_date_cycle_history.setFrame(True)
-
-        self.gridLayout_5.addWidget(self.cb_exit_date_cycle_history, 1, 4, 2, 1)
-
-
-        self.horizontalLayout_9.addLayout(self.gridLayout_5)
-
-        self.bt_search_cycle_history = QPushButton(self.frame_7)
-        self.bt_search_cycle_history.setObjectName(u"bt_search_cycle_history")
-        self.bt_search_cycle_history.setIcon(icon9)
-        self.bt_search_cycle_history.setIconSize(QSize(32, 32))
-
-        self.horizontalLayout_9.addWidget(self.bt_search_cycle_history)
-
-        self.bt_clear_cycle_history = QPushButton(self.frame_7)
-        self.bt_clear_cycle_history.setObjectName(u"bt_clear_cycle_history")
-        self.bt_clear_cycle_history.setIcon(icon10)
-        self.bt_clear_cycle_history.setIconSize(QSize(32, 32))
-
-        self.horizontalLayout_9.addWidget(self.bt_clear_cycle_history)
-
-        self.bt_edit_cycle_history = QPushButton(self.frame_7)
-        self.bt_edit_cycle_history.setObjectName(u"bt_edit_cycle_history")
-        icon14 = QIcon()
-        icon14.addFile(u":/icons/assets/edit-32.png", QSize(), QIcon.Normal, QIcon.Off)
-        self.bt_edit_cycle_history.setIcon(icon14)
-        self.bt_edit_cycle_history.setIconSize(QSize(32, 32))
-
-        self.horizontalLayout_9.addWidget(self.bt_edit_cycle_history)
-
-
-        self.verticalLayout_7.addWidget(self.frame_7)
-
-        self.tv_cycle_history = QTableView(self.page_history_cycle)
-        self.tv_cycle_history.setObjectName(u"tv_cycle_history")
-
-        self.verticalLayout_7.addWidget(self.tv_cycle_history)
-
-        self.mp_history.addWidget(self.page_history_cycle)
-        self.page_2 = QWidget()
-        self.page_2.setObjectName(u"page_2")
-        self.verticalLayout_9 = QVBoxLayout(self.page_2)
-        self.verticalLayout_9.setObjectName(u"verticalLayout_9")
-        self.frame_9 = QFrame(self.page_2)
-        self.frame_9.setObjectName(u"frame_9")
-        sizePolicy2.setHeightForWidth(self.frame_9.sizePolicy().hasHeightForWidth())
-        self.frame_9.setSizePolicy(sizePolicy2)
-        self.frame_9.setMinimumSize(QSize(0, 0))
-        self.frame_9.setMaximumSize(QSize(16777215, 16777215))
-        self.frame_9.setFrameShape(QFrame.Box)
-        self.frame_9.setFrameShadow(QFrame.Raised)
-        self.horizontalLayout_12 = QHBoxLayout(self.frame_9)
-        self.horizontalLayout_12.setObjectName(u"horizontalLayout_12")
-        self.gridLayout_9 = QGridLayout()
-        self.gridLayout_9.setObjectName(u"gridLayout_9")
-        self.gridLayout_9.setVerticalSpacing(6)
-        self.label_39 = QLabel(self.frame_9)
-        self.label_39.setObjectName(u"label_39")
-
-        self.gridLayout_9.addWidget(self.label_39, 0, 5, 1, 1)
-
-        self.label_42 = QLabel(self.frame_9)
-        self.label_42.setObjectName(u"label_42")
-
-        self.gridLayout_9.addWidget(self.label_42, 1, 2, 2, 2)
-
-        self.label_38 = QLabel(self.frame_9)
-        self.label_38.setObjectName(u"label_38")
-
-        self.gridLayout_9.addWidget(self.label_38, 0, 2, 1, 2)
-
-        self.label_37 = QLabel(self.frame_9)
-        self.label_37.setObjectName(u"label_37")
-        self.label_37.setMinimumSize(QSize(0, 27))
-
-        self.gridLayout_9.addWidget(self.label_37, 0, 0, 1, 1)
-
-        self.txt_bitola_track_history = QLineEdit(self.frame_9)
-        self.txt_bitola_track_history.setObjectName(u"txt_bitola_track_history")
-
-        self.gridLayout_9.addWidget(self.txt_bitola_track_history, 0, 6, 1, 1)
-
-        self.label_41 = QLabel(self.frame_9)
-        self.label_41.setObjectName(u"label_41")
-
-        self.gridLayout_9.addWidget(self.label_41, 1, 5, 2, 1)
-
-        self.txt_cycle_track_history = QLineEdit(self.frame_9)
-        self.txt_cycle_track_history.setObjectName(u"txt_cycle_track_history")
-
-        self.gridLayout_9.addWidget(self.txt_cycle_track_history, 1, 1, 2, 1)
-
-        self.txt_entry_date_track_history = QLineEdit(self.frame_9)
-        self.txt_entry_date_track_history.setObjectName(u"txt_entry_date_track_history")
-
-        self.gridLayout_9.addWidget(self.txt_entry_date_track_history, 0, 4, 1, 1)
-
-        self.groupBox_4 = QGroupBox(self.frame_9)
-        self.groupBox_4.setObjectName(u"groupBox_4")
-        self.horizontalLayout_11 = QHBoxLayout(self.groupBox_4)
-        self.horizontalLayout_11.setObjectName(u"horizontalLayout_11")
-        self.rb_kd_track_history = QRadioButton(self.groupBox_4)
-        self.rb_kd_track_history.setObjectName(u"rb_kd_track_history")
-
-        self.horizontalLayout_11.addWidget(self.rb_kd_track_history)
-
-        self.rb_ht_track_history = QRadioButton(self.groupBox_4)
-        self.rb_ht_track_history.setObjectName(u"rb_ht_track_history")
-
-        self.horizontalLayout_11.addWidget(self.rb_ht_track_history)
-
-
-        self.gridLayout_9.addWidget(self.groupBox_4, 1, 6, 2, 1)
-
-        self.cb_kiln_track_history = QComboBox(self.frame_9)
-        self.cb_kiln_track_history.setObjectName(u"cb_kiln_track_history")
-
-        self.gridLayout_9.addWidget(self.cb_kiln_track_history, 0, 1, 1, 1)
-
-        self.label_40 = QLabel(self.frame_9)
-        self.label_40.setObjectName(u"label_40")
-
-        self.gridLayout_9.addWidget(self.label_40, 1, 0, 2, 1)
-
-        self.txt_exit_date_track_history = QLineEdit(self.frame_9)
-        self.txt_exit_date_track_history.setObjectName(u"txt_exit_date_track_history")
-
-        self.gridLayout_9.addWidget(self.txt_exit_date_track_history, 1, 4, 2, 1)
-
-        self.gridLayout_9.setRowMinimumHeight(0, 34)
-        self.gridLayout_9.setRowMinimumHeight(1, 34)
-
-        self.horizontalLayout_12.addLayout(self.gridLayout_9)
-
-        self.horizontalSpacer_3 = QSpacerItem(94, 20, QSizePolicy.Fixed, QSizePolicy.Minimum)
-
-        self.horizontalLayout_12.addItem(self.horizontalSpacer_3)
-
-        self.bt_back_track_history = QPushButton(self.frame_9)
-        self.bt_back_track_history.setObjectName(u"bt_back_track_history")
-        icon15 = QIcon()
-        icon15.addFile(u":/icons/assets/back-32.png", QSize(), QIcon.Normal, QIcon.Off)
-        self.bt_back_track_history.setIcon(icon15)
-        self.bt_back_track_history.setIconSize(QSize(32, 32))
-
-        self.horizontalLayout_12.addWidget(self.bt_back_track_history)
-
-
-        self.verticalLayout_9.addWidget(self.frame_9)
-
-        self.gridLayout_3 = QGridLayout()
-        self.gridLayout_3.setObjectName(u"gridLayout_3")
-        self.gridLayout_3.setContentsMargins(-1, -1, -1, 0)
-        self.verticalSpacer_5 = QSpacerItem(20, 40, QSizePolicy.Minimum, QSizePolicy.Expanding)
-
-        self.gridLayout_3.addItem(self.verticalSpacer_5, 3, 1, 1, 1)
-
-        self.tv_track_history = QTableView(self.page_2)
-        self.tv_track_history.setObjectName(u"tv_track_history")
-        sizePolicy7 = QSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
-        sizePolicy7.setHorizontalStretch(0)
-        sizePolicy7.setVerticalStretch(0)
-        sizePolicy7.setHeightForWidth(self.tv_track_history.sizePolicy().hasHeightForWidth())
-        self.tv_track_history.setSizePolicy(sizePolicy7)
-        self.tv_track_history.setMinimumSize(QSize(560, 0))
-        self.tv_track_history.setMaximumSize(QSize(16777215, 16777215))
-
-        self.gridLayout_3.addWidget(self.tv_track_history, 0, 0, 4, 1)
-
-        self.frame_10 = QFrame(self.page_2)
-        self.frame_10.setObjectName(u"frame_10")
-        sizePolicy2.setHeightForWidth(self.frame_10.sizePolicy().hasHeightForWidth())
-        self.frame_10.setSizePolicy(sizePolicy2)
-        self.frame_10.setMinimumSize(QSize(0, 0))
-        self.frame_10.setFrameShape(QFrame.Box)
-        self.frame_10.setFrameShadow(QFrame.Raised)
-        self.gridLayout_10 = QGridLayout(self.frame_10)
-        self.gridLayout_10.setObjectName(u"gridLayout_10")
-        self.label_45 = QLabel(self.frame_10)
-        self.label_45.setObjectName(u"label_45")
-
-        self.gridLayout_10.addWidget(self.label_45, 1, 0, 1, 1)
-
-        self.label_44 = QLabel(self.frame_10)
-        self.label_44.setObjectName(u"label_44")
-
-        self.gridLayout_10.addWidget(self.label_44, 2, 0, 1, 1)
-
-        self.label_43 = QLabel(self.frame_10)
-        self.label_43.setObjectName(u"label_43")
-        sizePolicy.setHeightForWidth(self.label_43.sizePolicy().hasHeightForWidth())
-        self.label_43.setSizePolicy(sizePolicy)
-        self.label_43.setAlignment(Qt.AlignCenter)
-
-        self.gridLayout_10.addWidget(self.label_43, 0, 0, 1, 2)
-
-        self.txt_leaving_date_track_history = QLineEdit(self.frame_10)
-        self.txt_leaving_date_track_history.setObjectName(u"txt_leaving_date_track_history")
-        sizePolicy5.setHeightForWidth(self.txt_leaving_date_track_history.sizePolicy().hasHeightForWidth())
-        self.txt_leaving_date_track_history.setSizePolicy(sizePolicy5)
-
-        self.gridLayout_10.addWidget(self.txt_leaving_date_track_history, 1, 1, 1, 1)
-
-        self.txt_leaving_volume_track_history = QLineEdit(self.frame_10)
-        self.txt_leaving_volume_track_history.setObjectName(u"txt_leaving_volume_track_history")
-
-        self.gridLayout_10.addWidget(self.txt_leaving_volume_track_history, 2, 1, 1, 1)
-
-
-        self.gridLayout_3.addWidget(self.frame_10, 0, 1, 1, 1)
-
-        self.frame_11 = QFrame(self.page_2)
-        self.frame_11.setObjectName(u"frame_11")
-        sizePolicy.setHeightForWidth(self.frame_11.sizePolicy().hasHeightForWidth())
-        self.frame_11.setSizePolicy(sizePolicy)
-        self.frame_11.setMinimumSize(QSize(0, 40))
-        self.frame_11.setFrameShape(QFrame.Box)
-        self.frame_11.setFrameShadow(QFrame.Raised)
-        self.gridLayout_11 = QGridLayout(self.frame_11)
-        self.gridLayout_11.setObjectName(u"gridLayout_11")
-        self.label_50 = QLabel(self.frame_11)
-        self.label_50.setObjectName(u"label_50")
-
-        self.gridLayout_11.addWidget(self.label_50, 2, 0, 1, 1)
-
-        self.label_52 = QLabel(self.frame_11)
-        self.label_52.setObjectName(u"label_52")
-        self.label_52.setAlignment(Qt.AlignCenter)
-
-        self.gridLayout_11.addWidget(self.label_52, 0, 0, 1, 2)
-
-        self.txt_stock_volume_track_history = QLineEdit(self.frame_11)
-        self.txt_stock_volume_track_history.setObjectName(u"txt_stock_volume_track_history")
-
-        self.gridLayout_11.addWidget(self.txt_stock_volume_track_history, 2, 1, 1, 1)
-
-
-        self.gridLayout_3.addWidget(self.frame_11, 2, 1, 1, 1)
-
-
-        self.verticalLayout_9.addLayout(self.gridLayout_3)
-
-        self.mp_history.addWidget(self.page_2)
-        self.page_3 = QWidget()
-        self.page_3.setObjectName(u"page_3")
-        self.verticalLayout_10 = QVBoxLayout(self.page_3)
-        self.verticalLayout_10.setObjectName(u"verticalLayout_10")
-        self.frame_6 = QFrame(self.page_3)
-        self.frame_6.setObjectName(u"frame_6")
-        sizePolicy2.setHeightForWidth(self.frame_6.sizePolicy().hasHeightForWidth())
-        self.frame_6.setSizePolicy(sizePolicy2)
-        self.frame_6.setMinimumSize(QSize(0, 0))
-        self.frame_6.setMaximumSize(QSize(16777215, 16777215))
-        self.frame_6.setFrameShape(QFrame.Box)
-        self.frame_6.setFrameShadow(QFrame.Raised)
-        self.horizontalLayout_14 = QHBoxLayout(self.frame_6)
-        self.horizontalLayout_14.setSpacing(15)
-        self.horizontalLayout_14.setObjectName(u"horizontalLayout_14")
-        self.gridLayout_13 = QGridLayout()
-        self.gridLayout_13.setObjectName(u"gridLayout_13")
-        self.gridLayout_13.setContentsMargins(0, -1, -1, 0)
-        self.label_54 = QLabel(self.frame_6)
-        self.label_54.setObjectName(u"label_54")
-
-        self.gridLayout_13.addWidget(self.label_54, 2, 2, 1, 1)
-
-        self.label_53 = QLabel(self.frame_6)
-        self.label_53.setObjectName(u"label_53")
-
-        self.gridLayout_13.addWidget(self.label_53, 0, 2, 2, 1)
-
-        self.label_48 = QLabel(self.frame_6)
-        self.label_48.setObjectName(u"label_48")
-
-        self.gridLayout_13.addWidget(self.label_48, 2, 0, 1, 1)
-
-        self.label_55 = QLabel(self.frame_6)
-        self.label_55.setObjectName(u"label_55")
-
-        self.gridLayout_13.addWidget(self.label_55, 0, 4, 2, 1)
-
-        self.label_49 = QLabel(self.frame_6)
-        self.label_49.setObjectName(u"label_49")
-
-        self.gridLayout_13.addWidget(self.label_49, 0, 0, 2, 1)
-
-        self.txt_client_nfe_history = QLineEdit(self.frame_6)
-        self.txt_client_nfe_history.setObjectName(u"txt_client_nfe_history")
-
-        self.gridLayout_13.addWidget(self.txt_client_nfe_history, 2, 1, 1, 1)
-
-        self.txt_foot_nfe_history = QLineEdit(self.frame_6)
-        self.txt_foot_nfe_history.setObjectName(u"txt_foot_nfe_history")
-
-        self.gridLayout_13.addWidget(self.txt_foot_nfe_history, 0, 5, 2, 1)
-
-        self.txt_nfe_nfe_history = QLineEdit(self.frame_6)
-        self.txt_nfe_nfe_history.setObjectName(u"txt_nfe_nfe_history")
-
-        self.gridLayout_13.addWidget(self.txt_nfe_nfe_history, 0, 1, 2, 1)
-
-        self.cb_end_date_nfe_history = CustomComboBox(self.frame_6)
-        self.cb_end_date_nfe_history.setObjectName(u"cb_end_date_nfe_history")
-        self.cb_end_date_nfe_history.setMinimumSize(QSize(67, 0))
-        self.cb_end_date_nfe_history.setEditable(True)
-        self.cb_end_date_nfe_history.setInsertPolicy(QComboBox.NoInsert)
-        self.cb_end_date_nfe_history.setFrame(True)
-
-        self.gridLayout_13.addWidget(self.cb_end_date_nfe_history, 2, 3, 1, 1)
-
-        self.cb_start_date_nfe_history = CustomComboBox(self.frame_6)
-        self.cb_start_date_nfe_history.setObjectName(u"cb_start_date_nfe_history")
-        self.cb_start_date_nfe_history.setMinimumSize(QSize(67, 0))
-        self.cb_start_date_nfe_history.setEditable(True)
-        self.cb_start_date_nfe_history.setInsertPolicy(QComboBox.NoInsert)
-        self.cb_start_date_nfe_history.setFrame(True)
-
-        self.gridLayout_13.addWidget(self.cb_start_date_nfe_history, 0, 3, 1, 1)
-
-
-        self.horizontalLayout_14.addLayout(self.gridLayout_13)
-
-        self.horizontalLayout_20 = QHBoxLayout()
-        self.horizontalLayout_20.setObjectName(u"horizontalLayout_20")
-        self.horizontalLayout_20.setContentsMargins(-1, -1, 0, -1)
-        self.bt_search_nfe_history = QPushButton(self.frame_6)
-        self.bt_search_nfe_history.setObjectName(u"bt_search_nfe_history")
-        self.bt_search_nfe_history.setIcon(icon9)
-        self.bt_search_nfe_history.setIconSize(QSize(32, 32))
-
-        self.horizontalLayout_20.addWidget(self.bt_search_nfe_history)
-
-        self.bt_clear_nfe_history = QPushButton(self.frame_6)
-        self.bt_clear_nfe_history.setObjectName(u"bt_clear_nfe_history")
-        self.bt_clear_nfe_history.setIcon(icon10)
-        self.bt_clear_nfe_history.setIconSize(QSize(32, 32))
-
-        self.horizontalLayout_20.addWidget(self.bt_clear_nfe_history)
-
-        self.bt_edit_nfe_history = QPushButton(self.frame_6)
-        self.bt_edit_nfe_history.setObjectName(u"bt_edit_nfe_history")
-        self.bt_edit_nfe_history.setIcon(icon14)
-        self.bt_edit_nfe_history.setIconSize(QSize(32, 32))
-
-        self.horizontalLayout_20.addWidget(self.bt_edit_nfe_history)
-
-
-        self.horizontalLayout_14.addLayout(self.horizontalLayout_20)
-
-
-        self.verticalLayout_10.addWidget(self.frame_6)
-
-        self.tv_nfe_history = QTableView(self.page_3)
-        self.tv_nfe_history.setObjectName(u"tv_nfe_history")
-
-        self.verticalLayout_10.addWidget(self.tv_nfe_history)
-
-        self.mp_history.addWidget(self.page_3)
-
-        self.verticalLayout_8.addWidget(self.mp_history)
-
-        self.mp_main.addWidget(self.page_history)
 
         self.gridLayout.addWidget(self.mp_main, 5, 1, 2, 1)
 
-        self.frame_8 = QFrame(self.centralwidget)
-        self.frame_8.setObjectName(u"frame_8")
-        self.frame_8.setMinimumSize(QSize(160, 0))
-        self.frame_8.setFrameShape(QFrame.Box)
-        self.frame_8.setFrameShadow(QFrame.Raised)
-        self.verticalLayout_11 = QVBoxLayout(self.frame_8)
+        self.fr_menu = QFrame(self.centralwidget)
+        self.fr_menu.setObjectName(u"fr_menu")
+        self.fr_menu.setMinimumSize(QSize(160, 0))
+        self.fr_menu.setFrameShape(QFrame.Box)
+        self.fr_menu.setFrameShadow(QFrame.Raised)
+        self.verticalLayout_11 = QVBoxLayout(self.fr_menu)
         self.verticalLayout_11.setObjectName(u"verticalLayout_11")
-        self.bt_cycle_menu = QPushButton(self.frame_8)
+        self.bt_cycle_menu = QPushButton(self.fr_menu)
         self.bt_cycle_menu.setObjectName(u"bt_cycle_menu")
-        sizePolicy6.setHeightForWidth(self.bt_cycle_menu.sizePolicy().hasHeightForWidth())
-        self.bt_cycle_menu.setSizePolicy(sizePolicy6)
+        sizePolicy.setHeightForWidth(self.bt_cycle_menu.sizePolicy().hasHeightForWidth())
+        self.bt_cycle_menu.setSizePolicy(sizePolicy)
         self.bt_cycle_menu.setMinimumSize(QSize(0, 50))
-        self.bt_cycle_menu.setIcon(icon13)
+        self.bt_cycle_menu.setCursor(QCursor(Qt.PointingHandCursor))
+        self.bt_cycle_menu.setIcon(icon9)
         self.bt_cycle_menu.setIconSize(QSize(32, 32))
 
         self.verticalLayout_11.addWidget(self.bt_cycle_menu)
 
-        self.bt_nfe_menu = QPushButton(self.frame_8)
+        self.bt_nfe_menu = QPushButton(self.fr_menu)
         self.bt_nfe_menu.setObjectName(u"bt_nfe_menu")
         self.bt_nfe_menu.setMinimumSize(QSize(0, 50))
-        self.bt_nfe_menu.setIcon(icon12)
+        self.bt_nfe_menu.setCursor(QCursor(Qt.PointingHandCursor))
+        self.bt_nfe_menu.setIcon(icon15)
         self.bt_nfe_menu.setIconSize(QSize(32, 32))
 
         self.verticalLayout_11.addWidget(self.bt_nfe_menu)
 
-        self.bt_stock_menu = QPushButton(self.frame_8)
+        self.bt_stock_menu = QPushButton(self.fr_menu)
         self.bt_stock_menu.setObjectName(u"bt_stock_menu")
         self.bt_stock_menu.setMinimumSize(QSize(0, 50))
-        icon16 = QIcon()
-        icon16.addFile(u":/icons/assets/stock-32.png", QSize(), QIcon.Normal, QIcon.Off)
-        self.bt_stock_menu.setIcon(icon16)
+        self.bt_stock_menu.setCursor(QCursor(Qt.PointingHandCursor))
+        icon17 = QIcon()
+        icon17.addFile(u":/icons/assets/stock-32.png", QSize(), QIcon.Normal, QIcon.Off)
+        self.bt_stock_menu.setIcon(icon17)
         self.bt_stock_menu.setIconSize(QSize(32, 32))
 
         self.verticalLayout_11.addWidget(self.bt_stock_menu)
 
-        self.bt_history_menu = QPushButton(self.frame_8)
-        self.bt_history_menu.setObjectName(u"bt_history_menu")
-        self.bt_history_menu.setMinimumSize(QSize(0, 50))
-        icon17 = QIcon()
-        icon17.addFile(u":/icons/assets/history-32.png", QSize(), QIcon.Normal, QIcon.Off)
-        self.bt_history_menu.setIcon(icon17)
-        self.bt_history_menu.setIconSize(QSize(32, 32))
+        self.bt_kiln_menu = QPushButton(self.fr_menu)
+        self.bt_kiln_menu.setObjectName(u"bt_kiln_menu")
+        self.bt_kiln_menu.setMinimumSize(QSize(0, 50))
+        self.bt_kiln_menu.setCursor(QCursor(Qt.PointingHandCursor))
+        icon18 = QIcon()
+        icon18.addFile(u":/icons/assets/stove-32.png", QSize(), QIcon.Normal, QIcon.Off)
+        self.bt_kiln_menu.setIcon(icon18)
+        self.bt_kiln_menu.setIconSize(QSize(32, 32))
 
-        self.verticalLayout_11.addWidget(self.bt_history_menu)
+        self.verticalLayout_11.addWidget(self.bt_kiln_menu)
 
-        self.bt_exit_menu = QPushButton(self.frame_8)
+        self.bt_client_menu = QPushButton(self.fr_menu)
+        self.bt_client_menu.setObjectName(u"bt_client_menu")
+        self.bt_client_menu.setMinimumSize(QSize(0, 50))
+        self.bt_client_menu.setCursor(QCursor(Qt.PointingHandCursor))
+        icon19 = QIcon()
+        icon19.addFile(u":/icons/assets/customer-32.png", QSize(), QIcon.Normal, QIcon.Off)
+        self.bt_client_menu.setIcon(icon19)
+        self.bt_client_menu.setIconSize(QSize(32, 32))
+
+        self.verticalLayout_11.addWidget(self.bt_client_menu)
+
+        self.bt_exit_menu = QPushButton(self.fr_menu)
         self.bt_exit_menu.setObjectName(u"bt_exit_menu")
         self.bt_exit_menu.setMinimumSize(QSize(0, 50))
-        icon18 = QIcon()
-        icon18.addFile(u":/icons/assets/exit-32.png", QSize(), QIcon.Normal, QIcon.Off)
-        self.bt_exit_menu.setIcon(icon18)
+        self.bt_exit_menu.setCursor(QCursor(Qt.PointingHandCursor))
+        icon20 = QIcon()
+        icon20.addFile(u":/icons/assets/exit-32.png", QSize(), QIcon.Normal, QIcon.Off)
+        self.bt_exit_menu.setIcon(icon20)
         self.bt_exit_menu.setIconSize(QSize(32, 32))
 
         self.verticalLayout_11.addWidget(self.bt_exit_menu)
 
 
-        self.gridLayout.addWidget(self.frame_8, 5, 0, 1, 1)
+        self.gridLayout.addWidget(self.fr_menu, 5, 0, 1, 1)
 
         self.verticalSpacer = QSpacerItem(20, 40, QSizePolicy.Minimum, QSizePolicy.Expanding)
 
         self.gridLayout.addItem(self.verticalSpacer, 6, 0, 1, 1)
 
+        self.horizontalLayout_2 = QHBoxLayout()
+        self.horizontalLayout_2.setObjectName(u"horizontalLayout_2")
+        self.horizontalSpacer_4 = QSpacerItem(40, 20, QSizePolicy.Expanding, QSizePolicy.Minimum)
+
+        self.horizontalLayout_2.addItem(self.horizontalSpacer_4)
+
+        self.label_6 = QLabel(self.centralwidget)
+        self.label_6.setObjectName(u"label_6")
+        font2 = QFont()
+        font2.setFamilies([u"Trebuchet MS"])
+        font2.setPointSize(22)
+        font2.setBold(False)
+        self.label_6.setFont(font2)
+        self.label_6.setAlignment(Qt.AlignCenter)
+
+        self.horizontalLayout_2.addWidget(self.label_6)
+
+        self.label_7 = QLabel(self.centralwidget)
+        self.label_7.setObjectName(u"label_7")
+        sizePolicy6.setHeightForWidth(self.label_7.sizePolicy().hasHeightForWidth())
+        self.label_7.setSizePolicy(sizePolicy6)
+        self.label_7.setFont(font2)
+        self.label_7.setPixmap(QPixmap(u":/icons/assets/tree-32.png"))
+        self.label_7.setAlignment(Qt.AlignCenter)
+
+        self.horizontalLayout_2.addWidget(self.label_7)
+
+        self.horizontalSpacer_5 = QSpacerItem(40, 20, QSizePolicy.Expanding, QSizePolicy.Minimum)
+
+        self.horizontalLayout_2.addItem(self.horizontalSpacer_5)
+
+
+        self.gridLayout.addLayout(self.horizontalLayout_2, 2, 0, 1, 2)
+
         MainWindow.setCentralWidget(self.centralwidget)
+        self.fr_menu.raise_()
+        self.mp_main.raise_()
+        self.statusbar = QStatusBar(MainWindow)
+        self.statusbar.setObjectName(u"statusbar")
+        MainWindow.setStatusBar(self.statusbar)
         self.menubar = QMenuBar(MainWindow)
         self.menubar.setObjectName(u"menubar")
-        self.menubar.setGeometry(QRect(0, 0, 935, 22))
+        self.menubar.setGeometry(QRect(0, 0, 1006, 22))
         self.menu_about = QMenu(self.menubar)
         self.menu_about.setObjectName(u"menu_about")
-        self.menu_kiln = QMenu(self.menubar)
-        self.menu_kiln.setObjectName(u"menu_kiln")
         self.menu_config = QMenu(self.menubar)
         self.menu_config.setObjectName(u"menu_config")
         self.menu_db = QMenu(self.menu_config)
         self.menu_db.setObjectName(u"menu_db")
-        icon19 = QIcon()
-        icon19.addFile(u":/icons/assets/db.png", QSize(), QIcon.Normal, QIcon.Off)
-        self.menu_db.setIcon(icon19)
+        icon21 = QIcon()
+        icon21.addFile(u":/icons/assets/db.png", QSize(), QIcon.Normal, QIcon.Off)
+        self.menu_db.setIcon(icon21)
         MainWindow.setMenuBar(self.menubar)
-        self.statusbar = QStatusBar(MainWindow)
-        self.statusbar.setObjectName(u"statusbar")
-        MainWindow.setStatusBar(self.statusbar)
+#if QT_CONFIG(shortcut)
+        self.label_9.setBuddy(self.cb_kiln_cycle)
+        self.label_2.setBuddy(self.txt_cycle_cycle)
+        self.label_3.setBuddy(self.cb_entry_date_cycle)
+        self.label_4.setBuddy(self.cb_exit_date_cycle)
+        self.label_5.setBuddy(self.rb_kd_cycle)
+        self.label_59.setBuddy(self.txt_bitola_cycle)
+        self.label_58.setBuddy(self.txt_volume_cycle)
+        self.label_57.setBuddy(self.txt_packs_cycle)
+        self.label_47.setBuddy(self.cb_kiln_cycle_history)
+        self.label_56.setBuddy(self.cb_cycle_cycle_history)
+        self.label_46.setBuddy(self.cb_entry_date_cycle_history)
+        self.label_61.setBuddy(self.cb_exit_date_cycle_history)
+        self.label_60.setBuddy(self.txt_bitola_cycle_history)
+        self.label_51.setBuddy(self.rb_kd_cycle_history)
+        self.label_13.setBuddy(self.cb_date_nfe)
+        self.label_17.setBuddy(self.cb_client_nfe)
+        self.label_16.setBuddy(self.txt_nfe_nfe)
+        self.label_14.setBuddy(self.txt_total_volume_nfe)
+        self.label_18.setBuddy(self.txt_packs_nfe)
+        self.label_19.setBuddy(self.cb_foot_nfe)
+        self.label_12.setBuddy(self.cb_cycle_nfe)
+        self.label_11.setBuddy(self.cb_bitola_nfe)
+        self.label_15.setBuddy(self.txt_rework_nfe)
+        self.label_10.setBuddy(self.txt_volume_nfe)
+        self.label_97.setBuddy(self.txt_nfe_nfe_history)
+        self.label_95.setBuddy(self.cb_client_nfe_history)
+        self.label_94.setBuddy(self.cb_start_date_nfe_history)
+        self.label_93.setBuddy(self.cb_end_date_nfe_history)
+        self.label_96.setBuddy(self.cb_foot_nfe_history)
+        self.label_20.setBuddy(self.cb_cycle_stock)
+        self.label_22.setBuddy(self.cb_bitola_stock)
+        self.label_21.setBuddy(self.rb_kd_stock)
+        self.label_23.setBuddy(self.txt_treatment_stock)
+        self.label_25.setBuddy(self.txt_leaving_stock)
+        self.label_24.setBuddy(self.txt_sold_stock)
+        self.label_26.setBuddy(self.txt_stock_stock)
+#endif // QT_CONFIG(shortcut)
+        QWidget.setTabOrder(self.bt_cycle_menu, self.bt_nfe_menu)
+        QWidget.setTabOrder(self.bt_nfe_menu, self.bt_stock_menu)
+        QWidget.setTabOrder(self.bt_stock_menu, self.bt_kiln_menu)
+        QWidget.setTabOrder(self.bt_kiln_menu, self.bt_client_menu)
+        QWidget.setTabOrder(self.bt_client_menu, self.bt_exit_menu)
+        QWidget.setTabOrder(self.bt_exit_menu, self.tab_widget_cycle)
+        QWidget.setTabOrder(self.tab_widget_cycle, self.cb_kiln_cycle)
+        QWidget.setTabOrder(self.cb_kiln_cycle, self.txt_cycle_cycle)
+        QWidget.setTabOrder(self.txt_cycle_cycle, self.cb_entry_date_cycle)
+        QWidget.setTabOrder(self.cb_entry_date_cycle, self.cb_exit_date_cycle)
+        QWidget.setTabOrder(self.cb_exit_date_cycle, self.rb_kd_cycle)
+        QWidget.setTabOrder(self.rb_kd_cycle, self.rb_ht_cycle)
+        QWidget.setTabOrder(self.rb_ht_cycle, self.txt_bitola_cycle)
+        QWidget.setTabOrder(self.txt_bitola_cycle, self.txt_packs_cycle)
+        QWidget.setTabOrder(self.txt_packs_cycle, self.txt_volume_cycle)
+        QWidget.setTabOrder(self.txt_volume_cycle, self.bt_add_bitola_cycle)
+        QWidget.setTabOrder(self.bt_add_bitola_cycle, self.bt_remove_bitola_cycle)
+        QWidget.setTabOrder(self.bt_remove_bitola_cycle, self.tw_cycle)
+        QWidget.setTabOrder(self.tw_cycle, self.bt_new_cycle)
+        QWidget.setTabOrder(self.bt_new_cycle, self.bt_save_cycle)
+        QWidget.setTabOrder(self.bt_save_cycle, self.bt_delete_cycle)
+        QWidget.setTabOrder(self.bt_delete_cycle, self.cb_kiln_cycle_history)
+        QWidget.setTabOrder(self.cb_kiln_cycle_history, self.cb_cycle_cycle_history)
+        QWidget.setTabOrder(self.cb_cycle_cycle_history, self.cb_entry_date_cycle_history)
+        QWidget.setTabOrder(self.cb_entry_date_cycle_history, self.cb_exit_date_cycle_history)
+        QWidget.setTabOrder(self.cb_exit_date_cycle_history, self.txt_bitola_cycle_history)
+        QWidget.setTabOrder(self.txt_bitola_cycle_history, self.rb_kd_cycle_history)
+        QWidget.setTabOrder(self.rb_kd_cycle_history, self.rb_ht_cycle_history)
+        QWidget.setTabOrder(self.rb_ht_cycle_history, self.bt_search_cycle_history)
+        QWidget.setTabOrder(self.bt_search_cycle_history, self.bt_clear_cycle_history)
+        QWidget.setTabOrder(self.bt_clear_cycle_history, self.bt_edit_cycle_history)
+        QWidget.setTabOrder(self.bt_edit_cycle_history, self.tv_cycle_history)
+        QWidget.setTabOrder(self.tv_cycle_history, self.tab_widget_nfe)
+        QWidget.setTabOrder(self.tab_widget_nfe, self.cb_date_nfe)
+        QWidget.setTabOrder(self.cb_date_nfe, self.cb_client_nfe)
+        QWidget.setTabOrder(self.cb_client_nfe, self.txt_nfe_nfe)
+        QWidget.setTabOrder(self.txt_nfe_nfe, self.txt_total_volume_nfe)
+        QWidget.setTabOrder(self.txt_total_volume_nfe, self.txt_packs_nfe)
+        QWidget.setTabOrder(self.txt_packs_nfe, self.cb_foot_nfe)
+        QWidget.setTabOrder(self.cb_foot_nfe, self.cb_cycle_nfe)
+        QWidget.setTabOrder(self.cb_cycle_nfe, self.cb_bitola_nfe)
+        QWidget.setTabOrder(self.cb_bitola_nfe, self.txt_volume_nfe)
+        QWidget.setTabOrder(self.txt_volume_nfe, self.txt_rework_nfe)
+        QWidget.setTabOrder(self.txt_rework_nfe, self.bt_add_bitola_nfe)
+        QWidget.setTabOrder(self.bt_add_bitola_nfe, self.bt_remove_bitola_nfe)
+        QWidget.setTabOrder(self.bt_remove_bitola_nfe, self.tw_nfe)
+        QWidget.setTabOrder(self.tw_nfe, self.bt_new_nfe)
+        QWidget.setTabOrder(self.bt_new_nfe, self.bt_save_nfe)
+        QWidget.setTabOrder(self.bt_save_nfe, self.bt_delete_nfe)
+        QWidget.setTabOrder(self.bt_delete_nfe, self.txt_nfe_nfe_history)
+        QWidget.setTabOrder(self.txt_nfe_nfe_history, self.cb_client_nfe_history)
+        QWidget.setTabOrder(self.cb_client_nfe_history, self.cb_start_date_nfe_history)
+        QWidget.setTabOrder(self.cb_start_date_nfe_history, self.cb_end_date_nfe_history)
+        QWidget.setTabOrder(self.cb_end_date_nfe_history, self.cb_foot_nfe_history)
+        QWidget.setTabOrder(self.cb_foot_nfe_history, self.bt_search_nfe_history)
+        QWidget.setTabOrder(self.bt_search_nfe_history, self.bt_clear_nfe_history)
+        QWidget.setTabOrder(self.bt_clear_nfe_history, self.bt_edit_nfe_history)
+        QWidget.setTabOrder(self.bt_edit_nfe_history, self.cb_cycle_stock)
+        QWidget.setTabOrder(self.cb_cycle_stock, self.cb_bitola_stock)
+        QWidget.setTabOrder(self.cb_bitola_stock, self.rb_kd_stock)
+        QWidget.setTabOrder(self.rb_kd_stock, self.rb_ht_stock)
+        QWidget.setTabOrder(self.rb_ht_stock, self.bt_search_stock)
+        QWidget.setTabOrder(self.bt_search_stock, self.bt_clear_stock)
+        QWidget.setTabOrder(self.bt_clear_stock, self.tv_stock)
+        QWidget.setTabOrder(self.tv_stock, self.bt_discount_stock)
+        QWidget.setTabOrder(self.bt_discount_stock, self.bt_leaving_stock)
+        QWidget.setTabOrder(self.bt_leaving_stock, self.txt_treatment_stock)
+        QWidget.setTabOrder(self.txt_treatment_stock, self.txt_leaving_stock)
+        QWidget.setTabOrder(self.txt_leaving_stock, self.txt_sold_stock)
+        QWidget.setTabOrder(self.txt_sold_stock, self.txt_stock_stock)
+        QWidget.setTabOrder(self.txt_stock_stock, self.tv_track_history)
+        QWidget.setTabOrder(self.tv_track_history, self.rb_ht_track_history)
+        QWidget.setTabOrder(self.rb_ht_track_history, self.bt_back_track_history)
+        QWidget.setTabOrder(self.bt_back_track_history, self.txt_leaving_volume_track_history)
+        QWidget.setTabOrder(self.txt_leaving_volume_track_history, self.txt_leaving_date_track_history)
+        QWidget.setTabOrder(self.txt_leaving_date_track_history, self.txt_stock_volume_track_history)
+        QWidget.setTabOrder(self.txt_stock_volume_track_history, self.txt_entry_date_track_history)
+        QWidget.setTabOrder(self.txt_entry_date_track_history, self.txt_kiln_track_history)
+        QWidget.setTabOrder(self.txt_kiln_track_history, self.rb_kd_track_history)
+        QWidget.setTabOrder(self.rb_kd_track_history, self.txt_bitola_track_history)
+        QWidget.setTabOrder(self.txt_bitola_track_history, self.txt_cycle_track_history)
+        QWidget.setTabOrder(self.txt_cycle_track_history, self.txt_exit_date_track_history)
 
         self.menubar.addAction(self.menu_config.menuAction())
-        self.menubar.addAction(self.menu_kiln.menuAction())
         self.menubar.addAction(self.menu_about.menuAction())
         self.menu_about.addAction(self.action_license)
-        self.menu_kiln.addAction(self.action_kiln)
         self.menu_config.addAction(self.menu_db.menuAction())
         self.menu_db.addAction(self.action_config)
         self.menu_db.addAction(self.action_import_backup)
 
         self.retranslateUi(MainWindow)
 
-        self.mp_main.setCurrentIndex(3)
-        self.mp_history.setCurrentIndex(0)
+        self.mp_main.setCurrentIndex(2)
+        self.tab_widget_cycle.setCurrentIndex(1)
+        self.mp_cycle_historic.setCurrentIndex(0)
+        self.tab_widget_nfe.setCurrentIndex(1)
 
 
         QMetaObject.connectSlotsByName(MainWindow)
@@ -1381,68 +1797,44 @@ class Ui_MainWindow(object):
         self.action_config.setText(QCoreApplication.translate("MainWindow", u"Configurar", None))
         self.action_import_backup.setText(QCoreApplication.translate("MainWindow", u"Importar backup", None))
         self.actionaa.setText(QCoreApplication.translate("MainWindow", u"aa", None))
-        self.label_6.setText(QCoreApplication.translate("MainWindow", u"CONTROLE DE MADERA TRATADA", None))
         self.label_9.setText(QCoreApplication.translate("MainWindow", u"ESTUFA", None))
-        self.cb_kiln_cycle.setItemText(0, QCoreApplication.translate("MainWindow", u"Estufa 1", None))
-        self.cb_kiln_cycle.setItemText(1, QCoreApplication.translate("MainWindow", u"Estufa 2", None))
-
-        self.groupBox.setTitle("")
-        self.rb_kd_cycle.setText(QCoreApplication.translate("MainWindow", u"KD", None))
-        self.rb_ht_cycle.setText(QCoreApplication.translate("MainWindow", u"HT", None))
+        self.label_2.setText(QCoreApplication.translate("MainWindow", u"CICLO", None))
         self.label_3.setText(QCoreApplication.translate("MainWindow", u"ENTRADA", None))
         self.label_4.setText(QCoreApplication.translate("MainWindow", u"SA\u00cdDA", None))
         self.label_5.setText(QCoreApplication.translate("MainWindow", u"FINALIDADE", None))
-        self.label_2.setText(QCoreApplication.translate("MainWindow", u"CICLO", None))
+        self.groupBox.setTitle("")
+        self.rb_kd_cycle.setText(QCoreApplication.translate("MainWindow", u"KD", None))
+        self.rb_ht_cycle.setText(QCoreApplication.translate("MainWindow", u"HT", None))
         self.label_59.setText(QCoreApplication.translate("MainWindow", u"BITOLA", None))
         self.label_58.setText(QCoreApplication.translate("MainWindow", u"VOLUME", None))
         self.txt_volume_cycle.setText("")
         self.label_57.setText(QCoreApplication.translate("MainWindow", u"FARDOS", None))
-        self.bt_add_cycle.setText("")
-        self.bt_remove_cycle.setText("")
+        self.bt_add_bitola_cycle.setText("")
+        self.bt_remove_bitola_cycle.setText("")
+        ___qtablewidgetitem = self.tw_cycle.horizontalHeaderItem(0)
+        ___qtablewidgetitem.setText(QCoreApplication.translate("MainWindow", u"ID", None));
+        ___qtablewidgetitem1 = self.tw_cycle.horizontalHeaderItem(1)
+        ___qtablewidgetitem1.setText(QCoreApplication.translate("MainWindow", u"BITOLA", None));
+        ___qtablewidgetitem2 = self.tw_cycle.horizontalHeaderItem(2)
+        ___qtablewidgetitem2.setText(QCoreApplication.translate("MainWindow", u"FARDOS", None));
+        ___qtablewidgetitem3 = self.tw_cycle.horizontalHeaderItem(3)
+        ___qtablewidgetitem3.setText(QCoreApplication.translate("MainWindow", u"VOLUME", None));
         self.bt_new_cycle.setText(QCoreApplication.translate("MainWindow", u" NOVO", None))
         self.bt_save_cycle.setText(QCoreApplication.translate("MainWindow", u" SALVAR", None))
         self.bt_delete_cycle.setText(QCoreApplication.translate("MainWindow", u" DELETAR", None))
-        self.label_16.setText(QCoreApplication.translate("MainWindow", u"NFE", None))
-        self.label_19.setText(QCoreApplication.translate("MainWindow", u"CICLO PEZINHO", None))
-        self.label_13.setText(QCoreApplication.translate("MainWindow", u"DATA", None))
-        self.label_14.setText(QCoreApplication.translate("MainWindow", u"VOLUME TOTAL", None))
-        self.label_18.setText(QCoreApplication.translate("MainWindow", u"FARDOS", None))
-        self.label_17.setText(QCoreApplication.translate("MainWindow", u"CLIENTE", None))
-        self.cb_rework_nfe.setText("")
-        self.label_12.setText(QCoreApplication.translate("MainWindow", u"CICLO", None))
-        self.label_11.setText(QCoreApplication.translate("MainWindow", u"BITOLA", None))
-        self.label_15.setText(QCoreApplication.translate("MainWindow", u"RETRABALHO", None))
-        self.label_10.setText(QCoreApplication.translate("MainWindow", u"VOLUME", None))
-        self.bt_add_nfe.setText("")
-        self.bt_remove_nfe.setText("")
-        self.bt_new_nfe.setText(QCoreApplication.translate("MainWindow", u" NOVO", None))
-        self.bt_save_nfe.setText(QCoreApplication.translate("MainWindow", u" SALVAR", None))
-        self.bt_delete_nfe.setText(QCoreApplication.translate("MainWindow", u" DELETAR", None))
-        self.label_20.setText(QCoreApplication.translate("MainWindow", u"CICLO", None))
-        self.label_21.setText(QCoreApplication.translate("MainWindow", u"FINALIDADE", None))
-        self.groupBox_2.setTitle("")
-        self.rb_kd_stock.setText(QCoreApplication.translate("MainWindow", u"KD", None))
-        self.rb_ht_stock.setText(QCoreApplication.translate("MainWindow", u"HT", None))
-        self.label_22.setText(QCoreApplication.translate("MainWindow", u"BITOLA", None))
-        self.bt_search_stock.setText("")
-        self.bt_clear_stock.setText("")
-        self.bt_leaving_stock.setText(QCoreApplication.translate("MainWindow", u" MERCADO INTERNO", None))
-        self.label_24.setText(QCoreApplication.translate("MainWindow", u"VOLUME VENDIDO", None))
-        self.label_25.setText(QCoreApplication.translate("MainWindow", u"RES\u00cdDUO", None))
-        self.bt_discount_stock.setText(QCoreApplication.translate("MainWindow", u" BAIXAR NFE", None))
-        self.label_26.setText(QCoreApplication.translate("MainWindow", u"ESTOQUE", None))
-        self.label_23.setText(QCoreApplication.translate("MainWindow", u"VOLUME TRATADO", None))
-        self.bt_cycle_history.setText(QCoreApplication.translate("MainWindow", u" CICLOS", None))
-        self.bt_nfe_history.setText(QCoreApplication.translate("MainWindow", u" NFE", None))
-        self.label_32.setText(QCoreApplication.translate("MainWindow", u"ENTRADA", None))
-        self.label_34.setText(QCoreApplication.translate("MainWindow", u"ESTUFA", None))
-        self.groupBox_3.setTitle("")
+        self.tab_widget_cycle.setTabText(self.tab_widget_cycle.indexOf(self.tab_cycle), QCoreApplication.translate("MainWindow", u"CICLOS", None))
+#if QT_CONFIG(tooltip)
+        self.tab_widget_cycle.setTabToolTip(self.tab_widget_cycle.indexOf(self.tab_cycle), QCoreApplication.translate("MainWindow", u"CICLOS", None))
+#endif // QT_CONFIG(tooltip)
+        self.label_47.setText(QCoreApplication.translate("MainWindow", u"ESTUFA", None))
+        self.label_56.setText(QCoreApplication.translate("MainWindow", u"CICLO", None))
+        self.label_46.setText(QCoreApplication.translate("MainWindow", u"ENTRADA", None))
+        self.label_61.setText(QCoreApplication.translate("MainWindow", u"SA\u00cdDA", None))
+        self.label_60.setText(QCoreApplication.translate("MainWindow", u"BITOLA", None))
+        self.label_51.setText(QCoreApplication.translate("MainWindow", u"FINALIDADE", None))
+        self.groupBox_5.setTitle("")
         self.rb_kd_cycle_history.setText(QCoreApplication.translate("MainWindow", u"KD", None))
         self.rb_ht_cycle_history.setText(QCoreApplication.translate("MainWindow", u"HT", None))
-        self.label_36.setText(QCoreApplication.translate("MainWindow", u"FINALIDADE", None))
-        self.label_31.setText(QCoreApplication.translate("MainWindow", u"CICLO", None))
-        self.label_35.setText(QCoreApplication.translate("MainWindow", u"BITOLA", None))
-        self.label_33.setText(QCoreApplication.translate("MainWindow", u"SA\u00cdDA", None))
         self.bt_search_cycle_history.setText("")
 #if QT_CONFIG(shortcut)
         self.bt_search_cycle_history.setShortcut(QCoreApplication.translate("MainWindow", u"Enter", None))
@@ -1455,32 +1847,60 @@ class Ui_MainWindow(object):
 #if QT_CONFIG(shortcut)
         self.bt_edit_cycle_history.setShortcut(QCoreApplication.translate("MainWindow", u"Enter", None))
 #endif // QT_CONFIG(shortcut)
-        self.label_39.setText(QCoreApplication.translate("MainWindow", u"BITOLA", None))
-        self.label_42.setText(QCoreApplication.translate("MainWindow", u"SA\u00cdDA", None))
-        self.label_38.setText(QCoreApplication.translate("MainWindow", u"ENTRADA", None))
-        self.label_37.setText(QCoreApplication.translate("MainWindow", u"ESTUFA", None))
-        self.label_41.setText(QCoreApplication.translate("MainWindow", u"FINALIDADE", None))
-        self.groupBox_4.setTitle("")
+        self.label_62.setText(QCoreApplication.translate("MainWindow", u"ESTUFA", None))
+        self.label_63.setText(QCoreApplication.translate("MainWindow", u"CICLO", None))
+        self.label_64.setText(QCoreApplication.translate("MainWindow", u"ENTRADA", None))
+        self.label_65.setText(QCoreApplication.translate("MainWindow", u"SA\u00cdDA", None))
+        self.label_67.setText(QCoreApplication.translate("MainWindow", u"BITOLA", None))
+        self.label_66.setText(QCoreApplication.translate("MainWindow", u"FINALIDADE", None))
+        self.groupBox_6.setTitle("")
         self.rb_kd_track_history.setText(QCoreApplication.translate("MainWindow", u"KD", None))
         self.rb_ht_track_history.setText(QCoreApplication.translate("MainWindow", u"HT", None))
-        self.label_40.setText(QCoreApplication.translate("MainWindow", u"CICLO", None))
         self.bt_back_track_history.setText("")
 #if QT_CONFIG(shortcut)
         self.bt_back_track_history.setShortcut(QCoreApplication.translate("MainWindow", u"Enter", None))
 #endif // QT_CONFIG(shortcut)
-        self.label_45.setText(QCoreApplication.translate("MainWindow", u"DATA", None))
-        self.label_44.setText(QCoreApplication.translate("MainWindow", u"VOLUME", None))
-        self.label_43.setText(QCoreApplication.translate("MainWindow", u"MERCADO INTERNO", None))
-        self.txt_leaving_date_track_history.setText(QCoreApplication.translate("MainWindow", u"14/11/2023", None))
-        self.txt_leaving_volume_track_history.setText(QCoreApplication.translate("MainWindow", u"15,258 M\u00b3", None))
-        self.label_50.setText(QCoreApplication.translate("MainWindow", u"VOLUME", None))
-        self.label_52.setText(QCoreApplication.translate("MainWindow", u"ESTOQUE", None))
-        self.txt_stock_volume_track_history.setText(QCoreApplication.translate("MainWindow", u"14,389 M\u00b3", None))
-        self.label_54.setText(QCoreApplication.translate("MainWindow", u"DATA FINAL", None))
-        self.label_53.setText(QCoreApplication.translate("MainWindow", u"DATA INICIAL", None))
-        self.label_48.setText(QCoreApplication.translate("MainWindow", u"CLIENTE", None))
-        self.label_55.setText(QCoreApplication.translate("MainWindow", u"CICLO PEZINHO", None))
-        self.label_49.setText(QCoreApplication.translate("MainWindow", u"NFE", None))
+        self.label_68.setText(QCoreApplication.translate("MainWindow", u"DATA", None))
+        self.label_69.setText(QCoreApplication.translate("MainWindow", u"VOLUME", None))
+        self.label_70.setText(QCoreApplication.translate("MainWindow", u"MERCADO INTERNO", None))
+        self.txt_leaving_date_track_history.setText("")
+        self.txt_leaving_volume_track_history.setText("")
+        self.label_71.setText(QCoreApplication.translate("MainWindow", u"VOLUME", None))
+        self.label_72.setText(QCoreApplication.translate("MainWindow", u"ESTOQUE", None))
+        self.txt_stock_volume_track_history.setText("")
+        self.tab_widget_cycle.setTabText(self.tab_widget_cycle.indexOf(self.tab_historic_cycle), QCoreApplication.translate("MainWindow", u"HIST\u00d3RICO", None))
+        self.label_13.setText(QCoreApplication.translate("MainWindow", u"DATA", None))
+        self.label_17.setText(QCoreApplication.translate("MainWindow", u"CLIENTE", None))
+        self.label_16.setText(QCoreApplication.translate("MainWindow", u"NFE", None))
+        self.label_14.setText(QCoreApplication.translate("MainWindow", u"VOLUME TOTAL", None))
+        self.label_18.setText(QCoreApplication.translate("MainWindow", u"FARDOS", None))
+        self.label_19.setText(QCoreApplication.translate("MainWindow", u"CICLO PEZINHO", None))
+        self.txt_rework_nfe.setText("")
+        self.label_12.setText(QCoreApplication.translate("MainWindow", u"CICLO", None))
+        self.label_11.setText(QCoreApplication.translate("MainWindow", u"BITOLA", None))
+        self.label_15.setText(QCoreApplication.translate("MainWindow", u"RETRABALHO", None))
+        self.label_10.setText(QCoreApplication.translate("MainWindow", u"VOLUME", None))
+        self.bt_add_bitola_nfe.setText("")
+        self.bt_remove_bitola_nfe.setText("")
+        ___qtablewidgetitem4 = self.tw_nfe.horizontalHeaderItem(0)
+        ___qtablewidgetitem4.setText(QCoreApplication.translate("MainWindow", u"ID", None));
+        ___qtablewidgetitem5 = self.tw_nfe.horizontalHeaderItem(1)
+        ___qtablewidgetitem5.setText(QCoreApplication.translate("MainWindow", u"CICLO", None));
+        ___qtablewidgetitem6 = self.tw_nfe.horizontalHeaderItem(2)
+        ___qtablewidgetitem6.setText(QCoreApplication.translate("MainWindow", u"BITOLA", None));
+        ___qtablewidgetitem7 = self.tw_nfe.horizontalHeaderItem(3)
+        ___qtablewidgetitem7.setText(QCoreApplication.translate("MainWindow", u"VOLUME", None));
+        ___qtablewidgetitem8 = self.tw_nfe.horizontalHeaderItem(4)
+        ___qtablewidgetitem8.setText(QCoreApplication.translate("MainWindow", u"RETRABALHO", None));
+        self.bt_new_nfe.setText(QCoreApplication.translate("MainWindow", u" NOVO", None))
+        self.bt_save_nfe.setText(QCoreApplication.translate("MainWindow", u" SALVAR", None))
+        self.bt_delete_nfe.setText(QCoreApplication.translate("MainWindow", u" DELETAR", None))
+        self.tab_widget_nfe.setTabText(self.tab_widget_nfe.indexOf(self.tab_nfe), QCoreApplication.translate("MainWindow", u"NFE", None))
+        self.label_97.setText(QCoreApplication.translate("MainWindow", u"NFE", None))
+        self.label_95.setText(QCoreApplication.translate("MainWindow", u"CLIENTE", None))
+        self.label_94.setText(QCoreApplication.translate("MainWindow", u"DATA INICIAL", None))
+        self.label_93.setText(QCoreApplication.translate("MainWindow", u"DATA FINAL", None))
+        self.label_96.setText(QCoreApplication.translate("MainWindow", u"CICLO PEZINHO", None))
         self.bt_search_nfe_history.setText("")
 #if QT_CONFIG(shortcut)
         self.bt_search_nfe_history.setShortcut(QCoreApplication.translate("MainWindow", u"Enter", None))
@@ -1493,13 +1913,29 @@ class Ui_MainWindow(object):
 #if QT_CONFIG(shortcut)
         self.bt_edit_nfe_history.setShortcut(QCoreApplication.translate("MainWindow", u"Enter", None))
 #endif // QT_CONFIG(shortcut)
+        self.tab_widget_nfe.setTabText(self.tab_widget_nfe.indexOf(self.tab_historic_nfe), QCoreApplication.translate("MainWindow", u"HIST\u00d3RICO", None))
+        self.label_20.setText(QCoreApplication.translate("MainWindow", u"CICLO", None))
+        self.label_22.setText(QCoreApplication.translate("MainWindow", u"BITOLA", None))
+        self.label_21.setText(QCoreApplication.translate("MainWindow", u"FINALIDADE", None))
+        self.groupBox_2.setTitle("")
+        self.rb_kd_stock.setText(QCoreApplication.translate("MainWindow", u"KD", None))
+        self.rb_ht_stock.setText(QCoreApplication.translate("MainWindow", u"HT", None))
+        self.bt_search_stock.setText("")
+        self.bt_clear_stock.setText("")
+        self.bt_discount_stock.setText(QCoreApplication.translate("MainWindow", u" BAIXAR NFE", None))
+        self.bt_leaving_stock.setText(QCoreApplication.translate("MainWindow", u" MERCADO INTERNO", None))
+        self.label_23.setText(QCoreApplication.translate("MainWindow", u"VOLUME TRATADO", None))
+        self.label_25.setText(QCoreApplication.translate("MainWindow", u"RES\u00cdDUO", None))
+        self.label_24.setText(QCoreApplication.translate("MainWindow", u"VOLUME VENDIDO", None))
+        self.label_26.setText(QCoreApplication.translate("MainWindow", u"ESTOQUE", None))
         self.bt_cycle_menu.setText(QCoreApplication.translate("MainWindow", u" CICLOS", None))
         self.bt_nfe_menu.setText(QCoreApplication.translate("MainWindow", u" NFE", None))
         self.bt_stock_menu.setText(QCoreApplication.translate("MainWindow", u" ESTOQUE", None))
-        self.bt_history_menu.setText(QCoreApplication.translate("MainWindow", u" HIST\u00d3RICO", None))
+        self.bt_kiln_menu.setText(QCoreApplication.translate("MainWindow", u" ESTUFAS", None))
+        self.bt_client_menu.setText(QCoreApplication.translate("MainWindow", u" CLIENTES", None))
         self.bt_exit_menu.setText(QCoreApplication.translate("MainWindow", u" SAIR", None))
+        self.label_6.setText(QCoreApplication.translate("MainWindow", u"CONTROLE DE MADEIRA TRATADA", None))
         self.menu_about.setTitle(QCoreApplication.translate("MainWindow", u"Sobre", None))
-        self.menu_kiln.setTitle(QCoreApplication.translate("MainWindow", u"Estufas", None))
         self.menu_config.setTitle(QCoreApplication.translate("MainWindow", u"Configura\u00e7\u00f5es", None))
         self.menu_db.setTitle(QCoreApplication.translate("MainWindow", u"Banco de dados", None))
     # retranslateUi

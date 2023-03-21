@@ -39,10 +39,13 @@ class DatabaseConnection:
     def check_location(self, path):
         if not path:
             self._connection_state = DatabaseState.NO_DATABASE
-        elif not os.path.exists(path):
+            return False
+
+        if not os.path.exists(path):
             self._connection_state = DatabaseState.DATABASE_NOT_FOUND
-        else:
-            return True
+            return False
+
+        return True
 
     # Tenta se conectar ao banco de dados
     def connect(self):
@@ -61,6 +64,7 @@ class DatabaseConnection:
             self._connection_state = DatabaseState.CONNECTED
 
         self.create_tables()
+        self.create_temp_table()
 
     # Desconecta conecão caso esteja conectada
     def disconnect(self):
@@ -73,21 +77,121 @@ class DatabaseConnection:
 
         query.exec(
             """
-            CREATE TABLE IF NOT EXISTS suppliers (
-                id INTEGER PRIMARY KEY AUTOINCREMENT UNIQUE NOT NULL,
-                supplier TEXT NOT NULL
+            CREATE TABLE IF NOT EXISTS cliente (
+                cliente_id INTEGER PRIMARY KEY AUTOINCREMENT,
+                nome TEXT
             )
             """
         )
 
         query.exec(
             """
-            CREATE TABLE IF NOT EXISTS history (
-                id INTEGER PRIMARY KEY AUTOINCREMENT UNIQUE NOT NULL,
-                nfe INTEGER NOT NULL,
-                date TEXT NOT NULL,
-                supplier TEXT NOT NULL,
-                value REAL NOT NULL
+            CREATE TABLE IF NOT EXISTS estufa (
+                estufa_id INTEGER PRIMARY KEY AUTOINCREMENT,
+                nome TEXT
+            )
+            """
+        )
+
+        query.exec(
+            """
+            CREATE TABLE IF NOT EXISTS ciclo (
+                ciclo INTEGER PRIMARY KEY,
+                estufa TEXT,
+                finalidade TEXT,
+                entrada TEXT,
+                saida TEXT
+            )
+            """
+        )
+
+        query.exec(
+            """
+            CREATE TABLE IF NOT EXISTS nfe_info (
+                nfe INTEGER PRIMARY KEY,
+                data TEXT,
+                cliente TEXT,
+                volume REAL,
+                fardos INTEGER,
+                ciclo_pezinho INTEGER,
+                
+                FOREIGN KEY (ciclo_pezinho)
+                    REFERENCES ciclo (ciclo)
+                        ON DELETE CASCADE
+                        ON UPDATE CASCADE
+            )
+            """
+        )
+
+        query.exec(
+            """
+            CREATE TABLE IF NOT EXISTS bitola (
+                bitola_id INTEGER PRIMARY KEY AUTOINCREMENT,
+                ciclo INTEGER,
+                bitola TEXT,
+                fardos INTEGER,
+                volume_tratado REAL,
+                
+                FOREIGN KEY (ciclo)
+                    REFERENCES ciclo (ciclo)
+                        ON DELETE CASCADE
+                        ON UPDATE CASCADE
+            )
+            """
+        )
+
+        query.exec(
+            """
+            CREATE TABLE IF NOT EXISTS nfe (
+                bitola_id INTEGER,
+                nfe INTEGER,
+                volume REAL,
+                retrabalho TEXT,
+                
+                FOREIGN KEY (bitola_id)
+                    REFERENCES bitola (bitola_id)
+                        ON DELETE CASCADE
+                        ON UPDATE CASCADE,
+                
+                FOREIGN KEY (nfe)
+                    REFERENCES nfe_info (nfe)
+                        ON DELETE CASCADE
+                        ON UPDATE CASCADE
+            )
+            """
+        )
+
+        query.exec(
+            """
+            CREATE TABLE IF NOT EXISTS pezinho (
+                bitola_id INTEGER,
+                nfe INTEGER,
+                volume REAL,
+                
+                FOREIGN KEY (bitola_id)
+                    REFERENCES bitola (bitola_id)
+                        ON DELETE CASCADE
+                        ON UPDATE CASCADE,
+                        
+                FOREIGN KEY (nfe)
+                    REFERENCES nfe_info (nfe)
+                        ON DELETE CASCADE
+                        ON UPDATE CASCADE
+            )
+            """
+        )
+
+        query.exec(
+            """
+            CREATE TABLE IF NOT EXISTS residuo (
+                bitola_id INTEGER,
+                data TEXT,
+                volume REAL,
+                
+                FOREIGN KEY (bitola_id)
+                    REFERENCES bitola (bitola_id)
+                        ON DELETE CASCADE
+                        ON UPDATE CASCADE
             )
             """
         )
@@ -110,27 +214,19 @@ class DatabaseConnection:
             raise QueryError(f'Failed execution on query expression: {query.lastQuery()}')
 
     # Lê registros em uma tabela e retorna o objeto com os resultados
-    def read(self, table: str, fields: list[str], where: dict | None = None):
+    def read(self, table: str, fields: list[str], clause: str = '', values: list = None, distinct=False):
         query = QSqlQuery(self._connection)
-
-        if not where:
-            where = {
-                "clause": '',
-                "values": []
-            }
-
-        clause: str = where['clause']
-        values: list = where['values']
 
         query.prepare(
             f"""
-            SELECT {', '.join(fields)} FROM {table}
+            SELECT {'DISTINCT' if distinct else ''} {', '.join(fields)} FROM {table}
             {clause}
             """
         )
 
-        for value in values:
-            query.addBindValue(value)
+        if values:
+            for value in values:
+                query.addBindValue(value)
 
         if not query.exec():
             raise QueryError(f'Failed execution on query expression: {query.lastQuery()}')
@@ -138,14 +234,14 @@ class DatabaseConnection:
         return query
 
     # Atualiza registros em uma tabela
-    def update(self, table: str, fields: dict, id_record: int):
+    def update(self, table: str, fields: dict, clause: str):
         query = QSqlQuery(self._connection)
 
         query.prepare(
             f"""
             UPDATE {table} 
             SET {', '.join([field + '=?' for field in fields.keys()])}
-            WHERE id LIKE {id_record}
+            {clause}
             """
         )
 
@@ -171,3 +267,66 @@ class DatabaseConnection:
 
         if not query.exec():
             raise QueryError(f'Failed execution on query expression: {query.lastQuery()}')
+
+    def is_unique(self, table: str, field: str, key: str):
+        query = QSqlQuery(self._connection)
+
+        query.prepare(
+            f"""
+            SELECT COUNT(*) FROM {table}
+            WHERE {field} LIKE ?
+            """
+        )
+
+        query.addBindValue(key)
+
+        if not query.exec():
+            raise QueryError(f'Failed execution on query expression: {query.lastQuery()}')
+
+        query.first()
+
+        return not bool(query.value(0))
+
+    def create_temp_table(self):
+        query = QSqlQuery(self._connection)
+
+        query.exec('DROP VIEW IF EXISTS resumo')
+
+        query.exec('''
+        CREATE TEMP VIEW resumo
+        AS 
+        SELECT
+            bitola.bitola_id,
+            bitola.volume_tratado,
+            IIF(
+                ciclo.finalidade = 'KD', COALESCE(SUM(nfe.volume), 0), 
+                COALESCE(SUM(pezinho.volume), 0)
+            ) AS volume_vendido,
+            COALESCE(residuo.volume, 0) AS residuo
+  
+        FROM ciclo
+            LEFT JOIN bitola ON ciclo.ciclo = bitola.ciclo
+            LEFT JOIN pezinho ON bitola.bitola_id = pezinho.bitola_id
+            LEFT JOIN nfe ON bitola.bitola_id = nfe.bitola_id
+            LEFT JOIN residuo ON bitola.bitola_id = residuo.bitola_id
+      
+        GROUP BY bitola.bitola_id
+        ''')
+
+        query.exec('DROP TABLE IF EXISTS estoque')
+
+        query.exec('''
+        CREATE TEMP TABLE estoque AS 
+        SELECT 
+            bitola.bitola_id, 
+            bitola.ciclo, 
+            bitola.bitola, 
+            bitola.fardos,
+            ROUND(resumo.volume_tratado, 3) AS volume_tratado,
+            ROUND(resumo.volume_vendido, 3) AS volume_vendido,
+            ROUND(resumo.residuo, 3) AS residuo,
+            ROUND(resumo.volume_tratado - resumo.volume_vendido - resumo.residuo, 3) AS estoque
+            
+        FROM bitola
+            LEFT JOIN resumo ON bitola.bitola_id = resumo.bitola_id;
+        ''')

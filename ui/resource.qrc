@@ -1,9 +1,12 @@
 <RCC>
   <qresource prefix="icons">
+    <file>assets/customer-32.png</file>
+    <file>assets/stove-32.png</file>
     <file>assets/add-32.png</file>
     <file>assets/back-32.png</file>
     <file>assets/backup-32.png</file>
     <file>assets/calendar-32.png</file>
+    <file>assets/stock-48.png</file>
     <file>assets/config-32.png</file>
     <file>assets/db.png</file>
     <file>assets/db-config-32.png</file>

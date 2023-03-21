@@ -1,0 +1,7 @@
+{
+    "database": "C:\\Users\\Kamua\\OneDrive\\Programa\u00e7\u00e3o\\Python\\Projetos\\Controle de Estoque\\database\\db.sqlite",
+    "backup": {
+        "frequency": "weekly",
+        "max_backups": 3
+    }
+}

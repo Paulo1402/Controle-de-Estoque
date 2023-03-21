@@ -2,7 +2,10 @@ import os
 
 uis = [
     'MainWindow',
-    'CalendarDialog'
+    'CalendarDialog',
+    'GenericDialog',
+    'ConfigurationDialog',
+    'ImportBackupDialog'
 ]
 
 for ui in uis:

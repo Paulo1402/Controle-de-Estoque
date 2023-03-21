@@ -14,7 +14,7 @@ def parse_date(date: str, input_format: str, output_format: str = '%Y-%m-%d', on
     try:
         parsed_date = datetime.strptime(date, input_format)
         parsed_date = parsed_date.strftime(output_format)
-    except ValueError:
+    except (ValueError, TypeError):
         if on_fail == DateMinMax.MIN:
             parsed_date = datetime.min.strftime(output_format)
         elif on_fail == DateMinMax.MAX:
@@ -36,16 +36,19 @@ def parse_month(month: int, year: int):
 
 
 # Formata float para string formatada
-def from_float_to_currency(value: float | int):
-    value = f'R$ {value:_.2f}'
-    value = value.replace('.', ',').replace('_', '.')
+def from_float_to_volume(value: float | int, symbol: bool = True):
+    value = f'{value:_.3f}'
+    value = value.replace('.', ',').replace('_', '.').replace('-', '')
+
+    if symbol:
+        value += ' M³'
 
     return value
 
 
 # Formata de string formatada para float
-def from_currency_to_float(value: str):
-    value = value.replace('R$', '').replace('.', '').replace(',', '.')
+def from_volume_to_float(value: str):
+    value = value.replace('.', '').replace(',', '.')
     value = float(value) if value != '' else 0
 
     return value
