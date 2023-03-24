@@ -11,7 +11,6 @@ class ConfigurationDialog(QDialog, Ui_Dialog):
     def __init__(self, parent, database: DatabaseConnection):
         super().__init__(parent)
         self.setupUi(self)
-        print(self.size())
         # self.setFixedSize(600, 270)
 
         self.database = database

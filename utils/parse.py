@@ -1,4 +1,3 @@
-import calendar
 from datetime import datetime
 from enum import Enum
 
@@ -25,14 +24,11 @@ def parse_date(date: str, input_format: str, output_format: str = '%Y-%m-%d', on
     return parsed_date
 
 
-# Retorna primeiro e último dia do mês formatados de acordo com ano e mês de referência
-def parse_month(month: int, year: int):
-    first_day = f'{year}-{month:02d}-01'
-    last_day = calendar.monthrange(year, month)[1]
+# Retorna dia atual
+def get_today():
+    today = datetime.today().date()
 
-    last_day = f'{year}-{month:02d}-{last_day}'
-
-    return first_day, last_day
+    return today.strftime('%Y-%m-%d')
 
 
 # Formata float para string formatada

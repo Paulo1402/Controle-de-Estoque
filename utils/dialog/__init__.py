@@ -8,5 +8,5 @@ __all__ = [
     'CalendarDialog',
     'ImportBackupDialog',
     'ConfigurationDialog',
-    'GenericDialog'
+    'GenericDialog',
 ]

@@ -287,13 +287,32 @@ class DatabaseConnection:
 
         return not bool(query.value(0))
 
+    def get_stock(self, bitola_id: int):
+        query = QSqlQuery(self._connection)
+
+        query.prepare(
+            f"""
+            SELECT estoque FROM estoque
+            WHERE bitola_id = ?
+            """
+        )
+
+        query.addBindValue(bitola_id)
+
+        if not query.exec():
+            raise QueryError(f'Failed execution on query expression: {query.lastQuery()}')
+
+        query.first()
+
+        return query.value(0)
+
     def create_temp_table(self):
         query = QSqlQuery(self._connection)
 
         query.exec('DROP VIEW IF EXISTS resumo')
 
         query.exec('''
-        CREATE TEMP VIEW resumo
+        CREATE VIEW resumo
         AS 
         SELECT
             bitola.bitola_id,
@@ -316,7 +335,7 @@ class DatabaseConnection:
         query.exec('DROP TABLE IF EXISTS estoque')
 
         query.exec('''
-        CREATE TEMP TABLE estoque AS 
+        CREATE TABLE estoque AS 
         SELECT 
             bitola.bitola_id, 
             bitola.ciclo, 

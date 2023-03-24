@@ -31,7 +31,7 @@ class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         if not MainWindow.objectName():
             MainWindow.setObjectName(u"MainWindow")
-        MainWindow.resize(1006, 559)
+        MainWindow.resize(1006, 575)
         MainWindow.setStyleSheet(u" QGroupBox {\n"
 "            border: none;\n"
 " }")
@@ -72,6 +72,47 @@ class Ui_MainWindow(object):
 "}")
         self.gridLayout = QGridLayout(self.centralwidget)
         self.gridLayout.setObjectName(u"gridLayout")
+        self.horizontalLayout_2 = QHBoxLayout()
+        self.horizontalLayout_2.setObjectName(u"horizontalLayout_2")
+        self.horizontalSpacer_4 = QSpacerItem(40, 20, QSizePolicy.Expanding, QSizePolicy.Minimum)
+
+        self.horizontalLayout_2.addItem(self.horizontalSpacer_4)
+
+        self.label_6 = QLabel(self.centralwidget)
+        self.label_6.setObjectName(u"label_6")
+        font1 = QFont()
+        font1.setFamilies([u"Trebuchet MS"])
+        font1.setPointSize(22)
+        font1.setBold(False)
+        self.label_6.setFont(font1)
+        self.label_6.setAlignment(Qt.AlignCenter)
+
+        self.horizontalLayout_2.addWidget(self.label_6)
+
+        self.label_7 = QLabel(self.centralwidget)
+        self.label_7.setObjectName(u"label_7")
+        sizePolicy = QSizePolicy(QSizePolicy.Preferred, QSizePolicy.Preferred)
+        sizePolicy.setHorizontalStretch(0)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(self.label_7.sizePolicy().hasHeightForWidth())
+        self.label_7.setSizePolicy(sizePolicy)
+        self.label_7.setFont(font1)
+        self.label_7.setPixmap(QPixmap(u":/icons/assets/tree-32.png"))
+        self.label_7.setAlignment(Qt.AlignCenter)
+
+        self.horizontalLayout_2.addWidget(self.label_7)
+
+        self.horizontalSpacer_5 = QSpacerItem(40, 20, QSizePolicy.Expanding, QSizePolicy.Minimum)
+
+        self.horizontalLayout_2.addItem(self.horizontalSpacer_5)
+
+
+        self.gridLayout.addLayout(self.horizontalLayout_2, 2, 0, 1, 2)
+
+        self.verticalSpacer = QSpacerItem(20, 40, QSizePolicy.Minimum, QSizePolicy.Expanding)
+
+        self.gridLayout.addItem(self.verticalSpacer, 6, 0, 1, 1)
+
         self.mp_main = QStackedWidget(self.centralwidget)
         self.mp_main.setObjectName(u"mp_main")
         self.mp_main.setFrameShape(QFrame.Box)
@@ -113,11 +154,11 @@ class Ui_MainWindow(object):
 
         self.cb_kiln_cycle = QComboBox(self.frame)
         self.cb_kiln_cycle.setObjectName(u"cb_kiln_cycle")
-        sizePolicy = QSizePolicy(QSizePolicy.Minimum, QSizePolicy.Fixed)
-        sizePolicy.setHorizontalStretch(0)
-        sizePolicy.setVerticalStretch(0)
-        sizePolicy.setHeightForWidth(self.cb_kiln_cycle.sizePolicy().hasHeightForWidth())
-        self.cb_kiln_cycle.setSizePolicy(sizePolicy)
+        sizePolicy1 = QSizePolicy(QSizePolicy.Minimum, QSizePolicy.Fixed)
+        sizePolicy1.setHorizontalStretch(0)
+        sizePolicy1.setVerticalStretch(0)
+        sizePolicy1.setHeightForWidth(self.cb_kiln_cycle.sizePolicy().hasHeightForWidth())
+        self.cb_kiln_cycle.setSizePolicy(sizePolicy1)
         self.cb_kiln_cycle.setMinimumSize(QSize(90, 0))
 
         self.horizontalLayout_3.addWidget(self.cb_kiln_cycle)
@@ -229,11 +270,11 @@ class Ui_MainWindow(object):
         self.gridLayout_12.setContentsMargins(-1, -1, 0, 0)
         self.label_59 = QLabel(self.frame_13)
         self.label_59.setObjectName(u"label_59")
-        sizePolicy1 = QSizePolicy(QSizePolicy.Fixed, QSizePolicy.Preferred)
-        sizePolicy1.setHorizontalStretch(0)
-        sizePolicy1.setVerticalStretch(0)
-        sizePolicy1.setHeightForWidth(self.label_59.sizePolicy().hasHeightForWidth())
-        self.label_59.setSizePolicy(sizePolicy1)
+        sizePolicy2 = QSizePolicy(QSizePolicy.Fixed, QSizePolicy.Preferred)
+        sizePolicy2.setHorizontalStretch(0)
+        sizePolicy2.setVerticalStretch(0)
+        sizePolicy2.setHeightForWidth(self.label_59.sizePolicy().hasHeightForWidth())
+        self.label_59.setSizePolicy(sizePolicy2)
 
         self.gridLayout_12.addWidget(self.label_59, 0, 0, 1, 1)
 
@@ -248,17 +289,17 @@ class Ui_MainWindow(object):
 
         self.txt_volume_cycle = QLineEdit(self.frame_13)
         self.txt_volume_cycle.setObjectName(u"txt_volume_cycle")
-        sizePolicy2 = QSizePolicy(QSizePolicy.Preferred, QSizePolicy.Fixed)
-        sizePolicy2.setHorizontalStretch(0)
-        sizePolicy2.setVerticalStretch(0)
-        sizePolicy2.setHeightForWidth(self.txt_volume_cycle.sizePolicy().hasHeightForWidth())
-        self.txt_volume_cycle.setSizePolicy(sizePolicy2)
+        sizePolicy3 = QSizePolicy(QSizePolicy.Preferred, QSizePolicy.Fixed)
+        sizePolicy3.setHorizontalStretch(0)
+        sizePolicy3.setVerticalStretch(0)
+        sizePolicy3.setHeightForWidth(self.txt_volume_cycle.sizePolicy().hasHeightForWidth())
+        self.txt_volume_cycle.setSizePolicy(sizePolicy3)
         self.txt_volume_cycle.setMinimumSize(QSize(0, 0))
         self.txt_volume_cycle.setMaximumSize(QSize(16777215, 16777215))
-        font1 = QFont()
-        font1.setFamilies([u"Segoe UI"])
-        font1.setPointSize(9)
-        self.txt_volume_cycle.setFont(font1)
+        font2 = QFont()
+        font2.setFamilies([u"Segoe UI"])
+        font2.setPointSize(9)
+        self.txt_volume_cycle.setFont(font2)
         self.txt_volume_cycle.setFrame(True)
         self.txt_volume_cycle.setEchoMode(QLineEdit.Normal)
         self.txt_volume_cycle.setAlignment(Qt.AlignLeading|Qt.AlignLeft|Qt.AlignVCenter)
@@ -274,16 +315,16 @@ class Ui_MainWindow(object):
 
         self.txt_packs_cycle = QLineEdit(self.frame_13)
         self.txt_packs_cycle.setObjectName(u"txt_packs_cycle")
-        sizePolicy2.setHeightForWidth(self.txt_packs_cycle.sizePolicy().hasHeightForWidth())
-        self.txt_packs_cycle.setSizePolicy(sizePolicy2)
+        sizePolicy3.setHeightForWidth(self.txt_packs_cycle.sizePolicy().hasHeightForWidth())
+        self.txt_packs_cycle.setSizePolicy(sizePolicy3)
         self.txt_packs_cycle.setMaximumSize(QSize(16777215, 16777215))
 
         self.gridLayout_12.addWidget(self.txt_packs_cycle, 1, 1, 1, 1)
 
         self.txt_bitola_cycle = QLineEdit(self.frame_13)
         self.txt_bitola_cycle.setObjectName(u"txt_bitola_cycle")
-        sizePolicy2.setHeightForWidth(self.txt_bitola_cycle.sizePolicy().hasHeightForWidth())
-        self.txt_bitola_cycle.setSizePolicy(sizePolicy2)
+        sizePolicy3.setHeightForWidth(self.txt_bitola_cycle.sizePolicy().hasHeightForWidth())
+        self.txt_bitola_cycle.setSizePolicy(sizePolicy3)
         self.txt_bitola_cycle.setMaximumSize(QSize(16777215, 16777215))
 
         self.gridLayout_12.addWidget(self.txt_bitola_cycle, 0, 1, 1, 1)
@@ -303,11 +344,11 @@ class Ui_MainWindow(object):
         self.verticalLayout_6.setContentsMargins(-1, -1, 0, -1)
         self.bt_add_bitola_cycle = QPushButton(self.frame_13)
         self.bt_add_bitola_cycle.setObjectName(u"bt_add_bitola_cycle")
-        sizePolicy3 = QSizePolicy(QSizePolicy.Fixed, QSizePolicy.Fixed)
-        sizePolicy3.setHorizontalStretch(0)
-        sizePolicy3.setVerticalStretch(0)
-        sizePolicy3.setHeightForWidth(self.bt_add_bitola_cycle.sizePolicy().hasHeightForWidth())
-        self.bt_add_bitola_cycle.setSizePolicy(sizePolicy3)
+        sizePolicy4 = QSizePolicy(QSizePolicy.Fixed, QSizePolicy.Fixed)
+        sizePolicy4.setHorizontalStretch(0)
+        sizePolicy4.setVerticalStretch(0)
+        sizePolicy4.setHeightForWidth(self.bt_add_bitola_cycle.sizePolicy().hasHeightForWidth())
+        self.bt_add_bitola_cycle.setSizePolicy(sizePolicy4)
         self.bt_add_bitola_cycle.setMinimumSize(QSize(0, 0))
         self.bt_add_bitola_cycle.setCursor(QCursor(Qt.PointingHandCursor))
         icon4 = QIcon()
@@ -319,8 +360,8 @@ class Ui_MainWindow(object):
 
         self.bt_remove_bitola_cycle = QPushButton(self.frame_13)
         self.bt_remove_bitola_cycle.setObjectName(u"bt_remove_bitola_cycle")
-        sizePolicy3.setHeightForWidth(self.bt_remove_bitola_cycle.sizePolicy().hasHeightForWidth())
-        self.bt_remove_bitola_cycle.setSizePolicy(sizePolicy3)
+        sizePolicy4.setHeightForWidth(self.bt_remove_bitola_cycle.sizePolicy().hasHeightForWidth())
+        self.bt_remove_bitola_cycle.setSizePolicy(sizePolicy4)
         self.bt_remove_bitola_cycle.setMinimumSize(QSize(0, 0))
         self.bt_remove_bitola_cycle.setCursor(QCursor(Qt.PointingHandCursor))
         icon5 = QIcon()
@@ -345,11 +386,11 @@ class Ui_MainWindow(object):
         __qtablewidgetitem3 = QTableWidgetItem()
         self.tw_cycle.setHorizontalHeaderItem(3, __qtablewidgetitem3)
         self.tw_cycle.setObjectName(u"tw_cycle")
-        sizePolicy4 = QSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
-        sizePolicy4.setHorizontalStretch(1)
-        sizePolicy4.setVerticalStretch(0)
-        sizePolicy4.setHeightForWidth(self.tw_cycle.sizePolicy().hasHeightForWidth())
-        self.tw_cycle.setSizePolicy(sizePolicy4)
+        sizePolicy5 = QSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
+        sizePolicy5.setHorizontalStretch(1)
+        sizePolicy5.setVerticalStretch(0)
+        sizePolicy5.setHeightForWidth(self.tw_cycle.sizePolicy().hasHeightForWidth())
+        self.tw_cycle.setSizePolicy(sizePolicy5)
         self.tw_cycle.setMinimumSize(QSize(400, 0))
         self.tw_cycle.setEditTriggers(QAbstractItemView.NoEditTriggers)
         self.tw_cycle.setSelectionMode(QAbstractItemView.SingleSelection)
@@ -371,11 +412,11 @@ class Ui_MainWindow(object):
         self.horizontalLayout_7.setObjectName(u"horizontalLayout_7")
         self.bt_new_cycle = QPushButton(self.tab_cycle)
         self.bt_new_cycle.setObjectName(u"bt_new_cycle")
-        sizePolicy5 = QSizePolicy(QSizePolicy.Expanding, QSizePolicy.Fixed)
-        sizePolicy5.setHorizontalStretch(0)
-        sizePolicy5.setVerticalStretch(0)
-        sizePolicy5.setHeightForWidth(self.bt_new_cycle.sizePolicy().hasHeightForWidth())
-        self.bt_new_cycle.setSizePolicy(sizePolicy5)
+        sizePolicy6 = QSizePolicy(QSizePolicy.Expanding, QSizePolicy.Fixed)
+        sizePolicy6.setHorizontalStretch(0)
+        sizePolicy6.setVerticalStretch(0)
+        sizePolicy6.setHeightForWidth(self.bt_new_cycle.sizePolicy().hasHeightForWidth())
+        self.bt_new_cycle.setSizePolicy(sizePolicy6)
         self.bt_new_cycle.setMinimumSize(QSize(0, 50))
         self.bt_new_cycle.setCursor(QCursor(Qt.PointingHandCursor))
         icon6 = QIcon()
@@ -387,8 +428,8 @@ class Ui_MainWindow(object):
 
         self.bt_save_cycle = QPushButton(self.tab_cycle)
         self.bt_save_cycle.setObjectName(u"bt_save_cycle")
-        sizePolicy5.setHeightForWidth(self.bt_save_cycle.sizePolicy().hasHeightForWidth())
-        self.bt_save_cycle.setSizePolicy(sizePolicy5)
+        sizePolicy6.setHeightForWidth(self.bt_save_cycle.sizePolicy().hasHeightForWidth())
+        self.bt_save_cycle.setSizePolicy(sizePolicy6)
         self.bt_save_cycle.setMinimumSize(QSize(0, 50))
         self.bt_save_cycle.setCursor(QCursor(Qt.PointingHandCursor))
         icon7 = QIcon()
@@ -400,8 +441,8 @@ class Ui_MainWindow(object):
 
         self.bt_delete_cycle = QPushButton(self.tab_cycle)
         self.bt_delete_cycle.setObjectName(u"bt_delete_cycle")
-        sizePolicy5.setHeightForWidth(self.bt_delete_cycle.sizePolicy().hasHeightForWidth())
-        self.bt_delete_cycle.setSizePolicy(sizePolicy5)
+        sizePolicy6.setHeightForWidth(self.bt_delete_cycle.sizePolicy().hasHeightForWidth())
+        self.bt_delete_cycle.setSizePolicy(sizePolicy6)
         self.bt_delete_cycle.setMinimumSize(QSize(0, 50))
         self.bt_delete_cycle.setCursor(QCursor(Qt.PointingHandCursor))
         icon8 = QIcon()
@@ -431,8 +472,8 @@ class Ui_MainWindow(object):
         self.verticalLayout_12.setContentsMargins(0, 0, 0, 0)
         self.frame_14 = QFrame(self.page_cycle_historic)
         self.frame_14.setObjectName(u"frame_14")
-        sizePolicy2.setHeightForWidth(self.frame_14.sizePolicy().hasHeightForWidth())
-        self.frame_14.setSizePolicy(sizePolicy2)
+        sizePolicy3.setHeightForWidth(self.frame_14.sizePolicy().hasHeightForWidth())
+        self.frame_14.setSizePolicy(sizePolicy3)
         self.frame_14.setMinimumSize(QSize(0, 0))
         self.frame_14.setMaximumSize(QSize(16777215, 16777215))
         self.frame_14.setFrameShape(QFrame.Box)
@@ -445,18 +486,15 @@ class Ui_MainWindow(object):
         self.formLayout.setContentsMargins(-1, 0, 0, -1)
         self.label_47 = QLabel(self.frame_14)
         self.label_47.setObjectName(u"label_47")
-        sizePolicy6 = QSizePolicy(QSizePolicy.Preferred, QSizePolicy.Preferred)
-        sizePolicy6.setHorizontalStretch(0)
-        sizePolicy6.setVerticalStretch(0)
-        sizePolicy6.setHeightForWidth(self.label_47.sizePolicy().hasHeightForWidth())
-        self.label_47.setSizePolicy(sizePolicy6)
+        sizePolicy.setHeightForWidth(self.label_47.sizePolicy().hasHeightForWidth())
+        self.label_47.setSizePolicy(sizePolicy)
 
         self.formLayout.setWidget(0, QFormLayout.LabelRole, self.label_47)
 
         self.cb_kiln_cycle_history = QComboBox(self.frame_14)
         self.cb_kiln_cycle_history.setObjectName(u"cb_kiln_cycle_history")
-        sizePolicy5.setHeightForWidth(self.cb_kiln_cycle_history.sizePolicy().hasHeightForWidth())
-        self.cb_kiln_cycle_history.setSizePolicy(sizePolicy5)
+        sizePolicy6.setHeightForWidth(self.cb_kiln_cycle_history.sizePolicy().hasHeightForWidth())
+        self.cb_kiln_cycle_history.setSizePolicy(sizePolicy6)
         self.cb_kiln_cycle_history.setMinimumSize(QSize(90, 0))
         self.cb_kiln_cycle_history.setMaxVisibleItems(10)
 
@@ -464,16 +502,16 @@ class Ui_MainWindow(object):
 
         self.label_56 = QLabel(self.frame_14)
         self.label_56.setObjectName(u"label_56")
-        sizePolicy6.setHeightForWidth(self.label_56.sizePolicy().hasHeightForWidth())
-        self.label_56.setSizePolicy(sizePolicy6)
+        sizePolicy.setHeightForWidth(self.label_56.sizePolicy().hasHeightForWidth())
+        self.label_56.setSizePolicy(sizePolicy)
         self.label_56.setMaximumSize(QSize(16777215, 16777215))
 
         self.formLayout.setWidget(1, QFormLayout.LabelRole, self.label_56)
 
         self.cb_cycle_cycle_history = QComboBox(self.frame_14)
         self.cb_cycle_cycle_history.setObjectName(u"cb_cycle_cycle_history")
-        sizePolicy5.setHeightForWidth(self.cb_cycle_cycle_history.sizePolicy().hasHeightForWidth())
-        self.cb_cycle_cycle_history.setSizePolicy(sizePolicy5)
+        sizePolicy6.setHeightForWidth(self.cb_cycle_cycle_history.sizePolicy().hasHeightForWidth())
+        self.cb_cycle_cycle_history.setSizePolicy(sizePolicy6)
         self.cb_cycle_cycle_history.setMaxVisibleItems(10)
         self.cb_cycle_cycle_history.setFrame(True)
 
@@ -492,8 +530,8 @@ class Ui_MainWindow(object):
 
         self.label_61 = QLabel(self.frame_14)
         self.label_61.setObjectName(u"label_61")
-        sizePolicy6.setHeightForWidth(self.label_61.sizePolicy().hasHeightForWidth())
-        self.label_61.setSizePolicy(sizePolicy6)
+        sizePolicy.setHeightForWidth(self.label_61.sizePolicy().hasHeightForWidth())
+        self.label_61.setSizePolicy(sizePolicy)
 
         self.formLayout_6.setWidget(1, QFormLayout.LabelRole, self.label_61)
 
@@ -528,8 +566,8 @@ class Ui_MainWindow(object):
 
         self.label_51 = QLabel(self.frame_14)
         self.label_51.setObjectName(u"label_51")
-        sizePolicy6.setHeightForWidth(self.label_51.sizePolicy().hasHeightForWidth())
-        self.label_51.setSizePolicy(sizePolicy6)
+        sizePolicy.setHeightForWidth(self.label_51.sizePolicy().hasHeightForWidth())
+        self.label_51.setSizePolicy(sizePolicy)
 
         self.formLayout_5.setWidget(1, QFormLayout.LabelRole, self.label_51)
 
@@ -540,16 +578,16 @@ class Ui_MainWindow(object):
 
         self.groupBox_5 = QGroupBox(self.frame_14)
         self.groupBox_5.setObjectName(u"groupBox_5")
-        sizePolicy2.setHeightForWidth(self.groupBox_5.sizePolicy().hasHeightForWidth())
-        self.groupBox_5.setSizePolicy(sizePolicy2)
+        sizePolicy3.setHeightForWidth(self.groupBox_5.sizePolicy().hasHeightForWidth())
+        self.groupBox_5.setSizePolicy(sizePolicy3)
         self.groupBox_5.setMinimumSize(QSize(0, 0))
         self.groupBox_5.setMaximumSize(QSize(16777215, 33))
         self.horizontalLayout_19 = QHBoxLayout(self.groupBox_5)
         self.horizontalLayout_19.setObjectName(u"horizontalLayout_19")
         self.rb_kd_cycle_history = QRadioButton(self.groupBox_5)
         self.rb_kd_cycle_history.setObjectName(u"rb_kd_cycle_history")
-        sizePolicy.setHeightForWidth(self.rb_kd_cycle_history.sizePolicy().hasHeightForWidth())
-        self.rb_kd_cycle_history.setSizePolicy(sizePolicy)
+        sizePolicy1.setHeightForWidth(self.rb_kd_cycle_history.sizePolicy().hasHeightForWidth())
+        self.rb_kd_cycle_history.setSizePolicy(sizePolicy1)
         self.rb_kd_cycle_history.setChecked(True)
 
         self.horizontalLayout_19.addWidget(self.rb_kd_cycle_history)
@@ -623,8 +661,8 @@ class Ui_MainWindow(object):
         self.verticalLayout_13.setContentsMargins(0, 0, 0, 0)
         self.frame_15 = QFrame(self.page_cycle_track_historic)
         self.frame_15.setObjectName(u"frame_15")
-        sizePolicy2.setHeightForWidth(self.frame_15.sizePolicy().hasHeightForWidth())
-        self.frame_15.setSizePolicy(sizePolicy2)
+        sizePolicy3.setHeightForWidth(self.frame_15.sizePolicy().hasHeightForWidth())
+        self.frame_15.setSizePolicy(sizePolicy3)
         self.frame_15.setMinimumSize(QSize(0, 0))
         self.frame_15.setMaximumSize(QSize(16777215, 16777215))
         self.frame_15.setFrameShape(QFrame.Box)
@@ -676,16 +714,16 @@ class Ui_MainWindow(object):
 
         self.txt_exit_date_track_history = QLineEdit(self.frame_15)
         self.txt_exit_date_track_history.setObjectName(u"txt_exit_date_track_history")
-        sizePolicy2.setHeightForWidth(self.txt_exit_date_track_history.sizePolicy().hasHeightForWidth())
-        self.txt_exit_date_track_history.setSizePolicy(sizePolicy2)
+        sizePolicy3.setHeightForWidth(self.txt_exit_date_track_history.sizePolicy().hasHeightForWidth())
+        self.txt_exit_date_track_history.setSizePolicy(sizePolicy3)
         self.txt_exit_date_track_history.setReadOnly(True)
 
         self.formLayout_8.setWidget(1, QFormLayout.FieldRole, self.txt_exit_date_track_history)
 
         self.txt_entry_date_track_history = QLineEdit(self.frame_15)
         self.txt_entry_date_track_history.setObjectName(u"txt_entry_date_track_history")
-        sizePolicy2.setHeightForWidth(self.txt_entry_date_track_history.sizePolicy().hasHeightForWidth())
-        self.txt_entry_date_track_history.setSizePolicy(sizePolicy2)
+        sizePolicy3.setHeightForWidth(self.txt_entry_date_track_history.sizePolicy().hasHeightForWidth())
+        self.txt_entry_date_track_history.setSizePolicy(sizePolicy3)
         self.txt_entry_date_track_history.setReadOnly(True)
 
         self.formLayout_8.setWidget(0, QFormLayout.FieldRole, self.txt_entry_date_track_history)
@@ -776,8 +814,8 @@ class Ui_MainWindow(object):
 
         self.frame_16 = QFrame(self.page_cycle_track_historic)
         self.frame_16.setObjectName(u"frame_16")
-        sizePolicy2.setHeightForWidth(self.frame_16.sizePolicy().hasHeightForWidth())
-        self.frame_16.setSizePolicy(sizePolicy2)
+        sizePolicy3.setHeightForWidth(self.frame_16.sizePolicy().hasHeightForWidth())
+        self.frame_16.setSizePolicy(sizePolicy3)
         self.frame_16.setMinimumSize(QSize(0, 0))
         self.frame_16.setFrameShape(QFrame.Box)
         self.frame_16.setFrameShadow(QFrame.Raised)
@@ -795,24 +833,24 @@ class Ui_MainWindow(object):
 
         self.label_70 = QLabel(self.frame_16)
         self.label_70.setObjectName(u"label_70")
-        sizePolicy6.setHeightForWidth(self.label_70.sizePolicy().hasHeightForWidth())
-        self.label_70.setSizePolicy(sizePolicy6)
+        sizePolicy.setHeightForWidth(self.label_70.sizePolicy().hasHeightForWidth())
+        self.label_70.setSizePolicy(sizePolicy)
         self.label_70.setAlignment(Qt.AlignCenter)
 
         self.gridLayout_22.addWidget(self.label_70, 0, 0, 1, 2)
 
         self.txt_leaving_date_track_history = QLineEdit(self.frame_16)
         self.txt_leaving_date_track_history.setObjectName(u"txt_leaving_date_track_history")
-        sizePolicy3.setHeightForWidth(self.txt_leaving_date_track_history.sizePolicy().hasHeightForWidth())
-        self.txt_leaving_date_track_history.setSizePolicy(sizePolicy3)
+        sizePolicy4.setHeightForWidth(self.txt_leaving_date_track_history.sizePolicy().hasHeightForWidth())
+        self.txt_leaving_date_track_history.setSizePolicy(sizePolicy4)
         self.txt_leaving_date_track_history.setMaximumSize(QSize(80, 16777215))
 
         self.gridLayout_22.addWidget(self.txt_leaving_date_track_history, 1, 1, 1, 1)
 
         self.txt_leaving_volume_track_history = QLineEdit(self.frame_16)
         self.txt_leaving_volume_track_history.setObjectName(u"txt_leaving_volume_track_history")
-        sizePolicy3.setHeightForWidth(self.txt_leaving_volume_track_history.sizePolicy().hasHeightForWidth())
-        self.txt_leaving_volume_track_history.setSizePolicy(sizePolicy3)
+        sizePolicy4.setHeightForWidth(self.txt_leaving_volume_track_history.sizePolicy().hasHeightForWidth())
+        self.txt_leaving_volume_track_history.setSizePolicy(sizePolicy4)
         self.txt_leaving_volume_track_history.setMaximumSize(QSize(80, 16777215))
 
         self.gridLayout_22.addWidget(self.txt_leaving_volume_track_history, 2, 1, 1, 1)
@@ -822,8 +860,8 @@ class Ui_MainWindow(object):
 
         self.frame_17 = QFrame(self.page_cycle_track_historic)
         self.frame_17.setObjectName(u"frame_17")
-        sizePolicy6.setHeightForWidth(self.frame_17.sizePolicy().hasHeightForWidth())
-        self.frame_17.setSizePolicy(sizePolicy6)
+        sizePolicy.setHeightForWidth(self.frame_17.sizePolicy().hasHeightForWidth())
+        self.frame_17.setSizePolicy(sizePolicy)
         self.frame_17.setMinimumSize(QSize(0, 40))
         self.frame_17.setFrameShape(QFrame.Box)
         self.frame_17.setFrameShadow(QFrame.Raised)
@@ -842,8 +880,8 @@ class Ui_MainWindow(object):
 
         self.txt_stock_volume_track_history = QLineEdit(self.frame_17)
         self.txt_stock_volume_track_history.setObjectName(u"txt_stock_volume_track_history")
-        sizePolicy3.setHeightForWidth(self.txt_stock_volume_track_history.sizePolicy().hasHeightForWidth())
-        self.txt_stock_volume_track_history.setSizePolicy(sizePolicy3)
+        sizePolicy4.setHeightForWidth(self.txt_stock_volume_track_history.sizePolicy().hasHeightForWidth())
+        self.txt_stock_volume_track_history.setSizePolicy(sizePolicy4)
         self.txt_stock_volume_track_history.setMaximumSize(QSize(80, 16777215))
 
         self.gridLayout_23.addWidget(self.txt_stock_volume_track_history, 2, 1, 1, 1)
@@ -906,8 +944,8 @@ class Ui_MainWindow(object):
 
         self.cb_client_nfe = QComboBox(self.frame_2)
         self.cb_client_nfe.setObjectName(u"cb_client_nfe")
-        sizePolicy5.setHeightForWidth(self.cb_client_nfe.sizePolicy().hasHeightForWidth())
-        self.cb_client_nfe.setSizePolicy(sizePolicy5)
+        sizePolicy6.setHeightForWidth(self.cb_client_nfe.sizePolicy().hasHeightForWidth())
+        self.cb_client_nfe.setSizePolicy(sizePolicy6)
 
         self.formLayout_7.setWidget(1, QFormLayout.FieldRole, self.cb_client_nfe)
 
@@ -983,11 +1021,11 @@ class Ui_MainWindow(object):
         self.gridLayout_7.setContentsMargins(-1, -1, 0, 0)
         self.txt_rework_nfe = QLineEdit(self.frame_12)
         self.txt_rework_nfe.setObjectName(u"txt_rework_nfe")
-        sizePolicy2.setHeightForWidth(self.txt_rework_nfe.sizePolicy().hasHeightForWidth())
-        self.txt_rework_nfe.setSizePolicy(sizePolicy2)
+        sizePolicy3.setHeightForWidth(self.txt_rework_nfe.sizePolicy().hasHeightForWidth())
+        self.txt_rework_nfe.setSizePolicy(sizePolicy3)
         self.txt_rework_nfe.setMinimumSize(QSize(0, 0))
         self.txt_rework_nfe.setMaximumSize(QSize(16777215, 16777215))
-        self.txt_rework_nfe.setFont(font1)
+        self.txt_rework_nfe.setFont(font2)
         self.txt_rework_nfe.setFrame(True)
         self.txt_rework_nfe.setEchoMode(QLineEdit.Normal)
         self.txt_rework_nfe.setAlignment(Qt.AlignLeading|Qt.AlignLeft|Qt.AlignVCenter)
@@ -998,15 +1036,15 @@ class Ui_MainWindow(object):
 
         self.label_12 = QLabel(self.frame_12)
         self.label_12.setObjectName(u"label_12")
-        sizePolicy1.setHeightForWidth(self.label_12.sizePolicy().hasHeightForWidth())
-        self.label_12.setSizePolicy(sizePolicy1)
+        sizePolicy2.setHeightForWidth(self.label_12.sizePolicy().hasHeightForWidth())
+        self.label_12.setSizePolicy(sizePolicy2)
 
         self.gridLayout_7.addWidget(self.label_12, 0, 0, 1, 1)
 
         self.cb_bitola_nfe = QComboBox(self.frame_12)
         self.cb_bitola_nfe.setObjectName(u"cb_bitola_nfe")
-        sizePolicy2.setHeightForWidth(self.cb_bitola_nfe.sizePolicy().hasHeightForWidth())
-        self.cb_bitola_nfe.setSizePolicy(sizePolicy2)
+        sizePolicy3.setHeightForWidth(self.cb_bitola_nfe.sizePolicy().hasHeightForWidth())
+        self.cb_bitola_nfe.setSizePolicy(sizePolicy3)
         self.cb_bitola_nfe.setMaximumSize(QSize(16777215, 16777215))
 
         self.gridLayout_7.addWidget(self.cb_bitola_nfe, 1, 1, 1, 1)
@@ -1027,8 +1065,8 @@ class Ui_MainWindow(object):
 
         self.txt_volume_nfe = QLineEdit(self.frame_12)
         self.txt_volume_nfe.setObjectName(u"txt_volume_nfe")
-        sizePolicy2.setHeightForWidth(self.txt_volume_nfe.sizePolicy().hasHeightForWidth())
-        self.txt_volume_nfe.setSizePolicy(sizePolicy2)
+        sizePolicy3.setHeightForWidth(self.txt_volume_nfe.sizePolicy().hasHeightForWidth())
+        self.txt_volume_nfe.setSizePolicy(sizePolicy3)
         self.txt_volume_nfe.setMaximumSize(QSize(16777215, 16777215))
 
         self.gridLayout_7.addWidget(self.txt_volume_nfe, 2, 1, 1, 1)
@@ -1040,8 +1078,8 @@ class Ui_MainWindow(object):
 
         self.cb_cycle_nfe = QComboBox(self.frame_12)
         self.cb_cycle_nfe.setObjectName(u"cb_cycle_nfe")
-        sizePolicy2.setHeightForWidth(self.cb_cycle_nfe.sizePolicy().hasHeightForWidth())
-        self.cb_cycle_nfe.setSizePolicy(sizePolicy2)
+        sizePolicy3.setHeightForWidth(self.cb_cycle_nfe.sizePolicy().hasHeightForWidth())
+        self.cb_cycle_nfe.setSizePolicy(sizePolicy3)
         self.cb_cycle_nfe.setMinimumSize(QSize(0, 0))
         self.cb_cycle_nfe.setMaximumSize(QSize(16777215, 16777215))
 
@@ -1062,8 +1100,8 @@ class Ui_MainWindow(object):
         self.verticalLayout_4.setContentsMargins(-1, -1, 0, -1)
         self.bt_add_bitola_nfe = QPushButton(self.frame_12)
         self.bt_add_bitola_nfe.setObjectName(u"bt_add_bitola_nfe")
-        sizePolicy3.setHeightForWidth(self.bt_add_bitola_nfe.sizePolicy().hasHeightForWidth())
-        self.bt_add_bitola_nfe.setSizePolicy(sizePolicy3)
+        sizePolicy4.setHeightForWidth(self.bt_add_bitola_nfe.sizePolicy().hasHeightForWidth())
+        self.bt_add_bitola_nfe.setSizePolicy(sizePolicy4)
         self.bt_add_bitola_nfe.setMinimumSize(QSize(0, 0))
         self.bt_add_bitola_nfe.setCursor(QCursor(Qt.PointingHandCursor))
         self.bt_add_bitola_nfe.setIcon(icon4)
@@ -1073,8 +1111,8 @@ class Ui_MainWindow(object):
 
         self.bt_remove_bitola_nfe = QPushButton(self.frame_12)
         self.bt_remove_bitola_nfe.setObjectName(u"bt_remove_bitola_nfe")
-        sizePolicy3.setHeightForWidth(self.bt_remove_bitola_nfe.sizePolicy().hasHeightForWidth())
-        self.bt_remove_bitola_nfe.setSizePolicy(sizePolicy3)
+        sizePolicy4.setHeightForWidth(self.bt_remove_bitola_nfe.sizePolicy().hasHeightForWidth())
+        self.bt_remove_bitola_nfe.setSizePolicy(sizePolicy4)
         self.bt_remove_bitola_nfe.setMinimumSize(QSize(0, 0))
         self.bt_remove_bitola_nfe.setCursor(QCursor(Qt.PointingHandCursor))
         self.bt_remove_bitola_nfe.setIcon(icon5)
@@ -1099,8 +1137,8 @@ class Ui_MainWindow(object):
         __qtablewidgetitem8 = QTableWidgetItem()
         self.tw_nfe.setHorizontalHeaderItem(4, __qtablewidgetitem8)
         self.tw_nfe.setObjectName(u"tw_nfe")
-        sizePolicy4.setHeightForWidth(self.tw_nfe.sizePolicy().hasHeightForWidth())
-        self.tw_nfe.setSizePolicy(sizePolicy4)
+        sizePolicy5.setHeightForWidth(self.tw_nfe.sizePolicy().hasHeightForWidth())
+        self.tw_nfe.setSizePolicy(sizePolicy5)
         self.tw_nfe.setMinimumSize(QSize(400, 0))
         self.tw_nfe.setEditTriggers(QAbstractItemView.NoEditTriggers)
         self.tw_nfe.setSelectionMode(QAbstractItemView.SingleSelection)
@@ -1162,8 +1200,8 @@ class Ui_MainWindow(object):
         self.verticalLayout_8.setObjectName(u"verticalLayout_8")
         self.frame_24 = QFrame(self.tab_historic_nfe)
         self.frame_24.setObjectName(u"frame_24")
-        sizePolicy2.setHeightForWidth(self.frame_24.sizePolicy().hasHeightForWidth())
-        self.frame_24.setSizePolicy(sizePolicy2)
+        sizePolicy3.setHeightForWidth(self.frame_24.sizePolicy().hasHeightForWidth())
+        self.frame_24.setSizePolicy(sizePolicy3)
         self.frame_24.setMinimumSize(QSize(0, 0))
         self.frame_24.setMaximumSize(QSize(16777215, 16777215))
         self.frame_24.setFrameShape(QFrame.Box)
@@ -1212,8 +1250,8 @@ class Ui_MainWindow(object):
 
         self.cb_start_date_nfe_history = CustomComboBox(self.frame_24)
         self.cb_start_date_nfe_history.setObjectName(u"cb_start_date_nfe_history")
-        sizePolicy5.setHeightForWidth(self.cb_start_date_nfe_history.sizePolicy().hasHeightForWidth())
-        self.cb_start_date_nfe_history.setSizePolicy(sizePolicy5)
+        sizePolicy6.setHeightForWidth(self.cb_start_date_nfe_history.sizePolicy().hasHeightForWidth())
+        self.cb_start_date_nfe_history.setSizePolicy(sizePolicy6)
         self.cb_start_date_nfe_history.setMinimumSize(QSize(100, 0))
         self.cb_start_date_nfe_history.setEditable(True)
         self.cb_start_date_nfe_history.setInsertPolicy(QComboBox.NoInsert)
@@ -1223,8 +1261,8 @@ class Ui_MainWindow(object):
 
         self.cb_end_date_nfe_history = CustomComboBox(self.frame_24)
         self.cb_end_date_nfe_history.setObjectName(u"cb_end_date_nfe_history")
-        sizePolicy5.setHeightForWidth(self.cb_end_date_nfe_history.sizePolicy().hasHeightForWidth())
-        self.cb_end_date_nfe_history.setSizePolicy(sizePolicy5)
+        sizePolicy6.setHeightForWidth(self.cb_end_date_nfe_history.sizePolicy().hasHeightForWidth())
+        self.cb_end_date_nfe_history.setSizePolicy(sizePolicy6)
         self.cb_end_date_nfe_history.setMinimumSize(QSize(100, 0))
         self.cb_end_date_nfe_history.setEditable(True)
         self.cb_end_date_nfe_history.setInsertPolicy(QComboBox.NoInsert)
@@ -1323,8 +1361,8 @@ class Ui_MainWindow(object):
 
         self.cb_cycle_stock = QComboBox(self.frame_3)
         self.cb_cycle_stock.setObjectName(u"cb_cycle_stock")
-        sizePolicy5.setHeightForWidth(self.cb_cycle_stock.sizePolicy().hasHeightForWidth())
-        self.cb_cycle_stock.setSizePolicy(sizePolicy5)
+        sizePolicy6.setHeightForWidth(self.cb_cycle_stock.sizePolicy().hasHeightForWidth())
+        self.cb_cycle_stock.setSizePolicy(sizePolicy6)
         self.cb_cycle_stock.setMaxVisibleItems(10)
 
         self.horizontalLayout_12.addWidget(self.cb_cycle_stock)
@@ -1342,8 +1380,8 @@ class Ui_MainWindow(object):
 
         self.cb_bitola_stock = QComboBox(self.frame_3)
         self.cb_bitola_stock.setObjectName(u"cb_bitola_stock")
-        sizePolicy5.setHeightForWidth(self.cb_bitola_stock.sizePolicy().hasHeightForWidth())
-        self.cb_bitola_stock.setSizePolicy(sizePolicy5)
+        sizePolicy6.setHeightForWidth(self.cb_bitola_stock.sizePolicy().hasHeightForWidth())
+        self.cb_bitola_stock.setSizePolicy(sizePolicy6)
 
         self.horizontalLayout_14.addWidget(self.cb_bitola_stock)
 
@@ -1388,8 +1426,8 @@ class Ui_MainWindow(object):
         self.horizontalLayout_20.setContentsMargins(-1, -1, 0, -1)
         self.bt_search_stock = QPushButton(self.frame_3)
         self.bt_search_stock.setObjectName(u"bt_search_stock")
-        sizePolicy3.setHeightForWidth(self.bt_search_stock.sizePolicy().hasHeightForWidth())
-        self.bt_search_stock.setSizePolicy(sizePolicy3)
+        sizePolicy4.setHeightForWidth(self.bt_search_stock.sizePolicy().hasHeightForWidth())
+        self.bt_search_stock.setSizePolicy(sizePolicy4)
         self.bt_search_stock.setCursor(QCursor(Qt.PointingHandCursor))
         self.bt_search_stock.setIcon(icon10)
         self.bt_search_stock.setIconSize(QSize(32, 32))
@@ -1398,8 +1436,8 @@ class Ui_MainWindow(object):
 
         self.bt_clear_stock = QPushButton(self.frame_3)
         self.bt_clear_stock.setObjectName(u"bt_clear_stock")
-        sizePolicy3.setHeightForWidth(self.bt_clear_stock.sizePolicy().hasHeightForWidth())
-        self.bt_clear_stock.setSizePolicy(sizePolicy3)
+        sizePolicy4.setHeightForWidth(self.bt_clear_stock.sizePolicy().hasHeightForWidth())
+        self.bt_clear_stock.setSizePolicy(sizePolicy4)
         self.bt_clear_stock.setCursor(QCursor(Qt.PointingHandCursor))
         self.bt_clear_stock.setIcon(icon11)
         self.bt_clear_stock.setIconSize(QSize(32, 32))
@@ -1529,8 +1567,8 @@ class Ui_MainWindow(object):
         self.verticalLayout_11.setObjectName(u"verticalLayout_11")
         self.bt_cycle_menu = QPushButton(self.fr_menu)
         self.bt_cycle_menu.setObjectName(u"bt_cycle_menu")
-        sizePolicy.setHeightForWidth(self.bt_cycle_menu.sizePolicy().hasHeightForWidth())
-        self.bt_cycle_menu.setSizePolicy(sizePolicy)
+        sizePolicy1.setHeightForWidth(self.bt_cycle_menu.sizePolicy().hasHeightForWidth())
+        self.bt_cycle_menu.setSizePolicy(sizePolicy1)
         self.bt_cycle_menu.setMinimumSize(QSize(0, 50))
         self.bt_cycle_menu.setCursor(QCursor(Qt.PointingHandCursor))
         self.bt_cycle_menu.setIcon(icon9)
@@ -1593,44 +1631,6 @@ class Ui_MainWindow(object):
 
 
         self.gridLayout.addWidget(self.fr_menu, 5, 0, 1, 1)
-
-        self.verticalSpacer = QSpacerItem(20, 40, QSizePolicy.Minimum, QSizePolicy.Expanding)
-
-        self.gridLayout.addItem(self.verticalSpacer, 6, 0, 1, 1)
-
-        self.horizontalLayout_2 = QHBoxLayout()
-        self.horizontalLayout_2.setObjectName(u"horizontalLayout_2")
-        self.horizontalSpacer_4 = QSpacerItem(40, 20, QSizePolicy.Expanding, QSizePolicy.Minimum)
-
-        self.horizontalLayout_2.addItem(self.horizontalSpacer_4)
-
-        self.label_6 = QLabel(self.centralwidget)
-        self.label_6.setObjectName(u"label_6")
-        font2 = QFont()
-        font2.setFamilies([u"Trebuchet MS"])
-        font2.setPointSize(22)
-        font2.setBold(False)
-        self.label_6.setFont(font2)
-        self.label_6.setAlignment(Qt.AlignCenter)
-
-        self.horizontalLayout_2.addWidget(self.label_6)
-
-        self.label_7 = QLabel(self.centralwidget)
-        self.label_7.setObjectName(u"label_7")
-        sizePolicy6.setHeightForWidth(self.label_7.sizePolicy().hasHeightForWidth())
-        self.label_7.setSizePolicy(sizePolicy6)
-        self.label_7.setFont(font2)
-        self.label_7.setPixmap(QPixmap(u":/icons/assets/tree-32.png"))
-        self.label_7.setAlignment(Qt.AlignCenter)
-
-        self.horizontalLayout_2.addWidget(self.label_7)
-
-        self.horizontalSpacer_5 = QSpacerItem(40, 20, QSizePolicy.Expanding, QSizePolicy.Minimum)
-
-        self.horizontalLayout_2.addItem(self.horizontalSpacer_5)
-
-
-        self.gridLayout.addLayout(self.horizontalLayout_2, 2, 0, 1, 2)
 
         MainWindow.setCentralWidget(self.centralwidget)
         self.fr_menu.raise_()
@@ -1782,9 +1782,9 @@ class Ui_MainWindow(object):
         self.retranslateUi(MainWindow)
 
         self.mp_main.setCurrentIndex(2)
-        self.tab_widget_cycle.setCurrentIndex(1)
+        self.tab_widget_cycle.setCurrentIndex(0)
         self.mp_cycle_historic.setCurrentIndex(0)
-        self.tab_widget_nfe.setCurrentIndex(1)
+        self.tab_widget_nfe.setCurrentIndex(0)
 
 
         QMetaObject.connectSlotsByName(MainWindow)
@@ -1797,6 +1797,7 @@ class Ui_MainWindow(object):
         self.action_config.setText(QCoreApplication.translate("MainWindow", u"Configurar", None))
         self.action_import_backup.setText(QCoreApplication.translate("MainWindow", u"Importar backup", None))
         self.actionaa.setText(QCoreApplication.translate("MainWindow", u"aa", None))
+        self.label_6.setText(QCoreApplication.translate("MainWindow", u"CONTROLE DE MADEIRA TRATADA", None))
         self.label_9.setText(QCoreApplication.translate("MainWindow", u"ESTUFA", None))
         self.label_2.setText(QCoreApplication.translate("MainWindow", u"CICLO", None))
         self.label_3.setText(QCoreApplication.translate("MainWindow", u"ENTRADA", None))
@@ -1934,7 +1935,6 @@ class Ui_MainWindow(object):
         self.bt_kiln_menu.setText(QCoreApplication.translate("MainWindow", u" ESTUFAS", None))
         self.bt_client_menu.setText(QCoreApplication.translate("MainWindow", u" CLIENTES", None))
         self.bt_exit_menu.setText(QCoreApplication.translate("MainWindow", u" SAIR", None))
-        self.label_6.setText(QCoreApplication.translate("MainWindow", u"CONTROLE DE MADEIRA TRATADA", None))
         self.menu_about.setTitle(QCoreApplication.translate("MainWindow", u"Sobre", None))
         self.menu_config.setTitle(QCoreApplication.translate("MainWindow", u"Configura\u00e7\u00f5es", None))
         self.menu_db.setTitle(QCoreApplication.translate("MainWindow", u"Banco de dados", None))
