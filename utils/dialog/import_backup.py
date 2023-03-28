@@ -15,11 +15,10 @@ class ImportBackupDialog(QDialog, Ui_Dialog):
     def __init__(self, parent, database: DatabaseConnection):
         super().__init__(parent)
         self.setupUi(self)
-        self.setFixedSize(476, 198)
 
         self.database = database
-        self.worker: ImportBackupWorker | None = None
         self.table = ''
+        self.worker: ImportBackupWorker | None = None
 
         # Conecta signals
         self.bt_open.clicked.connect(self.open_file)

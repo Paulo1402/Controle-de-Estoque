@@ -74,7 +74,7 @@ class DoBackupWorker(QThread):
         frequency = backup['frequency']
         max_backups = backup['max_backups']
 
-        # Caso não haja um banco de dados configurado ou 'no_backups' está setado aborta backup
+        # Caso não haja um banco de dados configurado ou 'no_backups' está setado, aborta backup
         if not db or frequency == 'no_backups':
             return
 

@@ -11,7 +11,6 @@ class ConfigurationDialog(QDialog, Ui_Dialog):
     def __init__(self, parent, database: DatabaseConnection):
         super().__init__(parent)
         self.setupUi(self)
-        # self.setFixedSize(600, 270)
 
         self.database = database
 
@@ -37,10 +36,10 @@ class ConfigurationDialog(QDialog, Ui_Dialog):
         self.frame_backup.setDisabled(True)
 
         # Retorna configurações atuais e seta na interface
-        config = get_config()
+        self.config = get_config()
 
-        self.database_path = config['database']
-        backup = config['backup']
+        self.database_path = self.config['database']
+        backup = self.config['backup']
 
         frequency = backup['frequency']
         max_backups = backup['max_backups']
@@ -51,33 +50,28 @@ class ConfigurationDialog(QDialog, Ui_Dialog):
         self.set_checked_radio(self.max_amount_radios, max_backups)
 
     @staticmethod
-    def set_checked_radio(group_radio, radio_key):
+    def set_checked_radio(group_radio: dict, radio_key: str):
         for key, radio in group_radio.items():
             if radio_key == key:
                 radio.setChecked(True)
 
     @staticmethod
-    def get_checked_radio(group_radio):
+    def get_checked_radio(group_radio: dict) -> str:
         for key, radio in group_radio.items():
             if radio.isChecked():
                 return key
 
     # Salva configurações ao fehcar caixa de diálogo
     def closeEvent(self, a0: QCloseEvent):
+        path = self.txt_source.text()
         frequency = self.get_checked_radio(self.frequency_radios)
         max_backups = self.get_checked_radio(self.max_amount_radios)
 
-        path = self.txt_source.text()
+        self.config['database'] = path
+        self.config['backup']['frequency'] = frequency
+        self.config['backup']['max_backups'] = max_backups
 
-        config = {
-            'database': path,
-            'backup': {
-                'frequency': frequency,
-                'max_backups': max_backups
-            }
-        }
-
-        set_config(config)
+        set_config(self.config)
 
         # Caso haja alterações no caminho do banco de dados restabelece a conexão e recarrega dados
         if path != self.database_path:

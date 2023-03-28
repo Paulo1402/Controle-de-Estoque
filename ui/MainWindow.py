@@ -3,7 +3,7 @@
 ################################################################################
 ## Form generated from reading UI file 'MainWindow.ui'
 ##
-## Created by: Qt User Interface Compiler version 6.4.2
+## Created by: Qt User Interface Compiler version 6.4.3
 ##
 ## WARNING! All changes made in this file will be lost when recompiling UI file!
 ################################################################################
@@ -31,10 +31,39 @@ class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         if not MainWindow.objectName():
             MainWindow.setObjectName(u"MainWindow")
-        MainWindow.resize(1006, 575)
-        MainWindow.setStyleSheet(u" QGroupBox {\n"
-"            border: none;\n"
-" }")
+        MainWindow.resize(1125, 575)
+        MainWindow.setStyleSheet(u"QComboBox {\n"
+"	combobox-popup: 0;\n"
+"}\n"
+"\n"
+"QWidget {background:rgba(32, 33, 36, 1.000);color:rgba(228, 231, 235, 1.000);selection-color:rgba(228, 231, 235, 1.000);selection-background-color:rgba(95, 154, 244, 0.400)}QWidget:disabled {color:rgba(228, 231, 235, 0.400);selection-background-color:rgba(228, 231, 235, 0.200);selection-color:rgba(228, 231, 235, 0.400)}QWidget:focus {outline:none}QCheckBox:!window,QRadioButton:!window,QPushButton:!window,QLabel:!window,QLCDNumber:!window {background:transparent}QMdiSubWindow > QCheckBox:!window,QMdiSubWindow > QRadioButton:!window,QMdiSubWindow > QPushButton:!window,QMdiSubWindow > QLabel:!window,QMdiSubWindow > QLCDNumber:!window {background:rgba(32, 33, 36, 1.000)}QMainWindow::separator {width:4px;height:4px;background:rgba(63, 64, 66, 1.000)}QMainWindow::separator:hover,QMainWindow::separator:pressed {background:rgba(138, 180, 247, 1.000)}QToolTip {background:rgba(42, 43, 47, 1.000);color:rgba(228, 231, 235, 1.000)}QSizeGrip {width:0;height:0;image:none}QSt"
+                        "atusBar {background:rgba(42, 43, 46, 1.000)}QStatusBar::item {border:none}QStatusBar QWidget {background:transparent;padding:3px;border-radius:4px}QStatusBar > .QSizeGrip {padding:0}QStatusBar QWidget:hover {background:rgba(255, 255, 255, 0.133)}QStatusBar QWidget:pressed,QStatusBar QWidget:checked {background:rgba(255, 255, 255, 0.204)}QCheckBox,QRadioButton {border-top:2px solid transparent;border-bottom:2px solid transparent}QCheckBox:hover,QRadioButton:hover {border-bottom:2px solid rgba(138, 180, 247, 1.000)}QGroupBox {font-weight:bold;margin-top:8px;padding:2px 1px 1px 1px;border-radius:4px;border:1px solid rgba(63, 64, 66, 1.000)}QGroupBox::title {subcontrol-origin:margin;subcontrol-position:top left;left:7px;margin:0 2px 0 3px}QGroupBox:flat {border-color:transparent}QMenuBar {padding:2px;border-bottom:1px solid rgba(63, 64, 66, 1.000);background:rgba(32, 33, 36, 1.000)}QMenuBar::item {background:transparent;padding:4px}QMenuBar::item:selected {padding:4px;border-radius:4px;background:rgba(255, 255, 25"
+                        "5, 0.145)}QMenuBar::item:pressed {padding:4px;margin-bottom:0;padding-bottom:0}QToolBar {padding:1px;font-weight:bold;spacing:2px;margin:1px;background:rgba(51, 51, 51, 1.000);border-style:none}QToolBar::handle:horizontal {width:20px;image:url(C:/Users/Kamua/.cache/qdarktheme/v2.1.0/drag_indicator_e1e5e9_0.svg)}QToolBar::handle:vertical {height:20px;image:url(C:/Users/Kamua/.cache/qdarktheme/v2.1.0/drag_indicator_e1e5e9_90.svg)}QToolBar::handle:horizontal:disabled {image:url(C:/Users/Kamua/.cache/qdarktheme/v2.1.0/drag_indicator_e4e7eb66_0.svg)}QToolBar::handle:vertical:disabled {image:url(C:/Users/Kamua/.cache/qdarktheme/v2.1.0/drag_indicator_e4e7eb66_90.svg)}QToolBar::separator {background:rgba(63, 64, 66, 1.000)}QToolBar::separator:horizontal {width:2px;margin:0 6px}QToolBar::separator:vertical {height:2px;margin:6px 0}QToolBar > QToolButton {background:transparent;padding:3px;border-radius:4px}QToolBar > QToolButton:hover,QToolBar > QToolButton::menu-button:hover {background:rgba(255, 255, 255, 0.133)}QToo"
+                        "lBar > QToolButton::menu-button {border-top-right-radius:4px;border-bottom-right-radius:4px}QToolBar > QToolButton:pressed,QToolBar > QToolButton::menu-button:pressed:enabled,QToolBar > QToolButton:checked:enabled {background:rgba(255, 255, 255, 0.204)}QToolBar > QWidget {background:transparent}QMenu {background:rgba(42, 43, 47, 1.000);padding:8px 0; }QMenu::separator {margin:4px 0;height:1px;background:rgba(63, 64, 66, 1.000)}QMenu::item {padding:4px 19px}QMenu::item:selected {background:rgba(255, 255, 255, 0.133)}QMenu::icon {padding-left:10px;width:14px;height:14px}QMenu::right-arrow {margin:2px;padding-left:12px;height:20px;width:20px;image:url(C:/Users/Kamua/.cache/qdarktheme/v2.1.0/chevron_right_e1e5e9_0.svg)}QMenu::right-arrow:disabled {image:url(C:/Users/Kamua/.cache/qdarktheme/v2.1.0/chevron_right_e4e7eb66_0.svg)}QScrollBar {background:rgba(255, 255, 255, 0.063);border-radius:4px;}QScrollBar:horizontal {height:14px;}QScrollBar:vertical {width:14px;}QScrollBar::handle {background:rgba(255, 255, 255, 0."
+                        "188);border-radius:3px}QScrollBar::handle:hover {background:rgba(255, 255, 255, 0.271)}QScrollBar::handle:pressed {background:rgba(255, 255, 255, 0.376)}QScrollBar::handle:disabled {background:rgba(255, 255, 255, 0.082)}QScrollBar::handle:horizontal {min-width:8px;margin:4px 14px;}QScrollBar::handle:horizontal:hover {margin:2px 14px;}QScrollBar::handle:vertical {min-height:8px;margin:14px 4px;}QScrollBar::handle:vertical:hover {margin:14px 2px;}QScrollBar::sub-page,QScrollBar::add-page {background:transparent}QScrollBar::sub-line,QScrollBar::add-line {background:transparent;}QScrollBar::up-arrow:enabled {image:url(C:/Users/Kamua/.cache/qdarktheme/v2.1.0/arrow_drop_up_ffffff2f_0.svg)}QScrollBar::right-arrow:enabled {image:url(C:/Users/Kamua/.cache/qdarktheme/v2.1.0/arrow_drop_up_ffffff2f_90.svg)}QScrollBar::down-arrow:enabled {image:url(C:/Users/Kamua/.cache/qdarktheme/v2.1.0/arrow_drop_up_ffffff2f_180.svg)}QScrollBar::left-arrow:enabled {image:url(C:/Users/Kamua/.cache/qdarktheme/v2.1.0/arrow_drop_up_ffffff2f_"
+                        "270.svg)}QScrollBar::up-arrow:hover {image:url(C:/Users/Kamua/.cache/qdarktheme/v2.1.0/arrow_drop_up_ffffff5f_0.svg)}QScrollBar::right-arrow:hover {image:url(C:/Users/Kamua/.cache/qdarktheme/v2.1.0/arrow_drop_up_ffffff5f_90.svg)}QScrollBar::down-arrow:hover {image:url(C:/Users/Kamua/.cache/qdarktheme/v2.1.0/arrow_drop_up_ffffff5f_180.svg)}QScrollBar::left-arrow:hover {image:url(C:/Users/Kamua/.cache/qdarktheme/v2.1.0/arrow_drop_up_ffffff5f_270.svg)}QProgressBar {text-align:center;border:1px solid rgba(63, 64, 66, 1.000);border-radius:4px}QProgressBar::chunk {background:rgba(102, 159, 245, 1.000);border-radius:3px}QProgressBar::chunk:disabled {background:rgba(228, 231, 235, 0.200)}QPushButton {color:rgba(138, 180, 247, 1.000);border:1px solid rgba(63, 64, 66, 1.000);padding:4px 8px;border-radius:4px}QPushButton:flat,QPushButton:default {border:none;padding:5px 9px}QPushButton:default {color:rgba(32, 33, 36, 1.000);background:rgba(138, 180, 247, 1.000)}QPushButton:hover {background:rgba(102, 159, 245, 0.110)}QPu"
+                        "shButton:pressed {background:rgba(87, 150, 244, 0.230)}QPushButton:checked:enabled {background:rgba(87, 150, 244, 0.230)}QPushButton:default:hover {background:rgba(117, 168, 246, 1.000)}QPushButton:default:pressed,QPushButton:default:checked {background:rgba(95, 154, 244, 1.000)}QPushButton:default:disabled,QPushButton:default:checked:disabled {background:rgba(228, 231, 235, 0.200)}QDialogButtonBox {dialogbuttonbox-buttons-have-icons:0}QDialogButtonBox QPushButton {min-width:65px}QToolButton {background:transparent;padding:5px;spacing:2px;border-radius:2px}QToolButton:hover,QToolButton::menu-button:hover {background:rgba(102, 159, 245, 0.110)}QToolButton:pressed,QToolButton:checked:pressed,QToolButton::menu-button:pressed:enabled {background:rgba(87, 150, 244, 0.230)}QToolButton:selected:enabled,QToolButton:checked:enabled {background:rgba(87, 150, 244, 0.230)}QToolButton::menu-indicator {height:18px;width:18px;top:6px;left:3px;image:url(C:/Users/Kamua/.cache/qdarktheme/v2.1.0/expand_less_e1e5e9_180.svg)}QTool"
+                        "Button::menu-indicator:disabled {image:url(C:/Users/Kamua/.cache/qdarktheme/v2.1.0/expand_less_e4e7eb66_180.svg)}QToolButton::menu-arrow {image:unset}QToolButton::menu-button {subcontrol-origin:margin;width:17px;border-top-right-radius:2px;border-bottom-right-radius:2px;image:url(C:/Users/Kamua/.cache/qdarktheme/v2.1.0/expand_less_e1e5e9_180.svg)}QToolButton::menu-button:disabled {image:url(C:/Users/Kamua/.cache/qdarktheme/v2.1.0/expand_less_e4e7eb66_180.svg)}QToolButton[popupMode=MenuButtonPopup] {padding-right:1px;margin-right:18px;border-top-right-radius:0;border-bottom-right-radius:0}QComboBox {min-height:1.5em;padding:0 8px 0 4px;background:rgba(63, 64, 66, 1.000);border:1px solid rgba(63, 64, 66, 1.000);border-radius:4px}QComboBox:focus,QComboBox:open {border-color:rgba(138, 180, 247, 1.000)}QComboBox::drop-down {margin:2px 2px 2px -6px;border-radius:4}QComboBox::drop-down:editable:hover {background:rgba(255, 255, 255, 0.145)}QComboBox::down-arrow {image:url(C:/Users/Kamua/.cache/qdarktheme/v2.1.0/expand"
+                        "_less_e1e5e9_180.svg)}QComboBox::down-arrow:disabled {image:url(C:/Users/Kamua/.cache/qdarktheme/v2.1.0/expand_less_e4e7eb66_180.svg)}QComboBox::down-arrow:editable:open {image:url(C:/Users/Kamua/.cache/qdarktheme/v2.1.0/expand_less_e1e5e9_0.svg)}QComboBox::down-arrow:editable:open:disabled {image:url(C:/Users/Kamua/.cache/qdarktheme/v2.1.0/expand_less_e4e7eb66_0.svg)}QComboBox::item:selected {border:none;background:rgba(66, 136, 242, 0.400);border-radius:4px}QComboBox QListView[frameShape=NoFrame] {margin:0;padding:4px;background:rgba(42, 43, 47, 1.000); border-radius:0; }QComboBox QListView::item {border-radius:4px}QSlider {padding:2px 0}QSlider::groove {border-radius:2px}QSlider::groove:horizontal {height:4px}QSlider::groove:vertical {width:4px}QSlider::sub-page:horizontal,QSlider::add-page:vertical,QSlider::handle {background:rgba(138, 180, 247, 1.000)}QSlider::sub-page:horizontal:disabled,QSlider::add-page:vertical:disabled,QSlider::handle:disabled {background:rgba(228, 231, 235, 0.200)}QSlider::add-page:"
+                        "horizontal,QSlider::sub-page:vertical {background:rgba(228, 231, 235, 0.100)}QSlider::handle:hover,QSlider::handle:pressed {background:rgba(106, 161, 245, 1.000)}QSlider::handle:horizontal {width:16px;height:8px;margin:-6px 0;border-radius:8px}QSlider::handle:vertical {width:8px;height:16px;margin:0 -6px;border-radius:8px}QTabWidget::pane {border:1px solid rgba(63, 64, 66, 1.000);border-radius:4px}QTabBar {qproperty-drawBase:0}QTabBar::close-button {image:url(C:/Users/Kamua/.cache/qdarktheme/v2.1.0/close_e1e5e9_0.svg)}QTabBar::close-button:hover {background:rgba(255, 255, 255, 0.145);border-radius:4px}QTabBar::close-button:!selected {image:url(C:/Users/Kamua/.cache/qdarktheme/v2.1.0/close_e4e7eb99_0.svg)}QTabBar::close-button:disabled {image:url(C:/Users/Kamua/.cache/qdarktheme/v2.1.0/close_e4e7eb66_0.svg)}QTabBar::tab {padding:3px;border-style:solid}QTabBar::tab:hover,QTabBar::tab:selected:hover:enabled {background:rgba(255, 255, 255, 0.094)}QTabBar::tab:selected:enabled {color:rgba(138, 180, 247, 1.000);back"
+                        "ground:rgba(255, 255, 255, 0.000);border-color:rgba(138, 180, 247, 1.000)}QTabBar::tab:selected:disabled,QTabBar::tab:only-one:selected:enabled {border-color:rgba(63, 64, 66, 1.000)}QTabBar::tab:top {border-bottom-width:2px;margin:3px 6px 0 0;border-top-left-radius:2px;border-top-right-radius:2px}QTabBar::tab:bottom {border-top-width:2px;margin:0 6px 3px 0;border-bottom-left-radius:2px;border-bottom-right-radius:2px}QTabBar::tab:left {border-right-width:2px;margin:0 0 6px 3px;border-top-left-radius:2px;border-bottom-left-radius:2px}QTabBar::tab:right {border-left-width:2px;margin-bottom:6px;margin:0 3px 6px 0;border-top-right-radius:2px;border-bottom-right-radius:2px}QTabBar::tab:top:first,QTabBar::tab:top:only-one,QTabBar::tab:bottom:first,QTabBar::tab:bottom:only-one {margin-left:2px}QTabBar::tab:top:last,QTabBar::tab:top:only-one,QTabBar::tab:bottom:last,QTabBar::tab:bottom:only-one {margin-right:2px}QTabBar::tab:left:first,QTabBar::tab:left:only-one,QTabBar::tab:right:first,QTabBar::tab:right:only-one {mar"
+                        "gin-top:2px}QTabBar::tab:left:last,QTabBar::tab:left:only-one,QTabBar::tab:right:last,QTabBar::tab:right:only-one {margin-bottom:2px}QDockWidget {border:1px solid rgba(63, 64, 66, 1.000);border-radius:4px}QDockWidget::title {padding:3px;spacing:4px;background:rgba(22, 23, 25, 1.000)}QDockWidget::close-button,QDockWidget::float-button {border-radius:2px}QDockWidget::close-button:hover,QDockWidget::float-button:hover {background:rgba(102, 159, 245, 0.110)}QDockWidget::close-button:pressed,QDockWidget::float-button:pressed {background:rgba(87, 150, 244, 0.230)}QFrame {border:1px solid rgba(63, 64, 66, 1.000);padding:1px;border-radius:4px}.QFrame {padding:0}QFrame[frameShape=NoFrame] {border-color:transparent;padding:0}.QFrame[frameShape=NoFrame] {border:none}QFrame[frameShape=Panel] {border-color:rgba(22, 23, 25, 1.000);background:rgba(22, 23, 25, 1.000)}QFrame[frameShape=HLine] {max-height:2px;border:none;background:rgba(63, 64, 66, 1.000)}QFrame[frameShape=VLine] {max-width:2px;border:none;background:rgba(63, 6"
+                        "4, 66, 1.000)}QLCDNumber {min-width:2em;margin:2px}QToolBox::tab {background:rgba(22, 23, 25, 1.000);border-bottom:2px solid rgba(63, 64, 66, 1.000);border-top-left-radius:4px;border-top-right-radius:4px}QToolBox::tab:selected:enabled {border-bottom-color:rgba(138, 180, 247, 1.000)}QSplitter::handle {background:rgba(63, 64, 66, 1.000);margin:1px 3px}QSplitter::handle:hover {background:rgba(138, 180, 247, 1.000)}QSplitter::handle:horizontal {width:5px;image:url(C:/Users/Kamua/.cache/qdarktheme/v2.1.0/horizontal_rule_e1e5e9_90.svg)}QSplitter::handle:horizontal:disabled {image:url(C:/Users/Kamua/.cache/qdarktheme/v2.1.0/horizontal_rule_e4e7eb66_90.svg)}QSplitter::handle:vertical {height:5px;image:url(C:/Users/Kamua/.cache/qdarktheme/v2.1.0/horizontal_rule_e1e5e9_0.svg)}QSplitter::handle:vertical:disabled {image:url(C:/Users/Kamua/.cache/qdarktheme/v2.1.0/horizontal_rule_e4e7eb66_0.svg)}QSplitterHandle::item:hover {}QAbstractScrollArea {margin:1px}QAbstractScrollArea::corner {background:transparent}QAbstractScroll"
+                        "Area > .QWidget {background:transparent}QAbstractScrollArea > .QWidget > .QWidget {background:transparent}QMdiArea {qproperty-background:rgba(22, 23, 25, 1.000);border-radius:0}QMdiSubWindow {background:rgba(32, 33, 36, 1.000);border:1px solid;padding:0 3px}QMdiSubWindow > QWidget {border:1px solid rgba(63, 64, 66, 1.000)}QTextEdit, QPlainTextEdit {background:rgba(28, 29, 31, 1.000)}QTextEdit:focus,QTextEdit:selected,QPlainTextEdit:focus,QPlainTextEdit:selected {border:1px solid rgba(138, 180, 247, 1.000);selection-background-color:rgba(95, 154, 244, 0.400)}QTextEdit:!focus,QPlainTextEdit:!focus { selection-background-color:rgba(255, 255, 255, 0.125)}QTextEdit:!active,QPlainTextEdit:!active { }QAbstractItemView {padding:0;alternate-background-color:transparent;selection-background-color:transparent}QAbstractItemView:disabled {selection-background-color:transparent}QAbstractItemView::item:alternate,QAbstractItemView::branch:alternate {background:rgba(255, 255, 255, 0.047)}QAbstractItemView::item:selected,QAbstr"
+                        "actItemView::branch:selected {background:rgba(66, 136, 242, 0.400)}QAbstractItemView::item:selected:!active,QAbstractItemView::branch:selected:!active {background:rgba(210, 227, 252, 0.150)}QAbstractItemView QLineEdit,QAbstractItemView QAbstractSpinBox,QAbstractItemView QAbstractButton {padding:0;margin:1px}QListView {padding:1px}QListView,QTreeView {background:rgba(32, 33, 36, 1.000)}QListView::item:!selected:hover,QTreeView::item:!selected:hover,QTreeView::branch:!selected:hover {background:rgba(255, 255, 255, 0.075)}QTreeView::branch:!selected:hover,QTreeView::branch:alternate,QTreeView::branch:selected,QTreeView::branch:selected:!active { background:transparent;}QTreeView::branch {border-image:url(C:/Users/Kamua/.cache/qdarktheme/v2.1.0/vertical_line_ffffff35_0.svg) 0}QTreeView::branch:active {border-image:url(C:/Users/Kamua/.cache/qdarktheme/v2.1.0/vertical_line_ffffff5f_0.svg) 0}QTreeView::branch:has-siblings:adjoins-item,QTreeView::branch:!has-children:!has-siblings:adjoins-item {border-image:unset}QTre"
+                        "eView::branch:has-children:!has-siblings:closed,QTreeView::branch:closed:has-children:has-siblings {border-image:unset;image:url(C:/Users/Kamua/.cache/qdarktheme/v2.1.0/chevron_right_e1e5e9_0.svg)}QTreeView::branch:has-children:!has-siblings:closed:disabled,QTreeView::branch:closed:has-children:has-siblings:disabled {image:url(C:/Users/Kamua/.cache/qdarktheme/v2.1.0/chevron_right_e4e7eb66_0.svg)}QTreeView::branch:open:has-children:!has-siblings,QTreeView::branch:open:has-children:has-siblings {border-image:unset;image:url(C:/Users/Kamua/.cache/qdarktheme/v2.1.0/expand_less_e1e5e9_180.svg)}QTreeView::branch:open:has-children:!has-siblings:disabled,QTreeView::branch:open:has-children:has-siblings:disabled {image:url(C:/Users/Kamua/.cache/qdarktheme/v2.1.0/expand_less_e4e7eb66_180.svg)}QTreeView > QHeaderView {background:rgba(32, 33, 36, 1.000)}QTreeView > QHeaderView::section {background:rgba(63, 64, 66, 1.000)}QListView::left-arrow {margin:-2px;image:url(C:/Users/Kamua/.cache/qdarktheme/v2.1.0/chevron_right_e4e"
+                        "7eb99_180.svg)}QListView::right-arrow {margin:-2px;image:url(C:/Users/Kamua/.cache/qdarktheme/v2.1.0/chevron_right_e4e7eb99_0.svg)}QListView::left-arrow:selected:enabled {image:url(C:/Users/Kamua/.cache/qdarktheme/v2.1.0/chevron_right_e1e5e9_180.svg)}QListView::right-arrow:selected:enabled {image:url(C:/Users/Kamua/.cache/qdarktheme/v2.1.0/chevron_right_e1e5e9_0.svg)}QListView::left-arrow:disabled {image:url(C:/Users/Kamua/.cache/qdarktheme/v2.1.0/chevron_right_e4e7eb66_180.svg)}QListView::right-arrow:disabled {image:url(C:/Users/Kamua/.cache/qdarktheme/v2.1.0/chevron_right_e4e7eb66_0.svg)}QColumnView {background:rgba(32, 33, 36, 1.000)}QColumnViewGrip {margin:-4px;background:rgba(32, 33, 36, 1.000);image:url(C:/Users/Kamua/.cache/qdarktheme/v2.1.0/drag_handle_e1e5e9_90.svg)}QColumnViewGrip:disabled {image:url(C:/Users/Kamua/.cache/qdarktheme/v2.1.0/drag_handle_e4e7eb66_90.svg)}QTableView {gridline-color:rgba(63, 64, 66, 1.000);background:rgba(16, 16, 18, 1.000);selection-background-color:rgba(66, 136, 242, 0."
+                        "550); alternate-background-color:rgba(255, 255, 255, 0.082);}QTableView:!active { }QTableView::item:alternate { }QTableView::item:selected { }QTableView QTableCornerButton::section {margin:0 1px 1px 0;background:rgba(63, 64, 66, 1.000);border-top-left-radius:2px}QTableView QTableCornerButton::section:pressed {background:rgba(66, 136, 242, 0.550)}QTableView > QHeaderView {background:rgba(16, 16, 18, 1.000);border-radius:3}QTableView > QHeaderView::section {background:rgba(63, 64, 66, 1.000)}QHeaderView {margin:0;border:none}QHeaderView::section {border:none;background:rgba(63, 64, 66, 1.000);padding-left:4px}QHeaderView::section:horizontal {margin-right:1px}QHeaderView::section:vertical {margin-bottom:1px}QHeaderView::section:on:enabled,QHeaderView::section:on:pressed {color:rgba(138, 180, 247, 1.000)}QHeaderView::section:last,QHeaderView::section:only-one {margin:0}QHeaderView::down-arrow:horizontal {margin-left:-19px;subcontrol-position:center right;image:url(C:/Users/Kamua/.cache/qdarktheme/v2.1.0/expand_les"
+                        "s_e1e5e9_180.svg)}QHeaderView::down-arrow:horizontal:disabled {image:url(C:/Users/Kamua/.cache/qdarktheme/v2.1.0/expand_less_e4e7eb66_180.svg)}QHeaderView::up-arrow:horizontal {margin-left:-19px;subcontrol-position:center right;image:url(C:/Users/Kamua/.cache/qdarktheme/v2.1.0/expand_less_e1e5e9_0.svg)}QHeaderView::up-arrow:horizontal:disabled {image:url(C:/Users/Kamua/.cache/qdarktheme/v2.1.0/expand_less_e4e7eb66_0.svg)}QHeaderView::down-arrow:vertical,QHeaderView::up-arrow:vertical {width:0;height:0}QCalendarWidget > .QWidget {background:rgba(16, 16, 18, 1.000);border-bottom:1px solid rgba(63, 64, 66, 1.000);border-top-left-radius:4px;border-top-right-radius:4px}QCalendarWidget > .QWidget > QWidget {padding:1px}QCalendarWidget .QWidget > QToolButton {border-radius:4px}QCalendarWidget > QTableView {margin:0;border:none;border-radius:4px;border-top-left-radius:0;border-top-right-radius:0;alternate-background-color:rgba(255, 255, 255, 0.082); }QLineEdit,QAbstractSpinBox {padding:3px 4px;min-height:1em;border:1p"
+                        "x solid rgba(63, 64, 66, 1.000);background:rgba(63, 64, 66, 1.000);border-radius:4px}QLineEdit:focus,QAbstractSpinBox:focus {border-color:rgba(138, 180, 247, 1.000)}QAbstractSpinBox::up-button,QAbstractSpinBox::down-button {subcontrol-position:center right;border-radius:4px}QAbstractSpinBox::up-button:hover:on,QAbstractSpinBox::down-button:hover:on {background:rgba(255, 255, 255, 0.145)}QAbstractSpinBox::up-button {bottom:5px;right:4px}QAbstractSpinBox::up-arrow:on {image:url(C:/Users/Kamua/.cache/qdarktheme/v2.1.0/arrow_drop_up_e1e5e9_0.svg)}QAbstractSpinBox::up-arrow:disabled,QAbstractSpinBox::up-arrow:off {image:url(C:/Users/Kamua/.cache/qdarktheme/v2.1.0/arrow_drop_up_e4e7eb66_0.svg)}QAbstractSpinBox::down-button {top:5px;right:4px}QAbstractSpinBox::down-arrow:on {image:url(C:/Users/Kamua/.cache/qdarktheme/v2.1.0/arrow_drop_up_e1e5e9_180.svg)}QAbstractSpinBox::down-arrow:disabled,QAbstractSpinBox::down-arrow:off {image:url(C:/Users/Kamua/.cache/qdarktheme/v2.1.0/arrow_drop_up_e4e7eb66_180.svg)}QDateTimeEdi"
+                        "t::drop-down {padding-right:4px;width:16px;image:url(C:/Users/Kamua/.cache/qdarktheme/v2.1.0/calendar_today_e1e5e9_0.svg)}QDateTimeEdit::drop-down:disabled {image:url(C:/Users/Kamua/.cache/qdarktheme/v2.1.0/calendar_today_e4e7eb66_0.svg)}QDateTimeEdit::down-arrow[calendarPopup=true] {image:none}QFileDialog QFrame {border:none}QFontDialog QListView {min-height:60px}QComboBox::indicator,QMenu::indicator {width:18px;height:18px}QMenu::indicator {background:rgba(255, 255, 255, 0.098);margin-left:3px;border-radius:4px}QComboBox::indicator:checked,QMenu::indicator:checked {image:url(C:/Users/Kamua/.cache/qdarktheme/v2.1.0/check_e1e5e9_0.svg)}QCheckBox,QRadioButton {spacing:8px}QGroupBox::title,QAbstractItemView::item {spacing:6px}QCheckBox::indicator,QGroupBox::indicator,QAbstractItemView::indicator,QRadioButton::indicator {height:18px;width:18px}QCheckBox::indicator,QGroupBox::indicator,QAbstractItemView::indicator {image:url(C:/Users/Kamua/.cache/qdarktheme/v2.1.0/check_box_outline_blank_e1e5e9_0.svg)}QCheckBox::i"
+                        "ndicator:unchecked:disabled,QGroupBox::indicator:unchecked:disabled,QAbstractItemView::indicator:unchecked:disabled {image:url(C:/Users/Kamua/.cache/qdarktheme/v2.1.0/check_box_outline_blank_e4e7eb66_0.svg)}QCheckBox::indicator:checked,QGroupBox::indicator:checked,QAbstractItemView::indicator:checked {image:url(C:/Users/Kamua/.cache/qdarktheme/v2.1.0/check_box_8ab4f7_0.svg)}QCheckBox::indicator:checked:disabled,QGroupBox::indicator:checked:disabled,QAbstractItemView::indicator:checked:disabled {image:url(C:/Users/Kamua/.cache/qdarktheme/v2.1.0/check_box_e4e7eb66_0.svg)}QCheckBox::indicator:indeterminate,QAbstractItemView::indicator:indeterminate {image:url(C:/Users/Kamua/.cache/qdarktheme/v2.1.0/indeterminate_check_box_8ab4f7_0.svg)}QCheckBox::indicator:indeterminate:disabled,QAbstractItemView::indicator:indeterminate:disabled {image:url(C:/Users/Kamua/.cache/qdarktheme/v2.1.0/indeterminate_check_box_e4e7eb66_0.svg)}QRadioButton::indicator:unchecked {image:url(C:/Users/Kamua/.cache/qdarktheme/v2.1.0/radio_butt"
+                        "on_unchecked_e1e5e9_0.svg)}QRadioButton::indicator:unchecked:disabled {image:url(C:/Users/Kamua/.cache/qdarktheme/v2.1.0/radio_button_unchecked_e4e7eb66_0.svg)}QRadioButton::indicator:checked {image:url(C:/Users/Kamua/.cache/qdarktheme/v2.1.0/radio_button_checked_8ab4f7_0.svg)}QRadioButton::indicator:checked:disabled {image:url(C:/Users/Kamua/.cache/qdarktheme/v2.1.0/radio_button_checked_e4e7eb66_0.svg)}PlotWidget {padding:0}ParameterTree > .QWidget > .QWidget > .QWidget > QComboBox{min-height:1.2em}ParameterTree::item,ParameterTree > .QWidget {background:rgba(32, 33, 36, 1.000)}\n"
+"\n"
+"\n"
+"QGroupBox{\n"
+"	margin: 0;\n"
+"}")
         MainWindow.setToolButtonStyle(Qt.ToolButtonIconOnly)
         MainWindow.setDocumentMode(False)
         MainWindow.setTabShape(QTabWidget.Rounded)
@@ -62,14 +91,25 @@ class Ui_MainWindow(object):
         self.action_import_backup.setIcon(icon3)
         self.actionaa = QAction(MainWindow)
         self.actionaa.setObjectName(u"actionaa")
+        self.action_dark_theme = QAction(MainWindow)
+        self.action_dark_theme.setObjectName(u"action_dark_theme")
+        self.action_dark_theme.setCheckable(True)
+        self.action_dark_theme.setChecked(True)
+        icon4 = QIcon()
+        icon4.addFile(u":/icons/assets/dark-mode-32.png", QSize(), QIcon.Normal, QIcon.Off)
+        self.action_dark_theme.setIcon(icon4)
+        self.action_light_theme = QAction(MainWindow)
+        self.action_light_theme.setObjectName(u"action_light_theme")
+        self.action_light_theme.setCheckable(True)
+        icon5 = QIcon()
+        icon5.addFile(u":/icons/assets/light-mode-32.png", QSize(), QIcon.Normal, QIcon.Off)
+        self.action_light_theme.setIcon(icon5)
         self.centralwidget = QWidget(MainWindow)
         self.centralwidget.setObjectName(u"centralwidget")
         font = QFont()
         font.setFamilies([u"Segoe UI"])
         self.centralwidget.setFont(font)
-        self.centralwidget.setStyleSheet(u"QComboBox {\n"
-"	combobox-popup: 0;\n"
-"}")
+        self.centralwidget.setStyleSheet(u"")
         self.gridLayout = QGridLayout(self.centralwidget)
         self.gridLayout.setObjectName(u"gridLayout")
         self.horizontalLayout_2 = QHBoxLayout()
@@ -78,16 +118,16 @@ class Ui_MainWindow(object):
 
         self.horizontalLayout_2.addItem(self.horizontalSpacer_4)
 
-        self.label_6 = QLabel(self.centralwidget)
-        self.label_6.setObjectName(u"label_6")
+        self.label_title = QLabel(self.centralwidget)
+        self.label_title.setObjectName(u"label_title")
         font1 = QFont()
         font1.setFamilies([u"Trebuchet MS"])
         font1.setPointSize(22)
         font1.setBold(False)
-        self.label_6.setFont(font1)
-        self.label_6.setAlignment(Qt.AlignCenter)
+        self.label_title.setFont(font1)
+        self.label_title.setAlignment(Qt.AlignCenter)
 
-        self.horizontalLayout_2.addWidget(self.label_6)
+        self.horizontalLayout_2.addWidget(self.label_title)
 
         self.label_7 = QLabel(self.centralwidget)
         self.label_7.setObjectName(u"label_7")
@@ -115,6 +155,13 @@ class Ui_MainWindow(object):
 
         self.mp_main = QStackedWidget(self.centralwidget)
         self.mp_main.setObjectName(u"mp_main")
+        sizePolicy1 = QSizePolicy(QSizePolicy.Expanding, QSizePolicy.Preferred)
+        sizePolicy1.setHorizontalStretch(0)
+        sizePolicy1.setVerticalStretch(0)
+        sizePolicy1.setHeightForWidth(self.mp_main.sizePolicy().hasHeightForWidth())
+        self.mp_main.setSizePolicy(sizePolicy1)
+        self.mp_main.setSizeIncrement(QSize(0, 0))
+        self.mp_main.setBaseSize(QSize(0, 0))
         self.mp_main.setFrameShape(QFrame.Box)
         self.page_cycle = QWidget()
         self.page_cycle.setObjectName(u"page_cycle")
@@ -154,12 +201,12 @@ class Ui_MainWindow(object):
 
         self.cb_kiln_cycle = QComboBox(self.frame)
         self.cb_kiln_cycle.setObjectName(u"cb_kiln_cycle")
-        sizePolicy1 = QSizePolicy(QSizePolicy.Minimum, QSizePolicy.Fixed)
-        sizePolicy1.setHorizontalStretch(0)
-        sizePolicy1.setVerticalStretch(0)
-        sizePolicy1.setHeightForWidth(self.cb_kiln_cycle.sizePolicy().hasHeightForWidth())
-        self.cb_kiln_cycle.setSizePolicy(sizePolicy1)
-        self.cb_kiln_cycle.setMinimumSize(QSize(90, 0))
+        sizePolicy2 = QSizePolicy(QSizePolicy.Minimum, QSizePolicy.Fixed)
+        sizePolicy2.setHorizontalStretch(0)
+        sizePolicy2.setVerticalStretch(0)
+        sizePolicy2.setHeightForWidth(self.cb_kiln_cycle.sizePolicy().hasHeightForWidth())
+        self.cb_kiln_cycle.setSizePolicy(sizePolicy2)
+        self.cb_kiln_cycle.setMinimumSize(QSize(90, 26))
 
         self.horizontalLayout_3.addWidget(self.cb_kiln_cycle)
 
@@ -192,7 +239,7 @@ class Ui_MainWindow(object):
 
         self.cb_entry_date_cycle = CustomComboBox(self.frame)
         self.cb_entry_date_cycle.setObjectName(u"cb_entry_date_cycle")
-        self.cb_entry_date_cycle.setMinimumSize(QSize(100, 0))
+        self.cb_entry_date_cycle.setMinimumSize(QSize(100, 26))
         self.cb_entry_date_cycle.setEditable(True)
         self.cb_entry_date_cycle.setInsertPolicy(QComboBox.NoInsert)
         self.cb_entry_date_cycle.setFrame(True)
@@ -212,7 +259,7 @@ class Ui_MainWindow(object):
 
         self.cb_exit_date_cycle = CustomComboBox(self.frame)
         self.cb_exit_date_cycle.setObjectName(u"cb_exit_date_cycle")
-        self.cb_exit_date_cycle.setMinimumSize(QSize(100, 0))
+        self.cb_exit_date_cycle.setMinimumSize(QSize(100, 26))
         self.cb_exit_date_cycle.setEditable(True)
         self.cb_exit_date_cycle.setInsertPolicy(QComboBox.NoInsert)
         self.cb_exit_date_cycle.setFrame(True)
@@ -232,10 +279,18 @@ class Ui_MainWindow(object):
 
         self.groupBox = QGroupBox(self.frame)
         self.groupBox.setObjectName(u"groupBox")
+        sizePolicy3 = QSizePolicy(QSizePolicy.Preferred, QSizePolicy.Fixed)
+        sizePolicy3.setHorizontalStretch(0)
+        sizePolicy3.setVerticalStretch(0)
+        sizePolicy3.setHeightForWidth(self.groupBox.sizePolicy().hasHeightForWidth())
+        self.groupBox.setSizePolicy(sizePolicy3)
+        self.groupBox.setMinimumSize(QSize(0, 26))
         self.groupBox.setFlat(False)
         self.groupBox.setCheckable(False)
         self.horizontalLayout = QHBoxLayout(self.groupBox)
+        self.horizontalLayout.setSpacing(10)
         self.horizontalLayout.setObjectName(u"horizontalLayout")
+        self.horizontalLayout.setContentsMargins(9, 0, -1, 0)
         self.rb_kd_cycle = QRadioButton(self.groupBox)
         self.rb_kd_cycle.setObjectName(u"rb_kd_cycle")
         self.rb_kd_cycle.setChecked(True)
@@ -270,11 +325,11 @@ class Ui_MainWindow(object):
         self.gridLayout_12.setContentsMargins(-1, -1, 0, 0)
         self.label_59 = QLabel(self.frame_13)
         self.label_59.setObjectName(u"label_59")
-        sizePolicy2 = QSizePolicy(QSizePolicy.Fixed, QSizePolicy.Preferred)
-        sizePolicy2.setHorizontalStretch(0)
-        sizePolicy2.setVerticalStretch(0)
-        sizePolicy2.setHeightForWidth(self.label_59.sizePolicy().hasHeightForWidth())
-        self.label_59.setSizePolicy(sizePolicy2)
+        sizePolicy4 = QSizePolicy(QSizePolicy.Fixed, QSizePolicy.Preferred)
+        sizePolicy4.setHorizontalStretch(0)
+        sizePolicy4.setVerticalStretch(0)
+        sizePolicy4.setHeightForWidth(self.label_59.sizePolicy().hasHeightForWidth())
+        self.label_59.setSizePolicy(sizePolicy4)
 
         self.gridLayout_12.addWidget(self.label_59, 0, 0, 1, 1)
 
@@ -289,12 +344,9 @@ class Ui_MainWindow(object):
 
         self.txt_volume_cycle = QLineEdit(self.frame_13)
         self.txt_volume_cycle.setObjectName(u"txt_volume_cycle")
-        sizePolicy3 = QSizePolicy(QSizePolicy.Preferred, QSizePolicy.Fixed)
-        sizePolicy3.setHorizontalStretch(0)
-        sizePolicy3.setVerticalStretch(0)
         sizePolicy3.setHeightForWidth(self.txt_volume_cycle.sizePolicy().hasHeightForWidth())
         self.txt_volume_cycle.setSizePolicy(sizePolicy3)
-        self.txt_volume_cycle.setMinimumSize(QSize(0, 0))
+        self.txt_volume_cycle.setMinimumSize(QSize(0, 24))
         self.txt_volume_cycle.setMaximumSize(QSize(16777215, 16777215))
         font2 = QFont()
         font2.setFamilies([u"Segoe UI"])
@@ -344,29 +396,29 @@ class Ui_MainWindow(object):
         self.verticalLayout_6.setContentsMargins(-1, -1, 0, -1)
         self.bt_add_bitola_cycle = QPushButton(self.frame_13)
         self.bt_add_bitola_cycle.setObjectName(u"bt_add_bitola_cycle")
-        sizePolicy4 = QSizePolicy(QSizePolicy.Fixed, QSizePolicy.Fixed)
-        sizePolicy4.setHorizontalStretch(0)
-        sizePolicy4.setVerticalStretch(0)
-        sizePolicy4.setHeightForWidth(self.bt_add_bitola_cycle.sizePolicy().hasHeightForWidth())
-        self.bt_add_bitola_cycle.setSizePolicy(sizePolicy4)
+        sizePolicy5 = QSizePolicy(QSizePolicy.Fixed, QSizePolicy.Fixed)
+        sizePolicy5.setHorizontalStretch(0)
+        sizePolicy5.setVerticalStretch(0)
+        sizePolicy5.setHeightForWidth(self.bt_add_bitola_cycle.sizePolicy().hasHeightForWidth())
+        self.bt_add_bitola_cycle.setSizePolicy(sizePolicy5)
         self.bt_add_bitola_cycle.setMinimumSize(QSize(0, 0))
         self.bt_add_bitola_cycle.setCursor(QCursor(Qt.PointingHandCursor))
-        icon4 = QIcon()
-        icon4.addFile(u":/icons/assets/add-32.png", QSize(), QIcon.Normal, QIcon.Off)
-        self.bt_add_bitola_cycle.setIcon(icon4)
+        icon6 = QIcon()
+        icon6.addFile(u":/icons/assets/add-32.png", QSize(), QIcon.Normal, QIcon.Off)
+        self.bt_add_bitola_cycle.setIcon(icon6)
         self.bt_add_bitola_cycle.setIconSize(QSize(20, 20))
 
         self.verticalLayout_6.addWidget(self.bt_add_bitola_cycle)
 
         self.bt_remove_bitola_cycle = QPushButton(self.frame_13)
         self.bt_remove_bitola_cycle.setObjectName(u"bt_remove_bitola_cycle")
-        sizePolicy4.setHeightForWidth(self.bt_remove_bitola_cycle.sizePolicy().hasHeightForWidth())
-        self.bt_remove_bitola_cycle.setSizePolicy(sizePolicy4)
+        sizePolicy5.setHeightForWidth(self.bt_remove_bitola_cycle.sizePolicy().hasHeightForWidth())
+        self.bt_remove_bitola_cycle.setSizePolicy(sizePolicy5)
         self.bt_remove_bitola_cycle.setMinimumSize(QSize(0, 0))
         self.bt_remove_bitola_cycle.setCursor(QCursor(Qt.PointingHandCursor))
-        icon5 = QIcon()
-        icon5.addFile(u":/icons/assets/remove-32.png", QSize(), QIcon.Normal, QIcon.Off)
-        self.bt_remove_bitola_cycle.setIcon(icon5)
+        icon7 = QIcon()
+        icon7.addFile(u":/icons/assets/remove-32.png", QSize(), QIcon.Normal, QIcon.Off)
+        self.bt_remove_bitola_cycle.setIcon(icon7)
         self.bt_remove_bitola_cycle.setIconSize(QSize(20, 20))
 
         self.verticalLayout_6.addWidget(self.bt_remove_bitola_cycle)
@@ -386,11 +438,11 @@ class Ui_MainWindow(object):
         __qtablewidgetitem3 = QTableWidgetItem()
         self.tw_cycle.setHorizontalHeaderItem(3, __qtablewidgetitem3)
         self.tw_cycle.setObjectName(u"tw_cycle")
-        sizePolicy5 = QSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
-        sizePolicy5.setHorizontalStretch(1)
-        sizePolicy5.setVerticalStretch(0)
-        sizePolicy5.setHeightForWidth(self.tw_cycle.sizePolicy().hasHeightForWidth())
-        self.tw_cycle.setSizePolicy(sizePolicy5)
+        sizePolicy6 = QSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
+        sizePolicy6.setHorizontalStretch(1)
+        sizePolicy6.setVerticalStretch(0)
+        sizePolicy6.setHeightForWidth(self.tw_cycle.sizePolicy().hasHeightForWidth())
+        self.tw_cycle.setSizePolicy(sizePolicy6)
         self.tw_cycle.setMinimumSize(QSize(400, 0))
         self.tw_cycle.setEditTriggers(QAbstractItemView.NoEditTriggers)
         self.tw_cycle.setSelectionMode(QAbstractItemView.SingleSelection)
@@ -412,42 +464,42 @@ class Ui_MainWindow(object):
         self.horizontalLayout_7.setObjectName(u"horizontalLayout_7")
         self.bt_new_cycle = QPushButton(self.tab_cycle)
         self.bt_new_cycle.setObjectName(u"bt_new_cycle")
-        sizePolicy6 = QSizePolicy(QSizePolicy.Expanding, QSizePolicy.Fixed)
-        sizePolicy6.setHorizontalStretch(0)
-        sizePolicy6.setVerticalStretch(0)
-        sizePolicy6.setHeightForWidth(self.bt_new_cycle.sizePolicy().hasHeightForWidth())
-        self.bt_new_cycle.setSizePolicy(sizePolicy6)
+        sizePolicy7 = QSizePolicy(QSizePolicy.Expanding, QSizePolicy.Fixed)
+        sizePolicy7.setHorizontalStretch(0)
+        sizePolicy7.setVerticalStretch(0)
+        sizePolicy7.setHeightForWidth(self.bt_new_cycle.sizePolicy().hasHeightForWidth())
+        self.bt_new_cycle.setSizePolicy(sizePolicy7)
         self.bt_new_cycle.setMinimumSize(QSize(0, 50))
         self.bt_new_cycle.setCursor(QCursor(Qt.PointingHandCursor))
-        icon6 = QIcon()
-        icon6.addFile(u":/icons/assets/new-32.png", QSize(), QIcon.Normal, QIcon.Off)
-        self.bt_new_cycle.setIcon(icon6)
+        icon8 = QIcon()
+        icon8.addFile(u":/icons/assets/new-32.png", QSize(), QIcon.Normal, QIcon.Off)
+        self.bt_new_cycle.setIcon(icon8)
         self.bt_new_cycle.setIconSize(QSize(32, 32))
 
         self.horizontalLayout_7.addWidget(self.bt_new_cycle)
 
         self.bt_save_cycle = QPushButton(self.tab_cycle)
         self.bt_save_cycle.setObjectName(u"bt_save_cycle")
-        sizePolicy6.setHeightForWidth(self.bt_save_cycle.sizePolicy().hasHeightForWidth())
-        self.bt_save_cycle.setSizePolicy(sizePolicy6)
+        sizePolicy7.setHeightForWidth(self.bt_save_cycle.sizePolicy().hasHeightForWidth())
+        self.bt_save_cycle.setSizePolicy(sizePolicy7)
         self.bt_save_cycle.setMinimumSize(QSize(0, 50))
         self.bt_save_cycle.setCursor(QCursor(Qt.PointingHandCursor))
-        icon7 = QIcon()
-        icon7.addFile(u":/icons/assets/save-32.png", QSize(), QIcon.Normal, QIcon.Off)
-        self.bt_save_cycle.setIcon(icon7)
+        icon9 = QIcon()
+        icon9.addFile(u":/icons/assets/save-32.png", QSize(), QIcon.Normal, QIcon.Off)
+        self.bt_save_cycle.setIcon(icon9)
         self.bt_save_cycle.setIconSize(QSize(32, 32))
 
         self.horizontalLayout_7.addWidget(self.bt_save_cycle)
 
         self.bt_delete_cycle = QPushButton(self.tab_cycle)
         self.bt_delete_cycle.setObjectName(u"bt_delete_cycle")
-        sizePolicy6.setHeightForWidth(self.bt_delete_cycle.sizePolicy().hasHeightForWidth())
-        self.bt_delete_cycle.setSizePolicy(sizePolicy6)
+        sizePolicy7.setHeightForWidth(self.bt_delete_cycle.sizePolicy().hasHeightForWidth())
+        self.bt_delete_cycle.setSizePolicy(sizePolicy7)
         self.bt_delete_cycle.setMinimumSize(QSize(0, 50))
         self.bt_delete_cycle.setCursor(QCursor(Qt.PointingHandCursor))
-        icon8 = QIcon()
-        icon8.addFile(u":/icons/assets/delete-32.png", QSize(), QIcon.Normal, QIcon.Off)
-        self.bt_delete_cycle.setIcon(icon8)
+        icon10 = QIcon()
+        icon10.addFile(u":/icons/assets/delete-32.png", QSize(), QIcon.Normal, QIcon.Off)
+        self.bt_delete_cycle.setIcon(icon10)
         self.bt_delete_cycle.setIconSize(QSize(32, 32))
 
         self.horizontalLayout_7.addWidget(self.bt_delete_cycle)
@@ -455,9 +507,9 @@ class Ui_MainWindow(object):
 
         self.verticalLayout.addLayout(self.horizontalLayout_7)
 
-        icon9 = QIcon()
-        icon9.addFile(u":/icons/assets/tag-32.png", QSize(), QIcon.Normal, QIcon.Off)
-        self.tab_widget_cycle.addTab(self.tab_cycle, icon9, "")
+        icon11 = QIcon()
+        icon11.addFile(u":/icons/assets/tag-32.png", QSize(), QIcon.Normal, QIcon.Off)
+        self.tab_widget_cycle.addTab(self.tab_cycle, icon11, "")
         self.tab_historic_cycle = QWidget()
         self.tab_historic_cycle.setObjectName(u"tab_historic_cycle")
         self.verticalLayout_7 = QVBoxLayout(self.tab_historic_cycle)
@@ -493,9 +545,9 @@ class Ui_MainWindow(object):
 
         self.cb_kiln_cycle_history = QComboBox(self.frame_14)
         self.cb_kiln_cycle_history.setObjectName(u"cb_kiln_cycle_history")
-        sizePolicy6.setHeightForWidth(self.cb_kiln_cycle_history.sizePolicy().hasHeightForWidth())
-        self.cb_kiln_cycle_history.setSizePolicy(sizePolicy6)
-        self.cb_kiln_cycle_history.setMinimumSize(QSize(90, 0))
+        sizePolicy7.setHeightForWidth(self.cb_kiln_cycle_history.sizePolicy().hasHeightForWidth())
+        self.cb_kiln_cycle_history.setSizePolicy(sizePolicy7)
+        self.cb_kiln_cycle_history.setMinimumSize(QSize(90, 26))
         self.cb_kiln_cycle_history.setMaxVisibleItems(10)
 
         self.formLayout.setWidget(0, QFormLayout.FieldRole, self.cb_kiln_cycle_history)
@@ -510,8 +562,8 @@ class Ui_MainWindow(object):
 
         self.cb_cycle_cycle_history = QComboBox(self.frame_14)
         self.cb_cycle_cycle_history.setObjectName(u"cb_cycle_cycle_history")
-        sizePolicy6.setHeightForWidth(self.cb_cycle_cycle_history.sizePolicy().hasHeightForWidth())
-        self.cb_cycle_cycle_history.setSizePolicy(sizePolicy6)
+        sizePolicy7.setHeightForWidth(self.cb_cycle_cycle_history.sizePolicy().hasHeightForWidth())
+        self.cb_cycle_cycle_history.setSizePolicy(sizePolicy7)
         self.cb_cycle_cycle_history.setMaxVisibleItems(10)
         self.cb_cycle_cycle_history.setFrame(True)
 
@@ -537,7 +589,7 @@ class Ui_MainWindow(object):
 
         self.cb_entry_date_cycle_history = CustomComboBox(self.frame_14)
         self.cb_entry_date_cycle_history.setObjectName(u"cb_entry_date_cycle_history")
-        self.cb_entry_date_cycle_history.setMinimumSize(QSize(100, 0))
+        self.cb_entry_date_cycle_history.setMinimumSize(QSize(100, 26))
         self.cb_entry_date_cycle_history.setEditable(True)
         self.cb_entry_date_cycle_history.setInsertPolicy(QComboBox.NoInsert)
         self.cb_entry_date_cycle_history.setFrame(True)
@@ -546,7 +598,9 @@ class Ui_MainWindow(object):
 
         self.cb_exit_date_cycle_history = CustomComboBox(self.frame_14)
         self.cb_exit_date_cycle_history.setObjectName(u"cb_exit_date_cycle_history")
-        self.cb_exit_date_cycle_history.setMinimumSize(QSize(100, 0))
+        sizePolicy3.setHeightForWidth(self.cb_exit_date_cycle_history.sizePolicy().hasHeightForWidth())
+        self.cb_exit_date_cycle_history.setSizePolicy(sizePolicy3)
+        self.cb_exit_date_cycle_history.setMinimumSize(QSize(100, 26))
         self.cb_exit_date_cycle_history.setEditable(True)
         self.cb_exit_date_cycle_history.setInsertPolicy(QComboBox.NoInsert)
         self.cb_exit_date_cycle_history.setFrame(True)
@@ -566,8 +620,11 @@ class Ui_MainWindow(object):
 
         self.label_51 = QLabel(self.frame_14)
         self.label_51.setObjectName(u"label_51")
-        sizePolicy.setHeightForWidth(self.label_51.sizePolicy().hasHeightForWidth())
-        self.label_51.setSizePolicy(sizePolicy)
+        sizePolicy8 = QSizePolicy(QSizePolicy.Preferred, QSizePolicy.Expanding)
+        sizePolicy8.setHorizontalStretch(0)
+        sizePolicy8.setVerticalStretch(0)
+        sizePolicy8.setHeightForWidth(self.label_51.sizePolicy().hasHeightForWidth())
+        self.label_51.setSizePolicy(sizePolicy8)
 
         self.formLayout_5.setWidget(1, QFormLayout.LabelRole, self.label_51)
 
@@ -578,16 +635,18 @@ class Ui_MainWindow(object):
 
         self.groupBox_5 = QGroupBox(self.frame_14)
         self.groupBox_5.setObjectName(u"groupBox_5")
-        sizePolicy3.setHeightForWidth(self.groupBox_5.sizePolicy().hasHeightForWidth())
-        self.groupBox_5.setSizePolicy(sizePolicy3)
+        sizePolicy.setHeightForWidth(self.groupBox_5.sizePolicy().hasHeightForWidth())
+        self.groupBox_5.setSizePolicy(sizePolicy)
         self.groupBox_5.setMinimumSize(QSize(0, 0))
-        self.groupBox_5.setMaximumSize(QSize(16777215, 33))
+        self.groupBox_5.setMaximumSize(QSize(16777215, 16777215))
         self.horizontalLayout_19 = QHBoxLayout(self.groupBox_5)
+        self.horizontalLayout_19.setSpacing(10)
         self.horizontalLayout_19.setObjectName(u"horizontalLayout_19")
+        self.horizontalLayout_19.setContentsMargins(-1, 0, -1, 0)
         self.rb_kd_cycle_history = QRadioButton(self.groupBox_5)
         self.rb_kd_cycle_history.setObjectName(u"rb_kd_cycle_history")
-        sizePolicy1.setHeightForWidth(self.rb_kd_cycle_history.sizePolicy().hasHeightForWidth())
-        self.rb_kd_cycle_history.setSizePolicy(sizePolicy1)
+        sizePolicy2.setHeightForWidth(self.rb_kd_cycle_history.sizePolicy().hasHeightForWidth())
+        self.rb_kd_cycle_history.setSizePolicy(sizePolicy2)
         self.rb_kd_cycle_history.setChecked(True)
 
         self.horizontalLayout_19.addWidget(self.rb_kd_cycle_history)
@@ -612,27 +671,27 @@ class Ui_MainWindow(object):
         self.horizontalLayout_21.setContentsMargins(-1, -1, 0, -1)
         self.bt_search_cycle_history = QPushButton(self.frame_14)
         self.bt_search_cycle_history.setObjectName(u"bt_search_cycle_history")
-        icon10 = QIcon()
-        icon10.addFile(u":/icons/assets/search-32.png", QSize(), QIcon.Normal, QIcon.Off)
-        self.bt_search_cycle_history.setIcon(icon10)
+        icon12 = QIcon()
+        icon12.addFile(u":/icons/assets/search-32.png", QSize(), QIcon.Normal, QIcon.Off)
+        self.bt_search_cycle_history.setIcon(icon12)
         self.bt_search_cycle_history.setIconSize(QSize(32, 32))
 
         self.horizontalLayout_21.addWidget(self.bt_search_cycle_history)
 
         self.bt_clear_cycle_history = QPushButton(self.frame_14)
         self.bt_clear_cycle_history.setObjectName(u"bt_clear_cycle_history")
-        icon11 = QIcon()
-        icon11.addFile(u":/icons/assets/erase-32.png", QSize(), QIcon.Normal, QIcon.Off)
-        self.bt_clear_cycle_history.setIcon(icon11)
+        icon13 = QIcon()
+        icon13.addFile(u":/icons/assets/erase-32.png", QSize(), QIcon.Normal, QIcon.Off)
+        self.bt_clear_cycle_history.setIcon(icon13)
         self.bt_clear_cycle_history.setIconSize(QSize(32, 32))
 
         self.horizontalLayout_21.addWidget(self.bt_clear_cycle_history)
 
         self.bt_edit_cycle_history = QPushButton(self.frame_14)
         self.bt_edit_cycle_history.setObjectName(u"bt_edit_cycle_history")
-        icon12 = QIcon()
-        icon12.addFile(u":/icons/assets/edit-32.png", QSize(), QIcon.Normal, QIcon.Off)
-        self.bt_edit_cycle_history.setIcon(icon12)
+        icon14 = QIcon()
+        icon14.addFile(u":/icons/assets/edit-32.png", QSize(), QIcon.Normal, QIcon.Off)
+        self.bt_edit_cycle_history.setIcon(icon14)
         self.bt_edit_cycle_history.setIconSize(QSize(32, 32))
 
         self.horizontalLayout_21.addWidget(self.bt_edit_cycle_history)
@@ -681,6 +740,8 @@ class Ui_MainWindow(object):
 
         self.label_63 = QLabel(self.frame_15)
         self.label_63.setObjectName(u"label_63")
+        sizePolicy.setHeightForWidth(self.label_63.sizePolicy().hasHeightForWidth())
+        self.label_63.setSizePolicy(sizePolicy)
 
         self.formLayout_2.setWidget(1, QFormLayout.LabelRole, self.label_63)
 
@@ -709,6 +770,8 @@ class Ui_MainWindow(object):
 
         self.label_65 = QLabel(self.frame_15)
         self.label_65.setObjectName(u"label_65")
+        sizePolicy.setHeightForWidth(self.label_65.sizePolicy().hasHeightForWidth())
+        self.label_65.setSizePolicy(sizePolicy)
 
         self.formLayout_8.setWidget(1, QFormLayout.LabelRole, self.label_65)
 
@@ -733,6 +796,7 @@ class Ui_MainWindow(object):
 
         self.formLayout_9 = QFormLayout()
         self.formLayout_9.setObjectName(u"formLayout_9")
+        self.formLayout_9.setVerticalSpacing(10)
         self.formLayout_9.setContentsMargins(-1, -1, 0, -1)
         self.label_67 = QLabel(self.frame_15)
         self.label_67.setObjectName(u"label_67")
@@ -741,6 +805,8 @@ class Ui_MainWindow(object):
 
         self.label_66 = QLabel(self.frame_15)
         self.label_66.setObjectName(u"label_66")
+        sizePolicy.setHeightForWidth(self.label_66.sizePolicy().hasHeightForWidth())
+        self.label_66.setSizePolicy(sizePolicy)
 
         self.formLayout_9.setWidget(1, QFormLayout.LabelRole, self.label_66)
 
@@ -752,9 +818,12 @@ class Ui_MainWindow(object):
 
         self.groupBox_6 = QGroupBox(self.frame_15)
         self.groupBox_6.setObjectName(u"groupBox_6")
-        self.groupBox_6.setMaximumSize(QSize(16777215, 33))
+        sizePolicy3.setHeightForWidth(self.groupBox_6.sizePolicy().hasHeightForWidth())
+        self.groupBox_6.setSizePolicy(sizePolicy3)
+        self.groupBox_6.setMaximumSize(QSize(16777215, 16777215))
         self.horizontalLayout_24 = QHBoxLayout(self.groupBox_6)
         self.horizontalLayout_24.setObjectName(u"horizontalLayout_24")
+        self.horizontalLayout_24.setContentsMargins(-1, 0, -1, 0)
         self.rb_kd_track_history = QRadioButton(self.groupBox_6)
         self.rb_kd_track_history.setObjectName(u"rb_kd_track_history")
         self.rb_kd_track_history.setCheckable(True)
@@ -781,9 +850,9 @@ class Ui_MainWindow(object):
         self.bt_back_track_history = QPushButton(self.frame_15)
         self.bt_back_track_history.setObjectName(u"bt_back_track_history")
         self.bt_back_track_history.setCursor(QCursor(Qt.PointingHandCursor))
-        icon13 = QIcon()
-        icon13.addFile(u":/icons/assets/back-32.png", QSize(), QIcon.Normal, QIcon.Off)
-        self.bt_back_track_history.setIcon(icon13)
+        icon15 = QIcon()
+        icon15.addFile(u":/icons/assets/back-32.png", QSize(), QIcon.Normal, QIcon.Off)
+        self.bt_back_track_history.setIcon(icon15)
         self.bt_back_track_history.setIconSize(QSize(32, 32))
 
         self.horizontalLayout_22.addWidget(self.bt_back_track_history)
@@ -800,11 +869,11 @@ class Ui_MainWindow(object):
 
         self.tv_track_history = QTableView(self.page_cycle_track_historic)
         self.tv_track_history.setObjectName(u"tv_track_history")
-        sizePolicy7 = QSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
-        sizePolicy7.setHorizontalStretch(0)
-        sizePolicy7.setVerticalStretch(0)
-        sizePolicy7.setHeightForWidth(self.tv_track_history.sizePolicy().hasHeightForWidth())
-        self.tv_track_history.setSizePolicy(sizePolicy7)
+        sizePolicy9 = QSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
+        sizePolicy9.setHorizontalStretch(0)
+        sizePolicy9.setVerticalStretch(0)
+        sizePolicy9.setHeightForWidth(self.tv_track_history.sizePolicy().hasHeightForWidth())
+        self.tv_track_history.setSizePolicy(sizePolicy9)
         self.tv_track_history.setMinimumSize(QSize(560, 0))
         self.tv_track_history.setMaximumSize(QSize(16777215, 16777215))
         self.tv_track_history.setSelectionMode(QAbstractItemView.SingleSelection)
@@ -841,16 +910,16 @@ class Ui_MainWindow(object):
 
         self.txt_leaving_date_track_history = QLineEdit(self.frame_16)
         self.txt_leaving_date_track_history.setObjectName(u"txt_leaving_date_track_history")
-        sizePolicy4.setHeightForWidth(self.txt_leaving_date_track_history.sizePolicy().hasHeightForWidth())
-        self.txt_leaving_date_track_history.setSizePolicy(sizePolicy4)
+        sizePolicy5.setHeightForWidth(self.txt_leaving_date_track_history.sizePolicy().hasHeightForWidth())
+        self.txt_leaving_date_track_history.setSizePolicy(sizePolicy5)
         self.txt_leaving_date_track_history.setMaximumSize(QSize(80, 16777215))
 
         self.gridLayout_22.addWidget(self.txt_leaving_date_track_history, 1, 1, 1, 1)
 
         self.txt_leaving_volume_track_history = QLineEdit(self.frame_16)
         self.txt_leaving_volume_track_history.setObjectName(u"txt_leaving_volume_track_history")
-        sizePolicy4.setHeightForWidth(self.txt_leaving_volume_track_history.sizePolicy().hasHeightForWidth())
-        self.txt_leaving_volume_track_history.setSizePolicy(sizePolicy4)
+        sizePolicy5.setHeightForWidth(self.txt_leaving_volume_track_history.sizePolicy().hasHeightForWidth())
+        self.txt_leaving_volume_track_history.setSizePolicy(sizePolicy5)
         self.txt_leaving_volume_track_history.setMaximumSize(QSize(80, 16777215))
 
         self.gridLayout_22.addWidget(self.txt_leaving_volume_track_history, 2, 1, 1, 1)
@@ -880,8 +949,8 @@ class Ui_MainWindow(object):
 
         self.txt_stock_volume_track_history = QLineEdit(self.frame_17)
         self.txt_stock_volume_track_history.setObjectName(u"txt_stock_volume_track_history")
-        sizePolicy4.setHeightForWidth(self.txt_stock_volume_track_history.sizePolicy().hasHeightForWidth())
-        self.txt_stock_volume_track_history.setSizePolicy(sizePolicy4)
+        sizePolicy5.setHeightForWidth(self.txt_stock_volume_track_history.sizePolicy().hasHeightForWidth())
+        self.txt_stock_volume_track_history.setSizePolicy(sizePolicy5)
         self.txt_stock_volume_track_history.setMaximumSize(QSize(80, 16777215))
 
         self.gridLayout_23.addWidget(self.txt_stock_volume_track_history, 2, 1, 1, 1)
@@ -896,9 +965,9 @@ class Ui_MainWindow(object):
 
         self.verticalLayout_7.addWidget(self.mp_cycle_historic)
 
-        icon14 = QIcon()
-        icon14.addFile(u":/icons/assets/history-32.png", QSize(), QIcon.Normal, QIcon.Off)
-        self.tab_widget_cycle.addTab(self.tab_historic_cycle, icon14, "")
+        icon16 = QIcon()
+        icon16.addFile(u":/icons/assets/history-32.png", QSize(), QIcon.Normal, QIcon.Off)
+        self.tab_widget_cycle.addTab(self.tab_historic_cycle, icon16, "")
 
         self.verticalLayout_3.addWidget(self.tab_widget_cycle)
 
@@ -930,7 +999,7 @@ class Ui_MainWindow(object):
 
         self.cb_date_nfe = CustomComboBox(self.frame_2)
         self.cb_date_nfe.setObjectName(u"cb_date_nfe")
-        self.cb_date_nfe.setMinimumSize(QSize(100, 0))
+        self.cb_date_nfe.setMinimumSize(QSize(100, 26))
         self.cb_date_nfe.setEditable(True)
         self.cb_date_nfe.setInsertPolicy(QComboBox.NoInsert)
         self.cb_date_nfe.setFrame(True)
@@ -944,8 +1013,8 @@ class Ui_MainWindow(object):
 
         self.cb_client_nfe = QComboBox(self.frame_2)
         self.cb_client_nfe.setObjectName(u"cb_client_nfe")
-        sizePolicy6.setHeightForWidth(self.cb_client_nfe.sizePolicy().hasHeightForWidth())
-        self.cb_client_nfe.setSizePolicy(sizePolicy6)
+        sizePolicy7.setHeightForWidth(self.cb_client_nfe.sizePolicy().hasHeightForWidth())
+        self.cb_client_nfe.setSizePolicy(sizePolicy7)
 
         self.formLayout_7.setWidget(1, QFormLayout.FieldRole, self.cb_client_nfe)
 
@@ -1023,7 +1092,7 @@ class Ui_MainWindow(object):
         self.txt_rework_nfe.setObjectName(u"txt_rework_nfe")
         sizePolicy3.setHeightForWidth(self.txt_rework_nfe.sizePolicy().hasHeightForWidth())
         self.txt_rework_nfe.setSizePolicy(sizePolicy3)
-        self.txt_rework_nfe.setMinimumSize(QSize(0, 0))
+        self.txt_rework_nfe.setMinimumSize(QSize(0, 24))
         self.txt_rework_nfe.setMaximumSize(QSize(16777215, 16777215))
         self.txt_rework_nfe.setFont(font2)
         self.txt_rework_nfe.setFrame(True)
@@ -1036,8 +1105,8 @@ class Ui_MainWindow(object):
 
         self.label_12 = QLabel(self.frame_12)
         self.label_12.setObjectName(u"label_12")
-        sizePolicy2.setHeightForWidth(self.label_12.sizePolicy().hasHeightForWidth())
-        self.label_12.setSizePolicy(sizePolicy2)
+        sizePolicy4.setHeightForWidth(self.label_12.sizePolicy().hasHeightForWidth())
+        self.label_12.setSizePolicy(sizePolicy4)
 
         self.gridLayout_7.addWidget(self.label_12, 0, 0, 1, 1)
 
@@ -1080,7 +1149,7 @@ class Ui_MainWindow(object):
         self.cb_cycle_nfe.setObjectName(u"cb_cycle_nfe")
         sizePolicy3.setHeightForWidth(self.cb_cycle_nfe.sizePolicy().hasHeightForWidth())
         self.cb_cycle_nfe.setSizePolicy(sizePolicy3)
-        self.cb_cycle_nfe.setMinimumSize(QSize(0, 0))
+        self.cb_cycle_nfe.setMinimumSize(QSize(0, 26))
         self.cb_cycle_nfe.setMaximumSize(QSize(16777215, 16777215))
 
         self.gridLayout_7.addWidget(self.cb_cycle_nfe, 0, 1, 1, 1)
@@ -1100,22 +1169,22 @@ class Ui_MainWindow(object):
         self.verticalLayout_4.setContentsMargins(-1, -1, 0, -1)
         self.bt_add_bitola_nfe = QPushButton(self.frame_12)
         self.bt_add_bitola_nfe.setObjectName(u"bt_add_bitola_nfe")
-        sizePolicy4.setHeightForWidth(self.bt_add_bitola_nfe.sizePolicy().hasHeightForWidth())
-        self.bt_add_bitola_nfe.setSizePolicy(sizePolicy4)
+        sizePolicy5.setHeightForWidth(self.bt_add_bitola_nfe.sizePolicy().hasHeightForWidth())
+        self.bt_add_bitola_nfe.setSizePolicy(sizePolicy5)
         self.bt_add_bitola_nfe.setMinimumSize(QSize(0, 0))
         self.bt_add_bitola_nfe.setCursor(QCursor(Qt.PointingHandCursor))
-        self.bt_add_bitola_nfe.setIcon(icon4)
+        self.bt_add_bitola_nfe.setIcon(icon6)
         self.bt_add_bitola_nfe.setIconSize(QSize(20, 20))
 
         self.verticalLayout_4.addWidget(self.bt_add_bitola_nfe)
 
         self.bt_remove_bitola_nfe = QPushButton(self.frame_12)
         self.bt_remove_bitola_nfe.setObjectName(u"bt_remove_bitola_nfe")
-        sizePolicy4.setHeightForWidth(self.bt_remove_bitola_nfe.sizePolicy().hasHeightForWidth())
-        self.bt_remove_bitola_nfe.setSizePolicy(sizePolicy4)
+        sizePolicy5.setHeightForWidth(self.bt_remove_bitola_nfe.sizePolicy().hasHeightForWidth())
+        self.bt_remove_bitola_nfe.setSizePolicy(sizePolicy5)
         self.bt_remove_bitola_nfe.setMinimumSize(QSize(0, 0))
         self.bt_remove_bitola_nfe.setCursor(QCursor(Qt.PointingHandCursor))
-        self.bt_remove_bitola_nfe.setIcon(icon5)
+        self.bt_remove_bitola_nfe.setIcon(icon7)
         self.bt_remove_bitola_nfe.setIconSize(QSize(20, 20))
 
         self.verticalLayout_4.addWidget(self.bt_remove_bitola_nfe)
@@ -1137,8 +1206,8 @@ class Ui_MainWindow(object):
         __qtablewidgetitem8 = QTableWidgetItem()
         self.tw_nfe.setHorizontalHeaderItem(4, __qtablewidgetitem8)
         self.tw_nfe.setObjectName(u"tw_nfe")
-        sizePolicy5.setHeightForWidth(self.tw_nfe.sizePolicy().hasHeightForWidth())
-        self.tw_nfe.setSizePolicy(sizePolicy5)
+        sizePolicy6.setHeightForWidth(self.tw_nfe.sizePolicy().hasHeightForWidth())
+        self.tw_nfe.setSizePolicy(sizePolicy6)
         self.tw_nfe.setMinimumSize(QSize(400, 0))
         self.tw_nfe.setEditTriggers(QAbstractItemView.NoEditTriggers)
         self.tw_nfe.setSelectionMode(QAbstractItemView.SingleSelection)
@@ -1165,7 +1234,7 @@ class Ui_MainWindow(object):
         self.bt_new_nfe.setObjectName(u"bt_new_nfe")
         self.bt_new_nfe.setMinimumSize(QSize(0, 50))
         self.bt_new_nfe.setCursor(QCursor(Qt.PointingHandCursor))
-        self.bt_new_nfe.setIcon(icon6)
+        self.bt_new_nfe.setIcon(icon8)
         self.bt_new_nfe.setIconSize(QSize(32, 32))
 
         self.horizontalLayout_8.addWidget(self.bt_new_nfe)
@@ -1174,7 +1243,7 @@ class Ui_MainWindow(object):
         self.bt_save_nfe.setObjectName(u"bt_save_nfe")
         self.bt_save_nfe.setMinimumSize(QSize(0, 50))
         self.bt_save_nfe.setCursor(QCursor(Qt.PointingHandCursor))
-        self.bt_save_nfe.setIcon(icon7)
+        self.bt_save_nfe.setIcon(icon9)
         self.bt_save_nfe.setIconSize(QSize(32, 32))
 
         self.horizontalLayout_8.addWidget(self.bt_save_nfe)
@@ -1183,7 +1252,7 @@ class Ui_MainWindow(object):
         self.bt_delete_nfe.setObjectName(u"bt_delete_nfe")
         self.bt_delete_nfe.setMinimumSize(QSize(0, 50))
         self.bt_delete_nfe.setCursor(QCursor(Qt.PointingHandCursor))
-        self.bt_delete_nfe.setIcon(icon8)
+        self.bt_delete_nfe.setIcon(icon10)
         self.bt_delete_nfe.setIconSize(QSize(32, 32))
 
         self.horizontalLayout_8.addWidget(self.bt_delete_nfe)
@@ -1191,9 +1260,9 @@ class Ui_MainWindow(object):
 
         self.verticalLayout_18.addLayout(self.horizontalLayout_8)
 
-        icon15 = QIcon()
-        icon15.addFile(u":/icons/assets/document-32.png", QSize(), QIcon.Normal, QIcon.Off)
-        self.tab_widget_nfe.addTab(self.tab_nfe, icon15, "")
+        icon17 = QIcon()
+        icon17.addFile(u":/icons/assets/document-32.png", QSize(), QIcon.Normal, QIcon.Off)
+        self.tab_widget_nfe.addTab(self.tab_nfe, icon17, "")
         self.tab_historic_nfe = QWidget()
         self.tab_historic_nfe.setObjectName(u"tab_historic_nfe")
         self.verticalLayout_8 = QVBoxLayout(self.tab_historic_nfe)
@@ -1250,9 +1319,9 @@ class Ui_MainWindow(object):
 
         self.cb_start_date_nfe_history = CustomComboBox(self.frame_24)
         self.cb_start_date_nfe_history.setObjectName(u"cb_start_date_nfe_history")
-        sizePolicy6.setHeightForWidth(self.cb_start_date_nfe_history.sizePolicy().hasHeightForWidth())
-        self.cb_start_date_nfe_history.setSizePolicy(sizePolicy6)
-        self.cb_start_date_nfe_history.setMinimumSize(QSize(100, 0))
+        sizePolicy7.setHeightForWidth(self.cb_start_date_nfe_history.sizePolicy().hasHeightForWidth())
+        self.cb_start_date_nfe_history.setSizePolicy(sizePolicy7)
+        self.cb_start_date_nfe_history.setMinimumSize(QSize(100, 26))
         self.cb_start_date_nfe_history.setEditable(True)
         self.cb_start_date_nfe_history.setInsertPolicy(QComboBox.NoInsert)
         self.cb_start_date_nfe_history.setFrame(True)
@@ -1261,9 +1330,9 @@ class Ui_MainWindow(object):
 
         self.cb_end_date_nfe_history = CustomComboBox(self.frame_24)
         self.cb_end_date_nfe_history.setObjectName(u"cb_end_date_nfe_history")
-        sizePolicy6.setHeightForWidth(self.cb_end_date_nfe_history.sizePolicy().hasHeightForWidth())
-        self.cb_end_date_nfe_history.setSizePolicy(sizePolicy6)
-        self.cb_end_date_nfe_history.setMinimumSize(QSize(100, 0))
+        sizePolicy7.setHeightForWidth(self.cb_end_date_nfe_history.sizePolicy().hasHeightForWidth())
+        self.cb_end_date_nfe_history.setSizePolicy(sizePolicy7)
+        self.cb_end_date_nfe_history.setMinimumSize(QSize(100, 26))
         self.cb_end_date_nfe_history.setEditable(True)
         self.cb_end_date_nfe_history.setInsertPolicy(QComboBox.NoInsert)
         self.cb_end_date_nfe_history.setFrame(True)
@@ -1299,7 +1368,7 @@ class Ui_MainWindow(object):
         self.bt_search_nfe_history = QPushButton(self.frame_24)
         self.bt_search_nfe_history.setObjectName(u"bt_search_nfe_history")
         self.bt_search_nfe_history.setCursor(QCursor(Qt.PointingHandCursor))
-        self.bt_search_nfe_history.setIcon(icon10)
+        self.bt_search_nfe_history.setIcon(icon12)
         self.bt_search_nfe_history.setIconSize(QSize(32, 32))
 
         self.horizontalLayout_36.addWidget(self.bt_search_nfe_history)
@@ -1307,7 +1376,7 @@ class Ui_MainWindow(object):
         self.bt_clear_nfe_history = QPushButton(self.frame_24)
         self.bt_clear_nfe_history.setObjectName(u"bt_clear_nfe_history")
         self.bt_clear_nfe_history.setCursor(QCursor(Qt.PointingHandCursor))
-        self.bt_clear_nfe_history.setIcon(icon11)
+        self.bt_clear_nfe_history.setIcon(icon13)
         self.bt_clear_nfe_history.setIconSize(QSize(32, 32))
 
         self.horizontalLayout_36.addWidget(self.bt_clear_nfe_history)
@@ -1315,7 +1384,7 @@ class Ui_MainWindow(object):
         self.bt_edit_nfe_history = QPushButton(self.frame_24)
         self.bt_edit_nfe_history.setObjectName(u"bt_edit_nfe_history")
         self.bt_edit_nfe_history.setCursor(QCursor(Qt.PointingHandCursor))
-        self.bt_edit_nfe_history.setIcon(icon12)
+        self.bt_edit_nfe_history.setIcon(icon14)
         self.bt_edit_nfe_history.setIconSize(QSize(32, 32))
 
         self.horizontalLayout_36.addWidget(self.bt_edit_nfe_history)
@@ -1329,13 +1398,23 @@ class Ui_MainWindow(object):
         self.tv_nfe_history = QTableView(self.tab_historic_nfe)
         self.tv_nfe_history.setObjectName(u"tv_nfe_history")
         self.tv_nfe_history.setMinimumSize(QSize(0, 0))
+        self.tv_nfe_history.setAlternatingRowColors(True)
         self.tv_nfe_history.setSelectionMode(QAbstractItemView.SingleSelection)
         self.tv_nfe_history.setSelectionBehavior(QAbstractItemView.SelectRows)
+        self.tv_nfe_history.setGridStyle(Qt.NoPen)
+        self.tv_nfe_history.setCornerButtonEnabled(True)
+        self.tv_nfe_history.horizontalHeader().setVisible(True)
+        self.tv_nfe_history.horizontalHeader().setCascadingSectionResizes(False)
+        self.tv_nfe_history.horizontalHeader().setMinimumSectionSize(40)
+        self.tv_nfe_history.horizontalHeader().setDefaultSectionSize(120)
         self.tv_nfe_history.horizontalHeader().setProperty("showSortIndicator", False)
+        self.tv_nfe_history.verticalHeader().setVisible(False)
+        self.tv_nfe_history.verticalHeader().setCascadingSectionResizes(False)
+        self.tv_nfe_history.verticalHeader().setHighlightSections(True)
 
         self.verticalLayout_8.addWidget(self.tv_nfe_history)
 
-        self.tab_widget_nfe.addTab(self.tab_historic_nfe, icon14, "")
+        self.tab_widget_nfe.addTab(self.tab_historic_nfe, icon16, "")
 
         self.verticalLayout_5.addWidget(self.tab_widget_nfe)
 
@@ -1361,8 +1440,8 @@ class Ui_MainWindow(object):
 
         self.cb_cycle_stock = QComboBox(self.frame_3)
         self.cb_cycle_stock.setObjectName(u"cb_cycle_stock")
-        sizePolicy6.setHeightForWidth(self.cb_cycle_stock.sizePolicy().hasHeightForWidth())
-        self.cb_cycle_stock.setSizePolicy(sizePolicy6)
+        sizePolicy7.setHeightForWidth(self.cb_cycle_stock.sizePolicy().hasHeightForWidth())
+        self.cb_cycle_stock.setSizePolicy(sizePolicy7)
         self.cb_cycle_stock.setMaxVisibleItems(10)
 
         self.horizontalLayout_12.addWidget(self.cb_cycle_stock)
@@ -1380,8 +1459,8 @@ class Ui_MainWindow(object):
 
         self.cb_bitola_stock = QComboBox(self.frame_3)
         self.cb_bitola_stock.setObjectName(u"cb_bitola_stock")
-        sizePolicy6.setHeightForWidth(self.cb_bitola_stock.sizePolicy().hasHeightForWidth())
-        self.cb_bitola_stock.setSizePolicy(sizePolicy6)
+        sizePolicy7.setHeightForWidth(self.cb_bitola_stock.sizePolicy().hasHeightForWidth())
+        self.cb_bitola_stock.setSizePolicy(sizePolicy7)
 
         self.horizontalLayout_14.addWidget(self.cb_bitola_stock)
 
@@ -1398,8 +1477,13 @@ class Ui_MainWindow(object):
 
         self.groupBox_2 = QGroupBox(self.frame_3)
         self.groupBox_2.setObjectName(u"groupBox_2")
+        sizePolicy3.setHeightForWidth(self.groupBox_2.sizePolicy().hasHeightForWidth())
+        self.groupBox_2.setSizePolicy(sizePolicy3)
+        self.groupBox_2.setMinimumSize(QSize(0, 26))
         self.horizontalLayout_4 = QHBoxLayout(self.groupBox_2)
+        self.horizontalLayout_4.setSpacing(10)
         self.horizontalLayout_4.setObjectName(u"horizontalLayout_4")
+        self.horizontalLayout_4.setContentsMargins(-1, 0, -1, 0)
         self.rb_kd_stock = QRadioButton(self.groupBox_2)
         self.rb_kd_stock.setObjectName(u"rb_kd_stock")
         self.rb_kd_stock.setChecked(True)
@@ -1426,20 +1510,20 @@ class Ui_MainWindow(object):
         self.horizontalLayout_20.setContentsMargins(-1, -1, 0, -1)
         self.bt_search_stock = QPushButton(self.frame_3)
         self.bt_search_stock.setObjectName(u"bt_search_stock")
-        sizePolicy4.setHeightForWidth(self.bt_search_stock.sizePolicy().hasHeightForWidth())
-        self.bt_search_stock.setSizePolicy(sizePolicy4)
+        sizePolicy5.setHeightForWidth(self.bt_search_stock.sizePolicy().hasHeightForWidth())
+        self.bt_search_stock.setSizePolicy(sizePolicy5)
         self.bt_search_stock.setCursor(QCursor(Qt.PointingHandCursor))
-        self.bt_search_stock.setIcon(icon10)
+        self.bt_search_stock.setIcon(icon12)
         self.bt_search_stock.setIconSize(QSize(32, 32))
 
         self.horizontalLayout_20.addWidget(self.bt_search_stock)
 
         self.bt_clear_stock = QPushButton(self.frame_3)
         self.bt_clear_stock.setObjectName(u"bt_clear_stock")
-        sizePolicy4.setHeightForWidth(self.bt_clear_stock.sizePolicy().hasHeightForWidth())
-        self.bt_clear_stock.setSizePolicy(sizePolicy4)
+        sizePolicy5.setHeightForWidth(self.bt_clear_stock.sizePolicy().hasHeightForWidth())
+        self.bt_clear_stock.setSizePolicy(sizePolicy5)
         self.bt_clear_stock.setCursor(QCursor(Qt.PointingHandCursor))
-        self.bt_clear_stock.setIcon(icon11)
+        self.bt_clear_stock.setIcon(icon13)
         self.bt_clear_stock.setIconSize(QSize(32, 32))
 
         self.horizontalLayout_20.addWidget(self.bt_clear_stock)
@@ -1452,6 +1536,7 @@ class Ui_MainWindow(object):
 
         self.tv_stock = QTableView(self.page_stock)
         self.tv_stock.setObjectName(u"tv_stock")
+        self.tv_stock.setSizeIncrement(QSize(0, 0))
         self.tv_stock.setSelectionMode(QAbstractItemView.SingleSelection)
         self.tv_stock.setSelectionBehavior(QAbstractItemView.SelectRows)
         self.tv_stock.horizontalHeader().setDefaultSectionSize(80)
@@ -1472,18 +1557,22 @@ class Ui_MainWindow(object):
         self.horizontalLayout_38.setContentsMargins(-1, -1, 0, -1)
         self.bt_discount_stock = QPushButton(self.frame_4)
         self.bt_discount_stock.setObjectName(u"bt_discount_stock")
+        sizePolicy7.setHeightForWidth(self.bt_discount_stock.sizePolicy().hasHeightForWidth())
+        self.bt_discount_stock.setSizePolicy(sizePolicy7)
         self.bt_discount_stock.setCursor(QCursor(Qt.PointingHandCursor))
-        self.bt_discount_stock.setIcon(icon15)
+        self.bt_discount_stock.setIcon(icon17)
         self.bt_discount_stock.setIconSize(QSize(32, 32))
 
         self.horizontalLayout_38.addWidget(self.bt_discount_stock)
 
         self.bt_leaving_stock = QPushButton(self.frame_4)
         self.bt_leaving_stock.setObjectName(u"bt_leaving_stock")
+        sizePolicy7.setHeightForWidth(self.bt_leaving_stock.sizePolicy().hasHeightForWidth())
+        self.bt_leaving_stock.setSizePolicy(sizePolicy7)
         self.bt_leaving_stock.setCursor(QCursor(Qt.PointingHandCursor))
-        icon16 = QIcon()
-        icon16.addFile(u":/icons/assets/recycling-32.png", QSize(), QIcon.Normal, QIcon.Off)
-        self.bt_leaving_stock.setIcon(icon16)
+        icon18 = QIcon()
+        icon18.addFile(u":/icons/assets/recycling-32.png", QSize(), QIcon.Normal, QIcon.Off)
+        self.bt_leaving_stock.setIcon(icon18)
         self.bt_leaving_stock.setIconSize(QSize(32, 32))
 
         self.horizontalLayout_38.addWidget(self.bt_leaving_stock)
@@ -1491,7 +1580,7 @@ class Ui_MainWindow(object):
 
         self.horizontalLayout_39.addLayout(self.horizontalLayout_38)
 
-        self.horizontalSpacer_3 = QSpacerItem(40, 20, QSizePolicy.Expanding, QSizePolicy.Minimum)
+        self.horizontalSpacer_3 = QSpacerItem(60, 20, QSizePolicy.Expanding, QSizePolicy.Minimum)
 
         self.horizontalLayout_39.addItem(self.horizontalSpacer_3)
 
@@ -1508,17 +1597,6 @@ class Ui_MainWindow(object):
         self.txt_treatment_stock.setReadOnly(True)
 
         self.formLayout_17.setWidget(0, QFormLayout.FieldRole, self.txt_treatment_stock)
-
-        self.label_25 = QLabel(self.frame_4)
-        self.label_25.setObjectName(u"label_25")
-
-        self.formLayout_17.setWidget(1, QFormLayout.LabelRole, self.label_25)
-
-        self.txt_leaving_stock = QLineEdit(self.frame_4)
-        self.txt_leaving_stock.setObjectName(u"txt_leaving_stock")
-        self.txt_leaving_stock.setReadOnly(True)
-
-        self.formLayout_17.setWidget(1, QFormLayout.FieldRole, self.txt_leaving_stock)
 
 
         self.horizontalLayout_39.addLayout(self.formLayout_17)
@@ -1560,18 +1638,23 @@ class Ui_MainWindow(object):
 
         self.fr_menu = QFrame(self.centralwidget)
         self.fr_menu.setObjectName(u"fr_menu")
+        sizePolicy.setHeightForWidth(self.fr_menu.sizePolicy().hasHeightForWidth())
+        self.fr_menu.setSizePolicy(sizePolicy)
         self.fr_menu.setMinimumSize(QSize(160, 0))
+        self.fr_menu.setMaximumSize(QSize(250, 16777215))
+        self.fr_menu.setSizeIncrement(QSize(0, 0))
+        self.fr_menu.setBaseSize(QSize(0, 0))
         self.fr_menu.setFrameShape(QFrame.Box)
         self.fr_menu.setFrameShadow(QFrame.Raised)
         self.verticalLayout_11 = QVBoxLayout(self.fr_menu)
         self.verticalLayout_11.setObjectName(u"verticalLayout_11")
         self.bt_cycle_menu = QPushButton(self.fr_menu)
         self.bt_cycle_menu.setObjectName(u"bt_cycle_menu")
-        sizePolicy1.setHeightForWidth(self.bt_cycle_menu.sizePolicy().hasHeightForWidth())
-        self.bt_cycle_menu.setSizePolicy(sizePolicy1)
+        sizePolicy7.setHeightForWidth(self.bt_cycle_menu.sizePolicy().hasHeightForWidth())
+        self.bt_cycle_menu.setSizePolicy(sizePolicy7)
         self.bt_cycle_menu.setMinimumSize(QSize(0, 50))
         self.bt_cycle_menu.setCursor(QCursor(Qt.PointingHandCursor))
-        self.bt_cycle_menu.setIcon(icon9)
+        self.bt_cycle_menu.setIcon(icon11)
         self.bt_cycle_menu.setIconSize(QSize(32, 32))
 
         self.verticalLayout_11.addWidget(self.bt_cycle_menu)
@@ -1580,7 +1663,7 @@ class Ui_MainWindow(object):
         self.bt_nfe_menu.setObjectName(u"bt_nfe_menu")
         self.bt_nfe_menu.setMinimumSize(QSize(0, 50))
         self.bt_nfe_menu.setCursor(QCursor(Qt.PointingHandCursor))
-        self.bt_nfe_menu.setIcon(icon15)
+        self.bt_nfe_menu.setIcon(icon17)
         self.bt_nfe_menu.setIconSize(QSize(32, 32))
 
         self.verticalLayout_11.addWidget(self.bt_nfe_menu)
@@ -1589,9 +1672,9 @@ class Ui_MainWindow(object):
         self.bt_stock_menu.setObjectName(u"bt_stock_menu")
         self.bt_stock_menu.setMinimumSize(QSize(0, 50))
         self.bt_stock_menu.setCursor(QCursor(Qt.PointingHandCursor))
-        icon17 = QIcon()
-        icon17.addFile(u":/icons/assets/stock-32.png", QSize(), QIcon.Normal, QIcon.Off)
-        self.bt_stock_menu.setIcon(icon17)
+        icon19 = QIcon()
+        icon19.addFile(u":/icons/assets/stock-32.png", QSize(), QIcon.Normal, QIcon.Off)
+        self.bt_stock_menu.setIcon(icon19)
         self.bt_stock_menu.setIconSize(QSize(32, 32))
 
         self.verticalLayout_11.addWidget(self.bt_stock_menu)
@@ -1600,9 +1683,9 @@ class Ui_MainWindow(object):
         self.bt_kiln_menu.setObjectName(u"bt_kiln_menu")
         self.bt_kiln_menu.setMinimumSize(QSize(0, 50))
         self.bt_kiln_menu.setCursor(QCursor(Qt.PointingHandCursor))
-        icon18 = QIcon()
-        icon18.addFile(u":/icons/assets/stove-32.png", QSize(), QIcon.Normal, QIcon.Off)
-        self.bt_kiln_menu.setIcon(icon18)
+        icon20 = QIcon()
+        icon20.addFile(u":/icons/assets/stove-32.png", QSize(), QIcon.Normal, QIcon.Off)
+        self.bt_kiln_menu.setIcon(icon20)
         self.bt_kiln_menu.setIconSize(QSize(32, 32))
 
         self.verticalLayout_11.addWidget(self.bt_kiln_menu)
@@ -1611,9 +1694,9 @@ class Ui_MainWindow(object):
         self.bt_client_menu.setObjectName(u"bt_client_menu")
         self.bt_client_menu.setMinimumSize(QSize(0, 50))
         self.bt_client_menu.setCursor(QCursor(Qt.PointingHandCursor))
-        icon19 = QIcon()
-        icon19.addFile(u":/icons/assets/customer-32.png", QSize(), QIcon.Normal, QIcon.Off)
-        self.bt_client_menu.setIcon(icon19)
+        icon21 = QIcon()
+        icon21.addFile(u":/icons/assets/customer-32.png", QSize(), QIcon.Normal, QIcon.Off)
+        self.bt_client_menu.setIcon(icon21)
         self.bt_client_menu.setIconSize(QSize(32, 32))
 
         self.verticalLayout_11.addWidget(self.bt_client_menu)
@@ -1622,9 +1705,9 @@ class Ui_MainWindow(object):
         self.bt_exit_menu.setObjectName(u"bt_exit_menu")
         self.bt_exit_menu.setMinimumSize(QSize(0, 50))
         self.bt_exit_menu.setCursor(QCursor(Qt.PointingHandCursor))
-        icon20 = QIcon()
-        icon20.addFile(u":/icons/assets/exit-32.png", QSize(), QIcon.Normal, QIcon.Off)
-        self.bt_exit_menu.setIcon(icon20)
+        icon22 = QIcon()
+        icon22.addFile(u":/icons/assets/exit-32.png", QSize(), QIcon.Normal, QIcon.Off)
+        self.bt_exit_menu.setIcon(icon22)
         self.bt_exit_menu.setIconSize(QSize(32, 32))
 
         self.verticalLayout_11.addWidget(self.bt_exit_menu)
@@ -1640,16 +1723,21 @@ class Ui_MainWindow(object):
         MainWindow.setStatusBar(self.statusbar)
         self.menubar = QMenuBar(MainWindow)
         self.menubar.setObjectName(u"menubar")
-        self.menubar.setGeometry(QRect(0, 0, 1006, 22))
+        self.menubar.setGeometry(QRect(0, 0, 1125, 29))
         self.menu_about = QMenu(self.menubar)
         self.menu_about.setObjectName(u"menu_about")
         self.menu_config = QMenu(self.menubar)
         self.menu_config.setObjectName(u"menu_config")
         self.menu_db = QMenu(self.menu_config)
         self.menu_db.setObjectName(u"menu_db")
-        icon21 = QIcon()
-        icon21.addFile(u":/icons/assets/db.png", QSize(), QIcon.Normal, QIcon.Off)
-        self.menu_db.setIcon(icon21)
+        icon23 = QIcon()
+        icon23.addFile(u":/icons/assets/db.png", QSize(), QIcon.Normal, QIcon.Off)
+        self.menu_db.setIcon(icon23)
+        self.menu_theme = QMenu(self.menu_config)
+        self.menu_theme.setObjectName(u"menu_theme")
+        icon24 = QIcon()
+        icon24.addFile(u":/icons/assets/themes-32.png", QSize(), QIcon.Normal, QIcon.Off)
+        self.menu_theme.setIcon(icon24)
         MainWindow.setMenuBar(self.menubar)
 #if QT_CONFIG(shortcut)
         self.label_9.setBuddy(self.cb_kiln_cycle)
@@ -1685,7 +1773,6 @@ class Ui_MainWindow(object):
         self.label_22.setBuddy(self.cb_bitola_stock)
         self.label_21.setBuddy(self.rb_kd_stock)
         self.label_23.setBuddy(self.txt_treatment_stock)
-        self.label_25.setBuddy(self.txt_leaving_stock)
         self.label_24.setBuddy(self.txt_sold_stock)
         self.label_26.setBuddy(self.txt_stock_stock)
 #endif // QT_CONFIG(shortcut)
@@ -1756,8 +1843,7 @@ class Ui_MainWindow(object):
         QWidget.setTabOrder(self.tv_stock, self.bt_discount_stock)
         QWidget.setTabOrder(self.bt_discount_stock, self.bt_leaving_stock)
         QWidget.setTabOrder(self.bt_leaving_stock, self.txt_treatment_stock)
-        QWidget.setTabOrder(self.txt_treatment_stock, self.txt_leaving_stock)
-        QWidget.setTabOrder(self.txt_leaving_stock, self.txt_sold_stock)
+        QWidget.setTabOrder(self.txt_treatment_stock, self.txt_sold_stock)
         QWidget.setTabOrder(self.txt_sold_stock, self.txt_stock_stock)
         QWidget.setTabOrder(self.txt_stock_stock, self.tv_track_history)
         QWidget.setTabOrder(self.tv_track_history, self.rb_ht_track_history)
@@ -1776,14 +1862,17 @@ class Ui_MainWindow(object):
         self.menubar.addAction(self.menu_about.menuAction())
         self.menu_about.addAction(self.action_license)
         self.menu_config.addAction(self.menu_db.menuAction())
+        self.menu_config.addAction(self.menu_theme.menuAction())
         self.menu_db.addAction(self.action_config)
         self.menu_db.addAction(self.action_import_backup)
+        self.menu_theme.addAction(self.action_dark_theme)
+        self.menu_theme.addAction(self.action_light_theme)
 
         self.retranslateUi(MainWindow)
 
-        self.mp_main.setCurrentIndex(2)
-        self.tab_widget_cycle.setCurrentIndex(0)
-        self.mp_cycle_historic.setCurrentIndex(0)
+        self.mp_main.setCurrentIndex(0)
+        self.tab_widget_cycle.setCurrentIndex(1)
+        self.mp_cycle_historic.setCurrentIndex(1)
         self.tab_widget_nfe.setCurrentIndex(0)
 
 
@@ -1797,7 +1886,10 @@ class Ui_MainWindow(object):
         self.action_config.setText(QCoreApplication.translate("MainWindow", u"Configurar", None))
         self.action_import_backup.setText(QCoreApplication.translate("MainWindow", u"Importar backup", None))
         self.actionaa.setText(QCoreApplication.translate("MainWindow", u"aa", None))
-        self.label_6.setText(QCoreApplication.translate("MainWindow", u"CONTROLE DE MADEIRA TRATADA", None))
+        self.action_dark_theme.setText(QCoreApplication.translate("MainWindow", u"Dark", None))
+        self.action_light_theme.setText(QCoreApplication.translate("MainWindow", u"Light", None))
+        self.label_title.setText(QCoreApplication.translate("MainWindow", u"CONTROLE DE MADEIRA TRATADA", None))
+        self.label_title.setProperty("class", QCoreApplication.translate("MainWindow", u"title", None))
         self.label_9.setText(QCoreApplication.translate("MainWindow", u"ESTUFA", None))
         self.label_2.setText(QCoreApplication.translate("MainWindow", u"CICLO", None))
         self.label_3.setText(QCoreApplication.translate("MainWindow", u"ENTRADA", None))
@@ -1926,7 +2018,6 @@ class Ui_MainWindow(object):
         self.bt_discount_stock.setText(QCoreApplication.translate("MainWindow", u" BAIXAR NFE", None))
         self.bt_leaving_stock.setText(QCoreApplication.translate("MainWindow", u" MERCADO INTERNO", None))
         self.label_23.setText(QCoreApplication.translate("MainWindow", u"VOLUME TRATADO", None))
-        self.label_25.setText(QCoreApplication.translate("MainWindow", u"RES\u00cdDUO", None))
         self.label_24.setText(QCoreApplication.translate("MainWindow", u"VOLUME VENDIDO", None))
         self.label_26.setText(QCoreApplication.translate("MainWindow", u"ESTOQUE", None))
         self.bt_cycle_menu.setText(QCoreApplication.translate("MainWindow", u" CICLOS", None))
@@ -1938,5 +2029,6 @@ class Ui_MainWindow(object):
         self.menu_about.setTitle(QCoreApplication.translate("MainWindow", u"Sobre", None))
         self.menu_config.setTitle(QCoreApplication.translate("MainWindow", u"Configura\u00e7\u00f5es", None))
         self.menu_db.setTitle(QCoreApplication.translate("MainWindow", u"Banco de dados", None))
+        self.menu_theme.setTitle(QCoreApplication.translate("MainWindow", u"Tema", None))
     # retranslateUi
 

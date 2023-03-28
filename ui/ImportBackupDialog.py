@@ -3,7 +3,7 @@
 ################################################################################
 ## Form generated from reading UI file 'ImportBackupDialog.ui'
 ##
-## Created by: Qt User Interface Compiler version 6.4.2
+## Created by: Qt User Interface Compiler version 6.4.3
 ##
 ## WARNING! All changes made in this file will be lost when recompiling UI file!
 ################################################################################
@@ -24,10 +24,11 @@ class Ui_Dialog(object):
     def setupUi(self, Dialog):
         if not Dialog.objectName():
             Dialog.setObjectName(u"Dialog")
-        Dialog.setWindowModality(Qt.NonModal)
+        Dialog.setWindowModality(Qt.WindowModal)
         Dialog.resize(476, 198)
         self.gridLayout = QGridLayout(Dialog)
         self.gridLayout.setObjectName(u"gridLayout")
+        self.gridLayout.setContentsMargins(-1, -1, -1, 9)
         self.frame = QFrame(Dialog)
         self.frame.setObjectName(u"frame")
         self.frame.setFrameShape(QFrame.Box)

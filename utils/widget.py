@@ -1,5 +1,6 @@
-from PySide6.QtWidgets import QLineEdit, QMessageBox, QComboBox
-from PySide6.QtGui import QFocusEvent, QRegularExpressionValidator
+import functools
+from PySide6.QtWidgets import QMessageBox, QComboBox
+from PySide6.QtGui import QRegularExpressionValidator
 from PySide6.QtCore import QRegularExpression
 
 import utils
@@ -22,7 +23,7 @@ class Message(QMessageBox):
 
     # Cria e executa uma message box de aviso com botões de Sim e Não
     @classmethod
-    def warning_question(cls, parent, message: str, default_button=QMessageBox.StandardButton.No):
+    def warning_question(cls, parent, message: str, default_button=QMessageBox.StandardButton.No) -> int:
         buttons = [(QMessageBox.StandardButton.Yes, 'Sim'), (QMessageBox.StandardButton.No, 'Não')]
 
         self = cls(parent, buttons)
@@ -42,7 +43,7 @@ class Message(QMessageBox):
             message: str,
             icon: QMessageBox.Icon | None = None,
             default_button: QMessageBox.StandardButton | None = None
-    ):
+    ) -> int:
         self.setWindowTitle(title)
         self.setText(message)
         self.setIcon(icon)
@@ -52,11 +53,7 @@ class Message(QMessageBox):
 
     # Seta captions personalizados
     def set_caption_buttons(self, buttons: list[tuple[QMessageBox.StandardButton, str]]):
-        b = 0
-
-        for button, _ in buttons:
-            b |= button
-
+        b = functools.reduce(lambda b, button: b | button[0], buttons, 0)
         self.setStandardButtons(b)
 
         for button, caption in buttons:
@@ -76,21 +73,3 @@ class CustomComboBox(QComboBox):
     def showPopup(self) -> None:
         utils.CalendarDialog(self.parent(), self).show()
 
-
-# LineEdit com auto formatar moeda
-class CustomLineEdit(QLineEdit):
-    # Formata para float ao receber o foco
-    def focusInEvent(self, a0: QFocusEvent) -> None:
-        value = utils.from_volume_to_float(self.text())
-        value = str(value).replace('.', ',')
-        self.setText(value)
-
-        super().focusInEvent(a0)
-
-    # Formata para moeda ao perder o foco
-    def focusOutEvent(self, a0: QFocusEvent) -> None:
-        value = utils.from_volume_to_float(self.text())
-        value = utils.from_float_to_volume(value)
-        self.setText(value)
-
-        super().focusOutEvent(a0)

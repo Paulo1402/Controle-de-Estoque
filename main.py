@@ -1,16 +1,19 @@
 import sys
+import warnings
 
 from PySide6.QtWidgets import QApplication, QMainWindow, QHeaderView, QTableWidgetItem, QLabel, QProgressBar
 from PySide6.QtGui import QIcon, QCloseEvent, QIntValidator
-from PySide6.QtCore import QModelIndex, Qt, QRegularExpression, QSortFilterProxyModel
+from PySide6.QtCore import QModelIndex, Qt, QRegularExpression, Slot
 
 from ui.MainWindow import Ui_MainWindow
 from services import *
 from utils import *
 
 
-# todo Bloquear adição e remoção de bitolas ao editar, forçar deletar ciclo / nfe para inserir
+# todo Bloquear adição e remoção de bitolas ao editar, forçar deletar ciclo / nfe para inserir | ou permitir ???
 # todo Adicionar efeito de transição ao trocar de páginas no multi-page
+# todo Iniciar bateria de testes
+# todo Verificar update de nfes, ao alterar n de fardos é necessário atualizar pezinhos
 
 
 class MainWindow(QMainWindow, Ui_MainWindow):
@@ -72,7 +75,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
     # Setter para habilitar / desabilitar campos conforme valor do ID
     @ID_cycle.setter
-    def ID_cycle(self, value):
+    def ID_cycle(self, value: int):
         self._ID_cycle = value
         flag = bool(value + 1)
 
@@ -87,7 +90,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
     # Setter para habilitar / desabilitar campos conforme valor do ID
     @ID_nfe.setter
-    def ID_nfe(self, value):
+    def ID_nfe(self, value: int):
         self._ID_nfe = value
         flag = bool(value + 1)
 
@@ -124,6 +127,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         # Conecta botões do menu de tarefas
         self.action_config.triggered.connect(lambda: ConfigurationDialog(self, self.database).show())
         self.action_import_backup.triggered.connect(lambda: ImportBackupDialog(self, self.database).show())
+        self.action_dark_theme.triggered.connect(lambda: self.handle_theme('dark'))
+        self.action_light_theme.triggered.connect(lambda: self.handle_theme('light'))
 
         # Adiciona widgets a status bar
         status_bar = self.statusBar()
@@ -148,11 +153,11 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.bt_clear_cycle_history.clicked.connect(self.clear_cycle_history)
         self.bt_edit_cycle_history.clicked.connect(self.edit_cycle_history)
 
-        self.tv_cycle_history.setModel(TableModel(date=[3, 4], volume=[7, 8, 9, 10]))
+        self.tv_cycle_history.setModel(TableModel(date_fields=[3, 4], volume_fields=[7, 8, 9, 10]))
         self.tv_cycle_history.clicked.connect(lambda: self.bt_edit_cycle_history.setDisabled(False))
         self.tv_cycle_history.doubleClicked.connect(self.track_cycle)
 
-        self.tv_track_history.setModel(TableModel(date=[0], volume=[3]))
+        self.tv_track_history.setModel(TableModel(date_fields=[0], volume_fields=[3]))
         self.tv_track_history.doubleClicked.connect(self.track_nfe)
 
         self.bt_back_track_history.clicked.connect(lambda: self.mp_cycle_historic.setCurrentIndex(0))
@@ -174,7 +179,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.bt_clear_nfe_history.clicked.connect(self.clear_nfe_history)
         self.bt_edit_nfe_history.clicked.connect(self.edit_nfe_history)
 
-        self.tv_nfe_history.setModel(TableModel(date=[1], volume=[3]))
+        self.tv_nfe_history.setModel(TableModel(date_fields=[1], volume_fields=[3]))
         self.tv_nfe_history.clicked.connect(lambda: self.bt_edit_nfe_history.setDisabled(False))
 
         # Página Estoque
@@ -187,7 +192,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.bt_discount_stock.clicked.connect(self.discount_stock)
         self.bt_leaving_stock.clicked.connect(self.leaving_stock)
 
-        self.tv_stock.setModel(TableModel(volume=[4, 5, 6, 7]))
+        self.tv_stock.setModel(TableModel(volume_fields=[5, 6, 7]))
         self.tv_stock.clicked.connect(lambda: self.bt_discount_stock.setDisabled(False))
         self.tv_stock.clicked.connect(lambda: self.bt_leaving_stock.setDisabled(False))
 
@@ -208,45 +213,45 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.txt_bitola_cycle.setValidator(validator)
         self.txt_rework_nfe.setValidator(validator)
 
-    # Inicia aplicação
-    def start_app(self):
-        # Verifica conexão após iniciar janela principal
+        # Carrega tema configurado
+        config = get_config()
+        theme = config['theme']
+
+        if theme == 'light':
+            self.action_light_theme.setChecked(True)
+            self.action_dark_theme.setChecked(False)
+        else:
+            self.action_dark_theme.setChecked(True)
+            self.action_light_theme.setChecked(False)
+
+        load_theme(theme)
+
+    # Inicia janela principal
+    def show(self):
+        super().show()
+
+        # Verifica conexão
         if self.database.connection_state == DatabaseConnection.State.DATABASE_NOT_FOUND:
             Message.critical(
                 self,
                 'CRÍTICO',
                 'Erro ao acessar banco de dados!\n'
-                'Se seu banco de dados estiver na rede verifique se há conexão com a internet.'
+                'Se seu banco de dados estiver na rede verifique se há conexão com o computador servidor.'
             )
         elif self.database.connection_state == DatabaseConnection.State.NO_DATABASE:
             Message.warning(self, 'ATENÇÃO', 'Insira um banco de dados para usar o programa.')
             self.action_config.trigger()
+        else:
+            # Cria worker para fazer o backup
+            self.backup_worker = DoBackupWorker(self.database)
+            self.backup_worker.progress.connect(self.backup_progress)
+            self.backup_worker.finished.connect(self.backup_finished)
 
-        # Cria worker para fazer o backup
-        self.backup_worker = DoBackupWorker(self.database)
-        self.backup_worker.progress.connect(self.backup_progress)
-        self.backup_worker.finished.connect(self.backup_finished)
-
-        # Inicia worker
-        self.backup_worker.start()
+            # Inicia worker
+            self.backup_worker.start()
 
         # Configura dados
         self.setup_data()
-
-    # Atualiza widgets de backup
-    def backup_progress(self, progress: int):
-        if not self.backup_bar.isVisible():
-            self.backup_bar.setVisible(True)
-            self.backup_label.setVisible(True)
-
-        self.backup_bar.setValue(progress)
-
-    # Limpa worker e esconde widgets
-    def backup_finished(self):
-        self.backup_label.setVisible(False)
-        self.backup_bar.setVisible(False)
-
-        self.backup_worker = None
 
     # Carrega dados
     def setup_data(self):
@@ -255,6 +260,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
         self.action_import_backup.setDisabled(not connected)
         self.mp_main.setDisabled(not connected)
+        self.bt_client_menu.setDisabled(not connected)
+        self.bt_kiln_menu.setDisabled(not connected)
 
         # Carrega dados para dentro do app
         if connected:
@@ -265,8 +272,41 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             self.search_nfe_history()
             self.search_stock()
 
+    # Atualiza widgets de backup
+    @Slot()
+    def backup_progress(self, progress: int):
+        if not self.backup_bar.isVisible():
+            self.backup_bar.setVisible(True)
+            self.backup_label.setVisible(True)
+
+        self.backup_bar.setValue(progress)
+
+    # Limpa worker e esconde widgets
+    @Slot()
+    def backup_finished(self):
+        self.backup_label.setVisible(False)
+        self.backup_bar.setVisible(False)
+
+        self.backup_worker = None
+
+    # Lida com a troca de temas
+    @Slot()
+    def handle_theme(self, theme: str):
+        config = get_config()
+
+        if theme == 'light':
+            self.action_dark_theme.setChecked(False)
+        else:
+            self.action_light_theme.setChecked(False)
+
+        config['theme'] = theme
+
+        set_config(config)
+        load_theme(theme)
+
     # Página Ciclo
     # Prepara campos para novo registro
+    @Slot()
     def new_cycle(self):
         fields = [
             self.cb_kiln_cycle,
@@ -289,6 +329,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.ID_cycle = -1
 
     # Salva ciclo na tabela
+    @Slot()
     def save_cycle(self):
         fields = [
             self.cb_kiln_cycle,
@@ -381,6 +422,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             Message.critical(self, 'CRÍTICO', 'Algo deu errado durante a operação!')
 
     # Deleta ciclo
+    @Slot()
     def delete_cycle(self):
         # Guard clause
         if not Message.warning_question(
@@ -404,6 +446,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.search_cycle_history()
 
     # Carrega dados de ciclos para a table view
+    @Slot()
     def search_cycle_history(self):
         # Retorna dados dos campos
         kiln = self.cb_kiln_cycle_history.currentText()
@@ -460,6 +503,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.bt_edit_cycle_history.setDisabled(True)
 
     # Limpa campos na página de histórico de ciclos
+    @Slot()
     def clear_cycle_history(self):
         self.cb_kiln_cycle_history.setCurrentIndex(0)
         self.cb_cycle_cycle_history.setCurrentIndex(0)
@@ -474,6 +518,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.tv_cycle_history.clearSelection()
 
     # Traz dados da página de histórico de ciclos para edição na página de registro
+    @Slot()
     def edit_cycle_history(self):
         # Aborta slot caso não haja índices selecionados
         if not self.tv_cycle_history.selectedIndexes():
@@ -528,6 +573,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.ID_cycle = cycle
 
     # Mostra informações detalhadas sobre o ciclo em uma nova página
+    @Slot()
     def track_cycle(self, index: QModelIndex):
         # Retorna linha
         row = index.row()
@@ -547,6 +593,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         # Seta campos com os dados da página anterior
         if model.index(row, 5).data() == 'KD':
             self.rb_kd_track_history.setChecked(True)
+        else:
+            self.rb_ht_track_history.setChecked(True)
 
         for field, col in fields:
             data = model.index(row, col).data()
@@ -609,6 +657,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.mp_cycle_historic.setCurrentIndex(1)
 
     # Mostra informações detalhadas sobre a nfe na página de nfe
+    @Slot()
     def track_nfe(self, index: QModelIndex):
         # Retorna linha e model
         row = index.row()
@@ -630,6 +679,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
     # Página NFE
     # Prepara campos para novo registro
+    @Slot()
     def new_nfe(self):
         fields = [
             self.cb_date_nfe,
@@ -646,6 +696,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.ID_nfe = -1
 
     # Salva nfe na tabela
+    @Slot()
     def save_nfe(self):
         fields = [
             self.cb_date_nfe,
@@ -814,6 +865,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             Message.critical(self, 'CRÍTICO', 'Algo deu errado durante a operação!')
 
     # Deleta nfe
+    @Slot()
     def delete_nfe(self):
         # Guard clause
         if Message.warning_question(
@@ -837,6 +889,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.search_nfe_history()
 
     # Carrega bitolas com base no ciclo selecionado
+    @Slot()
     def load_nfe_bitola(self, index: int):
         # Aborta caso não houver ciclo
         if index == -1:
@@ -869,6 +922,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.cb_bitola_nfe.addItems(data)
 
     # Faz busca do histórico de NFEs e abastece table view
+    @Slot()
     def search_nfe_history(self):
         # Retorna dados dos campos
         nfe = self.txt_nfe_nfe_history.text()
@@ -913,6 +967,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.bt_edit_nfe_history.setDisabled(True)
 
     # Limpa os campos de filtro
+    @Slot()
     def clear_nfe_history(self):
         self.txt_nfe_nfe_history.clear()
         self.cb_client_nfe_history.setCurrentIndex(0)
@@ -926,6 +981,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.tv_nfe_history.clearSelection()
 
     # Traz dados para edição na página de registro
+    @Slot()
     def edit_nfe_history(self):
         # Aborta slot caso não haja índices selecionados
         if not self.tv_nfe_history.selectedIndexes():
@@ -979,6 +1035,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
     # Página Histórico
     # Faz busca no estoque e abastece table view
+    @Slot()
     def search_stock(self):
         # Retorna dados dos campos
         cycle = self.cb_cycle_stock.currentText()
@@ -1001,8 +1058,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         # Retorna a query com os dados
         query = self.database.read(
             table='estoque',
-            fields=['bitola_id', 'estoque.ciclo', 'bitola', 'fardos', 'volume_tratado', 'volume_vendido', 'residuo',
-                    'estoque', 'finalidade'],
+            fields=['bitola_id', 'estoque.ciclo',  'finalidade', 'bitola', 'fardos', 'volume_tratado',
+                    'volume_vendido', 'estoque'],
             clause=clause,
             values=values
         )
@@ -1014,7 +1071,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         # Retorna query com o resumo
         query = self.database.read(
             table='estoque',
-            fields=['SUM(volume_tratado)', 'SUM(volume_vendido)', 'SUM(residuo)', 'SUM(estoque)']
+            fields=['SUM(volume_tratado)', 'SUM(volume_vendido)', 'SUM(estoque)']
         )
 
         query.first()
@@ -1023,31 +1080,30 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         try:
             treatment = from_float_to_volume(query.value(0))
             sold = from_float_to_volume(query.value(1))
-            leaving = from_float_to_volume(query.value(2))
-            stock = from_float_to_volume(query.value(3))
+            stock = from_float_to_volume(query.value(2))
 
             # Seta valores
             self.txt_treatment_stock.setText(treatment)
             self.txt_sold_stock.setText(sold)
-            self.txt_leaving_stock.setText(leaving)
             self.txt_stock_stock.setText(stock)
         except ValueError:
             pass
 
         # Seta headers
-        headers = ['ID', 'CICLO', 'BITOLA', 'FARDOS', 'TRATADO', 'VENDIDO', 'RESÍDUO', 'ESTOQUE', 'FINALIDADE']
+        headers = ['ID', 'CICLO', 'FINALIDADE', 'BITOLA', 'FARDOS', 'TRATADO', 'VENDIDO', 'ESTOQUE']
 
         for i, header in enumerate(headers):
             model.setHeaderData(i, Qt.Orientation.Horizontal, header)
 
         # Configura colunas
         self.tv_stock.setColumnHidden(0, True)
-        self.tv_stock.horizontalHeader().setSectionResizeMode(2, QHeaderView.ResizeMode.Stretch)
+        self.tv_stock.horizontalHeader().setSectionResizeMode(3, QHeaderView.ResizeMode.Stretch)
 
         self.bt_leaving_stock.setDisabled(True)
         self.bt_discount_stock.setDisabled(True)
 
     # Limpa os campos de filtro
+    @Slot()
     def clear_stock(self):
         self.cb_cycle_stock.setCurrentIndex(0)
         self.cb_bitola_stock.setCurrentIndex(0)
@@ -1059,6 +1115,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.tv_stock.clearSelection()
 
     # Prepara bitola selecionada para baixa via nfe
+    @Slot()
     def discount_stock(self):
         # Guard clause
         if not self.tv_stock.selectedIndexes():
@@ -1080,6 +1137,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.ID_nfe = -1
 
     # Faz baixa da bitola selecionada como resíduo
+    @Slot()
     def leaving_stock(self):
         # Guard clause
         if not self.tv_stock.selectedIndexes():
@@ -1174,36 +1232,55 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         # Retorna dados
         query = self.database.read(
             table='estoque',
-            fields=['estoque.ciclo', 'bitola', 'finalidade', 'SUM(estoque)'],
-            clause='LEFT JOIN ciclo ON estoque.ciclo = ciclo.ciclo '
-                   'GROUP BY estoque.ciclo',
+            fields=['estoque.ciclo', 'bitola', 'finalidade', 'estoque'],
+            clause='LEFT JOIN ciclo ON estoque.ciclo = ciclo.ciclo'
         )
 
-        # Abastece campos
+        # Cria sets
+        stock_bitolas = set()
+        stock_ht_cycles = set()
+        stock_kd_cycles = set()
+        ht_cycles = set()
+        all_cycles = set()
+
+        # Abastece sets
+        while query.next():
+            cycle = query.value(0)
+            bitola = query.value(1)
+            finality = query.value(2)
+            stock = query.value(3)
+
+            all_cycles.add(cycle)
+
+            if finality == 'HT':
+                ht_cycles.add(cycle)
+
+            if stock != '' and stock > 0:
+                if finality == 'KD':
+                    stock_kd_cycles.add(cycle)
+                else:
+                    stock_ht_cycles.add(cycle)
+
+                stock_bitolas.add(bitola)
+
+        # Cria set de ciclos em estoque
+        stock_all_cycles = stock_kd_cycles.union(stock_ht_cycles)
+
+        # Abastece campos de filtro
         self.cb_bitola_stock.addItem('')
         self.cb_cycle_stock.addItem('')
         self.cb_cycle_cycle_history.addItem('')
         self.cb_foot_nfe_history.addItem('')
 
-        while query.next():
-            cycle = str(query.value(0))
-            bitola = query.value(1)
-            finality = query.value(2)
-            stock = query.value(3)
+        # Abastece campos
+        self.cb_cycle_cycle_history.addItems(order_set(all_cycles))
+        self.cb_foot_nfe_history.addItems(order_set(ht_cycles))
 
-            self.cb_cycle_cycle_history.addItem(cycle)
+        self.cb_cycle_nfe.addItems(order_set(stock_kd_cycles))
+        self.cb_foot_nfe.addItems(order_set(stock_ht_cycles))
 
-            if stock != '' and stock > 0:
-                if finality == 'KD':
-                    self.cb_cycle_nfe.addItem(cycle)
-                else:
-                    self.cb_foot_nfe.addItem(cycle)
-
-                self.cb_cycle_stock.addItem(cycle)
-                self.cb_bitola_stock.addItem(bitola)
-
-            if finality == 'HT':
-                self.cb_foot_nfe_history.addItem(cycle)
+        self.cb_cycle_stock.addItems(order_set(stock_all_cycles))
+        self.cb_bitola_stock.addItems(order_set(stock_bitolas))
 
 
 # Usado para auxiliar na depuração
@@ -1233,15 +1310,19 @@ if __name__ == "__main__":
     except ModuleNotFoundError:
         pass
 
+    DEBUG = False
+
+    if not DEBUG:
+        warnings.filterwarnings("ignore", category=DeprecationWarning)
+
     # Vincula hook para receber logs durante desenvolvimento
     sys.excepthook = exception_hook
 
     app = QApplication(sys.argv)
-    app.setStyle('Fusion')
     app.setWindowIcon(QIcon(u":/icons/assets/stock-48.png"))
 
     window = MainWindow()
+    window.setStyleSheet('')
     window.show()
-    window.start_app()
 
     sys.exit(app.exec())

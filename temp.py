@@ -1,22 +1,25 @@
-import functools
-import itertools
-import csv
+def decorator1(func):
+    print('decorator1', func.__name__)
+
+    def inner(*args, **kwargs):
+        func(*args, **kwargs)
+
+    return inner
 
 
-path = r'C:\Users\Kamua\OneDrive\Programação\Python\Projetos\Controle de Estoque\services\bd_ciclo.csv'
+def decorator2(func):
+    print('decorator2', func.__name__)
 
-with open(path, 'r', encoding='utf-8') as f:
-    _reader = csv.reader(f, delimiter=';')
-    header = next(_reader)
+    def inner(*args, **kwargs):
+        func(*args, **kwargs)
 
-    reader, reader_copy = itertools.tee(_reader, 2)
+    return inner
 
-    total = functools.reduce(lambda count, _: count + 1, reader_copy, 0)
-    print(total)
-    count = 0
 
-    for row in reader:
-        count += 1
-        print(row)
+@decorator1
+@decorator2
+def foo():
+    print('foo')
 
-    print(count)
+
+foo()

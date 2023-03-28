@@ -9,7 +9,12 @@ class DateMinMax(Enum):
 
 
 # Formata uma data de um formato de entrada para o formato de saída
-def parse_date(date: str, input_format: str, output_format: str = '%Y-%m-%d', on_fail: DateMinMax | None = None):
+def parse_date(
+        date: str,
+        input_format: str,
+        output_format: str = '%Y-%m-%d',
+        on_fail: DateMinMax | None = None
+) -> str | None:
     try:
         parsed_date = datetime.strptime(date, input_format)
         parsed_date = parsed_date.strftime(output_format)
@@ -24,15 +29,15 @@ def parse_date(date: str, input_format: str, output_format: str = '%Y-%m-%d', on
     return parsed_date
 
 
-# Retorna dia atual
-def get_today():
+# Retorna dia atual como string
+def get_today() -> str:
     today = datetime.today().date()
 
     return today.strftime('%Y-%m-%d')
 
 
-# Formata float para string formatada
-def from_float_to_volume(value: float | int, symbol: bool = True):
+# Converte de float para string formatada
+def from_float_to_volume(value: float | int, symbol: bool = True) -> str:
     value = f'{value:_.3f}'
     value = value.replace('.', ',').replace('_', '.').replace('-', '')
 
@@ -42,9 +47,9 @@ def from_float_to_volume(value: float | int, symbol: bool = True):
     return value
 
 
-# Formata de string formatada para float
-def from_volume_to_float(value: str):
-    value = value.replace('.', '').replace(',', '.')
+# Converte de string formatada para float
+def from_volume_to_float(value: str) -> float:
+    value = value.replace('.', '').replace(',', '.').replace(' M³', '')
     value = float(value) if value != '' else 0
 
     return value

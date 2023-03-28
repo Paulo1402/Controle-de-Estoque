@@ -1,14 +1,16 @@
 import locale
 from abc import ABC, abstractmethod
 
-from PySide6.QtWidgets import QLineEdit, QComboBox, QPushButton, QTableWidgetItem, QTableWidget, QHeaderView
+import qdarktheme
+from PySide6.QtWidgets import QLineEdit, QComboBox, QPushButton, QTableWidgetItem, QTableWidget, QHeaderView, \
+    QApplication
 from PySide6.QtCore import QRegularExpression, Qt
 from PySide6.QtGui import QRegularExpressionValidator
 
 from utils.parse import DateMinMax, parse_date, get_today, from_float_to_volume, from_volume_to_float
 from utils.config import get_config, set_config, BASEDIR
 from utils.model import TableModel, ListModel
-from utils.widget import CustomLineEdit, Message
+from utils.widget import Message
 from utils.dialog import *
 
 
@@ -36,15 +38,18 @@ __all__ = [
     'clear_fields',
     'BitolaValidator',
     'VolumeValidator',
-    'get_skids_volume'
+    'get_skids_volume',
+    'order_set',
+    'load_theme'
 ]
 
 # Define localização para usar a biblioteca datetime
 locale.setlocale(locale.LC_ALL, 'pt_BR.utf8')
 
 
+# Valida campos de bitola
 class BitolaValidator(QRegularExpressionValidator):
-    def __init__(self, regex):
+    def __init__(self, regex: QRegularExpression):
         super().__init__(regex)
         self.state = self.State.Invalid
 
@@ -56,6 +61,7 @@ class BitolaValidator(QRegularExpressionValidator):
 
         return result
 
+    # Seta auto-format
     def fixup(self, input_text: str):
         regex = QRegularExpression(r'(\d{2,3}[xX]){2}\d{3,4}([mM]{2})?')
         match = regex.match(input_text)
@@ -71,8 +77,9 @@ class BitolaValidator(QRegularExpressionValidator):
         return input_text
 
 
+# Valida campos de volume
 class VolumeValidator(QRegularExpressionValidator):
-    def __init__(self, regex):
+    def __init__(self, regex: QRegularExpression):
         super().__init__(regex)
         self.state = self.State.Invalid
 
@@ -84,6 +91,7 @@ class VolumeValidator(QRegularExpressionValidator):
 
         return result
 
+    # Seta auto-format
     def fixup(self, input_text: str):
         regex = QRegularExpression(r'\d+')
         match = regex.match(input_text)
@@ -96,6 +104,7 @@ class VolumeValidator(QRegularExpressionValidator):
         return from_float_to_volume(input_text, symbol=False)
 
 
+# Classe genérica para interação com as table widgets
 class TableWidgetHandler(ABC):
     def __init__(
             self,
@@ -115,6 +124,7 @@ class TableWidgetHandler(ABC):
 
         self.remove_button.setDisabled(True)
 
+    # Método para ser imprementado nas subclasses
     @abstractmethod
     def add(self):
         pass
@@ -140,11 +150,13 @@ class TableWidgetHandler(ABC):
         clear_fields(self.fields)
         self.remove_button.setDisabled(True)
 
+    # Remove todas as linhas da table widget
     def remove_rows(self):
         for _ in range(self.table_widget.rowCount()):
             self.table_widget.removeRow(0)
 
 
+# Handler para interagir com a table widget da página de ciclos
 class CycleTableWidgetHandler(TableWidgetHandler):
     def add(self):
         # Verifica se há campos em branco
@@ -188,6 +200,7 @@ class CycleTableWidgetHandler(TableWidgetHandler):
         self.remove_button.setDisabled(True)
 
 
+# Handler para interagir com a table widget da página de nfe
 class NfeTableWidgetHandler(TableWidgetHandler):
     def __init__(
             self,
@@ -257,7 +270,8 @@ class NfeTableWidgetHandler(TableWidgetHandler):
         self.remove_button.setDisabled(True)
 
 
-def get_skids_volume(n_bitola_skids: int, packs: int):
+# Retorna volume dos pezinhos com base no algorítmo
+def get_skids_volume(n_bitola_skids: int, packs: int) -> list[float]:
     long_skids = 0.00306
     short_skids = 0.00405
 
@@ -282,16 +296,18 @@ def get_skids_volume(n_bitola_skids: int, packs: int):
 
 
 # Retorna campos em branco
-def get_empty_fields(fields: list[QLineEdit | QComboBox]):
+def get_empty_fields(fields: list[QLineEdit | QComboBox]) -> list[QLineEdit | QComboBox]:
     empty_fields = []
 
     for field in fields:
-        if isinstance(field, QComboBox):
-            if field.currentText().strip() == '':
-                empty_fields.append(field)
-        else:
-            if field.text().strip() == '':
-                empty_fields.append(field)
+        value = field.currentText() if isinstance(field, QComboBox) else field.text()
+
+        if not value.strip():
+            empty_fields.append(field)
+
+            # Atualiza QSS
+            field.setProperty('class', 'required')
+            field.style().polish(field)
 
     return empty_fields
 
@@ -300,6 +316,58 @@ def get_empty_fields(fields: list[QLineEdit | QComboBox]):
 def clear_fields(fields: list[QLineEdit | QComboBox]):
     for field in fields:
         if isinstance(field, QComboBox):
-            field.setCurrentIndex(-1)
+            field.setCurrentIndex(0)
         else:
             field.clear()
+
+        # Atualiza QSS
+        field.setProperty('class', '')
+        field.style().polish(field)
+
+
+# Converte um set para uma lista e a ordena
+def order_set(set_instance: set) -> list[str]:
+    converted_set = [value for value in set_instance]
+    converted_set.sort()
+
+    converted_set = [str(value) for value in converted_set]
+
+    return converted_set
+
+
+# Carrega tema e aplica QSS
+def load_theme(theme: str):
+    if theme == 'light':
+        border_color = 'black'
+    else:
+        border_color = 'white'
+
+    qss = '''
+        QPushButton:hover{
+            border: 1px solid %s;
+        }
+        
+        QLineEdit[class="required"],
+        QComboBox[class="required"]{
+             border: 1px solid red;
+        }
+        
+        QGroupBox{
+            margin: 0;
+        } 
+    ''' % border_color
+
+    custom_colors = {
+        '[dark]': {
+            'primary': '#f4d1ae'
+        },
+        '[light]': {
+            'primary': '#12263a'
+        }
+    }
+
+    qdarktheme.setup_theme(
+        theme=theme,
+        custom_colors=custom_colors,
+        additional_qss=qss
+    )
