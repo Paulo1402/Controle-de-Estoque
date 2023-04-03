@@ -22,15 +22,32 @@ class Ui_Dialog(object):
     def setupUi(self, Dialog):
         if not Dialog.objectName():
             Dialog.setObjectName(u"Dialog")
-        Dialog.resize(275, 192)
+        Dialog.resize(301, 214)
+        sizePolicy = QSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
+        sizePolicy.setHorizontalStretch(0)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(Dialog.sizePolicy().hasHeightForWidth())
+        Dialog.setSizePolicy(sizePolicy)
         Dialog.setStyleSheet(u"QDialog {\n"
-"	border: 1px solid gray\n"
+"	border: 1px solid gray;\n"
+"	border-radius: 5px\n"
+"}\n"
+"\n"
+"#qt_calendar_monthbutton::menu-indicator{\n"
+"	image: none;\n"
 "}")
         self.horizontalLayout = QHBoxLayout(Dialog)
         self.horizontalLayout.setObjectName(u"horizontalLayout")
         self.horizontalLayout.setContentsMargins(1, 1, 1, 1)
         self.calendar = QCalendarWidget(Dialog)
         self.calendar.setObjectName(u"calendar")
+        sizePolicy1 = QSizePolicy(QSizePolicy.Preferred, QSizePolicy.Preferred)
+        sizePolicy1.setHorizontalStretch(0)
+        sizePolicy1.setVerticalStretch(0)
+        sizePolicy1.setHeightForWidth(self.calendar.sizePolicy().hasHeightForWidth())
+        self.calendar.setSizePolicy(sizePolicy1)
+        self.calendar.setMinimumSize(QSize(1, 1))
+        self.calendar.setStyleSheet(u"")
         self.calendar.setGridVisible(True)
         self.calendar.setHorizontalHeaderFormat(QCalendarWidget.SingleLetterDayNames)
         self.calendar.setVerticalHeaderFormat(QCalendarWidget.NoVerticalHeader)

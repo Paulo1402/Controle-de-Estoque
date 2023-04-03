@@ -1,75 +1,40 @@
-import functools
-from PySide6.QtWidgets import QMessageBox, QComboBox
-from PySide6.QtGui import QRegularExpressionValidator
-from PySide6.QtCore import QRegularExpression
+from PySide6.QtWidgets import QComboBox, QStackedWidget, QTableWidget
 
-import utils
-
-
-# Template de QMessageBox com captions personalizados para botões
-class Message(QMessageBox):
-    YES = QMessageBox.StandardButton.Yes
-    NO = QMessageBox.StandardButton.No
-
-    def __init__(
-            self,
-            parent=None,
-            buttons: list[tuple[QMessageBox.StandardButton, str]] | None = None,
-    ):
-        super().__init__(parent)
-
-        if buttons:
-            self.set_caption_buttons(buttons)
-
-    # Cria e executa uma message box de aviso com botões de Sim e Não
-    @classmethod
-    def warning_question(cls, parent, message: str, default_button=QMessageBox.StandardButton.No) -> int:
-        buttons = [(QMessageBox.StandardButton.Yes, 'Sim'), (QMessageBox.StandardButton.No, 'Não')]
-
-        self = cls(parent, buttons)
-        answer = self.show_message(
-            'ATENÇÃO',
-            message,
-            QMessageBox.Icon.Warning,
-            default_button
-        )
-
-        return answer
-
-    # Executa MessageBox
-    def show_message(
-            self,
-            title: str,
-            message: str,
-            icon: QMessageBox.Icon | None = None,
-            default_button: QMessageBox.StandardButton | None = None
-    ) -> int:
-        self.setWindowTitle(title)
-        self.setText(message)
-        self.setIcon(icon)
-        self.setDefaultButton(default_button)
-
-        return super().exec()
-
-    # Seta captions personalizados
-    def set_caption_buttons(self, buttons: list[tuple[QMessageBox.StandardButton, str]]):
-        b = functools.reduce(lambda b, button: b | button[0], buttons, 0)
-        self.setStandardButtons(b)
-
-        for button, caption in buttons:
-            self.button(button).setText(caption)
+from utils import Animation, CalendarDialog, TableWidgetHandler
 
 
 class CustomComboBox(QComboBox):
     def __init__(self, parent):
         super().__init__(parent)
 
-        validator = QRegularExpressionValidator(
-            QRegularExpression(r"(0[1-9]|[12][0-9]|3[01])/(0[1-9]|1[12])/[12][0-9]{3}")
-        )
-
-        self.setValidator(validator)
+        self.animation = Animation()
+        self.popup = None
 
     def showPopup(self) -> None:
-        utils.CalendarDialog(self.parent(), self).show()
+        self.popup = CalendarDialog(self.parent(), self)
+        self.popup.show()
 
+        self.animation.open_popup(self.popup)
+
+
+class CustomTableWidget(QTableWidget):
+    def __init__(self, parent=None):
+        super().__init__(parent)
+
+        self._handler: TableWidgetHandler | None = None
+
+    @property
+    def handler(self):
+        return self._handler
+
+    @handler.setter
+    def handler(self, value):
+        self._handler = value
+
+
+class CustomStackedWidget(QStackedWidget):
+    def __init__(self, parent):
+        super().__init__(parent)
+
+    def setCurrentIndex(self, index: int) -> None:
+        super().setCurrentIndex(index)

@@ -10,7 +10,7 @@ from services import DatabaseConnection, QueryError, TABLES
 from utils import Message
 
 
-# Diálgo para importar backup
+# Diálogo para importar backup
 class ImportBackupDialog(QDialog, Ui_Dialog):
     def __init__(self, parent, database: DatabaseConnection):
         super().__init__(parent)
@@ -98,6 +98,7 @@ class ImportBackupWorker(QThread):
         with open(self.source, 'r', encoding='utf-8') as f:
             # Cria generator original
             _reader = csv.reader(f, delimiter=';')
+
             # Pega o cabeçalho
             header = next(_reader)
 
@@ -139,5 +140,3 @@ class ImportBackupWorker(QThread):
                           'Verifique o arquivo e tente novamente.'
 
                 self.error.emit(message)
-
-

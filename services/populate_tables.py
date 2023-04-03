@@ -80,7 +80,7 @@ if __name__ == '__main__':
 
         for nfe, data, cliente, volume, fardos, ciclo_pezinho in csvreader:
             query.addBindValue(nfe)
-            query.addBindValue(parse_date(entrada, '%d/%m/%Y', '%Y-%m-%d'))
+            query.addBindValue(parse_date(data, '%d/%m/%Y', '%Y-%m-%d'))
             query.addBindValue(cliente)
             query.addBindValue(from_volume_to_float(volume))
             query.addBindValue(fardos)
@@ -220,7 +220,7 @@ if __name__ == '__main__':
         """
     )
 
-    values = ['ESTUFA 1', 'ESTUFA 2']
+    values = ['ESTUFA 1', 'ESTUFA 2', 'ESTUFA 7']
 
     for value in values:
         query.addBindValue(value)

@@ -21,10 +21,10 @@ from PySide6.QtWidgets import (QAbstractItemView, QApplication, QComboBox, QForm
     QHeaderView, QLabel, QLayout, QLineEdit,
     QMainWindow, QMenu, QMenuBar, QPushButton,
     QRadioButton, QSizePolicy, QSpacerItem, QStackedWidget,
-    QStatusBar, QTabWidget, QTableView, QTableWidget,
-    QTableWidgetItem, QVBoxLayout, QWidget)
+    QStatusBar, QTabWidget, QTableView, QTableWidgetItem,
+    QVBoxLayout, QWidget)
 
-from utils.widget import CustomComboBox
+from utils.widget import (CustomComboBox, CustomTableWidget)
 from  . import resource_rc
 
 class Ui_MainWindow(object):
@@ -104,6 +104,11 @@ class Ui_MainWindow(object):
         icon5 = QIcon()
         icon5.addFile(u":/icons/assets/light-mode-32.png", QSize(), QIcon.Normal, QIcon.Off)
         self.action_light_theme.setIcon(icon5)
+        self.action_help = QAction(MainWindow)
+        self.action_help.setObjectName(u"action_help")
+        icon6 = QIcon()
+        icon6.addFile(u":/icons/assets/help-32.png", QSize(), QIcon.Normal, QIcon.Off)
+        self.action_help.setIcon(icon6)
         self.centralwidget = QWidget(MainWindow)
         self.centralwidget.setObjectName(u"centralwidget")
         font = QFont()
@@ -311,19 +316,19 @@ class Ui_MainWindow(object):
 
         self.verticalLayout.addWidget(self.frame)
 
-        self.frame_13 = QFrame(self.tab_cycle)
-        self.frame_13.setObjectName(u"frame_13")
-        self.frame_13.setMinimumSize(QSize(0, 50))
-        self.frame_13.setFrameShape(QFrame.Box)
-        self.frame_13.setFrameShadow(QFrame.Raised)
-        self.horizontalLayout_16 = QHBoxLayout(self.frame_13)
+        self.fr_bitolas_cycle = QFrame(self.tab_cycle)
+        self.fr_bitolas_cycle.setObjectName(u"fr_bitolas_cycle")
+        self.fr_bitolas_cycle.setMinimumSize(QSize(0, 50))
+        self.fr_bitolas_cycle.setFrameShape(QFrame.Box)
+        self.fr_bitolas_cycle.setFrameShadow(QFrame.Raised)
+        self.horizontalLayout_16 = QHBoxLayout(self.fr_bitolas_cycle)
         self.horizontalLayout_16.setObjectName(u"horizontalLayout_16")
         self.gridLayout_12 = QGridLayout()
         self.gridLayout_12.setObjectName(u"gridLayout_12")
         self.gridLayout_12.setSizeConstraint(QLayout.SetDefaultConstraint)
         self.gridLayout_12.setVerticalSpacing(10)
         self.gridLayout_12.setContentsMargins(-1, -1, 0, 0)
-        self.label_59 = QLabel(self.frame_13)
+        self.label_59 = QLabel(self.fr_bitolas_cycle)
         self.label_59.setObjectName(u"label_59")
         sizePolicy4 = QSizePolicy(QSizePolicy.Fixed, QSizePolicy.Preferred)
         sizePolicy4.setHorizontalStretch(0)
@@ -333,7 +338,7 @@ class Ui_MainWindow(object):
 
         self.gridLayout_12.addWidget(self.label_59, 0, 0, 1, 1)
 
-        self.label_58 = QLabel(self.frame_13)
+        self.label_58 = QLabel(self.fr_bitolas_cycle)
         self.label_58.setObjectName(u"label_58")
 
         self.gridLayout_12.addWidget(self.label_58, 2, 0, 1, 1)
@@ -342,7 +347,7 @@ class Ui_MainWindow(object):
 
         self.gridLayout_12.addItem(self.verticalSpacer_6, 3, 0, 1, 1)
 
-        self.txt_volume_cycle = QLineEdit(self.frame_13)
+        self.txt_volume_cycle = QLineEdit(self.fr_bitolas_cycle)
         self.txt_volume_cycle.setObjectName(u"txt_volume_cycle")
         sizePolicy3.setHeightForWidth(self.txt_volume_cycle.sizePolicy().hasHeightForWidth())
         self.txt_volume_cycle.setSizePolicy(sizePolicy3)
@@ -360,12 +365,12 @@ class Ui_MainWindow(object):
 
         self.gridLayout_12.addWidget(self.txt_volume_cycle, 2, 1, 1, 1)
 
-        self.label_57 = QLabel(self.frame_13)
+        self.label_57 = QLabel(self.fr_bitolas_cycle)
         self.label_57.setObjectName(u"label_57")
 
         self.gridLayout_12.addWidget(self.label_57, 1, 0, 1, 1)
 
-        self.txt_packs_cycle = QLineEdit(self.frame_13)
+        self.txt_packs_cycle = QLineEdit(self.fr_bitolas_cycle)
         self.txt_packs_cycle.setObjectName(u"txt_packs_cycle")
         sizePolicy3.setHeightForWidth(self.txt_packs_cycle.sizePolicy().hasHeightForWidth())
         self.txt_packs_cycle.setSizePolicy(sizePolicy3)
@@ -373,7 +378,7 @@ class Ui_MainWindow(object):
 
         self.gridLayout_12.addWidget(self.txt_packs_cycle, 1, 1, 1, 1)
 
-        self.txt_bitola_cycle = QLineEdit(self.frame_13)
+        self.txt_bitola_cycle = QLineEdit(self.fr_bitolas_cycle)
         self.txt_bitola_cycle.setObjectName(u"txt_bitola_cycle")
         sizePolicy3.setHeightForWidth(self.txt_bitola_cycle.sizePolicy().hasHeightForWidth())
         self.txt_bitola_cycle.setSizePolicy(sizePolicy3)
@@ -394,7 +399,7 @@ class Ui_MainWindow(object):
         self.verticalLayout_6 = QVBoxLayout()
         self.verticalLayout_6.setObjectName(u"verticalLayout_6")
         self.verticalLayout_6.setContentsMargins(-1, -1, 0, -1)
-        self.bt_add_bitola_cycle = QPushButton(self.frame_13)
+        self.bt_add_bitola_cycle = QPushButton(self.fr_bitolas_cycle)
         self.bt_add_bitola_cycle.setObjectName(u"bt_add_bitola_cycle")
         sizePolicy5 = QSizePolicy(QSizePolicy.Fixed, QSizePolicy.Fixed)
         sizePolicy5.setHorizontalStretch(0)
@@ -403,22 +408,22 @@ class Ui_MainWindow(object):
         self.bt_add_bitola_cycle.setSizePolicy(sizePolicy5)
         self.bt_add_bitola_cycle.setMinimumSize(QSize(0, 0))
         self.bt_add_bitola_cycle.setCursor(QCursor(Qt.PointingHandCursor))
-        icon6 = QIcon()
-        icon6.addFile(u":/icons/assets/add-32.png", QSize(), QIcon.Normal, QIcon.Off)
-        self.bt_add_bitola_cycle.setIcon(icon6)
+        icon7 = QIcon()
+        icon7.addFile(u":/icons/assets/add-32.png", QSize(), QIcon.Normal, QIcon.Off)
+        self.bt_add_bitola_cycle.setIcon(icon7)
         self.bt_add_bitola_cycle.setIconSize(QSize(20, 20))
 
         self.verticalLayout_6.addWidget(self.bt_add_bitola_cycle)
 
-        self.bt_remove_bitola_cycle = QPushButton(self.frame_13)
+        self.bt_remove_bitola_cycle = QPushButton(self.fr_bitolas_cycle)
         self.bt_remove_bitola_cycle.setObjectName(u"bt_remove_bitola_cycle")
         sizePolicy5.setHeightForWidth(self.bt_remove_bitola_cycle.sizePolicy().hasHeightForWidth())
         self.bt_remove_bitola_cycle.setSizePolicy(sizePolicy5)
         self.bt_remove_bitola_cycle.setMinimumSize(QSize(0, 0))
         self.bt_remove_bitola_cycle.setCursor(QCursor(Qt.PointingHandCursor))
-        icon7 = QIcon()
-        icon7.addFile(u":/icons/assets/remove-32.png", QSize(), QIcon.Normal, QIcon.Off)
-        self.bt_remove_bitola_cycle.setIcon(icon7)
+        icon8 = QIcon()
+        icon8.addFile(u":/icons/assets/remove-32.png", QSize(), QIcon.Normal, QIcon.Off)
+        self.bt_remove_bitola_cycle.setIcon(icon8)
         self.bt_remove_bitola_cycle.setIconSize(QSize(20, 20))
 
         self.verticalLayout_6.addWidget(self.bt_remove_bitola_cycle)
@@ -426,7 +431,7 @@ class Ui_MainWindow(object):
 
         self.gridLayout_14.addLayout(self.verticalLayout_6, 1, 1, 1, 1)
 
-        self.tw_cycle = QTableWidget(self.frame_13)
+        self.tw_cycle = CustomTableWidget(self.fr_bitolas_cycle)
         if (self.tw_cycle.columnCount() < 4):
             self.tw_cycle.setColumnCount(4)
         __qtablewidgetitem = QTableWidgetItem()
@@ -458,7 +463,7 @@ class Ui_MainWindow(object):
         self.horizontalLayout_16.addLayout(self.gridLayout_14)
 
 
-        self.verticalLayout.addWidget(self.frame_13)
+        self.verticalLayout.addWidget(self.fr_bitolas_cycle)
 
         self.horizontalLayout_7 = QHBoxLayout()
         self.horizontalLayout_7.setObjectName(u"horizontalLayout_7")
@@ -471,9 +476,9 @@ class Ui_MainWindow(object):
         self.bt_new_cycle.setSizePolicy(sizePolicy7)
         self.bt_new_cycle.setMinimumSize(QSize(0, 50))
         self.bt_new_cycle.setCursor(QCursor(Qt.PointingHandCursor))
-        icon8 = QIcon()
-        icon8.addFile(u":/icons/assets/new-32.png", QSize(), QIcon.Normal, QIcon.Off)
-        self.bt_new_cycle.setIcon(icon8)
+        icon9 = QIcon()
+        icon9.addFile(u":/icons/assets/new-32.png", QSize(), QIcon.Normal, QIcon.Off)
+        self.bt_new_cycle.setIcon(icon9)
         self.bt_new_cycle.setIconSize(QSize(32, 32))
 
         self.horizontalLayout_7.addWidget(self.bt_new_cycle)
@@ -484,9 +489,9 @@ class Ui_MainWindow(object):
         self.bt_save_cycle.setSizePolicy(sizePolicy7)
         self.bt_save_cycle.setMinimumSize(QSize(0, 50))
         self.bt_save_cycle.setCursor(QCursor(Qt.PointingHandCursor))
-        icon9 = QIcon()
-        icon9.addFile(u":/icons/assets/save-32.png", QSize(), QIcon.Normal, QIcon.Off)
-        self.bt_save_cycle.setIcon(icon9)
+        icon10 = QIcon()
+        icon10.addFile(u":/icons/assets/save-32.png", QSize(), QIcon.Normal, QIcon.Off)
+        self.bt_save_cycle.setIcon(icon10)
         self.bt_save_cycle.setIconSize(QSize(32, 32))
 
         self.horizontalLayout_7.addWidget(self.bt_save_cycle)
@@ -497,9 +502,9 @@ class Ui_MainWindow(object):
         self.bt_delete_cycle.setSizePolicy(sizePolicy7)
         self.bt_delete_cycle.setMinimumSize(QSize(0, 50))
         self.bt_delete_cycle.setCursor(QCursor(Qt.PointingHandCursor))
-        icon10 = QIcon()
-        icon10.addFile(u":/icons/assets/delete-32.png", QSize(), QIcon.Normal, QIcon.Off)
-        self.bt_delete_cycle.setIcon(icon10)
+        icon11 = QIcon()
+        icon11.addFile(u":/icons/assets/delete-32.png", QSize(), QIcon.Normal, QIcon.Off)
+        self.bt_delete_cycle.setIcon(icon11)
         self.bt_delete_cycle.setIconSize(QSize(32, 32))
 
         self.horizontalLayout_7.addWidget(self.bt_delete_cycle)
@@ -507,9 +512,9 @@ class Ui_MainWindow(object):
 
         self.verticalLayout.addLayout(self.horizontalLayout_7)
 
-        icon11 = QIcon()
-        icon11.addFile(u":/icons/assets/tag-32.png", QSize(), QIcon.Normal, QIcon.Off)
-        self.tab_widget_cycle.addTab(self.tab_cycle, icon11, "")
+        icon12 = QIcon()
+        icon12.addFile(u":/icons/assets/tag-32.png", QSize(), QIcon.Normal, QIcon.Off)
+        self.tab_widget_cycle.addTab(self.tab_cycle, icon12, "")
         self.tab_historic_cycle = QWidget()
         self.tab_historic_cycle.setObjectName(u"tab_historic_cycle")
         self.verticalLayout_7 = QVBoxLayout(self.tab_historic_cycle)
@@ -671,27 +676,30 @@ class Ui_MainWindow(object):
         self.horizontalLayout_21.setContentsMargins(-1, -1, 0, -1)
         self.bt_search_cycle_history = QPushButton(self.frame_14)
         self.bt_search_cycle_history.setObjectName(u"bt_search_cycle_history")
-        icon12 = QIcon()
-        icon12.addFile(u":/icons/assets/search-32.png", QSize(), QIcon.Normal, QIcon.Off)
-        self.bt_search_cycle_history.setIcon(icon12)
+        self.bt_search_cycle_history.setCursor(QCursor(Qt.PointingHandCursor))
+        icon13 = QIcon()
+        icon13.addFile(u":/icons/assets/search-32.png", QSize(), QIcon.Normal, QIcon.Off)
+        self.bt_search_cycle_history.setIcon(icon13)
         self.bt_search_cycle_history.setIconSize(QSize(32, 32))
 
         self.horizontalLayout_21.addWidget(self.bt_search_cycle_history)
 
         self.bt_clear_cycle_history = QPushButton(self.frame_14)
         self.bt_clear_cycle_history.setObjectName(u"bt_clear_cycle_history")
-        icon13 = QIcon()
-        icon13.addFile(u":/icons/assets/erase-32.png", QSize(), QIcon.Normal, QIcon.Off)
-        self.bt_clear_cycle_history.setIcon(icon13)
+        self.bt_clear_cycle_history.setCursor(QCursor(Qt.PointingHandCursor))
+        icon14 = QIcon()
+        icon14.addFile(u":/icons/assets/erase-32.png", QSize(), QIcon.Normal, QIcon.Off)
+        self.bt_clear_cycle_history.setIcon(icon14)
         self.bt_clear_cycle_history.setIconSize(QSize(32, 32))
 
         self.horizontalLayout_21.addWidget(self.bt_clear_cycle_history)
 
         self.bt_edit_cycle_history = QPushButton(self.frame_14)
         self.bt_edit_cycle_history.setObjectName(u"bt_edit_cycle_history")
-        icon14 = QIcon()
-        icon14.addFile(u":/icons/assets/edit-32.png", QSize(), QIcon.Normal, QIcon.Off)
-        self.bt_edit_cycle_history.setIcon(icon14)
+        self.bt_edit_cycle_history.setCursor(QCursor(Qt.PointingHandCursor))
+        icon15 = QIcon()
+        icon15.addFile(u":/icons/assets/edit-32.png", QSize(), QIcon.Normal, QIcon.Off)
+        self.bt_edit_cycle_history.setIcon(icon15)
         self.bt_edit_cycle_history.setIconSize(QSize(32, 32))
 
         self.horizontalLayout_21.addWidget(self.bt_edit_cycle_history)
@@ -850,9 +858,9 @@ class Ui_MainWindow(object):
         self.bt_back_track_history = QPushButton(self.frame_15)
         self.bt_back_track_history.setObjectName(u"bt_back_track_history")
         self.bt_back_track_history.setCursor(QCursor(Qt.PointingHandCursor))
-        icon15 = QIcon()
-        icon15.addFile(u":/icons/assets/back-32.png", QSize(), QIcon.Normal, QIcon.Off)
-        self.bt_back_track_history.setIcon(icon15)
+        icon16 = QIcon()
+        icon16.addFile(u":/icons/assets/back-32.png", QSize(), QIcon.Normal, QIcon.Off)
+        self.bt_back_track_history.setIcon(icon16)
         self.bt_back_track_history.setIconSize(QSize(32, 32))
 
         self.horizontalLayout_22.addWidget(self.bt_back_track_history)
@@ -965,9 +973,9 @@ class Ui_MainWindow(object):
 
         self.verticalLayout_7.addWidget(self.mp_cycle_historic)
 
-        icon16 = QIcon()
-        icon16.addFile(u":/icons/assets/history-32.png", QSize(), QIcon.Normal, QIcon.Off)
-        self.tab_widget_cycle.addTab(self.tab_historic_cycle, icon16, "")
+        icon17 = QIcon()
+        icon17.addFile(u":/icons/assets/history-32.png", QSize(), QIcon.Normal, QIcon.Off)
+        self.tab_widget_cycle.addTab(self.tab_historic_cycle, icon17, "")
 
         self.verticalLayout_3.addWidget(self.tab_widget_cycle)
 
@@ -1076,19 +1084,19 @@ class Ui_MainWindow(object):
 
         self.verticalLayout_18.addWidget(self.frame_2)
 
-        self.frame_12 = QFrame(self.tab_nfe)
-        self.frame_12.setObjectName(u"frame_12")
-        self.frame_12.setMinimumSize(QSize(0, 50))
-        self.frame_12.setFrameShape(QFrame.Box)
-        self.frame_12.setFrameShadow(QFrame.Raised)
-        self.horizontalLayout_15 = QHBoxLayout(self.frame_12)
+        self.fr_bitolas_nfe = QFrame(self.tab_nfe)
+        self.fr_bitolas_nfe.setObjectName(u"fr_bitolas_nfe")
+        self.fr_bitolas_nfe.setMinimumSize(QSize(0, 50))
+        self.fr_bitolas_nfe.setFrameShape(QFrame.Box)
+        self.fr_bitolas_nfe.setFrameShadow(QFrame.Raised)
+        self.horizontalLayout_15 = QHBoxLayout(self.fr_bitolas_nfe)
         self.horizontalLayout_15.setObjectName(u"horizontalLayout_15")
         self.gridLayout_7 = QGridLayout()
         self.gridLayout_7.setObjectName(u"gridLayout_7")
         self.gridLayout_7.setSizeConstraint(QLayout.SetDefaultConstraint)
         self.gridLayout_7.setVerticalSpacing(10)
         self.gridLayout_7.setContentsMargins(-1, -1, 0, 0)
-        self.txt_rework_nfe = QLineEdit(self.frame_12)
+        self.txt_rework_nfe = QLineEdit(self.fr_bitolas_nfe)
         self.txt_rework_nfe.setObjectName(u"txt_rework_nfe")
         sizePolicy3.setHeightForWidth(self.txt_rework_nfe.sizePolicy().hasHeightForWidth())
         self.txt_rework_nfe.setSizePolicy(sizePolicy3)
@@ -1103,14 +1111,14 @@ class Ui_MainWindow(object):
 
         self.gridLayout_7.addWidget(self.txt_rework_nfe, 3, 1, 1, 1)
 
-        self.label_12 = QLabel(self.frame_12)
+        self.label_12 = QLabel(self.fr_bitolas_nfe)
         self.label_12.setObjectName(u"label_12")
         sizePolicy4.setHeightForWidth(self.label_12.sizePolicy().hasHeightForWidth())
         self.label_12.setSizePolicy(sizePolicy4)
 
         self.gridLayout_7.addWidget(self.label_12, 0, 0, 1, 1)
 
-        self.cb_bitola_nfe = QComboBox(self.frame_12)
+        self.cb_bitola_nfe = QComboBox(self.fr_bitolas_nfe)
         self.cb_bitola_nfe.setObjectName(u"cb_bitola_nfe")
         sizePolicy3.setHeightForWidth(self.cb_bitola_nfe.sizePolicy().hasHeightForWidth())
         self.cb_bitola_nfe.setSizePolicy(sizePolicy3)
@@ -1122,17 +1130,17 @@ class Ui_MainWindow(object):
 
         self.gridLayout_7.addItem(self.verticalSpacer_4, 4, 0, 1, 1)
 
-        self.label_11 = QLabel(self.frame_12)
+        self.label_11 = QLabel(self.fr_bitolas_nfe)
         self.label_11.setObjectName(u"label_11")
 
         self.gridLayout_7.addWidget(self.label_11, 1, 0, 1, 1)
 
-        self.label_15 = QLabel(self.frame_12)
+        self.label_15 = QLabel(self.fr_bitolas_nfe)
         self.label_15.setObjectName(u"label_15")
 
         self.gridLayout_7.addWidget(self.label_15, 3, 0, 1, 1)
 
-        self.txt_volume_nfe = QLineEdit(self.frame_12)
+        self.txt_volume_nfe = QLineEdit(self.fr_bitolas_nfe)
         self.txt_volume_nfe.setObjectName(u"txt_volume_nfe")
         sizePolicy3.setHeightForWidth(self.txt_volume_nfe.sizePolicy().hasHeightForWidth())
         self.txt_volume_nfe.setSizePolicy(sizePolicy3)
@@ -1140,12 +1148,12 @@ class Ui_MainWindow(object):
 
         self.gridLayout_7.addWidget(self.txt_volume_nfe, 2, 1, 1, 1)
 
-        self.label_10 = QLabel(self.frame_12)
+        self.label_10 = QLabel(self.fr_bitolas_nfe)
         self.label_10.setObjectName(u"label_10")
 
         self.gridLayout_7.addWidget(self.label_10, 2, 0, 1, 1)
 
-        self.cb_cycle_nfe = QComboBox(self.frame_12)
+        self.cb_cycle_nfe = QComboBox(self.fr_bitolas_nfe)
         self.cb_cycle_nfe.setObjectName(u"cb_cycle_nfe")
         sizePolicy3.setHeightForWidth(self.cb_cycle_nfe.sizePolicy().hasHeightForWidth())
         self.cb_cycle_nfe.setSizePolicy(sizePolicy3)
@@ -1167,24 +1175,24 @@ class Ui_MainWindow(object):
         self.verticalLayout_4 = QVBoxLayout()
         self.verticalLayout_4.setObjectName(u"verticalLayout_4")
         self.verticalLayout_4.setContentsMargins(-1, -1, 0, -1)
-        self.bt_add_bitola_nfe = QPushButton(self.frame_12)
+        self.bt_add_bitola_nfe = QPushButton(self.fr_bitolas_nfe)
         self.bt_add_bitola_nfe.setObjectName(u"bt_add_bitola_nfe")
         sizePolicy5.setHeightForWidth(self.bt_add_bitola_nfe.sizePolicy().hasHeightForWidth())
         self.bt_add_bitola_nfe.setSizePolicy(sizePolicy5)
         self.bt_add_bitola_nfe.setMinimumSize(QSize(0, 0))
         self.bt_add_bitola_nfe.setCursor(QCursor(Qt.PointingHandCursor))
-        self.bt_add_bitola_nfe.setIcon(icon6)
+        self.bt_add_bitola_nfe.setIcon(icon7)
         self.bt_add_bitola_nfe.setIconSize(QSize(20, 20))
 
         self.verticalLayout_4.addWidget(self.bt_add_bitola_nfe)
 
-        self.bt_remove_bitola_nfe = QPushButton(self.frame_12)
+        self.bt_remove_bitola_nfe = QPushButton(self.fr_bitolas_nfe)
         self.bt_remove_bitola_nfe.setObjectName(u"bt_remove_bitola_nfe")
         sizePolicy5.setHeightForWidth(self.bt_remove_bitola_nfe.sizePolicy().hasHeightForWidth())
         self.bt_remove_bitola_nfe.setSizePolicy(sizePolicy5)
         self.bt_remove_bitola_nfe.setMinimumSize(QSize(0, 0))
         self.bt_remove_bitola_nfe.setCursor(QCursor(Qt.PointingHandCursor))
-        self.bt_remove_bitola_nfe.setIcon(icon7)
+        self.bt_remove_bitola_nfe.setIcon(icon8)
         self.bt_remove_bitola_nfe.setIconSize(QSize(20, 20))
 
         self.verticalLayout_4.addWidget(self.bt_remove_bitola_nfe)
@@ -1192,7 +1200,7 @@ class Ui_MainWindow(object):
 
         self.gridLayout_6.addLayout(self.verticalLayout_4, 1, 1, 1, 1)
 
-        self.tw_nfe = QTableWidget(self.frame_12)
+        self.tw_nfe = CustomTableWidget(self.fr_bitolas_nfe)
         if (self.tw_nfe.columnCount() < 5):
             self.tw_nfe.setColumnCount(5)
         __qtablewidgetitem4 = QTableWidgetItem()
@@ -1226,7 +1234,7 @@ class Ui_MainWindow(object):
         self.horizontalLayout_15.addLayout(self.gridLayout_6)
 
 
-        self.verticalLayout_18.addWidget(self.frame_12)
+        self.verticalLayout_18.addWidget(self.fr_bitolas_nfe)
 
         self.horizontalLayout_8 = QHBoxLayout()
         self.horizontalLayout_8.setObjectName(u"horizontalLayout_8")
@@ -1234,7 +1242,7 @@ class Ui_MainWindow(object):
         self.bt_new_nfe.setObjectName(u"bt_new_nfe")
         self.bt_new_nfe.setMinimumSize(QSize(0, 50))
         self.bt_new_nfe.setCursor(QCursor(Qt.PointingHandCursor))
-        self.bt_new_nfe.setIcon(icon8)
+        self.bt_new_nfe.setIcon(icon9)
         self.bt_new_nfe.setIconSize(QSize(32, 32))
 
         self.horizontalLayout_8.addWidget(self.bt_new_nfe)
@@ -1243,7 +1251,7 @@ class Ui_MainWindow(object):
         self.bt_save_nfe.setObjectName(u"bt_save_nfe")
         self.bt_save_nfe.setMinimumSize(QSize(0, 50))
         self.bt_save_nfe.setCursor(QCursor(Qt.PointingHandCursor))
-        self.bt_save_nfe.setIcon(icon9)
+        self.bt_save_nfe.setIcon(icon10)
         self.bt_save_nfe.setIconSize(QSize(32, 32))
 
         self.horizontalLayout_8.addWidget(self.bt_save_nfe)
@@ -1252,7 +1260,7 @@ class Ui_MainWindow(object):
         self.bt_delete_nfe.setObjectName(u"bt_delete_nfe")
         self.bt_delete_nfe.setMinimumSize(QSize(0, 50))
         self.bt_delete_nfe.setCursor(QCursor(Qt.PointingHandCursor))
-        self.bt_delete_nfe.setIcon(icon10)
+        self.bt_delete_nfe.setIcon(icon11)
         self.bt_delete_nfe.setIconSize(QSize(32, 32))
 
         self.horizontalLayout_8.addWidget(self.bt_delete_nfe)
@@ -1260,9 +1268,9 @@ class Ui_MainWindow(object):
 
         self.verticalLayout_18.addLayout(self.horizontalLayout_8)
 
-        icon17 = QIcon()
-        icon17.addFile(u":/icons/assets/document-32.png", QSize(), QIcon.Normal, QIcon.Off)
-        self.tab_widget_nfe.addTab(self.tab_nfe, icon17, "")
+        icon18 = QIcon()
+        icon18.addFile(u":/icons/assets/document-32.png", QSize(), QIcon.Normal, QIcon.Off)
+        self.tab_widget_nfe.addTab(self.tab_nfe, icon18, "")
         self.tab_historic_nfe = QWidget()
         self.tab_historic_nfe.setObjectName(u"tab_historic_nfe")
         self.verticalLayout_8 = QVBoxLayout(self.tab_historic_nfe)
@@ -1368,7 +1376,7 @@ class Ui_MainWindow(object):
         self.bt_search_nfe_history = QPushButton(self.frame_24)
         self.bt_search_nfe_history.setObjectName(u"bt_search_nfe_history")
         self.bt_search_nfe_history.setCursor(QCursor(Qt.PointingHandCursor))
-        self.bt_search_nfe_history.setIcon(icon12)
+        self.bt_search_nfe_history.setIcon(icon13)
         self.bt_search_nfe_history.setIconSize(QSize(32, 32))
 
         self.horizontalLayout_36.addWidget(self.bt_search_nfe_history)
@@ -1376,7 +1384,7 @@ class Ui_MainWindow(object):
         self.bt_clear_nfe_history = QPushButton(self.frame_24)
         self.bt_clear_nfe_history.setObjectName(u"bt_clear_nfe_history")
         self.bt_clear_nfe_history.setCursor(QCursor(Qt.PointingHandCursor))
-        self.bt_clear_nfe_history.setIcon(icon13)
+        self.bt_clear_nfe_history.setIcon(icon14)
         self.bt_clear_nfe_history.setIconSize(QSize(32, 32))
 
         self.horizontalLayout_36.addWidget(self.bt_clear_nfe_history)
@@ -1384,7 +1392,7 @@ class Ui_MainWindow(object):
         self.bt_edit_nfe_history = QPushButton(self.frame_24)
         self.bt_edit_nfe_history.setObjectName(u"bt_edit_nfe_history")
         self.bt_edit_nfe_history.setCursor(QCursor(Qt.PointingHandCursor))
-        self.bt_edit_nfe_history.setIcon(icon14)
+        self.bt_edit_nfe_history.setIcon(icon15)
         self.bt_edit_nfe_history.setIconSize(QSize(32, 32))
 
         self.horizontalLayout_36.addWidget(self.bt_edit_nfe_history)
@@ -1398,23 +1406,23 @@ class Ui_MainWindow(object):
         self.tv_nfe_history = QTableView(self.tab_historic_nfe)
         self.tv_nfe_history.setObjectName(u"tv_nfe_history")
         self.tv_nfe_history.setMinimumSize(QSize(0, 0))
-        self.tv_nfe_history.setAlternatingRowColors(True)
+        self.tv_nfe_history.setAlternatingRowColors(False)
         self.tv_nfe_history.setSelectionMode(QAbstractItemView.SingleSelection)
         self.tv_nfe_history.setSelectionBehavior(QAbstractItemView.SelectRows)
-        self.tv_nfe_history.setGridStyle(Qt.NoPen)
+        self.tv_nfe_history.setShowGrid(True)
         self.tv_nfe_history.setCornerButtonEnabled(True)
         self.tv_nfe_history.horizontalHeader().setVisible(True)
         self.tv_nfe_history.horizontalHeader().setCascadingSectionResizes(False)
         self.tv_nfe_history.horizontalHeader().setMinimumSectionSize(40)
         self.tv_nfe_history.horizontalHeader().setDefaultSectionSize(120)
         self.tv_nfe_history.horizontalHeader().setProperty("showSortIndicator", False)
-        self.tv_nfe_history.verticalHeader().setVisible(False)
+        self.tv_nfe_history.verticalHeader().setVisible(True)
         self.tv_nfe_history.verticalHeader().setCascadingSectionResizes(False)
         self.tv_nfe_history.verticalHeader().setHighlightSections(True)
 
         self.verticalLayout_8.addWidget(self.tv_nfe_history)
 
-        self.tab_widget_nfe.addTab(self.tab_historic_nfe, icon16, "")
+        self.tab_widget_nfe.addTab(self.tab_historic_nfe, icon17, "")
 
         self.verticalLayout_5.addWidget(self.tab_widget_nfe)
 
@@ -1513,7 +1521,7 @@ class Ui_MainWindow(object):
         sizePolicy5.setHeightForWidth(self.bt_search_stock.sizePolicy().hasHeightForWidth())
         self.bt_search_stock.setSizePolicy(sizePolicy5)
         self.bt_search_stock.setCursor(QCursor(Qt.PointingHandCursor))
-        self.bt_search_stock.setIcon(icon12)
+        self.bt_search_stock.setIcon(icon13)
         self.bt_search_stock.setIconSize(QSize(32, 32))
 
         self.horizontalLayout_20.addWidget(self.bt_search_stock)
@@ -1523,7 +1531,7 @@ class Ui_MainWindow(object):
         sizePolicy5.setHeightForWidth(self.bt_clear_stock.sizePolicy().hasHeightForWidth())
         self.bt_clear_stock.setSizePolicy(sizePolicy5)
         self.bt_clear_stock.setCursor(QCursor(Qt.PointingHandCursor))
-        self.bt_clear_stock.setIcon(icon13)
+        self.bt_clear_stock.setIcon(icon14)
         self.bt_clear_stock.setIconSize(QSize(32, 32))
 
         self.horizontalLayout_20.addWidget(self.bt_clear_stock)
@@ -1560,7 +1568,7 @@ class Ui_MainWindow(object):
         sizePolicy7.setHeightForWidth(self.bt_discount_stock.sizePolicy().hasHeightForWidth())
         self.bt_discount_stock.setSizePolicy(sizePolicy7)
         self.bt_discount_stock.setCursor(QCursor(Qt.PointingHandCursor))
-        self.bt_discount_stock.setIcon(icon17)
+        self.bt_discount_stock.setIcon(icon18)
         self.bt_discount_stock.setIconSize(QSize(32, 32))
 
         self.horizontalLayout_38.addWidget(self.bt_discount_stock)
@@ -1570,9 +1578,9 @@ class Ui_MainWindow(object):
         sizePolicy7.setHeightForWidth(self.bt_leaving_stock.sizePolicy().hasHeightForWidth())
         self.bt_leaving_stock.setSizePolicy(sizePolicy7)
         self.bt_leaving_stock.setCursor(QCursor(Qt.PointingHandCursor))
-        icon18 = QIcon()
-        icon18.addFile(u":/icons/assets/recycling-32.png", QSize(), QIcon.Normal, QIcon.Off)
-        self.bt_leaving_stock.setIcon(icon18)
+        icon19 = QIcon()
+        icon19.addFile(u":/icons/assets/recycling-32.png", QSize(), QIcon.Normal, QIcon.Off)
+        self.bt_leaving_stock.setIcon(icon19)
         self.bt_leaving_stock.setIconSize(QSize(32, 32))
 
         self.horizontalLayout_38.addWidget(self.bt_leaving_stock)
@@ -1654,7 +1662,7 @@ class Ui_MainWindow(object):
         self.bt_cycle_menu.setSizePolicy(sizePolicy7)
         self.bt_cycle_menu.setMinimumSize(QSize(0, 50))
         self.bt_cycle_menu.setCursor(QCursor(Qt.PointingHandCursor))
-        self.bt_cycle_menu.setIcon(icon11)
+        self.bt_cycle_menu.setIcon(icon12)
         self.bt_cycle_menu.setIconSize(QSize(32, 32))
 
         self.verticalLayout_11.addWidget(self.bt_cycle_menu)
@@ -1663,7 +1671,7 @@ class Ui_MainWindow(object):
         self.bt_nfe_menu.setObjectName(u"bt_nfe_menu")
         self.bt_nfe_menu.setMinimumSize(QSize(0, 50))
         self.bt_nfe_menu.setCursor(QCursor(Qt.PointingHandCursor))
-        self.bt_nfe_menu.setIcon(icon17)
+        self.bt_nfe_menu.setIcon(icon18)
         self.bt_nfe_menu.setIconSize(QSize(32, 32))
 
         self.verticalLayout_11.addWidget(self.bt_nfe_menu)
@@ -1672,9 +1680,9 @@ class Ui_MainWindow(object):
         self.bt_stock_menu.setObjectName(u"bt_stock_menu")
         self.bt_stock_menu.setMinimumSize(QSize(0, 50))
         self.bt_stock_menu.setCursor(QCursor(Qt.PointingHandCursor))
-        icon19 = QIcon()
-        icon19.addFile(u":/icons/assets/stock-32.png", QSize(), QIcon.Normal, QIcon.Off)
-        self.bt_stock_menu.setIcon(icon19)
+        icon20 = QIcon()
+        icon20.addFile(u":/icons/assets/stock-32.png", QSize(), QIcon.Normal, QIcon.Off)
+        self.bt_stock_menu.setIcon(icon20)
         self.bt_stock_menu.setIconSize(QSize(32, 32))
 
         self.verticalLayout_11.addWidget(self.bt_stock_menu)
@@ -1683,9 +1691,9 @@ class Ui_MainWindow(object):
         self.bt_kiln_menu.setObjectName(u"bt_kiln_menu")
         self.bt_kiln_menu.setMinimumSize(QSize(0, 50))
         self.bt_kiln_menu.setCursor(QCursor(Qt.PointingHandCursor))
-        icon20 = QIcon()
-        icon20.addFile(u":/icons/assets/stove-32.png", QSize(), QIcon.Normal, QIcon.Off)
-        self.bt_kiln_menu.setIcon(icon20)
+        icon21 = QIcon()
+        icon21.addFile(u":/icons/assets/stove-32.png", QSize(), QIcon.Normal, QIcon.Off)
+        self.bt_kiln_menu.setIcon(icon21)
         self.bt_kiln_menu.setIconSize(QSize(32, 32))
 
         self.verticalLayout_11.addWidget(self.bt_kiln_menu)
@@ -1694,9 +1702,9 @@ class Ui_MainWindow(object):
         self.bt_client_menu.setObjectName(u"bt_client_menu")
         self.bt_client_menu.setMinimumSize(QSize(0, 50))
         self.bt_client_menu.setCursor(QCursor(Qt.PointingHandCursor))
-        icon21 = QIcon()
-        icon21.addFile(u":/icons/assets/customer-32.png", QSize(), QIcon.Normal, QIcon.Off)
-        self.bt_client_menu.setIcon(icon21)
+        icon22 = QIcon()
+        icon22.addFile(u":/icons/assets/customer-32.png", QSize(), QIcon.Normal, QIcon.Off)
+        self.bt_client_menu.setIcon(icon22)
         self.bt_client_menu.setIconSize(QSize(32, 32))
 
         self.verticalLayout_11.addWidget(self.bt_client_menu)
@@ -1705,9 +1713,9 @@ class Ui_MainWindow(object):
         self.bt_exit_menu.setObjectName(u"bt_exit_menu")
         self.bt_exit_menu.setMinimumSize(QSize(0, 50))
         self.bt_exit_menu.setCursor(QCursor(Qt.PointingHandCursor))
-        icon22 = QIcon()
-        icon22.addFile(u":/icons/assets/exit-32.png", QSize(), QIcon.Normal, QIcon.Off)
-        self.bt_exit_menu.setIcon(icon22)
+        icon23 = QIcon()
+        icon23.addFile(u":/icons/assets/exit-32.png", QSize(), QIcon.Normal, QIcon.Off)
+        self.bt_exit_menu.setIcon(icon23)
         self.bt_exit_menu.setIconSize(QSize(32, 32))
 
         self.verticalLayout_11.addWidget(self.bt_exit_menu)
@@ -1730,14 +1738,14 @@ class Ui_MainWindow(object):
         self.menu_config.setObjectName(u"menu_config")
         self.menu_db = QMenu(self.menu_config)
         self.menu_db.setObjectName(u"menu_db")
-        icon23 = QIcon()
-        icon23.addFile(u":/icons/assets/db.png", QSize(), QIcon.Normal, QIcon.Off)
-        self.menu_db.setIcon(icon23)
+        icon24 = QIcon()
+        icon24.addFile(u":/icons/assets/db.png", QSize(), QIcon.Normal, QIcon.Off)
+        self.menu_db.setIcon(icon24)
         self.menu_theme = QMenu(self.menu_config)
         self.menu_theme.setObjectName(u"menu_theme")
-        icon24 = QIcon()
-        icon24.addFile(u":/icons/assets/themes-32.png", QSize(), QIcon.Normal, QIcon.Off)
-        self.menu_theme.setIcon(icon24)
+        icon25 = QIcon()
+        icon25.addFile(u":/icons/assets/themes-32.png", QSize(), QIcon.Normal, QIcon.Off)
+        self.menu_theme.setIcon(icon25)
         MainWindow.setMenuBar(self.menubar)
 #if QT_CONFIG(shortcut)
         self.label_9.setBuddy(self.cb_kiln_cycle)
@@ -1860,8 +1868,11 @@ class Ui_MainWindow(object):
 
         self.menubar.addAction(self.menu_config.menuAction())
         self.menubar.addAction(self.menu_about.menuAction())
+        self.menu_about.addAction(self.action_help)
+        self.menu_about.addSeparator()
         self.menu_about.addAction(self.action_license)
         self.menu_config.addAction(self.menu_db.menuAction())
+        self.menu_config.addSeparator()
         self.menu_config.addAction(self.menu_theme.menuAction())
         self.menu_db.addAction(self.action_config)
         self.menu_db.addAction(self.action_import_backup)
@@ -1870,10 +1881,10 @@ class Ui_MainWindow(object):
 
         self.retranslateUi(MainWindow)
 
-        self.mp_main.setCurrentIndex(0)
+        self.mp_main.setCurrentIndex(1)
         self.tab_widget_cycle.setCurrentIndex(1)
-        self.mp_cycle_historic.setCurrentIndex(1)
-        self.tab_widget_nfe.setCurrentIndex(0)
+        self.mp_cycle_historic.setCurrentIndex(0)
+        self.tab_widget_nfe.setCurrentIndex(1)
 
 
         QMetaObject.connectSlotsByName(MainWindow)
@@ -1888,6 +1899,7 @@ class Ui_MainWindow(object):
         self.actionaa.setText(QCoreApplication.translate("MainWindow", u"aa", None))
         self.action_dark_theme.setText(QCoreApplication.translate("MainWindow", u"Dark", None))
         self.action_light_theme.setText(QCoreApplication.translate("MainWindow", u"Light", None))
+        self.action_help.setText(QCoreApplication.translate("MainWindow", u"Ajuda", None))
         self.label_title.setText(QCoreApplication.translate("MainWindow", u"CONTROLE DE MADEIRA TRATADA", None))
         self.label_title.setProperty("class", QCoreApplication.translate("MainWindow", u"title", None))
         self.label_9.setText(QCoreApplication.translate("MainWindow", u"ESTUFA", None))
@@ -1916,9 +1928,6 @@ class Ui_MainWindow(object):
         self.bt_save_cycle.setText(QCoreApplication.translate("MainWindow", u" SALVAR", None))
         self.bt_delete_cycle.setText(QCoreApplication.translate("MainWindow", u" DELETAR", None))
         self.tab_widget_cycle.setTabText(self.tab_widget_cycle.indexOf(self.tab_cycle), QCoreApplication.translate("MainWindow", u"CICLOS", None))
-#if QT_CONFIG(tooltip)
-        self.tab_widget_cycle.setTabToolTip(self.tab_widget_cycle.indexOf(self.tab_cycle), QCoreApplication.translate("MainWindow", u"CICLOS", None))
-#endif // QT_CONFIG(tooltip)
         self.label_47.setText(QCoreApplication.translate("MainWindow", u"ESTUFA", None))
         self.label_56.setText(QCoreApplication.translate("MainWindow", u"CICLO", None))
         self.label_46.setText(QCoreApplication.translate("MainWindow", u"ENTRADA", None))

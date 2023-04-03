@@ -18,7 +18,7 @@ class CalendarDialog(QDialog, Ui_Dialog):
 
         # Seta a posição do popup relativo ao txt_parent
         point = self.txt_parent.mapToGlobal(QPoint(0, 0))
-        self.setGeometry(point.x(), point.y() + self.txt_parent.height(), 250, 100)
+        self.setGeometry(point.x(), point.y() + self.txt_parent.height(), 275, 192)
 
         # Vincula handle ao evento click
         self.calendar.clicked.connect(self.show_date)

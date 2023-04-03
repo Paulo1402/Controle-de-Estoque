@@ -1,25 +1,15 @@
-def decorator1(func):
-    print('decorator1', func.__name__)
-
-    def inner(*args, **kwargs):
-        func(*args, **kwargs)
-
-    return inner
+from PySide6.QtWidgets import QApplication, QCalendarWidget, QWidget
 
 
-def decorator2(func):
-    print('decorator2', func.__name__)
 
-    def inner(*args, **kwargs):
-        func(*args, **kwargs)
+app = QApplication([])
 
-    return inner
+widget = QCalendarWidget()
+nav: QWidget = widget.findChild(QWidget, "qt_calendar_navigationbar")
 
-
-@decorator1
-@decorator2
-def foo():
-    print('foo')
+for w in nav.children():
+    print(w)
 
 
-foo()
+widget.show()
+app.exec()

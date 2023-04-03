@@ -14,7 +14,7 @@ def get_config() -> dict:
         with open(path, 'r', encoding='utf8') as f:
             config = json.loads(f.read())
 
-            # Tenta validar o arquivo, caso não consiga, levanta uma exceção
+            # Tenta validar o arquivo, caso não consiga, força o tratamento
             try:
                 _ = config['theme']
                 _ = config['database']
@@ -51,6 +51,6 @@ def set_config(config: dict):
 
     # Cria um arquivo com permissões para escrita e leitura.
     # Isso é necessário para quando o aplicativo for compilado e instalado no diretório padrão de apps no Windows,
-    # o SO não impedir a manipulação do arquivo de configuração
+    # o SO não impedir a edição do arquivo por falta de permissões.
     with open(os.open(path, os.O_RDWR), 'w', encoding='utf8') as f:
         f.write(json.dumps(config, indent=4))

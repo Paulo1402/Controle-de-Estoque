@@ -160,7 +160,7 @@ QGroupBox{
        <enum>QFrame::Box</enum>
       </property>
       <property name="currentIndex">
-       <number>2</number>
+       <number>1</number>
       </property>
       <widget class="QWidget" name="page_cycle">
        <property name="styleSheet">
@@ -176,7 +176,7 @@ QGroupBox{
            <enum>QTabWidget::Rounded</enum>
           </property>
           <property name="currentIndex">
-           <number>0</number>
+           <number>1</number>
           </property>
           <property name="elideMode">
            <enum>Qt::ElideLeft</enum>
@@ -205,9 +205,6 @@ QGroupBox{
              <normaloff>:/icons/assets/tag-32.png</normaloff>:/icons/assets/tag-32.png</iconset>
            </attribute>
            <attribute name="title">
-            <string>CICLOS</string>
-           </attribute>
-           <attribute name="toolTip">
             <string>CICLOS</string>
            </attribute>
            <layout class="QVBoxLayout" name="verticalLayout">
@@ -428,7 +425,7 @@ QGroupBox{
              </widget>
             </item>
             <item>
-             <widget class="QFrame" name="frame_13">
+             <widget class="QFrame" name="fr_bitolas_cycle">
               <property name="minimumSize">
                <size>
                 <width>0</width>
@@ -678,7 +675,7 @@ QGroupBox{
                   </layout>
                  </item>
                  <item row="1" column="2" rowspan="4" colspan="15">
-                  <widget class="QTableWidget" name="tw_cycle">
+                  <widget class="CustomTableWidget" name="tw_cycle">
                    <property name="sizePolicy">
                     <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
                      <horstretch>1</horstretch>
@@ -1183,6 +1180,9 @@ QGroupBox{
                      </property>
                      <item>
                       <widget class="QPushButton" name="bt_search_cycle_history">
+                       <property name="cursor">
+                        <cursorShape>PointingHandCursor</cursorShape>
+                       </property>
                        <property name="text">
                         <string/>
                        </property>
@@ -1203,6 +1203,9 @@ QGroupBox{
                      </item>
                      <item>
                       <widget class="QPushButton" name="bt_clear_cycle_history">
+                       <property name="cursor">
+                        <cursorShape>PointingHandCursor</cursorShape>
+                       </property>
                        <property name="text">
                         <string/>
                        </property>
@@ -1223,6 +1226,9 @@ QGroupBox{
                      </item>
                      <item>
                       <widget class="QPushButton" name="bt_edit_cycle_history">
+                       <property name="cursor">
+                        <cursorShape>PointingHandCursor</cursorShape>
+                       </property>
                        <property name="text">
                         <string/>
                        </property>
@@ -1904,7 +1910,7 @@ QGroupBox{
              </widget>
             </item>
             <item>
-             <widget class="QFrame" name="frame_12">
+             <widget class="QFrame" name="fr_bitolas_nfe">
               <property name="minimumSize">
                <size>
                 <width>0</width>
@@ -2186,7 +2192,7 @@ QGroupBox{
                   </layout>
                  </item>
                  <item row="1" column="2" rowspan="4" colspan="15">
-                  <widget class="QTableWidget" name="tw_nfe">
+                  <widget class="CustomTableWidget" name="tw_nfe">
                    <property name="sizePolicy">
                     <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
                      <horstretch>1</horstretch>
@@ -2615,7 +2621,7 @@ QGroupBox{
                </size>
               </property>
               <property name="alternatingRowColors">
-               <bool>true</bool>
+               <bool>false</bool>
               </property>
               <property name="selectionMode">
                <enum>QAbstractItemView::SingleSelection</enum>
@@ -2623,8 +2629,8 @@ QGroupBox{
               <property name="selectionBehavior">
                <enum>QAbstractItemView::SelectRows</enum>
               </property>
-              <property name="gridStyle">
-               <enum>Qt::NoPen</enum>
+              <property name="showGrid">
+               <bool>true</bool>
               </property>
               <property name="cornerButtonEnabled">
                <bool>true</bool>
@@ -2645,7 +2651,7 @@ QGroupBox{
                <bool>false</bool>
               </attribute>
               <attribute name="verticalHeaderVisible">
-               <bool>false</bool>
+               <bool>true</bool>
               </attribute>
               <attribute name="verticalHeaderCascadingSectionResizes">
                <bool>false</bool>
@@ -3277,6 +3283,8 @@ QGroupBox{
     <property name="title">
      <string>Sobre</string>
     </property>
+    <addaction name="action_help"/>
+    <addaction name="separator"/>
     <addaction name="action_license"/>
    </widget>
    <widget class="QMenu" name="menu_config">
@@ -3306,6 +3314,7 @@ QGroupBox{
      <addaction name="action_light_theme"/>
     </widget>
     <addaction name="menu_db"/>
+    <addaction name="separator"/>
     <addaction name="menu_theme"/>
    </widget>
    <addaction name="menu_config"/>
@@ -3379,11 +3388,25 @@ QGroupBox{
     <string>Light</string>
    </property>
   </action>
+  <action name="action_help">
+   <property name="icon">
+    <iconset resource="resource.qrc">
+     <normaloff>:/icons/assets/help-32.png</normaloff>:/icons/assets/help-32.png</iconset>
+   </property>
+   <property name="text">
+    <string>Ajuda</string>
+   </property>
+  </action>
  </widget>
  <customwidgets>
   <customwidget>
    <class>CustomComboBox</class>
    <extends>QComboBox</extends>
+   <header location="global">utils.widget</header>
+  </customwidget>
+  <customwidget>
+   <class>CustomTableWidget</class>
+   <extends>QTableWidget</extends>
    <header location="global">utils.widget</header>
   </customwidget>
  </customwidgets>

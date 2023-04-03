@@ -98,7 +98,7 @@ class DoBackupWorker(QThread):
         except (FileNotFoundError, KeyError, ValueError, json.JSONDecodeError):
             last_backup = None
 
-        # Retona data atual
+        # Retorna data atual
         today = datetime.today().date()
 
         # Verifica se há necessidade de realizar o backup com base na configuração 'frequency'

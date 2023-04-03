@@ -10,10 +10,23 @@ from services import *
 from utils import *
 
 
-# todo Bloquear adição e remoção de bitolas ao editar, forçar deletar ciclo / nfe para inserir | ou permitir ???
-# todo Adicionar efeito de transição ao trocar de páginas no multi-page
-# todo Iniciar bateria de testes
-# todo Verificar update de nfes, ao alterar n de fardos é necessário atualizar pezinhos
+# todo FrontEnd
+# Definir cores principais para light / dark mode
+# Trabalhar na responsividade, aumentar o tamanho dos widgets de campos de forma proporcional
+# Definir animação quando alternar páginas na Tab Widget
+
+# todo BackEnd
+
+# todo Refactoring
+# Verificar se é necessário decorar com @check_connection funções que alteram o banco de dados
+
+# todo Testes
+# Testar CRUD de todas as tabelas
+# Testar sistema de backup
+# Testar sistema de importação de backup
+# Repetir bateria de testes com o app compilado
+
+# todo Bugs
 
 
 class MainWindow(QMainWindow, Ui_MainWindow):
@@ -21,24 +34,27 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         super().__init__(parent)
         self.setupUi(self)
 
-        # Cria handle para TableWidget
-        self.tw_cycle_handler = CycleTableWidgetHandler(
+        # Cria handler para TableWidget
+        tw_cycle_handler = CycleTableWidgetHandler(
             self,
-            self.tw_cycle,
-            self.bt_remove_bitola_cycle,
-            [
+            table_widget=self.tw_cycle,
+            remove_button=self.bt_remove_bitola_cycle,
+            fields=[
                 self.txt_bitola_cycle,
                 self.txt_packs_cycle,
                 self.txt_volume_cycle
             ]
         )
+        
+        # Seta handler
+        self.tw_cycle.handler = tw_cycle_handler
 
-        # Cria handle para TableWidget
-        self.tw_nfe_handler = NfeTableWidgetHandler(
+        # Cria handler para TableWidget
+        tw_nfe_handler = NfeTableWidgetHandler(
             self,
-            self.tw_nfe,
-            self.bt_remove_bitola_nfe,
-            [
+            table_widget=self.tw_nfe,
+            remove_button=self.bt_remove_bitola_nfe,
+            fields=[
                 self.cb_cycle_nfe,
                 self.cb_bitola_nfe,
                 self.txt_volume_nfe,
@@ -46,20 +62,24 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             ],
             optional_fields=[self.txt_rework_nfe]
         )
-
-        # Cria widgets de backup
-        self.backup_bar = QProgressBar()
-        self.backup_label = QLabel('Realizando backup...')
+        
+        # Seta handler
+        self.tw_nfe.handler = tw_nfe_handler
 
         # Seta ids iniciais
         self._ID_cycle = -1
         self._ID_nfe = -1
 
         self.backup_worker: DoBackupWorker | None = None
+        self.animation = Animation()
 
         # Abre conexão com o banco de dados
         self.database = DatabaseConnection()
         self.database.connect()
+
+        # Cria widgets de backup
+        self.backup_bar = QProgressBar()
+        self.backup_label = QLabel('Realizando backup...')
 
         # Inicialização
         self.init_ui()
@@ -67,7 +87,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         # Seta páginas iniciais
         self.tab_widget_cycle.setCurrentIndex(0)
         self.tab_widget_nfe.setCurrentIndex(0)
-        self.bt_stock_menu.click()
+        self.mp_cycle_historic.setCurrentIndex(0)
+        # self.bt_stock_menu.click()
 
     @property
     def ID_cycle(self):
@@ -79,10 +100,12 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self._ID_cycle = value
         flag = bool(value + 1)
 
-        self.tw_cycle.setDisabled(flag)
+        # self.fr_bitolas_cycle.setDisabled(flag)
         self.rb_kd_cycle.setChecked(not flag)
         self.bt_delete_cycle.setDisabled(not flag)
         self.tab_widget_cycle.setCurrentIndex(0)
+
+        self.handle_status_message('CICLO', value)
 
     @property
     def ID_nfe(self):
@@ -94,9 +117,11 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self._ID_nfe = value
         flag = bool(value + 1)
 
-        self.tw_nfe.setDisabled(flag)
+        # self.fr_bitolas_nfe.setDisabled(flag)
         self.bt_delete_nfe.setDisabled(not flag)
         self.tab_widget_nfe.setCurrentIndex(0)
+
+        self.handle_status_message('NFE', value)
 
     # Disparado quando a janela é fechada
     def closeEvent(self, event: QCloseEvent):
@@ -113,9 +138,12 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.setWindowTitle('CONTROLE DE MADEIRA TRATADA')
 
         # Conecta botões do menu principal
-        self.bt_cycle_menu.clicked.connect(lambda: self.mp_main.setCurrentIndex(0))
-        self.bt_nfe_menu.clicked.connect(lambda: self.mp_main.setCurrentIndex(1))
-        self.bt_stock_menu.clicked.connect(lambda: self.mp_main.setCurrentIndex(2))
+        self.bt_cycle_menu.clicked.connect(lambda: self.animation.fade_in(self.mp_main, 0))
+        self.bt_cycle_menu.clicked.connect(lambda: self.handle_status_message('CICLO', self.ID_cycle))
+        self.bt_nfe_menu.clicked.connect(lambda: self.animation.fade_in(self.mp_main, 1))
+        self.bt_nfe_menu.clicked.connect(lambda: self.handle_status_message('NFE', self.ID_nfe))
+        self.bt_stock_menu.clicked.connect(lambda: self.animation.fade_in(self.mp_main, 2))
+        self.bt_stock_menu.clicked.connect(lambda: self.statusbar.clearMessage())
         self.bt_kiln_menu.clicked.connect(
             lambda: GenericDialog(self, self.database, 'ESTUFAS', 'estufa', self.load_kilns).show()
         )
@@ -132,8 +160,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
         # Adiciona widgets a status bar
         status_bar = self.statusBar()
-        status_bar.addWidget(self.backup_label)
-        status_bar.addWidget(self.backup_bar)
+        status_bar.addPermanentWidget(self.backup_label)
+        status_bar.addPermanentWidget(self.backup_bar)
 
         self.backup_label.setVisible(False)
         self.backup_bar.setVisible(False)
@@ -146,8 +174,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.bt_save_cycle.clicked.connect(self.save_cycle)
         self.bt_delete_cycle.clicked.connect(self.delete_cycle)
 
-        self.bt_add_bitola_cycle.clicked.connect(self.tw_cycle_handler.add)
-        self.bt_remove_bitola_cycle.clicked.connect(self.tw_cycle_handler.remove)
+        self.bt_add_bitola_cycle.clicked.connect(self.tw_cycle.handler.add)
+        self.bt_remove_bitola_cycle.clicked.connect(self.tw_cycle.handler.remove)
 
         self.bt_search_cycle_history.clicked.connect(self.search_cycle_history)
         self.bt_clear_cycle_history.clicked.connect(self.clear_cycle_history)
@@ -160,7 +188,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.tv_track_history.setModel(TableModel(date_fields=[0], volume_fields=[3]))
         self.tv_track_history.doubleClicked.connect(self.track_nfe)
 
-        self.bt_back_track_history.clicked.connect(lambda: self.mp_cycle_historic.setCurrentIndex(0))
+        self.bt_back_track_history.clicked.connect(lambda: self.animation.slide(self.mp_cycle_historic, 0))
 
         # Página Nfe
         self.bt_delete_nfe.setDisabled(True)
@@ -170,8 +198,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.bt_save_nfe.clicked.connect(self.save_nfe)
         self.bt_delete_nfe.clicked.connect(self.delete_nfe)
 
-        self.bt_add_bitola_nfe.clicked.connect(self.tw_nfe_handler.add)
-        self.bt_remove_bitola_nfe.clicked.connect(self.tw_nfe_handler.remove)
+        self.bt_add_bitola_nfe.clicked.connect(self.tw_nfe.handler.add)
+        self.bt_remove_bitola_nfe.clicked.connect(self.tw_nfe.handler.remove)
 
         self.cb_cycle_nfe.currentIndexChanged.connect(self.load_nfe_bitola)
 
@@ -213,16 +241,20 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.txt_bitola_cycle.setValidator(validator)
         self.txt_rework_nfe.setValidator(validator)
 
+        validator = DateValidator(
+            QRegularExpression(r"(0[1-9]|[12][0-9]|3[01])/(0[1-9]|1[12])/[12][0-9]{3}")
+        )
+        self.cb_date_nfe.setValidator(validator)
+        self.cb_entry_date_cycle.setValidator(validator)
+        self.cb_exit_date_cycle.setValidator(validator)
+        self.cb_entry_date_cycle_history.setValidator(validator)
+        self.cb_exit_date_cycle_history.setValidator(validator)
+        self.cb_start_date_nfe_history.setValidator(validator)
+        self.cb_end_date_nfe_history.setValidator(validator)
+
         # Carrega tema configurado
         config = get_config()
         theme = config['theme']
-
-        if theme == 'light':
-            self.action_light_theme.setChecked(True)
-            self.action_dark_theme.setChecked(False)
-        else:
-            self.action_dark_theme.setChecked(True)
-            self.action_light_theme.setChecked(False)
 
         load_theme(theme)
 
@@ -289,16 +321,18 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
         self.backup_worker = None
 
+    @Slot()
+    def handle_status_message(self, page: str, value: int):
+        if value != -1:
+            message = f'EDITANDO {page} {value}'
+            self.statusbar.showMessage(message)
+        else:
+            self.statusbar.clearMessage()
+
     # Lida com a troca de temas
     @Slot()
     def handle_theme(self, theme: str):
         config = get_config()
-
-        if theme == 'light':
-            self.action_dark_theme.setChecked(False)
-        else:
-            self.action_light_theme.setChecked(False)
-
         config['theme'] = theme
 
         set_config(config)
@@ -313,9 +347,9 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             self.txt_cycle_cycle,
             self.cb_entry_date_cycle,
             self.cb_exit_date_cycle
-        ] + self.tw_cycle_handler.fields
+        ] + self.tw_cycle.handler.fields
 
-        self.tw_cycle_handler.remove_rows()
+        self.tw_cycle.handler.remove_rows()
         clear_fields(fields)
 
         query = self.database.read(
@@ -326,11 +360,18 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         query.first()
         self.txt_cycle_cycle.setText(str(query.value(0) + 1))
 
+        if self.ID_cycle != -1:
+            self.load_kilns()
+            self.load_cycles()
+
         self.ID_cycle = -1
 
     # Salva ciclo na tabela
     @Slot()
     def save_cycle(self):
+        # Define modo de interação
+        mode = 'INSERT' if self.ID_cycle == -1 else 'UPDATE'
+
         fields = [
             self.cb_kiln_cycle,
             self.txt_cycle_cycle,
@@ -348,8 +389,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             empty_fields[0].setFocus()
             return
 
-        entry_date = parse_date(fields[2].currentText(), '%d/%m/%Y', '%Y-%m-%d')
-        exit_date = parse_date(fields[3].currentText(), '%d/%m/%Y', '%Y-%m-%d')
+        entry_date = parse_date(fields[2].currentText(), '%d/%m/%Y')
+        exit_date = parse_date(fields[3].currentText(), '%d/%m/%Y')
 
         # Verifica se é uma data válida
         if not entry_date or not exit_date:
@@ -371,45 +412,77 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             'saida': exit_date
         }
 
+        cycle = fields['ciclo']
+
+        # Verifica se o campo ciclo não existe no banco de dados
+        if int(cycle) != self.ID_cycle and not self.database.is_unique('ciclo', 'ciclo', cycle):
+            Message.warning(self, 'ATENÇÃO', 'Esse ciclo já consta no banco de dados!')
+
+            if self.ID_cycle != -1:
+                self.txt_cycle_cycle.setText(str(self.ID_cycle))
+
+            return
+
         message = 'Deseja editar esse ciclo no banco de dados?'
 
-        # Modo de Insert
-        if self.ID_cycle == -1:
-            if not self.database.is_unique('ciclo', 'ciclo', fields['ciclo']):
-                Message.warning(self, 'ATENÇÃO', 'Esse ciclo já consta no banco de dados!')
-                return
-
+        if mode == 'INSERT':
             message = message.replace('editar', 'inserir')
 
         # Faz pergunta de segurança ao usuário, caso não confirme aborta ação
         if Message.warning_question(self, message, Message.YES) == Message.NO:
             return
 
+        # Retorna query com finalidade original
+        query = self.database.read(
+            table='ciclo',
+            fields=['finalidade'],
+            clause='WHERE ciclo LIKE ?',
+            values=[self.ID_cycle]
+        )
+
+        query.first()
+
+        if mode == 'UPDATE' and fields['finalidade'] != query.value(0):
+            if Message.warning_question(
+                    self,
+                    'Se o ciclo atual tiver a finalidade alterada seu registro e de todos seus dependentes '
+                    'serão deletados. Deseja continuar?'
+            ) == Message.NO:
+                return
+
+            self.database.delete('ciclo', f'WHERE ciclo LIKE {self.ID_cycle}')
+            mode = 'INSERT'
+
         try:
-            # Modo de Insert
-            if self.ID_cycle == -1:
+            print(mode)
+            if mode == 'INSERT':
                 self.database.create(table='ciclo', fields=fields)
                 message = 'Registro inserido com sucesso.'
-
-                # Insere bitolas na tabela
-                for row in range(self.tw_cycle.rowCount()):
-                    bitola = self.tw_cycle.item(row, 1).text()
-                    packs = self.tw_cycle.item(row, 2).text()
-                    volume = self.tw_cycle.item(row, 3).text()
-
-                    self.database.create(
-                        table='bitola',
-                        fields={
-                            'ciclo': fields['ciclo'],
-                            'bitola': bitola,
-                            'fardos': packs,
-                            'volume_tratado': volume
-                        }
-                    )
-            # Modo de Update
             else:
-                self.database.update(table='history', fields=fields, clause=f"WHERE ciclo LIKE {self.ID_cycle}")
+                self.database.update(table='ciclo', fields=fields, clause=f"WHERE ciclo LIKE {self.ID_cycle}")
                 message = 'Registro alterado com sucesso.'
+
+            # Insere ou atualiza bitolas na tabela
+            for row in range(self.tw_cycle.rowCount()):
+                bitola_id = self.tw_cycle.item(row, 0).text()
+
+                bitola = self.tw_cycle.item(row, 1).text()
+                packs = self.tw_cycle.item(row, 2).text()
+                volume = from_volume_to_float(self.tw_cycle.item(row, 3).text())
+
+                fields = {
+                    'ciclo': cycle,
+                    'bitola': bitola,
+                    'fardos': packs,
+                    'volume_tratado': volume
+                }
+
+                print(bitola_id, fields)
+
+                if bitola_id == '-1':
+                    self.database.create(table='bitola', fields=fields)
+                else:
+                    self.database.update(table='bitola', fields=fields, clause=f'WHERE bitola_id LIKE {bitola_id}')
 
             # Prepara para novo registro e avisa usuário
             Message.information(self, 'AVISO', message)
@@ -426,8 +499,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
     def delete_cycle(self):
         # Guard clause
         if not Message.warning_question(
-                self, 'Deseja deletar esse registro? Todos os registros referentes esse ciclo serão'
-                      ' deletados também e precisarão serem inseridos novamente.', Message.NO
+                self, 'Deseja deletar esse registro? Todos os registros referentes a esse ciclo serão'
+                      ' deletados também.', Message.NO
         ) == Message.YES:
             return
 
@@ -451,12 +524,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         # Retorna dados dos campos
         kiln = self.cb_kiln_cycle_history.currentText()
         cycle = self.cb_cycle_cycle_history.currentText()
-        start_date = parse_date(
-            self.cb_entry_date_cycle_history.currentText(), '%d/%m/%Y', '%Y-%m-%d', on_fail=DateMinMax.MIN
-        )
-        end_date = parse_date(
-            self.cb_exit_date_cycle_history.currentText(), '%d/%m/%Y', '%Y-%m-%d', on_fail=DateMinMax.MAX
-        )
+        start_date = parse_date(self.cb_entry_date_cycle_history.currentText(), '%d/%m/%Y', on_fail=DateMinMax.MIN)
+        end_date = parse_date(self.cb_exit_date_cycle_history.currentText(), '%d/%m/%Y', on_fail=DateMinMax.MAX)
         bitola = self.txt_bitola_cycle_history.text()
         finality = 'KD' if self.rb_kd_cycle_history.isChecked() else 'HT'
 
@@ -529,12 +598,15 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         model = self.tv_cycle_history.model()
 
         # Retorna dados da table view
-        bitola_id = model.index(row, 0).data()
         kiln = model.index(row, 1).data()
         cycle = model.index(row, 2).data()
         entry_date = model.index(row, 3).data()
         exit_date = model.index(row, 4).data()
         finality = model.index(row, 5).data()
+
+        # Se estufa não estiver na ComboBox, a adiciona
+        if self.cb_kiln_cycle.findText(kiln) == -1:
+            self.cb_kiln_cycle.addItem(kiln)
 
         # Seta dados retornados na página de novo registro
         self.txt_cycle_cycle.setText(str(cycle))
@@ -551,12 +623,12 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         query = self.database.read(
             table='bitola',
             fields=['bitola_id', 'bitola', 'fardos', 'volume_tratado'],
-            clause='WHERE bitola_id LIKE ?',
-            values=[bitola_id]
+            clause='WHERE ciclo LIKE ?',
+            values=[cycle]
         )
 
         # Remove linhas na table widget caso houver
-        self.tw_cycle_handler.remove_rows()
+        self.tw_cycle.handler.remove_rows()
 
         # Preenche table widget com dados da query
         while query.next():
@@ -564,7 +636,9 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             self.tw_cycle.insertRow(row)
 
             for i in range(4):
-                item = QTableWidgetItem(str(query.value(i)))
+                value = from_float_to_volume(query.value(i), symbol=False) if i == 3 else str(query.value(i))
+
+                item = QTableWidgetItem(value)
                 item.setTextAlignment(Qt.AlignmentFlag.AlignCenter)
 
                 self.tw_cycle.setItem(row, i, item)
@@ -654,7 +728,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         value = query.value(0) if query.next() else 0
 
         self.txt_stock_volume_track_history.setText(from_float_to_volume(value))
-        self.mp_cycle_historic.setCurrentIndex(1)
+        self.animation.slide(self.mp_cycle_historic, 1)
 
     # Mostra informações detalhadas sobre a nfe na página de nfe
     @Slot()
@@ -674,7 +748,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         # Faz pesquisa e altera páginas
         self.bt_search_nfe_history.click()
 
-        self.mp_main.setCurrentIndex(1)
+        self.bt_nfe_menu.click()
         self.tab_widget_nfe.setCurrentIndex(1)
 
     # Página NFE
@@ -688,16 +762,23 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             self.txt_total_volume_nfe,
             self.txt_packs_nfe,
             self.cb_foot_nfe
-        ] + self.tw_nfe_handler.fields
+        ] + self.tw_nfe.handler.fields
 
-        self.tw_nfe_handler.remove_rows()
+        self.tw_nfe.handler.remove_rows()
         clear_fields(fields)
+
+        if self.ID_nfe != -1:
+            self.load_clients()
+            self.load_cycles()
 
         self.ID_nfe = -1
 
     # Salva nfe na tabela
     @Slot()
     def save_nfe(self):
+        # Define modo de interação
+        mode = 'INSERT' if self.ID_nfe == -1 else 'UPDATE'
+
         fields = [
             self.cb_date_nfe,
             self.cb_client_nfe,
@@ -739,6 +820,50 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             'ciclo_pezinho': fields[5].currentText()
         }
 
+        nfe = fields['nfe']
+
+        # Verifica se o campo nfe não existe no banco de dados
+        if int(nfe) != self.ID_nfe and not self.database.is_unique('nfe_info', 'nfe', nfe):
+            Message.warning(self, 'ATENÇÃO', 'Essa nfe já consta no banco de dados!')
+
+            if self.ID_nfe != -1:
+                self.txt_nfe_nfe.setText(str(self.ID_nfe))
+
+            return
+
+        original_bitolas = {}
+        original_foot = {}
+
+        print(mode)
+        if mode == 'UPDATE':
+            # Retorna query com bitolas originais
+            query = self.database.read(
+                table='nfe',
+                fields=['bitola_id, volume'],
+                clause='WHERE nfe LIKE ?',
+                values=[nfe]
+            )
+
+            while query.next():
+                bitola_id = str(query.value(0))
+                volume = query.value(1)
+
+                original_bitolas[bitola_id] = volume
+
+            # Retorna query com pezinhos originais
+            query = self.database.read(
+                table='pezinho',
+                fields=['bitola_id', 'volume'],
+                clause='WHERE nfe LIKE ?',
+                values=[nfe]
+            )
+
+            while query.next():
+                bitola_id = str(query.value(0))
+                volume = query.value(1)
+
+                original_foot[bitola_id] = volume
+
         bitola_list = []
 
         # Verifica estoque das bitolas
@@ -750,6 +875,16 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             rework = self.tw_nfe.item(row, 4).text()
 
             stock = self.database.get_stock(bitola_id)
+
+            # Soma estoque atual com estoque anterior caso seja uma edição
+            for b, v in original_bitolas.items():
+                if b == bitola_id:
+                    stock += v
+
+            # Subtrai estoque de bitolas existentes já na tabela
+            for b, v, _ in bitola_list:
+                if b == bitola_id:
+                    stock -= v
 
             if volume > stock:
                 Message.warning(
@@ -783,17 +918,21 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
         # Armazena dados da consulta
         while query.next():
-            stock = self.database.get_stock(query.value(0))
+            bitola_id = str(query.value(0))
+            bitola = query.value(1)
+            stock = self.database.get_stock(bitola_id)
 
-            data['bitola_id'].append(query.value(0))
-            data['bitola'].append(query.value(1))
+            # Soma estoque de pezinho anterior caso esteja em modo de edição
+            for b, v in original_foot.items():
+                if b == bitola_id:
+                    stock += v
+
+            data['bitola_id'].append(bitola_id)
+            data['bitola'].append(bitola)
             data['stock'].append(stock)
 
         # Retorna volumes para baixa nos pezinhos
         volumes = get_skids_volume(len(data['bitola_id']), int(fields['fardos']))
-
-        # Salva dados para inserir posteriormente
-        foot_list = list(zip(data['bitola_id'], volumes))
 
         # Verifica se há estoque nos pezinhos
         for stock, volume, bitola in list(zip(data['stock'], volumes, data['bitola'])):
@@ -801,20 +940,20 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 Message.warning(
                     self,
                     'ATENÇÃO',
-                    f'Estoque insuficiente na bitola {bitola} ciclo do pezinho(HT) de número {foot_cycle}.'
+                    f'Estoque insuficiente na bitola {bitola} do ciclo do pezinho(HT) de número {foot_cycle}. '
                     f'Verifique por favor!\n\nVolume necessário: {from_float_to_volume(volume)}, '
                     f'volume em estoque: {from_float_to_volume(stock)}'
                 )
                 return
 
+        # Salva dados para inserir posteriormente
+        foot_list = list(zip(data['bitola_id'], volumes))
+
+        print(foot_list)
+
         message = 'Deseja editar essa nfe no banco de dados?'
 
-        # Modo de Insert
-        if self.ID_nfe == -1:
-            if not self.database.is_unique('nfe_info', 'nfe', fields['nfe']):
-                Message.warning(self, 'ATENÇÃO', 'Essa nfe já consta no banco de dados!')
-                return
-
+        if mode == 'INSERT':
             message = message.replace('editar', 'inserir')
 
         # Faz pergunta de segurança ao usuário, caso não confirme aborta ação
@@ -822,37 +961,53 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             return
 
         try:
-            # Modo de Insert
-            if self.ID_nfe == -1:
+            if mode == 'INSERT':
                 self.database.create(table='nfe_info', fields=fields)
                 message = 'Registro inserido com sucesso.'
-
-                # Insere bitolas tratadas na tabela de saída
-                for bitola_id, volume, rework in bitola_list:
-                    self.database.create(
-                        table='nfe',
-                        fields={
-                            'bitola_id': bitola_id,
-                            'nfe': fields['nfe'],
-                            'volume': volume,
-                            'retrabalho': rework
-                        }
-                    )
-
-                # Insere bitolas de pezinho na tabela de saída
-                for bitola_id, volume in foot_list:
-                    self.database.create(
-                        table='pezinho',
-                        fields={
-                            'bitola_id': bitola_id,
-                            'nfe': fields['nfe'],
-                            'volume': volume
-                        }
-                    )
-            # Modo de Update
             else:
                 self.database.update(table='nfe_info', fields=fields, clause=f'WHERE nfe LIKE {self.ID_nfe}')
                 message = 'Registro alterado com sucesso.'
+
+            new_bitolas = []
+
+            # Insere ou atualiza bitolas tratadas na tabela de saída por nfe
+            for bitola_id, volume, rework in bitola_list:
+                fields = {
+                    'bitola_id': bitola_id,
+                    'nfe': nfe,
+                    'volume': volume,
+                    'retrabalho': rework
+                }
+                print(f'{original_bitolas=} - {fields=}')
+                new_bitolas.append(bitola_id)
+
+                if bitola_id not in original_bitolas.keys():
+                    self.database.create(table='nfe', fields=fields)
+                else:
+                    self.database.update(table='nfe', fields=fields, clause=f'WHERE bitola_id LIKE {bitola_id}')
+            print()
+            print(original_bitolas.keys(), new_bitolas)
+
+            # Remove bitolas que foram removidas do registro original
+            for bitola_id in original_bitolas.keys():
+                if bitola_id not in new_bitolas:
+                    print('deleting', bitola_id)
+                    self.database.delete(table='nfe', clause=f'WHERE bitola_id LIKE {bitola_id}')
+
+            # Insere ou atualiza bitolas de pezinho na tabela de saída de pezinhos
+            for bitola_id, volume in foot_list:
+                fields = {
+                        'bitola_id': bitola_id,
+                        'nfe': nfe,
+                        'volume': volume
+                    }
+
+                if mode == 'UPDATE':
+                    print('deleting', bitola_id, volume)
+                    self.database.delete(table='pezinho', clause=f'WHERE nfe LIKE {fields["nfe"]}')
+
+                print(bitola_id, volume)
+                self.database.create(table='pezinho', fields=fields)
 
             # Prepara para novo registro e avisa usuário
             Message.information(self, 'AVISO', message)
@@ -869,8 +1024,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
     def delete_nfe(self):
         # Guard clause
         if Message.warning_question(
-                self, 'Deseja deletar esse registro? Todos os registros referentes essa nfe serão'
-                      ' deletados também e precisarão serem inseridos novamente.', Message.NO
+                self, 'Deseja deletar esse registro? Todos os registros referentes a essa nfe serão'
+                      ' deletados também.', Message.NO
         ) == Message.NO:
             return
 
@@ -999,6 +1154,14 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         packs = model.index(row, 4).data()
         foot_cycle = model.index(row, 5).data()
 
+        # Adiciona cliente na ComboBox, caso não exista
+        if self.cb_client_nfe.findText(client) == -1:
+            self.cb_client_nfe.addItem(client)
+
+        # Adiciona pezinho na ComboBox, caso não exista
+        if self.cb_foot_nfe.findText(str(foot_cycle)) == -1:
+            self.cb_foot_nfe.addItem(str(foot_cycle))
+
         # Seta dados retornados na página de novo registro
         self.cb_date_nfe.setCurrentText(date)
         self.cb_client_nfe.setCurrentText(client)
@@ -1017,15 +1180,23 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         )
 
         # Remove linhas na table widget caso houver
-        self.tw_nfe_handler.remove_rows()
+        self.tw_nfe.handler.remove_rows()
 
         # Preenche table widget com dados da query
         while query.next():
             row = self.tw_nfe.rowCount()
             self.tw_nfe.insertRow(row)
 
+            cycle = str(query.value(1))
+
+            # Adiciona ciclo caso não existir
+            if self.cb_cycle_nfe.findText(cycle) == -1:
+                self.cb_cycle_nfe.addItem(cycle)
+
             for i in range(5):
-                item = QTableWidgetItem(str(query.value(i)))
+                value = from_float_to_volume(query.value(i), symbol=False) if i == 3 else str(query.value(i))
+
+                item = QTableWidgetItem(value)
                 item.setTextAlignment(Qt.AlignmentFlag.AlignCenter)
 
                 self.tw_nfe.setItem(row, i, item)
@@ -1318,11 +1489,15 @@ if __name__ == "__main__":
     # Vincula hook para receber logs durante desenvolvimento
     sys.excepthook = exception_hook
 
-    app = QApplication(sys.argv)
-    app.setWindowIcon(QIcon(u":/icons/assets/stock-48.png"))
+    try:
+        app = QApplication(sys.argv)
+        app.setWindowIcon(QIcon(u":/icons/assets/stock-48.png"))
 
-    window = MainWindow()
-    window.setStyleSheet('')
-    window.show()
+        window = MainWindow()
+        window.setStyleSheet('')
+        window.show()
 
-    sys.exit(app.exec())
+        sys.exit(app.exec())
+    except Exception as e:
+        logger = Logger()
+        logger.exception('ERROR')

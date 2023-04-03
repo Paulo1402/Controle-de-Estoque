@@ -75,6 +75,8 @@ class DatabaseConnection:
     def create_tables(self):
         query = QSqlQuery(self._connection)
 
+        query.exec("PRAGMA foreign_keys = ON")
+
         query.exec(
             """
             CREATE TABLE IF NOT EXISTS cliente (

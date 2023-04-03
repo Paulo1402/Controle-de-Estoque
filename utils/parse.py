@@ -29,11 +29,11 @@ def parse_date(
     return parsed_date
 
 
-# Retorna dia atual como string
-def get_today() -> str:
+# Retorna data atual como string
+def get_today(output: str = '%Y-%m-%d') -> str:
     today = datetime.today().date()
 
-    return today.strftime('%Y-%m-%d')
+    return today.strftime(output)
 
 
 # Converte de float para string formatada

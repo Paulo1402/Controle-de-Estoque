@@ -1,5 +1,6 @@
 <RCC>
   <qresource prefix="icons">
+    <file>assets/help-32.png</file>
     <file>assets/dark-mode-32.png</file>
     <file>assets/light-mode-32.png</file>
     <file>assets/themes-32.png</file>
