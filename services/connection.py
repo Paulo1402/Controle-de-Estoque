@@ -19,7 +19,7 @@ class DatabaseState(Enum):
     DATABASE_NOT_FOUND = 3
 
 
-# Classe reponsável por manter a conexão com o banco de dados
+# Classe responsável por manter a conexão com o banco de dados
 class DatabaseConnection:
     State: DatabaseState = DatabaseState
 
@@ -28,15 +28,15 @@ class DatabaseConnection:
         self._connection_state: DatabaseState = DatabaseState.NO_DATABASE
 
     @property
-    def connection_state(self):
-        return self._connection_state
-
-    @property
     def connection(self):
         return self._connection
 
+    @property
+    def connection_state(self):
+        return self._connection_state
+
     # Verifica se a localização do arquivo pode ser encontrada
-    def check_location(self, path):
+    def check_location(self, path: str) -> bool:
         if not path:
             self._connection_state = DatabaseState.NO_DATABASE
             return False
@@ -48,7 +48,7 @@ class DatabaseConnection:
         return True
 
     # Tenta se conectar ao banco de dados
-    def connect(self):
+    def connect(self, enable_fk=True):
         config = get_config()
         db = config['database']
 
@@ -63,19 +63,21 @@ class DatabaseConnection:
         if self._connection.open():
             self._connection_state = DatabaseState.CONNECTED
 
-        self.create_tables()
-        self.create_temp_table()
+            if enable_fk:
+                query = QSqlQuery(self._connection)
+                query.exec("PRAGMA foreign_keys = ON")
 
-    # Desconecta conecão caso esteja conectada
+            self.create_tables()
+            self.create_temp_table()
+
+    # Desconecta conexão caso esteja conectada
     def disconnect(self):
-        if self._connection:
+        if self._connection and self._connection.isOpen():
             self._connection.close()
 
     # Cria tabelas caso não exista
     def create_tables(self):
         query = QSqlQuery(self._connection)
-
-        query.exec("PRAGMA foreign_keys = ON")
 
         query.exec(
             """
@@ -145,6 +147,7 @@ class DatabaseConnection:
         query.exec(
             """
             CREATE TABLE IF NOT EXISTS nfe (
+                nfe_id INTEGER PRIMARY KEY AUTOINCREMENT,
                 bitola_id INTEGER,
                 nfe INTEGER,
                 volume REAL,
@@ -166,6 +169,7 @@ class DatabaseConnection:
         query.exec(
             """
             CREATE TABLE IF NOT EXISTS pezinho (
+                pezinho_id INTEGER PRIMARY KEY AUTOINCREMENT,
                 bitola_id INTEGER,
                 nfe INTEGER,
                 volume REAL,
@@ -186,6 +190,7 @@ class DatabaseConnection:
         query.exec(
             """
             CREATE TABLE IF NOT EXISTS residuo (
+                residuo_id INTEGER PRIMARY KEY AUTOINCREMENT,
                 bitola_id INTEGER,
                 data TEXT,
                 volume REAL,
@@ -216,7 +221,7 @@ class DatabaseConnection:
             raise QueryError(f'Failed execution on query expression: {query.lastQuery()}')
 
     # Lê registros em uma tabela e retorna o objeto com os resultados
-    def read(self, table: str, fields: list[str], clause: str = '', values: list = None, distinct=False):
+    def read(self, table: str, fields: list[str], clause: str = '', values: list = None, distinct=False) -> QSqlQuery:
         query = QSqlQuery(self._connection)
 
         query.prepare(
@@ -270,7 +275,7 @@ class DatabaseConnection:
         if not query.exec():
             raise QueryError(f'Failed execution on query expression: {query.lastQuery()}')
 
-    def is_unique(self, table: str, field: str, key: str):
+    def is_unique(self, table: str, field: str, key: str) -> bool:
         query = QSqlQuery(self._connection)
 
         query.prepare(
@@ -289,7 +294,7 @@ class DatabaseConnection:
 
         return not bool(query.value(0))
 
-    def get_stock(self, bitola_id: int):
+    def get_stock(self, bitola_id: int) -> float:
         query = QSqlQuery(self._connection)
 
         query.prepare(
@@ -312,6 +317,7 @@ class DatabaseConnection:
         query = QSqlQuery(self._connection)
 
         query.exec('DROP VIEW IF EXISTS resumo')
+        query.exec('DROP TABLE IF EXISTS estoque')
 
         query.exec('''
         CREATE VIEW resumo
@@ -333,8 +339,6 @@ class DatabaseConnection:
       
         GROUP BY bitola.bitola_id
         ''')
-
-        query.exec('DROP TABLE IF EXISTS estoque')
 
         query.exec('''
         CREATE TABLE estoque AS 

@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1125</width>
-    <height>575</height>
+    <width>1075</width>
+    <height>597</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -137,7 +137,7 @@ QGroupBox{
      </spacer>
     </item>
     <item row="5" column="1" rowspan="2">
-     <widget class="QStackedWidget" name="mp_main">
+     <widget class="CustomStackedWidget" name="mp_main">
       <property name="sizePolicy">
        <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
         <horstretch>0</horstretch>
@@ -160,7 +160,7 @@ QGroupBox{
        <enum>QFrame::Box</enum>
       </property>
       <property name="currentIndex">
-       <number>1</number>
+       <number>2</number>
       </property>
       <widget class="QWidget" name="page_cycle">
        <property name="styleSheet">
@@ -216,7 +216,7 @@ QGroupBox{
               <property name="frameShadow">
                <enum>QFrame::Raised</enum>
               </property>
-              <layout class="QHBoxLayout" name="horizontalLayout_37">
+              <layout class="QHBoxLayout" name="horizontalLayout_37" stretch="1,1,1,1,0">
                <property name="spacing">
                 <number>10</number>
                </property>
@@ -241,14 +241,14 @@ QGroupBox{
                  <item>
                   <widget class="QComboBox" name="cb_kiln_cycle">
                    <property name="sizePolicy">
-                    <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+                    <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
                      <horstretch>0</horstretch>
                      <verstretch>0</verstretch>
                     </sizepolicy>
                    </property>
                    <property name="minimumSize">
                     <size>
-                     <width>90</width>
+                     <width>120</width>
                      <height>26</height>
                     </size>
                    </property>
@@ -258,6 +258,9 @@ QGroupBox{
                </item>
                <item>
                 <layout class="QHBoxLayout" name="horizontalLayout_5">
+                 <property name="sizeConstraint">
+                  <enum>QLayout::SetDefaultConstraint</enum>
+                 </property>
                  <property name="rightMargin">
                   <number>0</number>
                  </property>
@@ -272,12 +275,28 @@ QGroupBox{
                   </widget>
                  </item>
                  <item>
-                  <widget class="QLineEdit" name="txt_cycle_cycle"/>
+                  <widget class="QLineEdit" name="txt_cycle_cycle">
+                   <property name="sizePolicy">
+                    <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+                     <horstretch>1</horstretch>
+                     <verstretch>0</verstretch>
+                    </sizepolicy>
+                   </property>
+                   <property name="minimumSize">
+                    <size>
+                     <width>0</width>
+                     <height>24</height>
+                    </size>
+                   </property>
+                  </widget>
                  </item>
                 </layout>
                </item>
                <item>
-                <layout class="QHBoxLayout" name="horizontalLayout_9">
+                <layout class="QHBoxLayout" name="horizontalLayout_9" stretch="0,1">
+                 <property name="sizeConstraint">
+                  <enum>QLayout::SetDefaultConstraint</enum>
+                 </property>
                  <property name="rightMargin">
                   <number>0</number>
                  </property>
@@ -293,10 +312,28 @@ QGroupBox{
                  </item>
                  <item>
                   <widget class="CustomComboBox" name="cb_entry_date_cycle">
+                   <property name="sizePolicy">
+                    <sizepolicy hsizetype="MinimumExpanding" vsizetype="Fixed">
+                     <horstretch>1</horstretch>
+                     <verstretch>0</verstretch>
+                    </sizepolicy>
+                   </property>
                    <property name="minimumSize">
                     <size>
                      <width>100</width>
                      <height>26</height>
+                    </size>
+                   </property>
+                   <property name="maximumSize">
+                    <size>
+                     <width>16777215</width>
+                     <height>16777215</height>
+                    </size>
+                   </property>
+                   <property name="baseSize">
+                    <size>
+                     <width>0</width>
+                     <height>0</height>
                     </size>
                    </property>
                    <property name="editable">
@@ -313,7 +350,7 @@ QGroupBox{
                 </layout>
                </item>
                <item>
-                <layout class="QHBoxLayout" name="horizontalLayout_10">
+                <layout class="QHBoxLayout" name="horizontalLayout_10" stretch="0,1">
                  <property name="rightMargin">
                   <number>0</number>
                  </property>
@@ -329,10 +366,28 @@ QGroupBox{
                  </item>
                  <item>
                   <widget class="CustomComboBox" name="cb_exit_date_cycle">
+                   <property name="sizePolicy">
+                    <sizepolicy hsizetype="MinimumExpanding" vsizetype="Fixed">
+                     <horstretch>1</horstretch>
+                     <verstretch>0</verstretch>
+                    </sizepolicy>
+                   </property>
                    <property name="minimumSize">
                     <size>
                      <width>100</width>
                      <height>26</height>
+                    </size>
+                   </property>
+                   <property name="maximumSize">
+                    <size>
+                     <width>16777215</width>
+                     <height>16777215</height>
+                    </size>
+                   </property>
+                   <property name="baseSize">
+                    <size>
+                     <width>0</width>
+                     <height>0</height>
                     </size>
                    </property>
                    <property name="editable">
@@ -366,7 +421,7 @@ QGroupBox{
                  <item>
                   <widget class="QGroupBox" name="groupBox">
                    <property name="sizePolicy">
-                    <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+                    <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
                      <horstretch>0</horstretch>
                      <verstretch>0</verstretch>
                     </sizepolicy>
@@ -374,7 +429,7 @@ QGroupBox{
                    <property name="minimumSize">
                     <size>
                      <width>0</width>
-                     <height>26</height>
+                     <height>0</height>
                     </size>
                    </property>
                    <property name="title">
@@ -438,7 +493,7 @@ QGroupBox{
               <property name="frameShadow">
                <enum>QFrame::Raised</enum>
               </property>
-              <layout class="QHBoxLayout" name="horizontalLayout_16">
+              <layout class="QHBoxLayout" name="horizontalLayout_16" stretch="1,0,1">
                <item>
                 <layout class="QGridLayout" name="gridLayout_12">
                  <property name="sizeConstraint">
@@ -495,7 +550,7 @@ QGroupBox{
                  <item row="2" column="1">
                   <widget class="QLineEdit" name="txt_volume_cycle">
                    <property name="sizePolicy">
-                    <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+                    <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
                      <horstretch>0</horstretch>
                      <verstretch>0</verstretch>
                     </sizepolicy>
@@ -508,7 +563,7 @@ QGroupBox{
                    </property>
                    <property name="maximumSize">
                     <size>
-                     <width>16777215</width>
+                     <width>250</width>
                      <height>16777215</height>
                     </size>
                    </property>
@@ -551,14 +606,20 @@ QGroupBox{
                  <item row="1" column="1">
                   <widget class="QLineEdit" name="txt_packs_cycle">
                    <property name="sizePolicy">
-                    <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+                    <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
                      <horstretch>0</horstretch>
                      <verstretch>0</verstretch>
                     </sizepolicy>
                    </property>
+                   <property name="minimumSize">
+                    <size>
+                     <width>0</width>
+                     <height>24</height>
+                    </size>
+                   </property>
                    <property name="maximumSize">
                     <size>
-                     <width>16777215</width>
+                     <width>250</width>
                      <height>16777215</height>
                     </size>
                    </property>
@@ -567,14 +628,20 @@ QGroupBox{
                  <item row="0" column="1">
                   <widget class="QLineEdit" name="txt_bitola_cycle">
                    <property name="sizePolicy">
-                    <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+                    <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
                      <horstretch>0</horstretch>
                      <verstretch>0</verstretch>
                     </sizepolicy>
                    </property>
+                   <property name="minimumSize">
+                    <size>
+                     <width>0</width>
+                     <height>24</height>
+                    </size>
+                   </property>
                    <property name="maximumSize">
                     <size>
-                     <width>16777215</width>
+                     <width>250</width>
                      <height>16777215</height>
                     </size>
                    </property>
@@ -638,6 +705,9 @@ QGroupBox{
                        <height>20</height>
                       </size>
                      </property>
+                     <property name="shortcut">
+                      <string>Ctrl+A</string>
+                     </property>
                     </widget>
                    </item>
                    <item>
@@ -670,6 +740,9 @@ QGroupBox{
                        <height>20</height>
                       </size>
                      </property>
+                     <property name="shortcut">
+                      <string>Ctrl+R</string>
+                     </property>
                     </widget>
                    </item>
                   </layout>
@@ -679,10 +752,22 @@ QGroupBox{
                    <property name="sizePolicy">
                     <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
                      <horstretch>1</horstretch>
-                     <verstretch>0</verstretch>
+                     <verstretch>1</verstretch>
                     </sizepolicy>
                    </property>
                    <property name="minimumSize">
+                    <size>
+                     <width>500</width>
+                     <height>0</height>
+                    </size>
+                   </property>
+                   <property name="sizeIncrement">
+                    <size>
+                     <width>400</width>
+                     <height>0</height>
+                    </size>
+                   </property>
+                   <property name="baseSize">
                     <size>
                      <width>400</width>
                      <height>0</height>
@@ -768,6 +853,9 @@ QGroupBox{
                   <height>32</height>
                  </size>
                 </property>
+                <property name="shortcut">
+                 <string>Ctrl+N</string>
+                </property>
                </widget>
               </item>
               <item>
@@ -800,6 +888,9 @@ QGroupBox{
                   <height>32</height>
                  </size>
                 </property>
+                <property name="shortcut">
+                 <string>Ctrl+S</string>
+                </property>
                </widget>
               </item>
               <item>
@@ -831,6 +922,9 @@ QGroupBox{
                   <width>32</width>
                   <height>32</height>
                  </size>
+                </property>
+                <property name="shortcut">
+                 <string>Ctrl+D</string>
                 </property>
                </widget>
               </item>
@@ -895,7 +989,7 @@ QGroupBox{
                   <property name="frameShadow">
                    <enum>QFrame::Raised</enum>
                   </property>
-                  <layout class="QHBoxLayout" name="horizontalLayout_17">
+                  <layout class="QHBoxLayout" name="horizontalLayout_17" stretch="1,1,1,0,0">
                    <property name="spacing">
                     <number>10</number>
                    </property>
@@ -933,7 +1027,7 @@ QGroupBox{
                        </property>
                        <property name="minimumSize">
                         <size>
-                         <width>90</width>
+                         <width>100</width>
                          <height>26</height>
                         </size>
                        </property>
@@ -971,6 +1065,12 @@ QGroupBox{
                          <horstretch>0</horstretch>
                          <verstretch>0</verstretch>
                         </sizepolicy>
+                       </property>
+                       <property name="minimumSize">
+                        <size>
+                         <width>0</width>
+                         <height>26</height>
+                        </size>
                        </property>
                        <property name="maxVisibleItems">
                         <number>10</number>
@@ -1020,7 +1120,7 @@ QGroupBox{
                       <widget class="CustomComboBox" name="cb_entry_date_cycle_history">
                        <property name="minimumSize">
                         <size>
-                         <width>100</width>
+                         <width>116</width>
                          <height>26</height>
                         </size>
                        </property>
@@ -1097,7 +1197,14 @@ QGroupBox{
                       </widget>
                      </item>
                      <item row="0" column="1">
-                      <widget class="QLineEdit" name="txt_bitola_cycle_history"/>
+                      <widget class="QLineEdit" name="txt_bitola_cycle_history">
+                       <property name="minimumSize">
+                        <size>
+                         <width>116</width>
+                         <height>24</height>
+                        </size>
+                       </property>
+                      </widget>
                      </item>
                      <item row="1" column="1">
                       <widget class="QGroupBox" name="groupBox_5">
@@ -1197,7 +1304,7 @@ QGroupBox{
                         </size>
                        </property>
                        <property name="shortcut">
-                        <string>Enter</string>
+                        <string>Ctrl+P</string>
                        </property>
                       </widget>
                      </item>
@@ -1220,7 +1327,7 @@ QGroupBox{
                         </size>
                        </property>
                        <property name="shortcut">
-                        <string>Enter</string>
+                        <string>Ctrl+L</string>
                        </property>
                       </widget>
                      </item>
@@ -1243,7 +1350,7 @@ QGroupBox{
                         </size>
                        </property>
                        <property name="shortcut">
-                        <string>Enter</string>
+                        <string>Ctrl+E</string>
                        </property>
                       </widget>
                      </item>
@@ -1313,7 +1420,7 @@ QGroupBox{
                   <property name="frameShadow">
                    <enum>QFrame::Raised</enum>
                   </property>
-                  <layout class="QHBoxLayout" name="horizontalLayout_22">
+                  <layout class="QHBoxLayout" name="horizontalLayout_22" stretch="1,1,1,0,0">
                    <property name="spacing">
                     <number>10</number>
                    </property>
@@ -1350,6 +1457,12 @@ QGroupBox{
                      </item>
                      <item row="0" column="1">
                       <widget class="QLineEdit" name="txt_kiln_track_history">
+                       <property name="minimumSize">
+                        <size>
+                         <width>100</width>
+                         <height>24</height>
+                        </size>
+                       </property>
                        <property name="readOnly">
                         <bool>true</bool>
                        </property>
@@ -1357,6 +1470,12 @@ QGroupBox{
                      </item>
                      <item row="1" column="1">
                       <widget class="QLineEdit" name="txt_cycle_track_history">
+                       <property name="minimumSize">
+                        <size>
+                         <width>0</width>
+                         <height>24</height>
+                        </size>
+                       </property>
                        <property name="readOnly">
                         <bool>true</bool>
                        </property>
@@ -1392,10 +1511,16 @@ QGroupBox{
                      <item row="1" column="1">
                       <widget class="QLineEdit" name="txt_exit_date_track_history">
                        <property name="sizePolicy">
-                        <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+                        <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
                          <horstretch>0</horstretch>
                          <verstretch>0</verstretch>
                         </sizepolicy>
+                       </property>
+                       <property name="minimumSize">
+                        <size>
+                         <width>0</width>
+                         <height>24</height>
+                        </size>
                        </property>
                        <property name="readOnly">
                         <bool>true</bool>
@@ -1405,10 +1530,16 @@ QGroupBox{
                      <item row="0" column="1">
                       <widget class="QLineEdit" name="txt_entry_date_track_history">
                        <property name="sizePolicy">
-                        <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+                        <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
                          <horstretch>0</horstretch>
                          <verstretch>0</verstretch>
                         </sizepolicy>
+                       </property>
+                       <property name="minimumSize">
+                        <size>
+                         <width>100</width>
+                         <height>24</height>
+                        </size>
                        </property>
                        <property name="readOnly">
                         <bool>true</bool>
@@ -1420,7 +1551,7 @@ QGroupBox{
                    <item>
                     <layout class="QFormLayout" name="formLayout_9">
                      <property name="verticalSpacing">
-                      <number>10</number>
+                      <number>6</number>
                      </property>
                      <property name="rightMargin">
                       <number>0</number>
@@ -1447,6 +1578,12 @@ QGroupBox{
                      </item>
                      <item row="0" column="1">
                       <widget class="QLineEdit" name="txt_bitola_track_history">
+                       <property name="minimumSize">
+                        <size>
+                         <width>100</width>
+                         <height>24</height>
+                        </size>
+                       </property>
                        <property name="readOnly">
                         <bool>true</bool>
                        </property>
@@ -1470,6 +1607,9 @@ QGroupBox{
                         <string/>
                        </property>
                        <layout class="QHBoxLayout" name="horizontalLayout_24">
+                        <property name="spacing">
+                         <number>10</number>
+                        </property>
                         <property name="topMargin">
                          <number>0</number>
                         </property>
@@ -1509,12 +1649,9 @@ QGroupBox{
                      <property name="orientation">
                       <enum>Qt::Horizontal</enum>
                      </property>
-                     <property name="sizeType">
-                      <enum>QSizePolicy::Expanding</enum>
-                     </property>
                      <property name="sizeHint" stdset="0">
                       <size>
-                       <width>94</width>
+                       <width>162</width>
                        <height>20</height>
                       </size>
                      </property>
@@ -1539,7 +1676,7 @@ QGroupBox{
                       </size>
                      </property>
                      <property name="shortcut">
-                      <string>Enter</string>
+                      <string>Ctrl+B</string>
                      </property>
                     </widget>
                    </item>
@@ -1761,7 +1898,7 @@ QGroupBox{
         <item>
          <widget class="QTabWidget" name="tab_widget_nfe">
           <property name="currentIndex">
-           <number>0</number>
+           <number>1</number>
           </property>
           <widget class="QWidget" name="tab_nfe">
            <attribute name="icon">
@@ -1780,7 +1917,7 @@ QGroupBox{
               <property name="frameShadow">
                <enum>QFrame::Raised</enum>
               </property>
-              <layout class="QHBoxLayout" name="horizontalLayout_23">
+              <layout class="QHBoxLayout" name="horizontalLayout_23" stretch="1,1,1">
                <property name="spacing">
                 <number>10</number>
                </property>
@@ -1801,6 +1938,12 @@ QGroupBox{
                  </item>
                  <item row="0" column="1">
                   <widget class="CustomComboBox" name="cb_date_nfe">
+                   <property name="sizePolicy">
+                    <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+                     <horstretch>0</horstretch>
+                     <verstretch>0</verstretch>
+                    </sizepolicy>
+                   </property>
                    <property name="minimumSize">
                     <size>
                      <width>100</width>
@@ -1836,6 +1979,12 @@ QGroupBox{
                      <verstretch>0</verstretch>
                     </sizepolicy>
                    </property>
+                   <property name="minimumSize">
+                    <size>
+                     <width>0</width>
+                     <height>26</height>
+                    </size>
+                   </property>
                   </widget>
                  </item>
                 </layout>
@@ -1866,10 +2015,24 @@ QGroupBox{
                   </widget>
                  </item>
                  <item row="0" column="1">
-                  <widget class="QLineEdit" name="txt_nfe_nfe"/>
+                  <widget class="QLineEdit" name="txt_nfe_nfe">
+                   <property name="minimumSize">
+                    <size>
+                     <width>0</width>
+                     <height>24</height>
+                    </size>
+                   </property>
+                  </widget>
                  </item>
                  <item row="1" column="1">
-                  <widget class="QLineEdit" name="txt_total_volume_nfe"/>
+                  <widget class="QLineEdit" name="txt_total_volume_nfe">
+                   <property name="minimumSize">
+                    <size>
+                     <width>0</width>
+                     <height>24</height>
+                    </size>
+                   </property>
+                  </widget>
                  </item>
                 </layout>
                </item>
@@ -1899,10 +2062,24 @@ QGroupBox{
                   </widget>
                  </item>
                  <item row="0" column="1">
-                  <widget class="QLineEdit" name="txt_packs_nfe"/>
+                  <widget class="QLineEdit" name="txt_packs_nfe">
+                   <property name="minimumSize">
+                    <size>
+                     <width>0</width>
+                     <height>24</height>
+                    </size>
+                   </property>
+                  </widget>
                  </item>
                  <item row="1" column="1">
-                  <widget class="QComboBox" name="cb_foot_nfe"/>
+                  <widget class="QComboBox" name="cb_foot_nfe">
+                   <property name="minimumSize">
+                    <size>
+                     <width>0</width>
+                     <height>26</height>
+                    </size>
+                   </property>
+                  </widget>
                  </item>
                 </layout>
                </item>
@@ -1923,7 +2100,7 @@ QGroupBox{
               <property name="frameShadow">
                <enum>QFrame::Raised</enum>
               </property>
-              <layout class="QHBoxLayout" name="horizontalLayout_15">
+              <layout class="QHBoxLayout" name="horizontalLayout_15" stretch="1,0,1">
                <item>
                 <layout class="QGridLayout" name="gridLayout_7">
                  <property name="sizeConstraint">
@@ -1941,7 +2118,7 @@ QGroupBox{
                  <item row="3" column="1">
                   <widget class="QLineEdit" name="txt_rework_nfe">
                    <property name="sizePolicy">
-                    <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+                    <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
                      <horstretch>0</horstretch>
                      <verstretch>0</verstretch>
                     </sizepolicy>
@@ -1954,7 +2131,7 @@ QGroupBox{
                    </property>
                    <property name="maximumSize">
                     <size>
-                     <width>16777215</width>
+                     <width>250</width>
                      <height>16777215</height>
                     </size>
                    </property>
@@ -2003,14 +2180,20 @@ QGroupBox{
                  <item row="1" column="1">
                   <widget class="QComboBox" name="cb_bitola_nfe">
                    <property name="sizePolicy">
-                    <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+                    <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
                      <horstretch>0</horstretch>
                      <verstretch>0</verstretch>
                     </sizepolicy>
                    </property>
+                   <property name="minimumSize">
+                    <size>
+                     <width>0</width>
+                     <height>26</height>
+                    </size>
+                   </property>
                    <property name="maximumSize">
                     <size>
-                     <width>16777215</width>
+                     <width>250</width>
                      <height>16777215</height>
                     </size>
                    </property>
@@ -2052,14 +2235,20 @@ QGroupBox{
                  <item row="2" column="1">
                   <widget class="QLineEdit" name="txt_volume_nfe">
                    <property name="sizePolicy">
-                    <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+                    <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
                      <horstretch>0</horstretch>
                      <verstretch>0</verstretch>
                     </sizepolicy>
                    </property>
+                   <property name="minimumSize">
+                    <size>
+                     <width>0</width>
+                     <height>24</height>
+                    </size>
+                   </property>
                    <property name="maximumSize">
                     <size>
-                     <width>16777215</width>
+                     <width>250</width>
                      <height>16777215</height>
                     </size>
                    </property>
@@ -2078,7 +2267,7 @@ QGroupBox{
                  <item row="0" column="1">
                   <widget class="QComboBox" name="cb_cycle_nfe">
                    <property name="sizePolicy">
-                    <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+                    <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
                      <horstretch>0</horstretch>
                      <verstretch>0</verstretch>
                     </sizepolicy>
@@ -2091,7 +2280,7 @@ QGroupBox{
                    </property>
                    <property name="maximumSize">
                     <size>
-                     <width>16777215</width>
+                     <width>250</width>
                      <height>16777215</height>
                     </size>
                    </property>
@@ -2155,6 +2344,9 @@ QGroupBox{
                        <height>20</height>
                       </size>
                      </property>
+                     <property name="shortcut">
+                      <string>Ctrl+A</string>
+                     </property>
                     </widget>
                    </item>
                    <item>
@@ -2187,6 +2379,9 @@ QGroupBox{
                        <height>20</height>
                       </size>
                      </property>
+                     <property name="shortcut">
+                      <string>Ctrl+R</string>
+                     </property>
                     </widget>
                    </item>
                   </layout>
@@ -2196,12 +2391,12 @@ QGroupBox{
                    <property name="sizePolicy">
                     <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
                      <horstretch>1</horstretch>
-                     <verstretch>0</verstretch>
+                     <verstretch>1</verstretch>
                     </sizepolicy>
                    </property>
                    <property name="minimumSize">
                     <size>
-                     <width>400</width>
+                     <width>500</width>
                      <height>0</height>
                     </size>
                    </property>
@@ -2235,6 +2430,11 @@ QGroupBox{
                    <attribute name="verticalHeaderCascadingSectionResizes">
                     <bool>false</bool>
                    </attribute>
+                   <column>
+                    <property name="text">
+                     <string>NFE_ID</string>
+                    </property>
+                   </column>
                    <column>
                     <property name="text">
                      <string>ID</string>
@@ -2293,6 +2493,9 @@ QGroupBox{
                   <height>32</height>
                  </size>
                 </property>
+                <property name="shortcut">
+                 <string>Ctrl+N</string>
+                </property>
                </widget>
               </item>
               <item>
@@ -2319,6 +2522,9 @@ QGroupBox{
                   <height>32</height>
                  </size>
                 </property>
+                <property name="shortcut">
+                 <string>Ctrl+S</string>
+                </property>
                </widget>
               </item>
               <item>
@@ -2344,6 +2550,9 @@ QGroupBox{
                   <width>32</width>
                   <height>32</height>
                  </size>
+                </property>
+                <property name="shortcut">
+                 <string>Ctrl+D</string>
                 </property>
                </widget>
               </item>
@@ -2386,7 +2595,7 @@ QGroupBox{
               <property name="frameShadow">
                <enum>QFrame::Raised</enum>
               </property>
-              <layout class="QHBoxLayout" name="horizontalLayout_35">
+              <layout class="QHBoxLayout" name="horizontalLayout_35" stretch="1,1,1,0,0">
                <property name="spacing">
                 <number>10</number>
                </property>
@@ -2416,10 +2625,30 @@ QGroupBox{
                   </widget>
                  </item>
                  <item row="0" column="1">
-                  <widget class="QLineEdit" name="txt_nfe_nfe_history"/>
+                  <widget class="QLineEdit" name="txt_nfe_nfe_history">
+                   <property name="minimumSize">
+                    <size>
+                     <width>0</width>
+                     <height>24</height>
+                    </size>
+                   </property>
+                  </widget>
                  </item>
                  <item row="1" column="1">
-                  <widget class="QComboBox" name="cb_client_nfe_history"/>
+                  <widget class="QComboBox" name="cb_client_nfe_history">
+                   <property name="sizePolicy">
+                    <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+                     <horstretch>0</horstretch>
+                     <verstretch>0</verstretch>
+                    </sizepolicy>
+                   </property>
+                   <property name="minimumSize">
+                    <size>
+                     <width>0</width>
+                     <height>26</height>
+                    </size>
+                   </property>
+                  </widget>
                  </item>
                 </layout>
                </item>
@@ -2516,7 +2745,20 @@ QGroupBox{
                   </widget>
                  </item>
                  <item row="0" column="1">
-                  <widget class="QComboBox" name="cb_foot_nfe_history"/>
+                  <widget class="QComboBox" name="cb_foot_nfe_history">
+                   <property name="sizePolicy">
+                    <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+                     <horstretch>0</horstretch>
+                     <verstretch>0</verstretch>
+                    </sizepolicy>
+                   </property>
+                   <property name="minimumSize">
+                    <size>
+                     <width>0</width>
+                     <height>26</height>
+                    </size>
+                   </property>
+                  </widget>
                  </item>
                 </layout>
                </item>
@@ -2557,7 +2799,7 @@ QGroupBox{
                     </size>
                    </property>
                    <property name="shortcut">
-                    <string>Enter</string>
+                    <string>Ctrl+P</string>
                    </property>
                   </widget>
                  </item>
@@ -2580,7 +2822,7 @@ QGroupBox{
                     </size>
                    </property>
                    <property name="shortcut">
-                    <string>Enter</string>
+                    <string>Ctrl+L</string>
                    </property>
                   </widget>
                  </item>
@@ -2603,7 +2845,7 @@ QGroupBox{
                     </size>
                    </property>
                    <property name="shortcut">
-                    <string>Enter</string>
+                    <string>Ctrl+E</string>
                    </property>
                   </widget>
                  </item>
@@ -2677,7 +2919,7 @@ QGroupBox{
           <property name="frameShadow">
            <enum>QFrame::Raised</enum>
           </property>
-          <layout class="QHBoxLayout" name="horizontalLayout_6">
+          <layout class="QHBoxLayout" name="horizontalLayout_6" stretch="1,2,0,0,0">
            <property name="spacing">
             <number>10</number>
            </property>
@@ -2844,6 +3086,9 @@ QGroupBox{
                  <height>32</height>
                 </size>
                </property>
+               <property name="shortcut">
+                <string>Ctrl+P</string>
+               </property>
               </widget>
              </item>
              <item>
@@ -2869,6 +3114,9 @@ QGroupBox{
                  <width>32</width>
                  <height>32</height>
                 </size>
+               </property>
+               <property name="shortcut">
+                <string>Ctrl+L</string>
                </property>
               </widget>
              </item>
@@ -2913,7 +3161,7 @@ QGroupBox{
           <property name="frameShadow">
            <enum>QFrame::Raised</enum>
           </property>
-          <layout class="QHBoxLayout" name="horizontalLayout_39">
+          <layout class="QHBoxLayout" name="horizontalLayout_39" stretch="1,0,0,0,0">
            <property name="spacing">
             <number>10</number>
            </property>
@@ -2946,6 +3194,9 @@ QGroupBox{
                  <height>32</height>
                 </size>
                </property>
+               <property name="shortcut">
+                <string>Ctrl+B</string>
+               </property>
               </widget>
              </item>
              <item>
@@ -2972,6 +3223,9 @@ QGroupBox{
                  <height>32</height>
                 </size>
                </property>
+               <property name="shortcut">
+                <string>Ctrl+M</string>
+               </property>
               </widget>
              </item>
             </layout>
@@ -2990,21 +3244,24 @@ QGroupBox{
             </spacer>
            </item>
            <item>
-            <layout class="QFormLayout" name="formLayout_17">
+            <layout class="QHBoxLayout" name="horizontalLayout_40" stretch="0,0">
+             <property name="leftMargin">
+              <number>0</number>
+             </property>
              <property name="rightMargin">
               <number>0</number>
              </property>
-             <item row="0" column="0">
+             <item>
               <widget class="QLabel" name="label_23">
                <property name="text">
-                <string>VOLUME TRATADO</string>
+                <string>TRATADO</string>
                </property>
                <property name="buddy">
                 <cstring>txt_treatment_stock</cstring>
                </property>
               </widget>
              </item>
-             <item row="0" column="1">
+             <item>
               <widget class="QLineEdit" name="txt_treatment_stock">
                <property name="readOnly">
                 <bool>true</bool>
@@ -3014,38 +3271,48 @@ QGroupBox{
             </layout>
            </item>
            <item>
-            <layout class="QFormLayout" name="formLayout_18">
+            <layout class="QHBoxLayout" name="horizontalLayout_41" stretch="0,0">
+             <property name="leftMargin">
+              <number>0</number>
+             </property>
              <property name="rightMargin">
               <number>0</number>
              </property>
-             <item row="0" column="0">
+             <item>
               <widget class="QLabel" name="label_24">
                <property name="text">
-                <string>VOLUME VENDIDO</string>
+                <string>VENDIDO</string>
                </property>
                <property name="buddy">
                 <cstring>txt_sold_stock</cstring>
                </property>
               </widget>
              </item>
-             <item row="1" column="0">
-              <widget class="QLabel" name="label_26">
-               <property name="text">
-                <string>ESTOQUE</string>
-               </property>
-               <property name="buddy">
-                <cstring>txt_stock_stock</cstring>
-               </property>
-              </widget>
-             </item>
-             <item row="0" column="1">
+             <item>
               <widget class="QLineEdit" name="txt_sold_stock">
                <property name="readOnly">
                 <bool>true</bool>
                </property>
               </widget>
              </item>
-             <item row="1" column="1">
+            </layout>
+           </item>
+           <item>
+            <layout class="QHBoxLayout" name="horizontalLayout_42" stretch="0,0">
+             <property name="leftMargin">
+              <number>0</number>
+             </property>
+             <property name="rightMargin">
+              <number>0</number>
+             </property>
+             <item>
+              <widget class="QLabel" name="label_27">
+               <property name="text">
+                <string>ESTOQUE</string>
+               </property>
+              </widget>
+             </item>
+             <item>
               <widget class="QLineEdit" name="txt_stock_stock">
                <property name="readOnly">
                 <bool>true</bool>
@@ -3117,6 +3384,12 @@ QGroupBox{
          <property name="cursor">
           <cursorShape>PointingHandCursor</cursorShape>
          </property>
+         <property name="toolTip">
+          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; color:#000000;&quot;&gt;Ctrl+1&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+         </property>
+         <property name="statusTip">
+          <string/>
+         </property>
          <property name="text">
           <string> CICLOS</string>
          </property>
@@ -3129,6 +3402,9 @@ QGroupBox{
            <width>32</width>
            <height>32</height>
           </size>
+         </property>
+         <property name="shortcut">
+          <string>Ctrl+1</string>
          </property>
         </widget>
        </item>
@@ -3143,6 +3419,9 @@ QGroupBox{
          <property name="cursor">
           <cursorShape>PointingHandCursor</cursorShape>
          </property>
+         <property name="toolTip">
+          <string>Ctrl+2</string>
+         </property>
          <property name="text">
           <string> NFE</string>
          </property>
@@ -3155,6 +3434,9 @@ QGroupBox{
            <width>32</width>
            <height>32</height>
           </size>
+         </property>
+         <property name="shortcut">
+          <string>Ctrl+2</string>
          </property>
         </widget>
        </item>
@@ -3169,6 +3451,9 @@ QGroupBox{
          <property name="cursor">
           <cursorShape>PointingHandCursor</cursorShape>
          </property>
+         <property name="toolTip">
+          <string>Ctrl+3</string>
+         </property>
          <property name="text">
           <string> ESTOQUE</string>
          </property>
@@ -3181,6 +3466,9 @@ QGroupBox{
            <width>32</width>
            <height>32</height>
           </size>
+         </property>
+         <property name="shortcut">
+          <string>Ctrl+3</string>
          </property>
         </widget>
        </item>
@@ -3195,6 +3483,9 @@ QGroupBox{
          <property name="cursor">
           <cursorShape>PointingHandCursor</cursorShape>
          </property>
+         <property name="toolTip">
+          <string>Ctrl+4</string>
+         </property>
          <property name="text">
           <string> ESTUFAS</string>
          </property>
@@ -3207,6 +3498,9 @@ QGroupBox{
            <width>32</width>
            <height>32</height>
           </size>
+         </property>
+         <property name="shortcut">
+          <string>Ctrl+4</string>
          </property>
         </widget>
        </item>
@@ -3221,6 +3515,9 @@ QGroupBox{
          <property name="cursor">
           <cursorShape>PointingHandCursor</cursorShape>
          </property>
+         <property name="toolTip">
+          <string>Ctrl+5</string>
+         </property>
          <property name="text">
           <string> CLIENTES</string>
          </property>
@@ -3233,6 +3530,9 @@ QGroupBox{
            <width>32</width>
            <height>32</height>
           </size>
+         </property>
+         <property name="shortcut">
+          <string>Ctrl+5</string>
          </property>
         </widget>
        </item>
@@ -3247,6 +3547,9 @@ QGroupBox{
          <property name="cursor">
           <cursorShape>PointingHandCursor</cursorShape>
          </property>
+         <property name="toolTip">
+          <string>Esc</string>
+         </property>
          <property name="text">
           <string> SAIR</string>
          </property>
@@ -3259,6 +3562,9 @@ QGroupBox{
            <width>32</width>
            <height>32</height>
           </size>
+         </property>
+         <property name="shortcut">
+          <string>Esc</string>
          </property>
         </widget>
        </item>
@@ -3275,7 +3581,7 @@ QGroupBox{
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1125</width>
+     <width>1075</width>
      <height>29</height>
     </rect>
    </property>
@@ -3409,6 +3715,12 @@ QGroupBox{
    <extends>QTableWidget</extends>
    <header location="global">utils.widget</header>
   </customwidget>
+  <customwidget>
+   <class>CustomStackedWidget</class>
+   <extends>QStackedWidget</extends>
+   <header location="global">utils.widget</header>
+   <container>1</container>
+  </customwidget>
  </customwidgets>
  <tabstops>
   <tabstop>bt_cycle_menu</tabstop>
@@ -3478,9 +3790,6 @@ QGroupBox{
   <tabstop>tv_stock</tabstop>
   <tabstop>bt_discount_stock</tabstop>
   <tabstop>bt_leaving_stock</tabstop>
-  <tabstop>txt_treatment_stock</tabstop>
-  <tabstop>txt_sold_stock</tabstop>
-  <tabstop>txt_stock_stock</tabstop>
   <tabstop>tv_track_history</tabstop>
   <tabstop>rb_ht_track_history</tabstop>
   <tabstop>bt_back_track_history</tabstop>

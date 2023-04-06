@@ -1,15 +1,13 @@
-from PySide6.QtWidgets import QApplication, QCalendarWidget, QWidget
+def get_zipped(data: dict[str, list]) -> list:
+    values = data.values()
+    return list(zip(*values))
 
 
+data = {
+    'A': ['1', '2', '3'],
+    'B': ['4', '5', '6'],
+    'C': ['7', '8', '9'],
+}
 
-app = QApplication([])
-
-widget = QCalendarWidget()
-nav: QWidget = widget.findChild(QWidget, "qt_calendar_navigationbar")
-
-for w in nav.children():
-    print(w)
-
-
-widget.show()
-app.exec()
+for value in get_zipped(data):
+    print(value)

@@ -40,7 +40,7 @@ if __name__ == '__main__':
     )
 
     # Faz a modelagem dos dados de um arquivo .csv para inserir na tabela
-    with open('bd_ciclo.csv', 'r', encoding='latin') as f:
+    with open('seed/bd_ciclo.csv', 'r', encoding='latin') as f:
         csvreader = csv.reader(f, delimiter=';')
         next(csvreader)
 
@@ -74,7 +74,7 @@ if __name__ == '__main__':
         """
     )
 
-    with open('bd_nfe_info.csv', 'r', encoding='latin') as f:
+    with open('seed/bd_nfe_info.csv', 'r', encoding='latin') as f:
         csvreader = csv.reader(f, delimiter=';')
         next(csvreader)
 
@@ -107,7 +107,7 @@ if __name__ == '__main__':
         """
     )
 
-    with open('bd_bitola.csv', 'r', encoding='latin') as f:
+    with open('seed/bd_bitola.csv', 'r', encoding='latin') as f:
         csvreader = csv.reader(f, delimiter=';')
         next(csvreader)
 
@@ -138,7 +138,7 @@ if __name__ == '__main__':
         """
     )
 
-    with open('bd_nfe.csv', 'r', encoding='latin') as f:
+    with open('seed/bd_nfe.csv', 'r', encoding='latin') as f:
         csvreader = csv.reader(f, delimiter=';')
         next(csvreader)
 
@@ -167,13 +167,13 @@ if __name__ == '__main__':
         """
     )
 
-    with open('bd_pezinho.csv', 'r', encoding='latin') as f:
+    with open('seed/bd_pezinho.csv', 'r', encoding='latin') as f:
         csvreader = csv.reader(f, delimiter=';')
         next(csvreader)
 
         for bitola_id, nfe, volume in csvreader:
             query.addBindValue(bitola_id)
-            query.addBindValue(nfe)
+            query.addBindValue(nfe or None)
             query.addBindValue(from_volume_to_float(volume))
 
             query.exec()
@@ -195,7 +195,7 @@ if __name__ == '__main__':
         """
     )
 
-    with open('bd_residuo.csv', 'r', encoding='latin') as f:
+    with open('seed/bd_residuo.csv', 'r', encoding='latin') as f:
         csvreader = csv.reader(f, delimiter=';')
         next(csvreader)
 

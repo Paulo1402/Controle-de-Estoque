@@ -61,7 +61,7 @@ class ConfigurationDialog(QDialog, Ui_Dialog):
             if radio.isChecked():
                 return key
 
-    # Salva configurações ao fehcar caixa de diálogo
+    # Salva configurações ao fechar caixa de diálogo
     def closeEvent(self, a0: QCloseEvent):
         path = self.txt_source.text()
         frequency = self.get_checked_radio(self.frequency_radios)
@@ -87,6 +87,7 @@ class ConfigurationDialog(QDialog, Ui_Dialog):
         if not path:
             return
 
+        # Cria o arquivo do banco de dados
         with open(path, 'w', encoding='utf8'):
             pass
 

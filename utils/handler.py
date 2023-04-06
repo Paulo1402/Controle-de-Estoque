@@ -3,7 +3,7 @@ from abc import ABC, abstractmethod
 from PySide6.QtWidgets import QTableWidget, QPushButton, QLineEdit, QComboBox, QHeaderView, QTableWidgetItem
 from PySide6.QtCore import Qt, QModelIndex
 
-from utils import Message, BitolaValidator, VolumeValidator, clear_fields, get_empty_fields
+from utils import Message, BitolaValidator, VolumeValidator, clear_fields, check_empty_fields
 from services import DatabaseConnection
 
 
@@ -14,17 +14,20 @@ class TableWidgetHandler(ABC):
             parent,
             table_widget: QTableWidget,
             remove_button: QPushButton,
-            fields: list[QLineEdit | QComboBox]
+            fields: list[QLineEdit | QComboBox],
+            hidden_columns_count: int = 0
     ):
-        super().__init__()
-
         self.parent = parent
         self.table_widget = table_widget
         self.remove_button = remove_button
         self.fields = fields
+        self.hidden_columns_count = hidden_columns_count
+
         self._ID_register = -1
 
-        self.table_widget.setColumnHidden(0, True)
+        for i in range(hidden_columns_count):
+            self.table_widget.setColumnHidden(i, True)
+
         self.table_widget.horizontalHeader().setSectionResizeMode(QHeaderView.ResizeMode.Stretch)
         self.table_widget.clicked.connect(self.edit)
 
@@ -44,13 +47,13 @@ class TableWidgetHandler(ABC):
         row = index.row()
         id_bitola = self.table_widget.item(row, 0).text()
 
-        for i in range(1, self.table_widget.columnCount()):
+        for i in range(self.hidden_columns_count, self.table_widget.columnCount()):
             item = self.table_widget.item(row, i).text()
 
             try:
-                self.fields[i - 1].setText(item)
+                self.fields[i - self.hidden_columns_count].setText(item)
             except AttributeError:
-                self.fields[i - 1].setCurrentText(item)
+                self.fields[i - self.hidden_columns_count].setCurrentText(item)
 
         self._ID_register = int(id_bitola)
         self.remove_button.setDisabled(False)
@@ -78,11 +81,8 @@ class TableWidgetHandler(ABC):
 class CycleTableWidgetHandler(TableWidgetHandler):
     def add(self):
         # Verifica se há campos em branco
-        empty_fields = get_empty_fields(self.fields)
-
-        if len(empty_fields) > 0:
+        if not check_empty_fields(self.fields):
             Message.warning(self.parent, 'ATENÇÃO', 'Preencha os campos obrigatórios!')
-            empty_fields[0].setFocus()
             return
 
         # Verifica se os campos estão devidamente validados
@@ -147,6 +147,9 @@ class CycleTableWidgetHandler(TableWidgetHandler):
             database: DatabaseConnection = self.parent.database
             database.delete(table='bitola', clause=f'WHERE bitola_id LIKE {self._ID_register}')
 
+            self.parent.refresh_data()
+            self.parent.setup_data()
+
         super().remove()
 
 
@@ -158,23 +161,28 @@ class NfeTableWidgetHandler(TableWidgetHandler):
             table_widget: QTableWidget,
             remove_button: QPushButton,
             fields: list[QLineEdit | QComboBox],
-            optional_fields: list[QLineEdit | QComboBox]
+            optional_fields: list[QLineEdit | QComboBox],
+            hidden_columns_count: int = 0
     ):
-        super().__init__(parent, table_widget, remove_button, fields)
+        super().__init__(parent, table_widget, remove_button, fields, hidden_columns_count)
+
         self.optional_fields = optional_fields
 
     def add(self):
-        # Verifica se há campos em branco
-        fields = [field for field in self.fields if field not in self.optional_fields]
-        empty_fields = get_empty_fields(fields)
+        # Remove os campos opcionais
+        fields = list(filter(lambda x: x not in self.optional_fields, self.fields))
 
-        if len(empty_fields) > 0:
+        # Verifica se há campos em branco
+        if not check_empty_fields(fields):
             Message.warning(self.parent, 'ATENÇÃO', 'Preencha os campos obrigatórios!')
-            empty_fields[0].setFocus()
             return
 
         # Verifica se os campos estão devidamente validados
         for field in self.fields:
+            # Pula iteração caso o campo em questão seja opcional e esteja em branco
+            if field in self.optional_fields and not field.text():
+                continue
+
             validator = field.validator()
 
             if isinstance(validator, (BitolaValidator, VolumeValidator)) \
@@ -208,7 +216,7 @@ class NfeTableWidgetHandler(TableWidgetHandler):
 
             values.append(value)
 
-        values = [bitola_id, *values]
+        values = [str(self.ID_register), bitola_id, *values]
 
         # Adiciona ou atualiza registros no table widget
         for i, value in enumerate(values):
@@ -220,5 +228,6 @@ class NfeTableWidgetHandler(TableWidgetHandler):
         # Limpa campos e prepara novo registro
         clear_fields(self.fields)
 
+        self.remove_button.setDisabled(True)
         self.table_widget.clearSelection()
         self._ID_register = -1

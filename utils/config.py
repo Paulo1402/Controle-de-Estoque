@@ -1,8 +1,7 @@
 import json
 import os
 
-# Caminho relativo ao main.py
-BASEDIR = os.path.dirname(os.path.dirname(__file__))
+from utils import BASEDIR
 
 
 # Retorna configurações do aplicativo
@@ -31,7 +30,9 @@ def get_config() -> dict:
             'backup': {
                 'frequency': 'weekly',
                 'max_backups': 5
-            }
+            },
+            'short_skids': '',
+            'long_skids': '',
         }
 
         set_config(config)

@@ -16,7 +16,7 @@ class TableModel(QSqlQueryModel):
         # Retorna valor original
         value = super().data(item, role)
 
-        # Alinha todos objetos ao centro
+        # Alinha todos os objetos ao centro
         if role == Qt.ItemDataRole.TextAlignmentRole:
             return Qt.AlignmentFlag.AlignCenter
 
@@ -34,7 +34,7 @@ class TableModel(QSqlQueryModel):
 
 class ListModel(QSqlQueryModel):
     def data(self, item: QModelIndex, role: int = ...):
-        # Alinha todos objetos ao centro
+        # Alinha todos os objetos ao centro
         if role == Qt.ItemDataRole.TextAlignmentRole:
             return Qt.AlignmentFlag.AlignCenter
 

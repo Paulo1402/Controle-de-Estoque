@@ -1,11 +1,15 @@
+from datetime import datetime
+
 import qdarktheme
 from PySide6.QtWidgets import QLineEdit, QComboBox
 
+from utils import LONG_SKIDS, SHORT_SKIDS
 
-# Retorna volume dos pezinhos com base no algorítmo
+
+# Retorna volume dos pezinhos com base no algoritmo
 def get_skids_volume(n_bitola_skids: int, packs: int) -> list[float]:
-    long_skids = 0.00306
-    short_skids = 0.00405
+    long_skids = LONG_SKIDS
+    short_skids = SHORT_SKIDS
 
     volumes = []
 
@@ -22,13 +26,13 @@ def get_skids_volume(n_bitola_skids: int, packs: int) -> list[float]:
 
             first = False
 
-    volumes = map(lambda x: round(x, 3), volumes)
+    volumes = [round(i, 3) for i in volumes]
 
     return volumes
 
 
 # Retorna campos em branco
-def get_empty_fields(fields: list[QLineEdit | QComboBox]) -> list[QLineEdit | QComboBox]:
+def check_empty_fields(fields: list[QLineEdit | QComboBox]) -> QLineEdit | QComboBox:
     empty_fields = []
 
     for field in fields:
@@ -42,7 +46,26 @@ def get_empty_fields(fields: list[QLineEdit | QComboBox]) -> list[QLineEdit | QC
             field.setProperty('class', 'required')
             field.style().polish(field)
 
-    return empty_fields
+    if empty_fields:
+        empty_fields[0].setFocus()
+        return False
+
+    return True
+
+
+# Checa se a data de entrada é menor que a data de saída
+def is_date_range_valid(start_date: str, end_date: str, date_format='%Y-%m-%d') -> bool:
+    start_date_parsed = datetime.strptime(start_date, date_format)
+    end_date_parsed = datetime.strptime(end_date, date_format)
+
+    return start_date_parsed <= end_date_parsed
+
+
+# Retorna data atual como string
+def get_today(output: str = '%Y-%m-%d') -> str:
+    today = datetime.today().date()
+
+    return today.strftime(output)
 
 
 # Limpa campos

@@ -2,6 +2,7 @@ import os
 import csv
 import json
 import shutil
+import time
 from datetime import datetime
 from collections import namedtuple
 
@@ -11,7 +12,6 @@ from PySide6.QtCore import QThread, Signal
 from services.connection import DatabaseConnection, QueryError
 
 import utils
-
 
 __all__ = [
     'DatabaseConnection',
@@ -30,7 +30,7 @@ TABLES = {
     'residuo': ['bitola_id', 'data', 'volume'],
     'estufa': ['estufa_id', 'nome'],
     'cliente': ['cliente_id', 'nome']
- }
+}
 
 
 # Checa conexão com banco de dados antes de executar uma função que requer conexão
@@ -94,7 +94,7 @@ class DoBackupWorker(QThread):
                 config = json.loads(f.read())
 
                 last_backup = config['last_backup']
-                last_backup = datetime.strptime(last_backup, '%Y-%m-%d')
+                last_backup = datetime.strptime(last_backup, '%Y-%m-%d').date()
         except (FileNotFoundError, KeyError, ValueError, json.JSONDecodeError):
             last_backup = None
 
@@ -111,8 +111,7 @@ class DoBackupWorker(QThread):
                 return
 
         # Transforma datetime em string novamente
-        last_backup = today
-        last_backup = last_backup.strftime('%Y-%m-%d')
+        last_backup = today.strftime('%Y-%m-%d')
 
         # Pega o nome do mês e ano atual
         month_folder = os.path.join(root, f'{today.month:02d}-{today.year}')
@@ -145,7 +144,7 @@ class DoBackupWorker(QThread):
 
             # Cria backup em um arquivo .csv
             self._write_csv(filename, header, query)
-
+            time.sleep(2)
             progress = int((count / len(TABLES)) * 100)
             self.progress.emit(progress)
 
@@ -182,5 +181,5 @@ class DoBackupWorker(QThread):
                 os.removedirs(oldest.parent)
 
         # Salva data do último backup
-        with open(backup_config_path, 'w', encoding='latin') as f:
+        with open(backup_config_path, 'w', encoding='utf8') as f:
             f.write(json.dumps({"last_backup": last_backup}, indent=4))

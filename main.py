@@ -2,7 +2,7 @@ import sys
 import warnings
 
 from PySide6.QtWidgets import QApplication, QMainWindow, QHeaderView, QTableWidgetItem, QLabel, QProgressBar
-from PySide6.QtGui import QIcon, QCloseEvent, QIntValidator
+from PySide6.QtGui import QIcon, QCloseEvent, QRegularExpressionValidator
 from PySide6.QtCore import QModelIndex, Qt, QRegularExpression, Slot
 
 from ui.MainWindow import Ui_MainWindow
@@ -11,23 +11,26 @@ from utils import *
 
 
 # todo FrontEnd
-# Definir cores principais para light / dark mode
-# Trabalhar na responsividade, aumentar o tamanho dos widgets de campos de forma proporcional
-# Definir animação quando alternar páginas na Tab Widget
+# Menu 'Licença' / menu 'Como Usar'
+# Fazer 'Como Usar' em HTML
+# 'Licença' pode ser uma nova janela com licença atual e referenciar icons e 3rd party libs
 
 # todo BackEnd
+# Alertar usuário que tabelas secundárias serão deletadas e durante importação de tabelas primárias
+# Recarregar tabela temporária após importação
+# Suporte para adição de constantes próprias para calcular pezinhos
 
 # todo Refactoring
 # Verificar se é necessário decorar com @check_connection funções que alteram o banco de dados
+# Reorganizar código
 
 # todo Testes
-# Testar CRUD de todas as tabelas
 # Testar sistema de backup
 # Testar sistema de importação de backup
 # Repetir bateria de testes com o app compilado
+# Verificar encoding dos arquivos de backup, tanto para read quanto para write
 
 # todo Bugs
-
 
 class MainWindow(QMainWindow, Ui_MainWindow):
     def __init__(self, parent=None):
@@ -43,9 +46,10 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 self.txt_bitola_cycle,
                 self.txt_packs_cycle,
                 self.txt_volume_cycle
-            ]
+            ],
+            hidden_columns_count=1
         )
-        
+
         # Seta handler
         self.tw_cycle.handler = tw_cycle_handler
 
@@ -60,18 +64,16 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 self.txt_volume_nfe,
                 self.txt_rework_nfe
             ],
-            optional_fields=[self.txt_rework_nfe]
+            optional_fields=[self.txt_rework_nfe],
+            hidden_columns_count=2
         )
-        
+
         # Seta handler
         self.tw_nfe.handler = tw_nfe_handler
 
         # Seta ids iniciais
         self._ID_cycle = -1
         self._ID_nfe = -1
-
-        self.backup_worker: DoBackupWorker | None = None
-        self.animation = Animation()
 
         # Abre conexão com o banco de dados
         self.database = DatabaseConnection()
@@ -81,14 +83,10 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.backup_bar = QProgressBar()
         self.backup_label = QLabel('Realizando backup...')
 
+        self.backup_worker: DoBackupWorker | None = None
+
         # Inicialização
         self.init_ui()
-
-        # Seta páginas iniciais
-        self.tab_widget_cycle.setCurrentIndex(0)
-        self.tab_widget_nfe.setCurrentIndex(0)
-        self.mp_cycle_historic.setCurrentIndex(0)
-        # self.bt_stock_menu.click()
 
     @property
     def ID_cycle(self):
@@ -100,7 +98,6 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self._ID_cycle = value
         flag = bool(value + 1)
 
-        # self.fr_bitolas_cycle.setDisabled(flag)
         self.rb_kd_cycle.setChecked(not flag)
         self.bt_delete_cycle.setDisabled(not flag)
         self.tab_widget_cycle.setCurrentIndex(0)
@@ -117,7 +114,6 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self._ID_nfe = value
         flag = bool(value + 1)
 
-        # self.fr_bitolas_nfe.setDisabled(flag)
         self.bt_delete_nfe.setDisabled(not flag)
         self.tab_widget_nfe.setCurrentIndex(0)
 
@@ -138,18 +134,23 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.setWindowTitle('CONTROLE DE MADEIRA TRATADA')
 
         # Conecta botões do menu principal
-        self.bt_cycle_menu.clicked.connect(lambda: self.animation.fade_in(self.mp_main, 0))
+        self.bt_cycle_menu.clicked.connect(lambda: self.mp_main.setCurrentIndex(0))
         self.bt_cycle_menu.clicked.connect(lambda: self.handle_status_message('CICLO', self.ID_cycle))
-        self.bt_nfe_menu.clicked.connect(lambda: self.animation.fade_in(self.mp_main, 1))
+
+        self.bt_nfe_menu.clicked.connect(lambda: self.mp_main.setCurrentIndex(1))
         self.bt_nfe_menu.clicked.connect(lambda: self.handle_status_message('NFE', self.ID_nfe))
-        self.bt_stock_menu.clicked.connect(lambda: self.animation.fade_in(self.mp_main, 2))
+
+        self.bt_stock_menu.clicked.connect(lambda: self.mp_main.setCurrentIndex(2))
         self.bt_stock_menu.clicked.connect(lambda: self.statusbar.clearMessage())
+
         self.bt_kiln_menu.clicked.connect(
             lambda: GenericDialog(self, self.database, 'ESTUFAS', 'estufa', self.load_kilns).show()
         )
+
         self.bt_client_menu.clicked.connect(
             lambda: GenericDialog(self, self.database, 'CLIENTES', 'cliente', self.load_clients).show()
         )
+
         self.bt_exit_menu.clicked.connect(self.close)
 
         # Conecta botões do menu de tarefas
@@ -188,7 +189,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.tv_track_history.setModel(TableModel(date_fields=[0], volume_fields=[3]))
         self.tv_track_history.doubleClicked.connect(self.track_nfe)
 
-        self.bt_back_track_history.clicked.connect(lambda: self.animation.slide(self.mp_cycle_historic, 0))
+        self.bt_back_track_history.clicked.connect(lambda: self.mp_cycle_historic.setCurrentIndex(0))
 
         # Página Nfe
         self.bt_delete_nfe.setDisabled(True)
@@ -224,8 +225,12 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.tv_stock.clicked.connect(lambda: self.bt_discount_stock.setDisabled(False))
         self.tv_stock.clicked.connect(lambda: self.bt_leaving_stock.setDisabled(False))
 
+        self.txt_treatment_stock.setAlignment(Qt.AlignmentFlag.AlignCenter)
+        self.txt_stock_stock.setAlignment(Qt.AlignmentFlag.AlignCenter)
+        self.txt_sold_stock.setAlignment(Qt.AlignmentFlag.AlignCenter)
+
         # Seta validadores
-        validator = QIntValidator()
+        validator = QRegularExpressionValidator(QRegularExpression(r'\d+'))
         self.txt_cycle_cycle.setValidator(validator)
         self.txt_packs_cycle.setValidator(validator)
         self.txt_nfe_nfe.setValidator(validator)
@@ -282,8 +287,17 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             # Inicia worker
             self.backup_worker.start()
 
+            # Chama new_cycle para começar com o valor do novo ciclo
+            self.new_cycle()
+
         # Configura dados
         self.setup_data()
+
+        # Seta páginas iniciais
+        self.tab_widget_cycle.setCurrentIndex(0)
+        self.tab_widget_nfe.setCurrentIndex(0)
+        self.mp_cycle_historic.setCurrentIndex(0)
+        self.bt_stock_menu.click()
 
     # Carrega dados
     def setup_data(self):
@@ -343,11 +357,11 @@ class MainWindow(QMainWindow, Ui_MainWindow):
     @Slot()
     def new_cycle(self):
         fields = [
-            self.cb_kiln_cycle,
-            self.txt_cycle_cycle,
-            self.cb_entry_date_cycle,
-            self.cb_exit_date_cycle
-        ] + self.tw_cycle.handler.fields
+                     self.cb_kiln_cycle,
+                     self.txt_cycle_cycle,
+                     self.cb_entry_date_cycle,
+                     self.cb_exit_date_cycle
+                 ] + self.tw_cycle.handler.fields
 
         self.tw_cycle.handler.remove_rows()
         clear_fields(fields)
@@ -370,7 +384,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
     @Slot()
     def save_cycle(self):
         # Define modo de interação
-        mode = 'INSERT' if self.ID_cycle == -1 else 'UPDATE'
+        mode = Mode.INSERT if self.ID_cycle == -1 else Mode.UPDATE
 
         fields = [
             self.cb_kiln_cycle,
@@ -382,22 +396,22 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         finality = 'KD' if self.rb_kd_cycle.isChecked() else 'HT'
 
         # Verifica se há campos em branco
-        empty_fields = get_empty_fields(fields)
-
-        if len(empty_fields) > 0:
+        if not check_empty_fields(fields):
             Message.warning(self, 'ATENÇÃO', 'Preencha os campos obrigatórios!')
-            empty_fields[0].setFocus()
             return
 
         entry_date = parse_date(fields[2].currentText(), '%d/%m/%Y')
         exit_date = parse_date(fields[3].currentText(), '%d/%m/%Y')
 
         # Verifica se é uma data válida
-        if not entry_date or not exit_date:
-            Message.warning(self, 'ATENÇÃO', 'Data inválida!')
+        for field, value in [(fields[2], entry_date), (fields[3], exit_date)]:
+            if not value:
+                Message.warning(self, 'ATENÇÃO', 'Data inválida!')
+                field.setFocus()
+                return
 
-            i = 2 if not entry_date else 3
-            fields[i].setFocus()
+        if not is_date_range_valid(entry_date, exit_date):
+            Message.warning(self, 'ATENÇÃO', 'A data de entrada não pode ser maior que a data de saída!')
             return
 
         if not self.tw_cycle.rowCount():
@@ -418,15 +432,13 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         if int(cycle) != self.ID_cycle and not self.database.is_unique('ciclo', 'ciclo', cycle):
             Message.warning(self, 'ATENÇÃO', 'Esse ciclo já consta no banco de dados!')
 
-            if self.ID_cycle != -1:
+            if mode == Mode.UPDATE:
                 self.txt_cycle_cycle.setText(str(self.ID_cycle))
 
             return
 
-        message = 'Deseja editar esse ciclo no banco de dados?'
-
-        if mode == 'INSERT':
-            message = message.replace('editar', 'inserir')
+        message = 'Deseja {} esse ciclo no banco de dados?'
+        message = message.format('inserir' if mode == Mode.INSERT else 'editar')
 
         # Faz pergunta de segurança ao usuário, caso não confirme aborta ação
         if Message.warning_question(self, message, Message.YES) == Message.NO:
@@ -441,26 +453,40 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         )
 
         query.first()
+        finality = query.value(0)
+        query.finish()
 
-        if mode == 'UPDATE' and fields['finalidade'] != query.value(0):
-            if Message.warning_question(
-                    self,
-                    'Se o ciclo atual tiver a finalidade alterada seu registro e de todos seus dependentes '
-                    'serão deletados. Deseja continuar?'
-            ) == Message.NO:
-                return
+        force_insert = False
 
-            self.database.delete('ciclo', f'WHERE ciclo LIKE {self.ID_cycle}')
-            mode = 'INSERT'
+        if mode == Mode.UPDATE:
+            if fields['finalidade'] != finality:
+                if Message.warning_question(
+                        self,
+                        'Se o ciclo atual tiver a finalidade alterada seu registro e de todos seus dependentes '
+                        'serão deletados. Deseja continuar?'
+                ) == Message.NO:
+
+                    if finality == 'KD':
+                        self.rb_kd_cycle.setChecked(True)
+                    else:
+                        self.rb_ht_cycle.setChecked(True)
+
+                    return
+
+                self.database.delete(table='ciclo', clause=f'WHERE ciclo LIKE {self.ID_cycle}')
+
+                mode = Mode.INSERT
+                force_insert = True
+
+            message = 'Registro alterado com sucesso.'
+        else:
+            message = 'Registro inserido com sucesso.'
 
         try:
-            print(mode)
-            if mode == 'INSERT':
+            if mode == Mode.INSERT:
                 self.database.create(table='ciclo', fields=fields)
-                message = 'Registro inserido com sucesso.'
             else:
                 self.database.update(table='ciclo', fields=fields, clause=f"WHERE ciclo LIKE {self.ID_cycle}")
-                message = 'Registro alterado com sucesso.'
 
             # Insere ou atualiza bitolas na tabela
             for row in range(self.tw_cycle.rowCount()):
@@ -477,9 +503,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     'volume_tratado': volume
                 }
 
-                print(bitola_id, fields)
-
-                if bitola_id == '-1':
+                if bitola_id == '-1' or force_insert:
                     self.database.create(table='bitola', fields=fields)
                 else:
                     self.database.update(table='bitola', fields=fields, clause=f'WHERE bitola_id LIKE {bitola_id}')
@@ -499,16 +523,14 @@ class MainWindow(QMainWindow, Ui_MainWindow):
     def delete_cycle(self):
         # Guard clause
         if not Message.warning_question(
-                self, 'Deseja deletar esse registro? Todos os registros referentes a esse ciclo serão'
-                      ' deletados também.', Message.NO
+                self,
+                'Deseja deletar esse registro? Todos os registros referentes a esse ciclo serão deletados também.',
+                Message.NO
         ) == Message.YES:
             return
 
         # Deleta ciclo
-        self.database.delete(
-            table='ciclo',
-            clause=f'WHERE ciclo LIKE {self.ID_cycle}'
-        )
+        self.database.delete(table='ciclo', clause=f'WHERE ciclo LIKE {self.ID_cycle}')
 
         # Alerta usuário e prepara para novo registro
         Message.information(self, 'AVISO', 'Ciclo deletado com sucesso!')
@@ -531,7 +553,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
         # Adiciona filtros de forma condicional
         clause = "LEFT JOIN ciclo ON estoque.ciclo = ciclo.ciclo " \
-                 "WHERE entrada >= ? AND saida <= ? AND bitola LIKE '%' || ? || '%' AND finalidade LIKE ?"
+                 "WHERE entrada >= ? AND saida <= ? AND bitola LIKE '%' || ? || '%' AND finalidade LIKE ? " \
+                 "ORDER BY ciclo.ciclo"
         values = [start_date, end_date, bitola, finality]
 
         if kiln:
@@ -592,6 +615,9 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         # Aborta slot caso não haja índices selecionados
         if not self.tv_cycle_history.selectedIndexes():
             return
+
+        # Recarrega ComboBox para remover dados temporários anteriores
+        self.load_kilns()
 
         # Retorna a linha referente a seleção e o model da table view
         row = self.tv_cycle_history.selectedIndexes()[0].row()
@@ -705,13 +731,13 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             values=[bitola_id]
         )
 
+        date = ''
+        value = 0
+
         # Seta dados
         if query.next():
             date = parse_date(query.value(0), input_format='%Y-%m-%d', output_format='%d/%m/%Y')
             value = query.value(1)
-        else:
-            date = ''
-            value = 0
 
         self.txt_leaving_date_track_history.setText(date)
         self.txt_leaving_volume_track_history.setText(from_float_to_volume(value))
@@ -728,7 +754,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         value = query.value(0) if query.next() else 0
 
         self.txt_stock_volume_track_history.setText(from_float_to_volume(value))
-        self.animation.slide(self.mp_cycle_historic, 1)
+        self.mp_cycle_historic.setCurrentIndex(1)
 
     # Mostra informações detalhadas sobre a nfe na página de nfe
     @Slot()
@@ -746,8 +772,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.cb_client_nfe_history.setCurrentText(client)
 
         # Faz pesquisa e altera páginas
-        self.bt_search_nfe_history.click()
-
+        self.search_nfe_history()
         self.bt_nfe_menu.click()
         self.tab_widget_nfe.setCurrentIndex(1)
 
@@ -756,13 +781,13 @@ class MainWindow(QMainWindow, Ui_MainWindow):
     @Slot()
     def new_nfe(self):
         fields = [
-            self.cb_date_nfe,
-            self.cb_client_nfe,
-            self.txt_nfe_nfe,
-            self.txt_total_volume_nfe,
-            self.txt_packs_nfe,
-            self.cb_foot_nfe
-        ] + self.tw_nfe.handler.fields
+                     self.cb_date_nfe,
+                     self.cb_client_nfe,
+                     self.txt_nfe_nfe,
+                     self.txt_total_volume_nfe,
+                     self.txt_packs_nfe,
+                     self.cb_foot_nfe
+                 ] + self.tw_nfe.handler.fields
 
         self.tw_nfe.handler.remove_rows()
         clear_fields(fields)
@@ -777,8 +802,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
     @Slot()
     def save_nfe(self):
         # Define modo de interação
-        mode = 'INSERT' if self.ID_nfe == -1 else 'UPDATE'
-
+        mode = Mode.INSERT if self.ID_nfe == -1 else Mode.UPDATE
+        print()
         fields = [
             self.cb_date_nfe,
             self.cb_client_nfe,
@@ -789,11 +814,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         ]
 
         # Verifica se há campos em branco
-        empty_fields = get_empty_fields(fields)
-
-        if len(empty_fields) > 0:
+        if not check_empty_fields(fields):
             Message.warning(self, 'ATENÇÃO', 'Preencha os campos obrigatórios!')
-            empty_fields[0].setFocus()
             return
 
         date = parse_date(fields[0].currentText(), '%d/%m/%Y', '%Y-%m-%d')
@@ -826,75 +848,86 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         if int(nfe) != self.ID_nfe and not self.database.is_unique('nfe_info', 'nfe', nfe):
             Message.warning(self, 'ATENÇÃO', 'Essa nfe já consta no banco de dados!')
 
-            if self.ID_nfe != -1:
+            if mode == Mode.UPDATE:
                 self.txt_nfe_nfe.setText(str(self.ID_nfe))
 
             return
 
-        original_bitolas = {}
-        original_foot = {}
+        original_bitola_list = []
+        original_foot_list = []
 
-        print(mode)
-        if mode == 'UPDATE':
+        if mode == Mode.UPDATE:
             # Retorna query com bitolas originais
             query = self.database.read(
                 table='nfe',
-                fields=['bitola_id, volume'],
+                fields=['nfe_id', 'bitola_id', 'volume'],
                 clause='WHERE nfe LIKE ?',
-                values=[nfe]
+                values=[self.ID_nfe]
             )
 
             while query.next():
-                bitola_id = str(query.value(0))
-                volume = query.value(1)
+                nfe_id = str(query.value(0))
+                bitola_id = str(query.value(1))
+                volume = query.value(2)
 
-                original_bitolas[bitola_id] = volume
+                bitola_info = BitolaInfo(id=nfe_id, bitola_id=bitola_id, volume=volume)
+                original_bitola_list.append(bitola_info)
 
             # Retorna query com pezinhos originais
             query = self.database.read(
                 table='pezinho',
-                fields=['bitola_id', 'volume'],
+                fields=['pezinho_id', 'bitola_id', 'volume'],
                 clause='WHERE nfe LIKE ?',
-                values=[nfe]
+                values=[self.ID_nfe]
             )
 
             while query.next():
-                bitola_id = str(query.value(0))
-                volume = query.value(1)
+                foot_id = str(query.value(0))
+                bitola_id = str(query.value(1))
+                volume = query.value(2)
 
-                original_foot[bitola_id] = volume
+                bitola_info = BitolaInfo(id=foot_id, bitola_id=bitola_id, volume=volume)
+                original_foot_list.append(bitola_info)
 
         bitola_list = []
 
+        print(f'{original_bitola_list=}')
+        print(f'{original_foot_list=}')
+        print()
+
         # Verifica estoque das bitolas
         for row in range(self.tw_nfe.rowCount()):
-            bitola_id = self.tw_nfe.item(row, 0).text()
-            cycle = self.tw_nfe.item(row, 1).text()
-            bitola = self.tw_nfe.item(row, 2).text()
-            volume = from_volume_to_float(self.tw_nfe.item(row, 3).text())
-            rework = self.tw_nfe.item(row, 4).text()
+            nfe_id = self.tw_nfe.item(row, 0).text()
+            bitola_id = self.tw_nfe.item(row, 1).text()
+            cycle = self.tw_nfe.item(row, 2).text()
+            bitola = self.tw_nfe.item(row, 3).text()
+            volume = from_volume_to_float(self.tw_nfe.item(row, 4).text())
+            rework = self.tw_nfe.item(row, 5).text()
 
             stock = self.database.get_stock(bitola_id)
 
             # Soma estoque atual com estoque anterior caso seja uma edição
-            for b, v in original_bitolas.items():
-                if b == bitola_id:
-                    stock += v
+            for bitola_info in original_bitola_list:
+                if bitola_info.bitola_id == bitola_id:
+                    stock += bitola_info.volume
 
             # Subtrai estoque de bitolas existentes já na tabela
-            for b, v, _ in bitola_list:
-                if b == bitola_id:
-                    stock -= v
+            for bitola_info in bitola_list:
+                if bitola_info.bitola_id == bitola_id:
+                    stock -= bitola_info.volume
 
             if volume > stock:
                 Message.warning(
-                    self, 'ATENÇÃO', f'Estoque insuficiente no item {bitola} - Ciclo {cycle}.\n'
-                          f'Volume necessário: {from_float_to_volume(volume)}, volume em estoque: '
-                          f'{from_float_to_volume(stock)}.'
+                    self,
+                    'ATENÇÃO',
+                    f'Estoque insuficiente no item {bitola} - Ciclo {cycle}.\n'
+                    f'Volume necessário: {from_float_to_volume(volume)}, '
+                    f'volume em estoque: {from_float_to_volume(stock)}.'
                 )
                 return
 
-            bitola_list.append((bitola_id, volume, rework))
+            bitola_info = BitolaInfo(id=nfe_id, bitola_id=bitola_id, volume=volume, rework=rework)
+            bitola_list.append(bitola_info)
 
         # Verifica estoque do pezinho
         foot_cycle = fields['ciclo_pezinho']
@@ -910,10 +943,11 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         )
 
         # Cria dicionário para armazenar dados da query
-        data = {
+        foot_data = {
+            'foot_id': [],
             'bitola_id': [],
             'bitola': [],
-            'stock': []
+            'stock': [],
         }
 
         # Armazena dados da consulta
@@ -922,46 +956,58 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             bitola = query.value(1)
             stock = self.database.get_stock(bitola_id)
 
+            print(bitola_id, 'stock', stock)
+
             # Soma estoque de pezinho anterior caso esteja em modo de edição
-            for b, v in original_foot.items():
-                if b == bitola_id:
-                    stock += v
+            for bitola_info in original_foot_list:
+                if bitola_info.bitola_id == bitola_id:
+                    stock += bitola_info.volume
 
-            data['bitola_id'].append(bitola_id)
-            data['bitola'].append(bitola)
-            data['stock'].append(stock)
-
+            print(bitola_id, 'stock + stock_antigo', stock)
+            foot_data['bitola_id'].append(bitola_id)
+            foot_data['bitola'].append(bitola)
+            foot_data['stock'].append(stock)
+        print()
         # Retorna volumes para baixa nos pezinhos
-        volumes = get_skids_volume(len(data['bitola_id']), int(fields['fardos']))
+        volumes = get_skids_volume(len(foot_data['bitola_id']), int(fields['fardos']))
 
         # Verifica se há estoque nos pezinhos
-        for stock, volume, bitola in list(zip(data['stock'], volumes, data['bitola'])):
+        for stock, volume, bitola in list(zip(foot_data['stock'], volumes, foot_data['bitola'])):
             if volume > stock:
                 Message.warning(
                     self,
                     'ATENÇÃO',
-                    f'Estoque insuficiente na bitola {bitola} do ciclo do pezinho(HT) de número {foot_cycle}. '
+                    f'Estoque insuficiente na bitola {bitola} do ciclo do pezinho (HT) de número {foot_cycle}. '
                     f'Verifique por favor!\n\nVolume necessário: {from_float_to_volume(volume)}, '
                     f'volume em estoque: {from_float_to_volume(stock)}'
                 )
                 return
 
+        # Seta foot id
+        for bitola_id in foot_data['bitola_id']:
+            foot_id = '-1'
+
+            for bitola_info in original_foot_list:
+                if bitola_info.bitola_id == bitola_id:
+                    foot_id = bitola_info.id
+                    break
+
+            foot_data['foot_id'].append(foot_id)
+
         # Salva dados para inserir posteriormente
-        foot_list = list(zip(data['bitola_id'], volumes))
+        foot_list = list(zip(foot_data['foot_id'], foot_data['bitola_id'], volumes))
+        print(f'{foot_list=}')
 
-        print(foot_list)
-
-        message = 'Deseja editar essa nfe no banco de dados?'
-
-        if mode == 'INSERT':
-            message = message.replace('editar', 'inserir')
+        message = 'Deseja {} essa nfe no banco de dados?'
+        message = message.format('inserir' if mode == Mode.INSERT else 'editar')
 
         # Faz pergunta de segurança ao usuário, caso não confirme aborta ação
         if Message.warning_question(self, message, Message.YES) == Message.NO:
             return
 
         try:
-            if mode == 'INSERT':
+            print(mode)
+            if mode == Mode.INSERT:
                 self.database.create(table='nfe_info', fields=fields)
                 message = 'Registro inserido com sucesso.'
             else:
@@ -971,43 +1017,50 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             new_bitolas = []
 
             # Insere ou atualiza bitolas tratadas na tabela de saída por nfe
-            for bitola_id, volume, rework in bitola_list:
+            for nfe_id, bitola_id, volume, rework in bitola_list:
                 fields = {
                     'bitola_id': bitola_id,
                     'nfe': nfe,
                     'volume': volume,
                     'retrabalho': rework
                 }
-                print(f'{original_bitolas=} - {fields=}')
-                new_bitolas.append(bitola_id)
 
-                if bitola_id not in original_bitolas.keys():
+                new_bitolas.append(nfe_id)
+                print(nfe_id, fields)
+
+                if nfe_id == '-1':
                     self.database.create(table='nfe', fields=fields)
                 else:
-                    self.database.update(table='nfe', fields=fields, clause=f'WHERE bitola_id LIKE {bitola_id}')
-            print()
-            print(original_bitolas.keys(), new_bitolas)
+                    self.database.update(table='nfe', fields=fields, clause=f'WHERE nfe_id LIKE {nfe_id}')
 
             # Remove bitolas que foram removidas do registro original
-            for bitola_id in original_bitolas.keys():
-                if bitola_id not in new_bitolas:
-                    print('deleting', bitola_id)
-                    self.database.delete(table='nfe', clause=f'WHERE bitola_id LIKE {bitola_id}')
+            for bitola_info in original_bitola_list:
+                if bitola_info.id not in new_bitolas:
+                    print('deleting nfe bitola', bitola_info.id)
+                    self.database.delete(table='nfe', clause=f'WHERE nfe_id LIKE {bitola_info.id}')
 
+            new_foot = []
+            print()
             # Insere ou atualiza bitolas de pezinho na tabela de saída de pezinhos
-            for bitola_id, volume in foot_list:
+            for foot_id, bitola_id, volume in foot_list:
                 fields = {
-                        'bitola_id': bitola_id,
-                        'nfe': nfe,
-                        'volume': volume
-                    }
+                    'bitola_id': bitola_id,
+                    'nfe': nfe,
+                    'volume': volume
+                }
 
-                if mode == 'UPDATE':
-                    print('deleting', bitola_id, volume)
-                    self.database.delete(table='pezinho', clause=f'WHERE nfe LIKE {fields["nfe"]}')
+                new_foot.append(foot_id)
+                print(foot_id, fields)
 
-                print(bitola_id, volume)
-                self.database.create(table='pezinho', fields=fields)
+                if foot_id == '-1':
+                    self.database.create(table='pezinho', fields=fields)
+                else:
+                    self.database.update(table='pezinho', fields=fields, clause=f'WHERE pezinho_id LIKE {foot_id}')
+
+            for bitola_info in original_foot_list:
+                if bitola_info.id not in new_foot:
+                    print('deleting pezinho', bitola_info.id)
+                    self.database.delete(table='pezinho', clause=f'WHERE pezinho_id LIKE {bitola_info.id}')
 
             # Prepara para novo registro e avisa usuário
             Message.information(self, 'AVISO', message)
@@ -1024,16 +1077,14 @@ class MainWindow(QMainWindow, Ui_MainWindow):
     def delete_nfe(self):
         # Guard clause
         if Message.warning_question(
-                self, 'Deseja deletar esse registro? Todos os registros referentes a essa nfe serão'
-                      ' deletados também.', Message.NO
+                self,
+                'Deseja deletar esse registro? Todos os registros referentes a essa nfe serão deletados também.',
+                Message.NO
         ) == Message.NO:
             return
 
         # Deleta nfe
-        self.database.delete(
-            table='nfe_info',
-            clause=f'WHERE nfe LIKE {self.ID_nfe}'
-        )
+        self.database.delete(table='nfe_info', clause=f'WHERE nfe LIKE {self.ID_nfe}')
 
         # Prepara para novo registro e avisa usuário
         Message.information(self, 'AVISO', 'Registro deletado com sucesso.')
@@ -1091,7 +1142,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         )
 
         # Faz o filtro de forma condicional
-        clause = "WHERE data >= ? AND data <= ? AND nfe LIKE '%' || ? || '%' AND cliente LIKE '%' || ? || '%'"
+        clause = "WHERE data >= ? AND data <= ? AND nfe LIKE '%' || ? || '%' AND cliente LIKE '%' || ? || '%' " \
+                 "ORDER BY nfe"
         values = [start_date, end_date, nfe, client]
 
         if foot_cycle:
@@ -1118,7 +1170,6 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
         # Configura colunas
         self.tv_nfe_history.horizontalHeader().setSectionResizeMode(2, QHeaderView.ResizeMode.Stretch)
-
         self.bt_edit_nfe_history.setDisabled(True)
 
     # Limpa os campos de filtro
@@ -1141,6 +1192,10 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         # Aborta slot caso não haja índices selecionados
         if not self.tv_nfe_history.selectedIndexes():
             return
+
+        # Recarrega ComboBox para remover dados temporários anteriores
+        self.load_clients()
+        self.load_cycles()
 
         # Retorna a linha referente a seleção e o model da table view
         row = self.tv_nfe_history.selectedIndexes()[0].row()
@@ -1173,7 +1228,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         # Busca bitola referentes a nfe em questão
         query = self.database.read(
             table='bitola',
-            fields=['bitola.bitola_id', 'ciclo', 'bitola', 'volume', 'retrabalho'],
+            fields=['nfe_id', 'bitola.bitola_id', 'ciclo', 'bitola', 'volume', 'retrabalho'],
             clause='LEFT JOIN nfe ON nfe.bitola_id = bitola.bitola_id '
                    'WHERE nfe LIKE ?',
             values=[nfe]
@@ -1187,14 +1242,14 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             row = self.tw_nfe.rowCount()
             self.tw_nfe.insertRow(row)
 
-            cycle = str(query.value(1))
+            cycle = str(query.value(2))
 
             # Adiciona ciclo caso não existir
             if self.cb_cycle_nfe.findText(cycle) == -1:
                 self.cb_cycle_nfe.addItem(cycle)
 
-            for i in range(5):
-                value = from_float_to_volume(query.value(i), symbol=False) if i == 3 else str(query.value(i))
+            for i in range(6):
+                value = from_float_to_volume(query.value(i), symbol=False) if i == 4 else str(query.value(i))
 
                 item = QTableWidgetItem(value)
                 item.setTextAlignment(Qt.AlignmentFlag.AlignCenter)
@@ -1229,7 +1284,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         # Retorna a query com os dados
         query = self.database.read(
             table='estoque',
-            fields=['bitola_id', 'estoque.ciclo',  'finalidade', 'bitola', 'fardos', 'volume_tratado',
+            fields=['bitola_id', 'estoque.ciclo', 'finalidade', 'bitola', 'fardos', 'volume_tratado',
                     'volume_vendido', 'estoque'],
             clause=clause,
             values=values
@@ -1242,23 +1297,29 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         # Retorna query com o resumo
         query = self.database.read(
             table='estoque',
-            fields=['SUM(volume_tratado)', 'SUM(volume_vendido)', 'SUM(estoque)']
+            fields=['SUM(volume_tratado)', 'SUM(volume_vendido)', 'SUM(estoque)'],
+            clause=clause,
+            values=values
         )
 
         query.first()
+
+        treatment = ''
+        sold = ''
+        stock = ''
 
         # Retorna valores formatados
         try:
             treatment = from_float_to_volume(query.value(0))
             sold = from_float_to_volume(query.value(1))
             stock = from_float_to_volume(query.value(2))
-
-            # Seta valores
-            self.txt_treatment_stock.setText(treatment)
-            self.txt_sold_stock.setText(sold)
-            self.txt_stock_stock.setText(stock)
         except ValueError:
             pass
+
+        # Seta valores
+        self.txt_treatment_stock.setText(treatment)
+        self.txt_sold_stock.setText(sold)
+        self.txt_stock_stock.setText(stock)
 
         # Seta headers
         headers = ['ID', 'CICLO', 'FINALIDADE', 'BITOLA', 'FARDOS', 'TRATADO', 'VENDIDO', 'ESTOQUE']
@@ -1392,12 +1453,13 @@ class MainWindow(QMainWindow, Ui_MainWindow):
     # Carrega ciclos
     def load_cycles(self):
         # Limpa campos
+        self.cb_bitola_stock.clear()
         self.cb_cycle_stock.clear()
-        self.cb_cycle_cycle_history.clear()
 
-        self.cb_foot_nfe.clear()
+        self.cb_cycle_cycle_history.clear()
         self.cb_foot_nfe_history.clear()
 
+        self.cb_foot_nfe.clear()
         self.cb_cycle_nfe.clear()
 
         # Retorna dados
@@ -1455,8 +1517,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
 
 # Usado para auxiliar na depuração
-def exception_hook(exctype, value, traceback):
-    sys.__excepthook__(exctype, value, traceback)
+def exception_hook(*args, **kwargs):
+    sys.__excepthook__(*args, **kwargs)
     sys.exit(1)
 
 
@@ -1489,6 +1551,7 @@ if __name__ == "__main__":
     # Vincula hook para receber logs durante desenvolvimento
     sys.excepthook = exception_hook
 
+    # noinspection PyBroadException
     try:
         app = QApplication(sys.argv)
         app.setWindowIcon(QIcon(u":/icons/assets/stock-48.png"))
@@ -1498,6 +1561,6 @@ if __name__ == "__main__":
         window.show()
 
         sys.exit(app.exec())
-    except Exception as e:
+    except Exception:
         logger = Logger()
         logger.exception('ERROR')

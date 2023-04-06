@@ -29,13 +29,6 @@ def parse_date(
     return parsed_date
 
 
-# Retorna data atual como string
-def get_today(output: str = '%Y-%m-%d') -> str:
-    today = datetime.today().date()
-
-    return today.strftime(output)
-
-
 # Converte de float para string formatada
 def from_float_to_volume(value: float | int, symbol: bool = True) -> str:
     value = f'{value:_.3f}'
