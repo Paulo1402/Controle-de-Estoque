@@ -1,8 +1,0 @@
-{
-  "theme": "dark",
-  "database": "C:/Users/Kamua/OneDrive/Programa\u00e7\u00e3o/Python/Projetos/Controle de Estoque/database/db.sqlite",
-  "backup": {
-    "frequency": "diary",
-    "max_backups": 5
-  }
-}

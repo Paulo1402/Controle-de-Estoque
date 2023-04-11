@@ -343,5 +343,5 @@ compile_commands.json
 output/
 *.exe
 *.ifp
-database/*
+dev/database/*
 temp.*
