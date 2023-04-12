@@ -1,7 +1,9 @@
 import os
+from pathlib import Path
 
 # Caminho relativo ao main.py
-BASEDIR = os.path.dirname(os.path.dirname(__file__))
+BASEDIR = Path(__file__).parent.parent
+print('ROOT', BASEDIR, __name__)
 
 # HTML com instruções do aplicativo
 HELP = os.path.join(BASEDIR, 'static', 'help.html')

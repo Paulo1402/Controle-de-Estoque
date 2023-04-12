@@ -3,8 +3,7 @@ from abc import ABC, abstractmethod
 from PySide6.QtWidgets import QTableWidget, QPushButton, QLineEdit, QComboBox, QHeaderView, QTableWidgetItem
 from PySide6.QtCore import Qt, QModelIndex
 
-from utils import Message, BitolaValidator, VolumeValidator, clear_fields, check_empty_fields
-from services import DatabaseConnection
+from . import Message, BitolaValidator, VolumeValidator, clear_fields, check_empty_fields, DatabaseConnection
 
 
 # Classe genérica para interação com as table widgets

@@ -1,0 +1,16 @@
+.warning {
+  border: 1px solid black;
+  padding: 10px;
+  background-color: red;
+  color: white;
+}
+
+.directory {
+  background-color: lightgray;
+  font-style: italic;
+}
+
+main {
+  display: flex;
+  flex-direction: column;
+}

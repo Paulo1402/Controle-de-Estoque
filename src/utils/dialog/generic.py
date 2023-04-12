@@ -4,12 +4,13 @@ from PySide6.QtWidgets import QDialog
 from PySide6.QtCore import QModelIndex
 from PySide6.QtGui import QCloseEvent
 
-from src.ui.GenericDialog import Ui_Dialog
-from services import DatabaseConnection, QueryError
-from utils import Message, ListModel
+from ui.GenericDialog import Ui_Dialog
+from utils import Message, ListModel, DatabaseConnection, QueryError
 
 
 class GenericDialog(QDialog, Ui_Dialog):
+    """Janela secundária para página Clientes e Estufas."""
+
     def __init__(self, parent, database: DatabaseConnection, title: str, table: str, callback: Callable):
         super().__init__(parent)
         self.setupUi(self)
@@ -36,13 +37,13 @@ class GenericDialog(QDialog, Ui_Dialog):
         # Carrega lista
         self.load_list()
 
-    # Chama a função de callback ao fechar a janela
     def closeEvent(self, event: QCloseEvent):
+        """Chama a função de callback ao fechar a janela"""
         self.callback()
         event.accept()
 
-    # Carrega lista
     def load_list(self):
+        """Carrega lista"""
         query = self.database.read(
             table=self.table,
             fields=['nome']
@@ -51,8 +52,8 @@ class GenericDialog(QDialog, Ui_Dialog):
         self.model.setQuery(query)
         self.new()
 
-    # Prepara novo registro
     def new(self):
+        """Prepara novo registro"""
         self.lv_items.clearSelection()
         self.bt_delete.setDisabled(True)
 
@@ -61,8 +62,8 @@ class GenericDialog(QDialog, Ui_Dialog):
 
         self.old_name = None
 
-    # Cria ou edita registro
     def save(self):
+        """Cria ou edita registro"""
         name = self.txt_name.text().upper().strip()
 
         if not name:
@@ -103,8 +104,8 @@ class GenericDialog(QDialog, Ui_Dialog):
         except QueryError:
             Message.critical(self, 'CRÍTICO', 'Algo deu errado durante a operação!')
 
-    # Deleta registro
     def delete(self):
+        """ Deleta registro."""
         if Message.warning_question(self, 'Deseja deletar esse registro?') == Message.NO:
             return
 
@@ -113,8 +114,8 @@ class GenericDialog(QDialog, Ui_Dialog):
         Message.information(self, 'AVISO', 'Registro deletado com sucesso!')
         self.load_list()
 
-    # Traz dados da lista para edição
     def edit(self, index: QModelIndex):
+        """Traz dados da lista para edição"""
         row = index.row()
         name = self.model.index(row, 0).data()
 

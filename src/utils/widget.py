@@ -1,10 +1,17 @@
+"""
+Módulo usado para criar CustomWidgets com funcionalidades extras.
+
+Esse módulo é importado em 'ui./MainWindow.py' para aplicar os widgets customizados.
+"""
 from PySide6.QtWidgets import QComboBox, QStackedWidget, QTableWidget, QGraphicsOpacityEffect
 from PySide6.QtCore import QEasingCurve, QRect
 
-from utils import CalendarDialog, TableWidgetHandler, Animation
+from . import CalendarDialog, TableWidgetHandler, Animation
 
 
 class CustomComboBox(QComboBox):
+    """Subclasse de QComboBox para abrir um popup para selecionar uma data quando interagir com o drop down arrow."""
+
     def __init__(self, parent):
         super().__init__(parent)
 
@@ -28,6 +35,8 @@ class CustomComboBox(QComboBox):
 
 
 class CustomStackedWidget(QStackedWidget):
+    """Subclasse de QStackedWidget para adicionar uma animação de fade in em transições."""
+
     def __init__(self, parent):
         super().__init__(parent)
 
@@ -54,6 +63,8 @@ class CustomStackedWidget(QStackedWidget):
 
 
 class CustomTableWidget(QTableWidget):
+    """Subclasse de QTableWidget para encapsular o Handler."""
+
     def __init__(self, parent=None):
         super().__init__(parent)
 

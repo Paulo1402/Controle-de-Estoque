@@ -191,10 +191,16 @@ class Ui_Dialog(object):
     # setupUi
 
     def retranslateUi(self, Dialog):
-        Dialog.setWindowTitle(QCoreApplication.translate("Dialog", u"CONFIGURAR", None))
+        Dialog.setWindowTitle(QCoreApplication.translate("Dialog", u"CONFIGURAR BANCO DE DADOS", None))
         self.label_2.setText(QCoreApplication.translate("Dialog", u"BACKUP", None))
         self.bt_new.setText(QCoreApplication.translate("Dialog", u" NOVO BANCO", None))
+#if QT_CONFIG(shortcut)
+        self.bt_new.setShortcut(QCoreApplication.translate("Dialog", u"Ctrl+N", None))
+#endif // QT_CONFIG(shortcut)
         self.bt_open.setText(QCoreApplication.translate("Dialog", u" BANCO EXISTENTE", None))
+#if QT_CONFIG(shortcut)
+        self.bt_open.setShortcut(QCoreApplication.translate("Dialog", u"Ctrl+O", None))
+#endif // QT_CONFIG(shortcut)
         self.label.setText(QCoreApplication.translate("Dialog", u"BANCO DE DADOS", None))
         self.group_frequency.setTitle(QCoreApplication.translate("Dialog", u"FREQU\u00caNCIA", None))
         self.radio_no_backup.setText(QCoreApplication.translate("Dialog", u"SEM BACKUP", None))

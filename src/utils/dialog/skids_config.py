@@ -1,17 +1,17 @@
 from PySide6.QtWidgets import QDialog
 from PySide6.QtGui import QCloseEvent
 
-from src.ui.FootConfigDialog import Ui_Dialog
-from services import DatabaseConnection
-from utils import Message, get_config, set_config, ConfigSection, DEFAULT_SHORT_SKIDS, DEFAULT_LONG_SKIDS
+from ui.SkidsConfigDialog import Ui_Dialog
+from utils import Message, get_config, set_config, ConfigSection, DEFAULT_SHORT_SKIDS, DEFAULT_LONG_SKIDS, \
+    DatabaseConnection
 
 
-class FootConfigDialog(QDialog, Ui_Dialog):
+class SkidsConfigDialog(QDialog, Ui_Dialog):
+    """Diálogo para configurar skids."""
+
     def __init__(self, parent, database: DatabaseConnection):
         super().__init__(parent)
         self.setupUi(self)
-
-        self.setWindowTitle('CONSTANTE SKIDS')
 
         self.database = database
 
@@ -26,6 +26,7 @@ class FootConfigDialog(QDialog, Ui_Dialog):
         self.bt_reset.clicked.connect(self.reset)
 
     def closeEvent(self, event: QCloseEvent):
+        """Salva configurações ao fechar caixa de diálogo."""
         short_skids = self.txt_short_skids.text()
         long_skids = self.txt_long_skids.text()
 
@@ -37,6 +38,7 @@ class FootConfigDialog(QDialog, Ui_Dialog):
         event.accept()
 
     def reset(self):
+        """Reseta configurações para o padrão."""
         if Message.warning_question(self, 'Deseja resetar as constantes de skids para o padrão?') == Message.NO:
             return
 

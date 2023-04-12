@@ -163,7 +163,7 @@ QGroupBox{
        <enum>QFrame::Box</enum>
       </property>
       <property name="currentIndex">
-       <number>2</number>
+       <number>1</number>
       </property>
       <widget class="QWidget" name="page_cycle">
        <property name="styleSheet">
@@ -950,7 +950,7 @@ QGroupBox{
                <string notr="true"/>
               </property>
               <property name="currentIndex">
-               <number>0</number>
+               <number>1</number>
               </property>
               <widget class="QWidget" name="page_cycle_historic">
                <layout class="QVBoxLayout" name="verticalLayout_12">
@@ -1901,7 +1901,7 @@ QGroupBox{
         <item>
          <widget class="QTabWidget" name="tab_widget_nfe">
           <property name="currentIndex">
-           <number>1</number>
+           <number>0</number>
           </property>
           <widget class="QWidget" name="tab_nfe">
            <attribute name="icon">
@@ -2060,7 +2060,7 @@ QGroupBox{
                     <string>CICLO PEZINHO</string>
                    </property>
                    <property name="buddy">
-                    <cstring>cb_foot_nfe</cstring>
+                    <cstring>cb_skids_nfe</cstring>
                    </property>
                   </widget>
                  </item>
@@ -2075,7 +2075,7 @@ QGroupBox{
                   </widget>
                  </item>
                  <item row="1" column="1">
-                  <widget class="QComboBox" name="cb_foot_nfe">
+                  <widget class="QComboBox" name="cb_skids_nfe">
                    <property name="minimumSize">
                     <size>
                      <width>0</width>
@@ -2743,12 +2743,12 @@ QGroupBox{
                     <string>CICLO PEZINHO</string>
                    </property>
                    <property name="buddy">
-                    <cstring>cb_foot_nfe_history</cstring>
+                    <cstring>cb_skids_nfe_history</cstring>
                    </property>
                   </widget>
                  </item>
                  <item row="0" column="1">
-                  <widget class="QComboBox" name="cb_foot_nfe_history">
+                  <widget class="QComboBox" name="cb_skids_nfe_history">
                    <property name="sizePolicy">
                     <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
                      <horstretch>0</horstretch>
@@ -3625,7 +3625,7 @@ QGroupBox{
     <addaction name="menu_db"/>
     <addaction name="separator"/>
     <addaction name="menu_theme"/>
-    <addaction name="action_foot"/>
+    <addaction name="action_skids"/>
    </widget>
    <addaction name="menu_config"/>
    <addaction name="menu_about"/>
@@ -3707,7 +3707,7 @@ QGroupBox{
     <string>Ajuda</string>
    </property>
   </action>
-  <action name="action_foot">
+  <action name="action_skids">
    <property name="icon">
     <iconset resource="resource.qrc">
      <normaloff>:/icons/assets/config-32.png</normaloff>:/icons/assets/config-32.png</iconset>
@@ -3775,7 +3775,7 @@ QGroupBox{
   <tabstop>txt_nfe_nfe</tabstop>
   <tabstop>txt_total_volume_nfe</tabstop>
   <tabstop>txt_packs_nfe</tabstop>
-  <tabstop>cb_foot_nfe</tabstop>
+  <tabstop>cb_skids_nfe</tabstop>
   <tabstop>cb_cycle_nfe</tabstop>
   <tabstop>cb_bitola_nfe</tabstop>
   <tabstop>txt_volume_nfe</tabstop>
@@ -3790,7 +3790,7 @@ QGroupBox{
   <tabstop>cb_client_nfe_history</tabstop>
   <tabstop>cb_start_date_nfe_history</tabstop>
   <tabstop>cb_end_date_nfe_history</tabstop>
-  <tabstop>cb_foot_nfe_history</tabstop>
+  <tabstop>cb_skids_nfe_history</tabstop>
   <tabstop>bt_search_nfe_history</tabstop>
   <tabstop>bt_clear_nfe_history</tabstop>
   <tabstop>bt_edit_nfe_history</tabstop>

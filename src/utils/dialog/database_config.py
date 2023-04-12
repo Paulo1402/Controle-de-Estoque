@@ -1,13 +1,13 @@
 from PySide6.QtWidgets import QDialog, QFileDialog
 from PySide6.QtGui import QCloseEvent
 
-from src.ui.DatabaseConfigDialog import Ui_Dialog
-from services import DatabaseConnection
-from utils import set_config, get_config, ConfigSection
+from ui.DatabaseConfigDialog import Ui_Dialog
+from utils import set_config, get_config, ConfigSection, DatabaseConnection
 
 
-# Diálogo para configurar banco de dados
 class DatabaseConfigDialog(QDialog, Ui_Dialog):
+    """Diálogo para configurar banco de dados."""
+
     def __init__(self, parent, database: DatabaseConnection):
         super().__init__(parent)
         self.setupUi(self)
@@ -49,18 +49,20 @@ class DatabaseConfigDialog(QDialog, Ui_Dialog):
 
     @staticmethod
     def set_checked_radio(group_radio: dict, radio_key: str):
+        """Seta radio pela key."""
         for key, radio in group_radio.items():
             if radio_key == key:
                 radio.setChecked(True)
 
     @staticmethod
     def get_checked_radio(group_radio: dict) -> str:
+        """Retorna checked radio."""
         for key, radio in group_radio.items():
             if radio.isChecked():
                 return key
 
-    # Salva configurações ao fechar caixa de diálogo
     def closeEvent(self, event: QCloseEvent):
+        """Salva configurações ao fechar caixa de diálogo."""
         path = self.txt_source.text()
         frequency = self.get_checked_radio(self.frequency_radios)
         max_backups = self.get_checked_radio(self.max_amount_radios)
@@ -78,8 +80,8 @@ class DatabaseConfigDialog(QDialog, Ui_Dialog):
 
         event.accept()
 
-    # Abre caixa de diálogo para criar um arquivo
     def new_file(self):
+        """Abre caixa de diálogo para criar um arquivo."""
         path = QFileDialog.getSaveFileName(self, 'Salvar banco de dados', filter='(*.sqlite)')[0]
 
         if not path:
@@ -91,8 +93,8 @@ class DatabaseConfigDialog(QDialog, Ui_Dialog):
 
         self.txt_source.setText(path)
 
-    # Abre caixa de diálogo para selecionar um arquivo
     def open_file(self):
+        """Abre caixa de diálogo para selecionar um arquivo."""
         path = QFileDialog.getOpenFileName(self, 'Selecionar banco de dados', filter='(*.sqlite)')[0]
 
         if not path:

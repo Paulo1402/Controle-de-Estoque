@@ -110,11 +110,11 @@ class Ui_MainWindow(object):
         icon6 = QIcon()
         icon6.addFile(u":/icons/assets/help-32.png", QSize(), QIcon.Normal, QIcon.Off)
         self.action_help.setIcon(icon6)
-        self.action_foot = QAction(MainWindow)
-        self.action_foot.setObjectName(u"action_foot")
+        self.action_skids = QAction(MainWindow)
+        self.action_skids.setObjectName(u"action_skids")
         icon7 = QIcon()
         icon7.addFile(u":/icons/assets/config-32.png", QSize(), QIcon.Normal, QIcon.Off)
-        self.action_foot.setIcon(icon7)
+        self.action_skids.setIcon(icon7)
         self.centralwidget = QWidget(MainWindow)
         self.centralwidget.setObjectName(u"centralwidget")
         font = QFont()
@@ -1130,11 +1130,11 @@ class Ui_MainWindow(object):
 
         self.formLayout_16.setWidget(0, QFormLayout.FieldRole, self.txt_packs_nfe)
 
-        self.cb_foot_nfe = QComboBox(self.frame_2)
-        self.cb_foot_nfe.setObjectName(u"cb_foot_nfe")
-        self.cb_foot_nfe.setMinimumSize(QSize(0, 26))
+        self.cb_skids_nfe = QComboBox(self.frame_2)
+        self.cb_skids_nfe.setObjectName(u"cb_skids_nfe")
+        self.cb_skids_nfe.setMinimumSize(QSize(0, 26))
 
-        self.formLayout_16.setWidget(1, QFormLayout.FieldRole, self.cb_foot_nfe)
+        self.formLayout_16.setWidget(1, QFormLayout.FieldRole, self.cb_skids_nfe)
 
 
         self.horizontalLayout_23.addLayout(self.formLayout_16)
@@ -1429,13 +1429,13 @@ class Ui_MainWindow(object):
 
         self.formLayout_12.setWidget(0, QFormLayout.LabelRole, self.label_96)
 
-        self.cb_foot_nfe_history = QComboBox(self.frame_24)
-        self.cb_foot_nfe_history.setObjectName(u"cb_foot_nfe_history")
-        sizePolicy2.setHeightForWidth(self.cb_foot_nfe_history.sizePolicy().hasHeightForWidth())
-        self.cb_foot_nfe_history.setSizePolicy(sizePolicy2)
-        self.cb_foot_nfe_history.setMinimumSize(QSize(0, 26))
+        self.cb_skids_nfe_history = QComboBox(self.frame_24)
+        self.cb_skids_nfe_history.setObjectName(u"cb_skids_nfe_history")
+        sizePolicy2.setHeightForWidth(self.cb_skids_nfe_history.sizePolicy().hasHeightForWidth())
+        self.cb_skids_nfe_history.setSizePolicy(sizePolicy2)
+        self.cb_skids_nfe_history.setMinimumSize(QSize(0, 26))
 
-        self.formLayout_12.setWidget(0, QFormLayout.FieldRole, self.cb_foot_nfe_history)
+        self.formLayout_12.setWidget(0, QFormLayout.FieldRole, self.cb_skids_nfe_history)
 
 
         self.horizontalLayout_35.addLayout(self.formLayout_12)
@@ -1853,7 +1853,7 @@ class Ui_MainWindow(object):
         self.label_16.setBuddy(self.txt_nfe_nfe)
         self.label_14.setBuddy(self.txt_total_volume_nfe)
         self.label_18.setBuddy(self.txt_packs_nfe)
-        self.label_19.setBuddy(self.cb_foot_nfe)
+        self.label_19.setBuddy(self.cb_skids_nfe)
         self.label_12.setBuddy(self.cb_cycle_nfe)
         self.label_11.setBuddy(self.cb_bitola_nfe)
         self.label_15.setBuddy(self.txt_rework_nfe)
@@ -1862,7 +1862,7 @@ class Ui_MainWindow(object):
         self.label_95.setBuddy(self.cb_client_nfe_history)
         self.label_94.setBuddy(self.cb_start_date_nfe_history)
         self.label_93.setBuddy(self.cb_end_date_nfe_history)
-        self.label_96.setBuddy(self.cb_foot_nfe_history)
+        self.label_96.setBuddy(self.cb_skids_nfe_history)
         self.label_20.setBuddy(self.cb_cycle_stock)
         self.label_22.setBuddy(self.cb_bitola_stock)
         self.label_21.setBuddy(self.rb_kd_stock)
@@ -1907,8 +1907,8 @@ class Ui_MainWindow(object):
         QWidget.setTabOrder(self.cb_client_nfe, self.txt_nfe_nfe)
         QWidget.setTabOrder(self.txt_nfe_nfe, self.txt_total_volume_nfe)
         QWidget.setTabOrder(self.txt_total_volume_nfe, self.txt_packs_nfe)
-        QWidget.setTabOrder(self.txt_packs_nfe, self.cb_foot_nfe)
-        QWidget.setTabOrder(self.cb_foot_nfe, self.cb_cycle_nfe)
+        QWidget.setTabOrder(self.txt_packs_nfe, self.cb_skids_nfe)
+        QWidget.setTabOrder(self.cb_skids_nfe, self.cb_cycle_nfe)
         QWidget.setTabOrder(self.cb_cycle_nfe, self.cb_bitola_nfe)
         QWidget.setTabOrder(self.cb_bitola_nfe, self.txt_volume_nfe)
         QWidget.setTabOrder(self.txt_volume_nfe, self.txt_rework_nfe)
@@ -1922,8 +1922,8 @@ class Ui_MainWindow(object):
         QWidget.setTabOrder(self.txt_nfe_nfe_history, self.cb_client_nfe_history)
         QWidget.setTabOrder(self.cb_client_nfe_history, self.cb_start_date_nfe_history)
         QWidget.setTabOrder(self.cb_start_date_nfe_history, self.cb_end_date_nfe_history)
-        QWidget.setTabOrder(self.cb_end_date_nfe_history, self.cb_foot_nfe_history)
-        QWidget.setTabOrder(self.cb_foot_nfe_history, self.bt_search_nfe_history)
+        QWidget.setTabOrder(self.cb_end_date_nfe_history, self.cb_skids_nfe_history)
+        QWidget.setTabOrder(self.cb_skids_nfe_history, self.bt_search_nfe_history)
         QWidget.setTabOrder(self.bt_search_nfe_history, self.bt_clear_nfe_history)
         QWidget.setTabOrder(self.bt_clear_nfe_history, self.bt_edit_nfe_history)
         QWidget.setTabOrder(self.bt_edit_nfe_history, self.cb_cycle_stock)
@@ -1956,7 +1956,7 @@ class Ui_MainWindow(object):
         self.menu_config.addAction(self.menu_db.menuAction())
         self.menu_config.addSeparator()
         self.menu_config.addAction(self.menu_theme.menuAction())
-        self.menu_config.addAction(self.action_foot)
+        self.menu_config.addAction(self.action_skids)
         self.menu_db.addAction(self.action_config)
         self.menu_db.addAction(self.action_import_backup)
         self.menu_theme.addAction(self.action_dark_theme)
@@ -1964,10 +1964,10 @@ class Ui_MainWindow(object):
 
         self.retranslateUi(MainWindow)
 
-        self.mp_main.setCurrentIndex(2)
+        self.mp_main.setCurrentIndex(1)
         self.tab_widget_cycle.setCurrentIndex(1)
-        self.mp_cycle_historic.setCurrentIndex(0)
-        self.tab_widget_nfe.setCurrentIndex(1)
+        self.mp_cycle_historic.setCurrentIndex(1)
+        self.tab_widget_nfe.setCurrentIndex(0)
 
 
         QMetaObject.connectSlotsByName(MainWindow)
@@ -1983,7 +1983,7 @@ class Ui_MainWindow(object):
         self.action_dark_theme.setText(QCoreApplication.translate("MainWindow", u"Dark", None))
         self.action_light_theme.setText(QCoreApplication.translate("MainWindow", u"Light", None))
         self.action_help.setText(QCoreApplication.translate("MainWindow", u"Ajuda", None))
-        self.action_foot.setText(QCoreApplication.translate("MainWindow", u"Pezinhos (HT)", None))
+        self.action_skids.setText(QCoreApplication.translate("MainWindow", u"Pezinhos (HT)", None))
         self.label_title.setText(QCoreApplication.translate("MainWindow", u"CONTROLE DE MADEIRA TRATADA", None))
         self.label_title.setProperty("class", QCoreApplication.translate("MainWindow", u"title", None))
         self.label_9.setText(QCoreApplication.translate("MainWindow", u"ESTUFA", None))

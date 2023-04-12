@@ -4,10 +4,10 @@ import os
 from enum import Enum
 from typing import Any, NamedTuple
 
-from PySide6.QtWidgets import QMessageBox, QWidget
 from PySide6.QtCore import QEasingCurve, QPropertyAnimation
+from PySide6.QtWidgets import QMessageBox, QWidget
 
-from utils import BASEDIR
+from . import BASEDIR
 
 
 # Template de QMessageBox com captions personalizados para botões

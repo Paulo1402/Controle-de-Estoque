@@ -1,12 +1,12 @@
 from PySide6.QtWidgets import QDialog, QFileDialog
 
-from src.ui.ImportBackupDialog import Ui_Dialog
-from services import DatabaseConnection
-from utils import Message, ImportBackupWorker
+from ui.ImportBackupDialog import Ui_Dialog
+from utils import Message, ImportBackupWorker, DatabaseConnection
 
 
-# Diálogo para importar backup
 class ImportBackupDialog(QDialog, Ui_Dialog):
+    """Diálogo para importar backup."""
+
     def __init__(self, parent, database: DatabaseConnection):
         super().__init__(parent)
         self.setupUi(self)
@@ -16,18 +16,21 @@ class ImportBackupDialog(QDialog, Ui_Dialog):
 
         # Conecta signals
         self.bt_open.clicked.connect(self.open_file)
-        self.bt_import.clicked.connect(self.import_backup_handler)
+        self.bt_import.clicked.connect(self.handle_import_backup)
         self.txt_source.textChanged.connect(lambda: self.bt_import.setDisabled(self.txt_source.text() == ''))
 
         # Configura campos
+        self.reset()
+
+    def reset(self):
+        """Reseta campos para o padrão."""
         self.progress_bar_main.setValue(0)
         self.progress_bar_table.setValue(0)
         self.txt_table.clear()
+        self.txt_source.clear()
 
-        self.bt_import.setDisabled(True)
-
-    # Abre diálogo para selecionar backup
     def open_file(self):
+        """Abre diálogo para selecionar backup."""
         path = QFileDialog.getExistingDirectory(self, 'Selecionar pasta de backup')
 
         if not path:
@@ -35,8 +38,9 @@ class ImportBackupDialog(QDialog, Ui_Dialog):
 
         self.txt_source.setText(path)
 
-    # Importa backup de um arquivo .csv para dentro do banco de dados
-    def import_backup_handler(self):
+    def handle_import_backup(self):
+        """Importa backup."""
+
         # Se já houver um processo em andamento aborta a função
         if self.worker and self.worker.isRunning():
             Message.warning(self, 'ATENÇÃO', 'Aguarde o backup atual ser concluído!')
@@ -65,6 +69,20 @@ class ImportBackupDialog(QDialog, Ui_Dialog):
         # Desabilita botão durante o processo
         self.bt_import.setDisabled(True)
 
+    def handle_progress(self, progress: int, bar: str):
+        """Exibe progresso do worker na barra de progresso"""
+        if bar == 'main':
+            self.progress_bar_main.setValue(progress)
+        else:
+            self.progress_bar_table.setValue(progress)
+            self.txt_table.setText(bar)
+
+    def handle_error(self, message: str):
+        """Exibe erro e reseta campos."""
+        Message.critical(self, 'CRÍTICO', message)
+
+        self.reset()
+
     def import_finished(self):
         # Notifica usuário e recarrega dados no aplicativo
         Message.information(self, 'AVISO', f'Backup importado com sucesso.')
@@ -73,17 +91,4 @@ class ImportBackupDialog(QDialog, Ui_Dialog):
         self.parent().setup_data()
 
         # Reseta campos
-        self.progress_bar_main.setValue(0)
-        self.progress_bar_table.setValue(0)
-        self.txt_table.clear()
-        self.txt_source.clear()
-
-    def handle_progress(self, progress: int, bar: str):
-        if bar == 'main':
-            self.progress_bar_main.setValue(progress)
-        else:
-            self.progress_bar_table.setValue(progress)
-            self.txt_table.setText(bar)
-
-    def handle_error(self, message: str):
-        Message.critical(self, 'CRÍTICO', message)
+        self.reset()

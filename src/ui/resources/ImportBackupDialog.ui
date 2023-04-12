@@ -29,7 +29,7 @@
       <enum>QFrame::Raised</enum>
      </property>
      <layout class="QGridLayout" name="gridLayout_2">
-      <item row="8" column="0" colspan="5">
+      <item row="6" column="0" colspan="3">
        <widget class="QPushButton" name="bt_import">
         <property name="minimumSize">
          <size>
@@ -57,9 +57,25 @@
           <height>32</height>
          </size>
         </property>
+        <property name="shortcut">
+         <string>Ctrl+I</string>
+        </property>
        </widget>
       </item>
-      <item row="5" column="0" colspan="5">
+      <item row="2" column="1">
+       <spacer name="verticalSpacer">
+        <property name="orientation">
+         <enum>Qt::Vertical</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>20</width>
+          <height>40</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+      <item row="3" column="0" colspan="3">
        <widget class="QProgressBar" name="progress_bar_main">
         <property name="value">
          <number>24</number>
@@ -81,9 +97,51 @@
         </property>
        </widget>
       </item>
-      <item row="2" column="0" colspan="5">
-       <layout class="QHBoxLayout" name="horizontalLayout">
-        <item>
+      <item row="0" column="0" colspan="3">
+       <layout class="QGridLayout" name="gridLayout_3">
+        <property name="bottomMargin">
+         <number>0</number>
+        </property>
+        <item row="0" column="0">
+         <widget class="QLabel" name="label_2">
+          <property name="minimumSize">
+           <size>
+            <width>0</width>
+            <height>0</height>
+           </size>
+          </property>
+          <property name="text">
+           <string>FONTE</string>
+          </property>
+          <property name="buddy">
+           <cstring>txt_source</cstring>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="3">
+         <widget class="QPushButton" name="bt_open">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="cursor">
+           <cursorShape>PointingHandCursor</cursorShape>
+          </property>
+          <property name="text">
+           <string/>
+          </property>
+          <property name="icon">
+           <iconset resource="resource.qrc">
+            <normaloff>:/icons/assets/folder.png</normaloff>:/icons/assets/folder.png</iconset>
+          </property>
+          <property name="shortcut">
+           <string>Ctrl+O</string>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="0">
          <widget class="QLabel" name="label_3">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
@@ -99,13 +157,19 @@
           </property>
          </widget>
         </item>
-        <item>
+        <item row="1" column="1">
          <widget class="QLineEdit" name="txt_table">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
             <horstretch>0</horstretch>
             <verstretch>0</verstretch>
            </sizepolicy>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>100</width>
+            <height>16777215</height>
+           </size>
           </property>
           <property name="text">
            <string>cliente</string>
@@ -115,7 +179,14 @@
           </property>
          </widget>
         </item>
-        <item>
+        <item row="0" column="1" colspan="2">
+         <widget class="QLineEdit" name="txt_source">
+          <property name="readOnly">
+           <bool>true</bool>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="2" colspan="2">
          <widget class="QProgressBar" name="progress_bar_table">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Expanding" vsizetype="Minimum">
@@ -150,66 +221,6 @@
          </widget>
         </item>
        </layout>
-      </item>
-      <item row="1" column="0" colspan="5">
-       <layout class="QHBoxLayout" name="horizontalLayout_2">
-        <item>
-         <widget class="QLabel" name="label_2">
-          <property name="minimumSize">
-           <size>
-            <width>40</width>
-            <height>0</height>
-           </size>
-          </property>
-          <property name="text">
-           <string>FONTE</string>
-          </property>
-          <property name="buddy">
-           <cstring>txt_source</cstring>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QLineEdit" name="txt_source">
-          <property name="readOnly">
-           <bool>true</bool>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QPushButton" name="bt_open">
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
-          </property>
-          <property name="cursor">
-           <cursorShape>PointingHandCursor</cursorShape>
-          </property>
-          <property name="text">
-           <string/>
-          </property>
-          <property name="icon">
-           <iconset resource="resource.qrc">
-            <normaloff>:/icons/assets/folder.png</normaloff>:/icons/assets/folder.png</iconset>
-          </property>
-         </widget>
-        </item>
-       </layout>
-      </item>
-      <item row="4" column="3">
-       <spacer name="verticalSpacer">
-        <property name="orientation">
-         <enum>Qt::Vertical</enum>
-        </property>
-        <property name="sizeHint" stdset="0">
-         <size>
-          <width>20</width>
-          <height>40</height>
-         </size>
-        </property>
-       </spacer>
       </item>
      </layout>
     </widget>

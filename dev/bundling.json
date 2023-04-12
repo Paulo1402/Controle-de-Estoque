@@ -7,7 +7,7 @@
   },
   {
    "optionDest": "filenames",
-   "value": "C:/Users/User/OneDrive/Programa\u00e7\u00e3o/Python/Projetos/Controle de Estoque/main.py"
+   "value": "C:/Users/Kamua/OneDrive/Programa\u00e7\u00e3o/Python/Projetos/Controle de Estoque/src/main.py"
   },
   {
    "optionDest": "onefile",
@@ -15,11 +15,15 @@
   },
   {
    "optionDest": "console",
-   "value": false
+   "value": true
   },
   {
    "optionDest": "icon_file",
-   "value": "C:/Users/User/OneDrive/Programa\u00e7\u00e3o/Python/Projetos/Controle de Estoque/ui/assets/icon.ico"
+   "value": "C:/Users/Kamua/OneDrive/Programa\u00e7\u00e3o/Python/Projetos/Controle de Estoque/src/static/assets/icon.ico"
+  },
+  {
+   "optionDest": "name",
+   "value": "Controle de Estoque"
   },
   {
    "optionDest": "upx_dir",
@@ -72,6 +76,18 @@
   {
    "optionDest": "argv_emulation",
    "value": false
+  },
+  {
+   "optionDest": "datas",
+   "value": "C:/Users/Kamua/OneDrive/Programa\u00e7\u00e3o/Python/Projetos/Controle de Estoque/src/static;static/"
+  },
+  {
+   "optionDest": "pathex",
+   "value": "C:/Users/Kamua/OneDrive/Programa\u00e7\u00e3o/Python/Projetos/Controle de Estoque/"
+  },
+  {
+   "optionDest": "hiddenimports",
+   "value": ""
   }
  ],
  "nonPyinstallerOptions": {

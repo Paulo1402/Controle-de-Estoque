@@ -2,11 +2,12 @@ from PySide6.QtWidgets import QDialog, QComboBox
 from PySide6.QtCore import QPoint, QEvent, Qt
 from PySide6.QtGui import QAction
 
-from src.ui.CalendarDialog import Ui_Dialog
+from ui.CalendarDialog import Ui_Dialog
 
 
-# Diálogo para escolher datas através de uma interface
 class CalendarDialog(QDialog, Ui_Dialog):
+    """Diálogo para escolher datas através de uma interface"""
+
     def __init__(self, parent, txt_parent):
         super().__init__(parent)
         self.setupUi(self)
@@ -31,13 +32,13 @@ class CalendarDialog(QDialog, Ui_Dialog):
         # Seta action ao diálogo
         self.addAction(shortcut)
 
-    # Fecha diálogo caso perca o foco
     def changeEvent(self, event: QEvent) -> None:
+        """Fecha diálogo caso perca o foco"""
         if not self.isActiveWindow():
             self.close()
 
-    # Seta data ao txt vinculado a classe e encerra o diálogo
     def set_date(self):
+        """Seta data ao txt vinculado a classe e encerra o diálogo"""
         date = self.calendar.selectedDate()
 
         self.txt_parent.lineEdit().setText(date.toString('dd/MM/yyyy'))

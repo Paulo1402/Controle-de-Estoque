@@ -1,12 +1,12 @@
+"""Script para popular tabelas usando dados da seed."""
+
 import csv
 
 from PySide6.QtSql import QSqlQuery
 
-from utils import parse_date, from_volume_to_float
+from src.utils import parse_date, from_volume_to_float, DatabaseConnection
 
 if __name__ == '__main__':
-    from services import DatabaseConnection
-
     database = DatabaseConnection()
     database.connect()
 
@@ -40,7 +40,7 @@ if __name__ == '__main__':
     )
 
     # Faz a modelagem dos dados de um arquivo .csv para inserir na tabela
-    with open('seed/bd_ciclo.csv', 'r', encoding='latin') as f:
+    with open('../seed/bd_ciclo.csv', 'r', encoding='latin') as f:
         csvreader = csv.reader(f, delimiter=';')
         next(csvreader)
 
@@ -74,7 +74,7 @@ if __name__ == '__main__':
         """
     )
 
-    with open('seed/bd_nfe_info.csv', 'r', encoding='latin') as f:
+    with open('../seed/bd_nfe_info.csv', 'r', encoding='latin') as f:
         csvreader = csv.reader(f, delimiter=';')
         next(csvreader)
 
@@ -107,7 +107,7 @@ if __name__ == '__main__':
         """
     )
 
-    with open('seed/bd_bitola.csv', 'r', encoding='latin') as f:
+    with open('../seed/bd_bitola.csv', 'r', encoding='latin') as f:
         csvreader = csv.reader(f, delimiter=';')
         next(csvreader)
 
@@ -138,7 +138,7 @@ if __name__ == '__main__':
         """
     )
 
-    with open('seed/bd_nfe.csv', 'r', encoding='latin') as f:
+    with open('../seed/bd_nfe.csv', 'r', encoding='latin') as f:
         csvreader = csv.reader(f, delimiter=';')
         next(csvreader)
 
@@ -167,7 +167,7 @@ if __name__ == '__main__':
         """
     )
 
-    with open('seed/bd_pezinho.csv', 'r', encoding='latin') as f:
+    with open('../seed/bd_pezinho.csv', 'r', encoding='latin') as f:
         csvreader = csv.reader(f, delimiter=';')
         next(csvreader)
 
@@ -195,7 +195,7 @@ if __name__ == '__main__':
         """
     )
 
-    with open('seed/bd_residuo.csv', 'r', encoding='latin') as f:
+    with open('../seed/bd_residuo.csv', 'r', encoding='latin') as f:
         csvreader = csv.reader(f, delimiter=';')
         next(csvreader)
 

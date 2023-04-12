@@ -3,11 +3,33 @@ from datetime import datetime
 import qdarktheme
 from PySide6.QtWidgets import QLineEdit, QComboBox
 
-from utils import get_config, ConfigSection
+from . import get_config, ConfigSection, Message, DatabaseConnection
 
 
-# Retorna volume dos pezinhos com base no algoritmo
 def get_skids_volume(n_bitola_skids: int, packs: int) -> list[float]:
+    """
+    Retorna volume dos pezinhos.
+
+    Utiliza constantes previamente configuradas para calcular artificialmente o volume dos pezinhos.
+
+    Caso haja apenas uma bitola o cálculo é feito somando a multiplicação da constante de skids curto pela
+    quantidade de fardos com a multiplicação da constante de skids longo pela quantidade de fardos.
+
+    Ex:
+        volume = (packs * short_skids) + (packs * long_skids)
+
+    Caso haja duas ou mais bitolas a primeira bitola é calculada como skids curto e as demais como skids longo.
+    Ambas são multiplicadas pela quantidade de fardos e retornadas como uma lista.
+
+    Ex:
+        volume = [packs * short_kids, packs * long_kids, ...]
+
+    Para ambos os casos o retorno será uma lista para manter a compatibilidade.
+
+    :param n_bitola_skids: Número de bitolas do ciclo de pezinho
+    :param packs: Quantidade de fardos da Nfe
+    :return: Lista de volumes
+    """
     config = get_config(ConfigSection.APP)
 
     long_skids = config['long_skids']
@@ -33,8 +55,16 @@ def get_skids_volume(n_bitola_skids: int, packs: int) -> list[float]:
     return volumes
 
 
-# Retorna campos em branco
-def check_empty_fields(fields: list[QLineEdit | QComboBox]) -> QLineEdit | QComboBox:
+def check_empty_fields(fields: list[QLineEdit | QComboBox]) -> bool:
+    """
+    Verifica se há campos em branco.
+
+    Caso o campo esteja em branco atualiza o QSS para destacá-lo e coloca em foco o
+    primeiro campo.
+
+    :param fields: Lista de campos.
+    :return: True se houver campos em branco e False se não houver.
+    """
     empty_fields = []
 
     for field in fields:
@@ -55,23 +85,39 @@ def check_empty_fields(fields: list[QLineEdit | QComboBox]) -> QLineEdit | QComb
     return True
 
 
-# Checa se a data de entrada é menor que a data de saída
 def is_date_range_valid(start_date: str, end_date: str, date_format='%Y-%m-%d') -> bool:
+    """
+    Checa se a data inicial é menor que a data final.
+
+    :param start_date: Data inicial
+    :param end_date: Data final
+    :param date_format: Formato da data enviada
+    :return: True | False
+    """
     start_date_parsed = datetime.strptime(start_date, date_format)
     end_date_parsed = datetime.strptime(end_date, date_format)
 
     return start_date_parsed <= end_date_parsed
 
 
-# Retorna data atual como string
 def get_today(output: str = '%Y-%m-%d') -> str:
+    """
+    Retorna data de hoje como string.
+
+    :param output: Formato de saída
+    :return: Data formatada
+    """
     today = datetime.today().date()
 
     return today.strftime(output)
 
 
-# Limpa campos
 def clear_fields(fields: list[QLineEdit | QComboBox]):
+    """
+    Reseta valores e QSS dos campos para o padrão.
+
+    :param fields: Lista de campos
+    """
     for field in fields:
         if isinstance(field, QComboBox):
             field.setCurrentIndex(0)
@@ -83,8 +129,15 @@ def clear_fields(fields: list[QLineEdit | QComboBox]):
         field.style().polish(field)
 
 
-# Converte um set para uma lista e a ordena
 def order_set(set_instance: set) -> list[str]:
+    """
+    Converte um set para uma lista e a ordena.
+
+    Após ordenar faz um type casting para string em todos os valores do set original.
+
+    :param set_instance: Objeto set
+    :return: Lista ordenada com strings
+    """
     converted_set = [value for value in set_instance]
     converted_set.sort()
 
@@ -101,7 +154,6 @@ def load_theme(theme: str):
 
     :param theme: Tema a ser carregado
     """
-
     if theme == 'light':
         border_color = 'black'
     else:
@@ -136,3 +188,23 @@ def load_theme(theme: str):
         custom_colors=custom_colors,
         additional_qss=qss
     )
+
+
+def check_connection(func):
+    """
+    Checa conexão com banco de dados antes de executar uma função.
+
+    Decorar a função desejada com essa função.
+
+    :param func: A função que deve ser checada
+    :return: Uma nova função para ser executada no lugar da função original
+    """
+
+    def inner(self, *_, **__):
+        if self.database.connection_state != DatabaseConnection.State.CONNECTED:
+            Message.critical(self, 'CRÍTICO', 'Sem conexão com o banco de dados!')
+            return
+
+        func(self)
+
+    return inner

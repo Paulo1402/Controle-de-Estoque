@@ -1,11 +1,18 @@
+"""Funções de configurações."""
+
 import json
 import os
 
-from utils import BASEDIR, DEFAULT_SHORT_SKIDS, DEFAULT_LONG_SKIDS, ConfigSection
+from . import BASEDIR, DEFAULT_SHORT_SKIDS, DEFAULT_LONG_SKIDS, ConfigSection
 
 
-# Retorna configurações do aplicativo
 def get_config(section: ConfigSection = ConfigSection.ALL) -> dict:
+    """
+    Retorna configurações do aplicativo.
+
+    :param section: Sessão desejada
+    :return: Dicionário com as configurações
+    """
     path = os.path.join(BASEDIR, 'config.json')
 
     # Caso o arquivo não exista ou não possa ser validado, cria um arquivo novo
@@ -49,8 +56,14 @@ def get_config(section: ConfigSection = ConfigSection.ALL) -> dict:
     return config
 
 
-# Seta configurações do aplicativo
 def set_config(config: dict, section: ConfigSection = ConfigSection.ALL):
+    """
+    Seta configurações do aplicativo
+
+    :param config: Dados para salvar
+    :param section: Sessão enviada
+    """
+
     # Retorna objeto de config completo caso se esteja setando apenas uma sessão
     if section != ConfigSection.ALL:
         old_config = get_config()

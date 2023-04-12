@@ -2,7 +2,7 @@ from .calendar import CalendarDialog
 from .import_backup import ImportBackupDialog
 from .database_config import DatabaseConfigDialog
 from .generic import GenericDialog
-from .foot_config import FootConfigDialog
+from .skids_config import SkidsConfigDialog
 from .license import LicenseDialog
 
 __all__ = [
@@ -10,6 +10,6 @@ __all__ = [
     'ImportBackupDialog',
     'DatabaseConfigDialog',
     'GenericDialog',
-    'FootConfigDialog',
+    'SkidsConfigDialog',
     'LicenseDialog'
 ]

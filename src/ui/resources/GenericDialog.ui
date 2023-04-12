@@ -88,6 +88,9 @@
             <property name="cursor">
              <cursorShape>PointingHandCursor</cursorShape>
             </property>
+            <property name="focusPolicy">
+             <enum>Qt::TabFocus</enum>
+            </property>
             <property name="toolTip">
              <string>NOVO</string>
             </property>
@@ -106,6 +109,9 @@
               <width>32</width>
               <height>32</height>
              </size>
+            </property>
+            <property name="shortcut">
+             <string>Ctrl+N</string>
             </property>
            </widget>
           </item>
@@ -126,6 +132,9 @@
             <property name="cursor">
              <cursorShape>PointingHandCursor</cursorShape>
             </property>
+            <property name="focusPolicy">
+             <enum>Qt::TabFocus</enum>
+            </property>
             <property name="toolTip">
              <string>SALVAR</string>
             </property>
@@ -141,6 +150,9 @@
               <width>32</width>
               <height>32</height>
              </size>
+            </property>
+            <property name="shortcut">
+             <string>Ctrl+S</string>
             </property>
            </widget>
           </item>
@@ -161,6 +173,9 @@
             <property name="cursor">
              <cursorShape>PointingHandCursor</cursorShape>
             </property>
+            <property name="focusPolicy">
+             <enum>Qt::TabFocus</enum>
+            </property>
             <property name="toolTip">
              <string>DELETAR</string>
             </property>
@@ -176,6 +191,9 @@
               <width>32</width>
               <height>32</height>
              </size>
+            </property>
+            <property name="shortcut">
+             <string>Ctrl+D</string>
             </property>
            </widget>
           </item>
