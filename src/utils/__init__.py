@@ -1,3 +1,5 @@
+"""Encapsula todos as funções e classes usadas para dentro de um apenas um arquivo."""
+
 from utils.globals import BASEDIR, TABLES, DEFAULT_SHORT_SKIDS, DEFAULT_LONG_SKIDS, HELP
 from utils.utils import Animation, Message, Logger, BitolaInfo, Mode, DateMinMax, ConfigSection, OldestBackup
 from utils.config import get_config, set_config
@@ -9,7 +11,8 @@ from utils.function import (
     order_set,
     load_theme,
     is_date_range_valid,
-    get_today
+    get_today,
+    check_connection
 )
 from utils.parse import parse_date, from_float_to_volume, from_volume_to_float
 from utils.model import TableModel, ListModel
@@ -62,4 +65,5 @@ __all__ = [
     'order_set',
     'load_theme',
     'is_date_range_valid',
+    'check_connection'
 ]

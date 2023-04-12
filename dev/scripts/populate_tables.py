@@ -4,7 +4,8 @@ import csv
 
 from PySide6.QtSql import QSqlQuery
 
-from src.utils import parse_date, from_volume_to_float, DatabaseConnection
+from src.utils import parse_date, from_volume_to_float  # , DatabaseConnection
+from src.services import DatabaseConnection
 
 if __name__ == '__main__':
     database = DatabaseConnection()

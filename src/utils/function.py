@@ -1,3 +1,5 @@
+"""Funções gerais usadas ao longo do programa."""
+
 from datetime import datetime
 
 import qdarktheme

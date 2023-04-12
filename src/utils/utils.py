@@ -10,8 +10,8 @@ from PySide6.QtWidgets import QMessageBox, QWidget
 from . import BASEDIR
 
 
-# Template de QMessageBox com captions personalizados para botões
 class Message(QMessageBox):
+    """Template de QMessageBox com captions personalizados para botões"""
     YES = QMessageBox.StandardButton.Yes
     NO = QMessageBox.StandardButton.No
 
@@ -25,9 +25,16 @@ class Message(QMessageBox):
         if buttons:
             self.set_caption_buttons(buttons)
 
-    # Cria e executa uma message box de aviso com botões de Sim e Não
     @classmethod
     def warning_question(cls, parent, message: str, default_button=QMessageBox.StandardButton.No) -> int:
+        """
+        Cria e executa uma message box de aviso com botões de Sim e Não
+
+        :param parent: Parent
+        :param message: Mensagem para exibir
+        :param default_button: Botão padrão
+        :return: Resposta do usuário
+        """
         buttons = [(QMessageBox.StandardButton.Yes, 'Sim'), (QMessageBox.StandardButton.No, 'Não')]
 
         self = cls(parent, buttons)
@@ -40,7 +47,6 @@ class Message(QMessageBox):
 
         return answer
 
-    # Executa MessageBox
     def show_message(
             self,
             title: str,
@@ -48,6 +54,15 @@ class Message(QMessageBox):
             icon: QMessageBox.Icon | None = None,
             default_button: QMessageBox.StandardButton | None = None
     ) -> int:
+        """
+        Executa MessageBox
+
+        :param title: título do popup
+        :param message: mensagem do popup
+        :param icon: Ícone do popup
+        :param default_button: Botão padrão
+        :return: Resposta do usuário
+        """
         self.setWindowTitle(title)
         self.setText(message)
         self.setIcon(icon)
@@ -55,8 +70,12 @@ class Message(QMessageBox):
 
         return super().exec()
 
-    # Seta captions personalizados
     def set_caption_buttons(self, buttons: list[tuple[QMessageBox.StandardButton, str]]):
+        """
+        Seta captions personalizados.
+
+        :param buttons: Lista contendo tuplas, sendo o primeiro valor o Enum do botão e o segundo o caption
+        """
         b = functools.reduce(lambda b, button: b | button[0], buttons, 0)
         self.setStandardButtons(b)
 
@@ -66,6 +85,8 @@ class Message(QMessageBox):
 
 # noinspection PyUnresolvedReferences
 class Animation:
+    """Abstração para criar animações."""
+
     def __init__(
             self,
             widget: QWidget,
@@ -90,6 +111,8 @@ class Animation:
 
 
 class Logger(logging.Logger):
+    """Logger para eventuais erros."""
+
     def __init__(self, name=__name__):
         super().__init__(name)
 
@@ -108,7 +131,6 @@ class Mode(Enum):
     UPDATE = 2
 
 
-# Enumeração para a função parse_date
 class DateMinMax(Enum):
     MIN = 1
     MAX = 2

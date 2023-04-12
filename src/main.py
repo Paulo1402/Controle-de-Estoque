@@ -19,9 +19,9 @@ from utils import *
 
 
 # todo FrontEnd
-# Fazer 'Como Usar' em HTML
 
 # todo BackEnd
+# Verificar conexão e tratar exceção para todas as chamadas ao banco de dados, alertar usuário.
 
 # todo Refactoring
 # Verificar se é necessário decorar com @check_connection funções que alteram o banco de dados
@@ -360,6 +360,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         set_config(config, ConfigSection.APP)
         load_theme(theme)
 
+    @check_connection
     @Slot()
     def new_cycle(self):
         """Prepara campos para novo registro na página Ciclos"""
@@ -387,6 +388,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
         self.ID_cycle = -1
 
+    @check_connection
     @Slot()
     def save_cycle(self):
         """Cria ou atualiza dados do ciclo"""
@@ -528,6 +530,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         except QueryError:
             Message.critical(self, 'CRÍTICO', 'Algo deu errado durante a operação!')
 
+    @check_connection
     @Slot()
     def delete_cycle(self):
         """Deleta ciclo"""
@@ -551,6 +554,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.refresh_data()
         self.search_cycle_history()
 
+    @check_connection
     @Slot()
     def search_cycle_history(self):
         """Carrega dados de ciclos para a table view"""
@@ -621,6 +625,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.bt_edit_cycle_history.setDisabled(True)
         self.tv_cycle_history.clearSelection()
 
+    @check_connection
     @Slot()
     def edit_cycle_history(self):
         """Traz dados da página de histórico de ciclos para edição na página de registro"""
@@ -685,6 +690,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         # Atualiza ID_cycle com base no ciclo selecionado
         self.ID_cycle = cycle
 
+    @check_connection
     @Slot()
     def track_cycle(self, index: QModelIndex):
         """Mostra informações detalhadas sobre o ciclo em uma nova página"""
@@ -768,7 +774,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.txt_stock_volume_track_history.setText(from_float_to_volume(value))
         self.mp_cycle_historic.setCurrentIndex(1)
 
-    #
+    @check_connection
     @Slot()
     def track_nfe(self, index: QModelIndex):
         """Mostra informações detalhadas sobre a nfe na página de nfe"""
@@ -788,6 +794,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.bt_nfe_menu.click()
         self.tab_widget_nfe.setCurrentIndex(1)
 
+    @check_connection
     @Slot()
     def new_nfe(self):
         """Prepara campos para novo registro na página Nfe."""
@@ -809,6 +816,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
         self.ID_nfe = -1
 
+    @check_connection
     @Slot()
     def save_nfe(self):
         """Cria ou atualiza dados da nfe."""
@@ -1086,6 +1094,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             Message.critical(self, 'CRÍTICO', 'Algo deu errado durante a operação!')
 
     # Deleta nfe
+    @check_connection
     @Slot()
     def delete_nfe(self):
         # Guard clause
@@ -1107,6 +1116,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.refresh_data()
         self.search_nfe_history()
 
+    @check_connection
     @Slot()
     def load_nfe_bitola(self, index: int):
         """Carrega bitolas com base no ciclo selecionado"""
@@ -1141,6 +1151,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.cb_bitola_nfe.clear()
         self.cb_bitola_nfe.addItems(data)
 
+    @check_connection
     @Slot()
     def search_nfe_history(self):
         """Faz busca do histórico de NFEs e abastece table view"""
@@ -1201,6 +1212,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.bt_edit_nfe_history.setDisabled(True)
         self.tv_nfe_history.clearSelection()
 
+    @check_connection
     @Slot()
     def edit_nfe_history(self):
         """Traz dados para edição na página de registro"""
@@ -1275,6 +1287,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         # Atualiza ID_nfe com base na nfe selecionada
         self.ID_nfe = nfe
 
+    @check_connection
     @Slot()
     def search_stock(self):
         """Faz busca no estoque e abastece table view."""
@@ -1387,6 +1400,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.bt_nfe_menu.click()
         self.ID_nfe = -1
 
+    @check_connection
     @Slot()
     def leaving_stock(self):
         """Faz baixa da bitola selecionada como resíduo."""
@@ -1428,11 +1442,13 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.refresh_data()
         self.search_stock()
 
+    @check_connection
     def refresh_data(self):
         """Recria tabelas temporárias e recarrega dados de ciclos."""
         self.database.create_temp_table()
         self.load_cycles()
 
+    @check_connection
     def load_clients(self):
         """Carrega clientes."""
         query = self.database.read(
@@ -1451,6 +1467,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.cb_client_nfe.addItems(data)
         self.cb_client_nfe_history.addItems(['', *data])
 
+    @check_connection
     def load_kilns(self):
         """Carrega estufas."""
         query = self.database.read(
@@ -1469,6 +1486,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.cb_kiln_cycle.addItems(data)
         self.cb_kiln_cycle_history.addItems(['', *data])
 
+    @check_connection
     def load_cycles(self):
         """
         Carrega ciclos.

@@ -1,3 +1,5 @@
+"""Handlers para interagir com QTableWidgets nas páginas Ciclos e Nfe"""
+
 from abc import ABC, abstractmethod
 
 from PySide6.QtWidgets import QTableWidget, QPushButton, QLineEdit, QComboBox, QHeaderView, QTableWidgetItem
@@ -6,8 +8,9 @@ from PySide6.QtCore import Qt, QModelIndex
 from . import Message, BitolaValidator, VolumeValidator, clear_fields, check_empty_fields, DatabaseConnection
 
 
-# Classe genérica para interação com as table widgets
 class TableWidgetHandler(ABC):
+    """Classe genérica para interação com as table widgets"""
+
     def __init__(
             self,
             parent,
@@ -36,13 +39,13 @@ class TableWidgetHandler(ABC):
     def ID_register(self):
         return self._ID_register
 
-    # Método para ser imprementado nas subclasses
     @abstractmethod
     def add(self):
+        """Método para ser imprementado nas subclasses"""
         pass
 
-    # Insere dados da table widget para os campos
     def edit(self, index: QModelIndex):
+        """Insere dados da table widget para os campos"""
         row = index.row()
         id_bitola = self.table_widget.item(row, 0).text()
 
@@ -57,8 +60,8 @@ class TableWidgetHandler(ABC):
         self._ID_register = int(id_bitola)
         self.remove_button.setDisabled(False)
 
-    # Remove registros da table widget
     def remove(self):
+        """Remove registros da table widget"""
         if not self.table_widget.selectedIndexes():
             return
 
@@ -70,8 +73,8 @@ class TableWidgetHandler(ABC):
         self._ID_register = -1
         self.remove_button.setDisabled(True)
 
-    # Remove todas as linhas da table widget
     def remove_rows(self):
+        """Remove todas as linhas da table widget"""
         for _ in range(self.table_widget.rowCount()):
             self.table_widget.removeRow(0)
 
@@ -79,6 +82,8 @@ class TableWidgetHandler(ABC):
 # Handler para interagir com a table widget da página de ciclos
 class CycleTableWidgetHandler(TableWidgetHandler):
     def add(self):
+        """Adiciona bitolas ao QTableWidget na página Ciclos."""
+
         # Verifica se há campos em branco
         if not check_empty_fields(self.fields):
             Message.warning(self.parent, 'ATENÇÃO', 'Preencha os campos obrigatórios!')
@@ -131,6 +136,13 @@ class CycleTableWidgetHandler(TableWidgetHandler):
         self._ID_register = -1
 
     def remove(self):
+        """
+        Remove bitola da QTableWidget
+
+        Essa função precisa ser sobreposta porque ao remover um item da QTableWidget enquanto estivermos em
+        modo de edição, ou seja, com um ID_register != -1 será necessário apagar esse registro do banco de dados
+        imediatamente. Isso vai evitar equívocos do usuário acabar removendo ou alterando um registro sem perceber.
+        """
         if self._ID_register != -1:
             if self.table_widget.rowCount() == 1:
                 Message.warning(self.parent, 'ATENÇÃO', 'Ao menos uma bitola deve ser especificada!')
@@ -144,6 +156,11 @@ class CycleTableWidgetHandler(TableWidgetHandler):
                 return
 
             database: DatabaseConnection = self.parent.database
+
+            if database.connection_state != DatabaseConnection.State.CONNECTED:
+                Message.critical(self.parent, 'CRÍTICO', 'Sem conexão com o banco de dados!')
+                return
+
             database.delete(table='bitola', clause=f'WHERE bitola_id LIKE {self._ID_register}')
 
             self.parent.refresh_data()
@@ -152,8 +169,9 @@ class CycleTableWidgetHandler(TableWidgetHandler):
         super().remove()
 
 
-# Handler para interagir com a table widget da página de nfe
 class NfeTableWidgetHandler(TableWidgetHandler):
+    """Handler para interagir com a table widget da página de nfe"""
+
     def __init__(
             self,
             parent,
@@ -168,6 +186,8 @@ class NfeTableWidgetHandler(TableWidgetHandler):
         self.optional_fields = optional_fields
 
     def add(self):
+        """Adiciona bitolas ao QTableWidget na página Nfe."""
+
         # Remove os campos opcionais
         fields = list(filter(lambda x: x not in self.optional_fields, self.fields))
 

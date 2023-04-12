@@ -1,3 +1,5 @@
+"""Funções de formatação e parsing."""
+
 from datetime import datetime
 
 from . import DateMinMax

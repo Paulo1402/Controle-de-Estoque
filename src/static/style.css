@@ -1,16 +1,21 @@
+html {
+  font-family: Roboto;
+}
+
+img {
+  max-width: 1050px;
+}
+
 .warning {
   border: 1px solid black;
   padding: 10px;
   background-color: red;
   color: white;
+  text-align: center;
+  font-weight: bold;
 }
 
 .directory {
   background-color: lightgray;
   font-style: italic;
-}
-
-main {
-  display: flex;
-  flex-direction: column;
 }

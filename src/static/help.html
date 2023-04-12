@@ -1,228 +1,261 @@
 <!DOCTYPE html>
 <html lang="pt-br">
-  <head>
-    <meta charset="UTF-8" />
+<head>
+    <meta charset="UTF-8"/>
     <meta
-      name="viewport"
-      content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"
+            name="viewport"
+            content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"
     />
-    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <link rel="icon" type="image/ico" href="./assets/icon.ico" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge"/>
+    <link rel="icon" type="image/ico" href="./assets/icon.ico"/>
     <title>AJUDA</title>
-    <link rel="stylesheet" href="style.css" />
-  </head>
-  <body>
-    <main>
-      <h1>Controle de Madeira Tratada</h1>
+    <link rel="stylesheet" href="style.css"/>
+    <link rel="preconnect" href="https://fonts.googleapis.com"/>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+    <link
+            href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,400;0,700;1,400&display=swap"
+            rel="stylesheet"
+    />
+</head>
+<body>
+<main>
+    <h1>Controle de Madeira Tratada</h1>
 
-      <nav>
+    <nav>
         <h2>Tópicos</h2>
         <ul>
-          <li><a href="#start">Configurações Iniciais</a></li>
-          <li><a href="#skids">Constante Skids</a></li>
-          <li><a href="#theme">Temas</a></li>
-          <li><a href="#backup">Backup</a></li>
-          <li><a href="#import-backup">Importar Backup</a></li>
-          <li><a href="#shortcuts">Atalhos</a></li>
+            <li><a href="#start">Configurações Iniciais</a></li>
+            <li><a href="#skids">Constante Skids</a></li>
+            <li><a href="#theme">Temas</a></li>
+            <li><a href="#backup">Backup</a></li>
+            <li><a href="#import-backup">Importar Backup</a></li>
+            <li><a href="#shortcuts">Atalhos</a></li>
         </ul>
-      </nav>
+    </nav>
 
-      <section id="start">
+    <section id="start">
         <h2>Configurações iniciais</h2>
         <p>
-          Ao iniciar o aplicativo pela primeira vez será necessário configurar
-          uma base de dados. O banco de dados usado é uma arquivo SQLite, basta
-          interagir com a janela para prosseguir.
-        </p>
-
-        <img src="./assets/config-db.png" alt="configurar banco de dados" />
-
-        <p>
-          Você pode selecionar a localização de um banco já existente ou criar
-          um novo. Caso venha a cancelar a interação antes de configurar o banco
-          você pode abrir a janela novamente clicando em <span class="directory">"Configurações/Banco de
-            Dados/Configurar"</span> no menu superior.
+            Ao iniciar o aplicativo pela primeira vez será necessário configurar
+            uma base de dados.
         </p>
 
         <p>
-          É possível alterar a qualquer momento as configurações de frequência e
-          quantidade máxima de backups. Veja mais sobre o sistema de backup
-          clicando <a href="#backup">aqui</a>.
+            O banco de dados usado é uma arquivo SQLite, basta interagir com a
+            janela para prosseguir.
+        </p>
+
+        <img src="./assets/config-db.png" alt="configurar banco de dados"/>
+
+        <p>
+            Caso venha a cancelar a interação antes de configurar o banco você
+            pode abrir a janela novamente clicando em
+            <span class="directory"
+            >"Configurações/Banco de Dados/Configurar"</span
+            >
+            no menu superior.
+        </p>
+
+        <p>
+            Você pode selecionar a localização de um banco já existente ou criar
+            um novo.
+        </p>
+
+        <p>
+            É possível alterar a qualquer momento as configurações de frequência e
+            quantidade máxima de backups. Veja mais sobre o sistema de backup
+            clicando <a href="#backup">aqui</a>.
         </p>
 
         <p class="warning">
-          É ACONSELHÁVEL CRIAR O BANCO DE DADOS EM UM LUGAR
-          SEPARADO DA INSTALAÇÃO DO APLICATIVO, DESSA FORMA EVITÁRA PERCA DOS
-          DADOS CASO VENHA INSTALAR UMA VERSÃO MAIS ATUALIZADA DO PROGRAMA.
+            É ACONSELHÁVEL CRIAR O BANCO DE DADOS EM UM LUGAR SEPARADO DA
+            INSTALAÇÃO DO APLICATIVO, DESSA FORMA EVITÁRA A PERCA DOS DADOS CASO
+            VENHA INSTALAR UMA VERSÃO MAIS ATUALIZADA DO PROGRAMA.
         </p>
-      </section>
+    </section>
 
-      <section id="skids">
+    <section id="skids">
         <h2>Constante Skids</h2>
 
         <p>
-          É estatisticamente impossível calcular com exatidão o volume dos
-          pezinhos gastos por carga. Portanto é usado um algoritmo artificial
-          para simular esse cálculo.
+            É estatisticamente impossível calcular com exatidão o volume dos
+            pezinhos gastos por carga. Portanto é usado um algoritmo artificial
+            para simular esse cálculo.
         </p>
 
         <p>
-          O programa utiliza o seguinte algoritmo para calcular o valor e
-          debitar do estoque de pezinhos para cada registro de Nfe:
+            O programa utiliza o seguinte algoritmo para calcular o valor e
+            debitar do estoque de pezinhos para cada registro de Nfe:
         </p>
+
+        <ul>
+            <li>
+                <p>
+                    Caso o ciclo em questão tenha apenas uma bitola: A quantidade de
+                    fardos é multiplicada pela constante de skids curto e somada a quantidade
+                    de fardos multiplicada pela constante de skids longo.
+                </p>
+            </li>
+
+            <li>
+                <p>
+                    Caso o ciclo tenha duas ou mais bitolas: a bitola com maior volume
+                    é usada como skid curto e as demais bitolas são usadas como skids
+                    longos, ambas são multiplicadas pela quantidade de fardos.
+                </p>
+            </li>
+        </ul>
 
         <p>
-          Caso o ciclo em questão tenha apenas uma bitola: A quantidade de
-          fardos é multiplicada pela constante de skids curto + a quantidade de
-          fardos multiplicada pela constante de skids longo.
+            Essas constantes já vem configuradas com um valor padrão, mas é
+            possível alterar-las acessando
+            <span class="directory">"Configurações/Pezinhos (HT)"</span> e setando
+            os valores desejados.
         </p>
 
-        <p>
-          Caso o ciclo tenha duas ou mais bitolas: a bitola com maior volume é
-          usada como skid curto e as demais bitolas são usadas como skids
-          longos, ambas são multiplicadas pela quantidade de fardos.
-        </p>
+        <img src="./assets/skids_constants.png" alt="Constantes de Skids"/>
+    </section>
 
-        <p>
-          Essas constantes já vem configuradas com um valor padrão mas é
-          possível alterar-las acessando <span class="directory">"Configurações/Pezinhos (HT)"</span> e setando
-          os valores desejados.
-        </p>
-
-        <img src="./assets/skids_constants.png" alt="Constantes de Skids" />
-      </section>
-
-      <section id="theme">
+    <section id="theme">
         <h2>Temas</h2>
 
         <p>
-          O aplicativo possui suporte tanto para dark theme quanto para light
-          theme, basta acessar <span class="directory">"Configurações/Tema"</span> e selecionar o seu
-          preferido.
+            O aplicativo possui suporte tanto para dark theme quanto para light
+            theme, basta acessar
+            <span class="directory">"Configurações/Tema"</span> e selecionar o seu
+            preferido.
         </p>
 
-        <img src="./assets/theme.png" alt="Temas" />
-      </section>
+        <img src="./assets/theme.png" alt="Temas"/>
+    </section>
 
-      <section id="backup">
+    <section id="backup">
         <h2>Backup</h2>
 
         <p>
-          O backup é feito automaticamente de acordo com a frequência
-          configurada.
+            O backup é feito automaticamente de acordo com a frequência
+            configurada.
         </p>
         <p>
-          No diretório do banco de dados é criado uma pasta chamada de "backups"
-          juntamente com um arquivo "config.json" dentro dela. Todos os dados
-          são exportados em arquivos CSV e organizados na seguinte estrutura:
+            No diretório do banco de dados é criado uma pasta chamada de "backups"
+            juntamente com um arquivo "config.json" dentro dela. Todos os dados
+            são exportados em arquivos CSV e organizados na seguinte estrutura:
         </p>
 
-        <img src="./assets/backup-structure.png" alt="Estrutura do backup" />
+        <img src="./assets/backup-structure.png" alt="Estrutura do backup"/>
 
         <p>
-          Sendo "04-2023" referente a mês 4 de 2023 e "11" sendo o dia do backup
-          em questão.
+            Sendo "04-2023" referente a mês 4 de 2023 e "11" sendo o dia do backup
+            em questão.
         </p>
 
         <p>
-          Quando a quantidade de backups for superior a quantidade máxima
-          configurada pelo usuário o backup mais antigo é removido
-          automaticamente
+            Quando a quantidade de backups for superior à quantidade máxima
+            configurada pelo usuário, o backup mais antigo é removido
+            automaticamente.
         </p>
 
         <p class="warning">
-          ACONSELHÁVEL NÃO MODIFICAR NENHUM DOS ARQUIVOS GERADOS PELO SISTEMA DE
-          BACKUP!
+            É ACONSELHÁVEL NÃO MODIFICAR NENHUM DOS ARQUIVOS GERADOS PELO SISTEMA
+            DE BACKUP!
         </p>
-      </section>
+    </section>
 
-      <section id="import-backup">
+    <section id="import-backup">
         <h2>Importar Backup</h2>
 
         <p>
-          A partir dos backups gerados pelo sistema de backup é possível
-          importa-los novamente para dentro do programa.
+            A partir dos backups gerados pelo sistema de backup é possível
+            importa-los novamente para dentro do programa.
         </p>
 
         <p>
-          Basta acessar <span class="directory">"Configurações/Banco de Dados/Importar Backup"</span> no menu
-          superior e informar o diretório da fonte (O último diretório antes dos
-          arquivos CSV).
+            Basta acessar
+            <span class="directory"
+            >"Configurações/Banco de Dados/Importar Backup"</span
+            >
+            no menu superior e informar o diretório da fonte (O último diretório
+            antes dos arquivos CSV).
         </p>
 
-        <img src="./assets/import-backup.png" alt="Importar backup." />
+        <img src="./assets/import-backup.png" alt="Importar backup."/>
 
         <p>
-          Uma vez inciado o sistema irá para cada uma das tabelas deletar todos
-          os dados atuais e substituir pelos dados armazenados nos arquivos de
-          backup. Portanto prossiga apenas se tiver certeza do que está fazendo.
+            Uma vez iniciado, o sistema irá para cada uma das tabelas deletar todos
+            os dados atuais e substituir pelos dados armazenados nos arquivos de
+            backup.
         </p>
 
         <p class="warning">
-          IMPORTE APENAS ARQUIVOS GERADOS PELO PRÓPRIO SISTEMA DE BACKUP! O
-          APLICATIVO UTILIZA TABELAS RELACIONADAS PARA ARMAZENAR OS DADOS
-          PORTANTO SE HOUVER ALGUM ERRO DURANTE A IMPORTAÇÃO DO BACKUP TODO O PROGRAMA PODE FICAR COMPROMETIDO ATÉ QUE UM BACKUP VÁLIDO SEJA IMPORTADO.
+            IMPORTE APENAS ARQUIVOS GERADOS PELO PRÓPRIO SISTEMA DE BACKUP!
         </p>
-      </section>
 
-      <section id="shortcuts">
+        <p class="warning">
+            O APLICATIVO UTILIZA TABELAS RELACIONADAS PARA ARMAZENAR OS DADOS
+            PORTANTO SE HOUVER ALGUM ERRO DURANTE A IMPORTAÇÃO DO BACKUP TODO O
+            PROGRAMA PODE FICAR COMPROMETIDO ATÉ QUE UM BACKUP VÁLIDO SEJA
+            IMPORTADO.
+        </p>
+    </section>
+
+    <section id="shortcuts">
         <h2>Atalhos</h2>
         <div>
-          <h3>Menu</h3>
-          <ul>
-            <li>Menu Ciclos - Ctrl + 1</li>
-            <li>Menu Nfe - Ctrl + 2</li>
-            <li>Menu Estoque - Ctrl + 3</li>
-            <li>Menu Estufas - Ctrl + 4</li>
-            <li>Menu Clientes - Ctrl + 5</li>
-            <li>Menu Sair - Ctrl + 6</li>
-          </ul>
+            <h3>Menu</h3>
+            <ul>
+                <li>Menu Ciclos - Ctrl + 1</li>
+                <li>Menu Nfe - Ctrl + 2</li>
+                <li>Menu Estoque - Ctrl + 3</li>
+                <li>Menu Estufas - Ctrl + 4</li>
+                <li>Menu Clientes - Ctrl + 5</li>
+                <li>Menu Sair - Ctrl + 6</li>
+            </ul>
         </div>
 
         <div>
-          <h3>Página Ciclos</h3>
-          <ul>
-            <h4>Ciclos</h4>
-            <li>Novo Ciclo - Ctrl + N</li>
-            <li>Salvar Ciclo - Ctrl + S</li>
-            <li>Deletar Ciclo - Ctrl + D</li>
-            <li>Adicionar Bitola- Ctrl + A</li>
-            <li>Remover Bitola - Ctrl + R</li>
+            <h3>Página Ciclos</h3>
+            <ul>
+                <h4>Ciclos</h4>
+                <li>Novo Ciclo - Ctrl + N</li>
+                <li>Salvar Ciclo - Ctrl + S</li>
+                <li>Deletar Ciclo - Ctrl + D</li>
+                <li>Adicionar Bitola- Ctrl + A</li>
+                <li>Remover Bitola - Ctrl + R</li>
 
-            <h4>Histórico</h4>
-            <li>Pesquisar - Ctrl + P</li>
-            <li>Limpar - Ctrl + L</li>
-            <li>Editar - Ctrl + E</li>
-          </ul>
+                <h4>Histórico</h4>
+                <li>Pesquisar - Ctrl + P</li>
+                <li>Limpar - Ctrl + L</li>
+                <li>Editar - Ctrl + E</li>
+            </ul>
         </div>
 
         <div>
-          <h3>Página Nfe</h3>
-          <ul>
-            <h4>Nfe</h4>
-            <li>Nova Nfe - Ctrl + N</li>
-            <li>Salvar Nfe - Ctrl + S</li>
-            <li>Deletar Nfe - Ctrl + D</li>
-            <li>Adicionar Bitola- Ctrl + A</li>
-            <li>Remover Bitola - Ctrl + R</li>
+            <h3>Página Nfe</h3>
+            <ul>
+                <h4>Nfe</h4>
+                <li>Nova Nfe - Ctrl + N</li>
+                <li>Salvar Nfe - Ctrl + S</li>
+                <li>Deletar Nfe - Ctrl + D</li>
+                <li>Adicionar Bitola- Ctrl + A</li>
+                <li>Remover Bitola - Ctrl + R</li>
 
-            <h4>Histórico</h4>
-            <li>Pesquisar - Ctrl + P</li>
-            <li>Limpar - Ctrl + L</li>
-            <li>Editar - Ctrl + E</li>
-          </ul>
+                <h4>Histórico</h4>
+                <li>Pesquisar - Ctrl + P</li>
+                <li>Limpar - Ctrl + L</li>
+                <li>Editar - Ctrl + E</li>
+            </ul>
         </div>
 
         <div>
-          <h3>Página Estoque</h3>
-          <ul>
-            <li>Baixar Nfe - Ctrl + B</li>
-            <li>Baixar Mercado Interno (Resíduo) - Ctrl + M</li>
-            <li>Pesquisar - Ctrl + P</li>
-            <li>Limpar - Ctrl + L</li>
-          </ul>
+            <h3>Página Estoque</h3>
+            <ul>
+                <li>Baixar Nfe - Ctrl + B</li>
+                <li>Baixar Mercado Interno (Resíduo) - Ctrl + M</li>
+                <li>Pesquisar - Ctrl + P</li>
+                <li>Limpar - Ctrl + L</li>
+            </ul>
         </div>
-      </section>
-    </main>
-  </body>
+    </section>
+</main>
+</body>
 </html>

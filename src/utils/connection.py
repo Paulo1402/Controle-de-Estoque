@@ -1,3 +1,5 @@
+"""Conexão e manipulação do banco de dados."""
+
 import os
 from enum import Enum
 
@@ -6,21 +8,22 @@ from PySide6.QtSql import QSqlDatabase, QSqlQuery
 from . import get_config, ConfigSection
 
 
-# Exceção lançada ao falhar uma query
 class QueryError(Exception):
+    """Exceção lançada ao falhar uma query"""
+
     def __init__(self, query):
         self.query = query
 
 
-# Estados de conexão com o banco de dados
 class DatabaseState(Enum):
+    """Estados de conexão com o banco de dados"""
     CONNECTED = 1
     NO_DATABASE = 2
     DATABASE_NOT_FOUND = 3
 
 
-# Classe responsável por manter a conexão com o banco de dados
 class DatabaseConnection:
+    """Classe responsável por manter a conexão com o banco de dados"""
     State: DatabaseState = DatabaseState
 
     def __init__(self):
@@ -35,8 +38,8 @@ class DatabaseConnection:
     def connection_state(self):
         return self._connection_state
 
-    # Verifica se a localização do arquivo pode ser encontrada
     def check_location(self, path: str) -> bool:
+        """Verifica se a localização do arquivo pode ser encontrada"""
         if not path:
             self._connection_state = DatabaseState.NO_DATABASE
             return False
@@ -47,8 +50,8 @@ class DatabaseConnection:
 
         return True
 
-    # Tenta se conectar ao banco de dados
     def connect(self):
+        """Tenta se conectar ao banco de dados"""
         config = get_config(ConfigSection.DATABASE)
         db = config['name']
 
@@ -66,13 +69,13 @@ class DatabaseConnection:
             self.create_tables()
             self.create_temp_table()
 
-    # Desconecta conexão caso esteja conectada
     def disconnect(self):
+        """Desconecta conexão caso esteja conectada"""
         if self._connection and self._connection.isOpen():
             self._connection.close()
 
-    # Cria tabelas caso não exista
     def create_tables(self):
+        """Cria tabelas caso não exista"""
         query = QSqlQuery(self._connection)
 
         query.exec("PRAGMA foreign_keys = ON")
@@ -201,8 +204,13 @@ class DatabaseConnection:
             """
         )
 
-    # Cria registro em uma tabela
     def create(self, table: str, fields: dict):
+        """
+        Cria registro em uma tabela.
+
+        :param table: Nome da tabela
+        :param fields: Campos no formato key: value
+        """
         query = QSqlQuery(self._connection)
 
         query.prepare(
@@ -218,8 +226,17 @@ class DatabaseConnection:
         if not query.exec():
             raise QueryError(f'Failed execution on query expression: {query.lastQuery()}')
 
-    # Lê registros em uma tabela e retorna o objeto com os resultados
     def read(self, table: str, fields: list[str], clause: str = '', values: list = None, distinct=False) -> QSqlQuery:
+        """
+        Lê registros em uma tabela e retorna o objeto com os resultados.
+
+        :param table: Nome da tabela
+        :param fields: Lista com o nome dos campos
+        :param clause: Cláusula para filtrar, ordenar ou agrupar
+        :param values: Lista de valores para substituir placeholders
+        :param distinct: Realizar a query com registros únicos ou não
+        :return: Objeto contendo a query em questão
+        """
         query = QSqlQuery(self._connection)
 
         query.prepare(
@@ -238,8 +255,18 @@ class DatabaseConnection:
 
         return query
 
-    # Atualiza registros em uma tabela
-    def update(self, table: str, fields: dict, clause: str):
+    def update(self, table: str, fields: dict, clause: str, force=False):
+        """
+        Atualiza registros em uma tabela.
+
+        :param table: Nome da tabela
+        :param fields: Campos no formato key: value
+        :param clause: Cláusula para filtrar
+        :param force: Forçar update sem clause
+        """
+        if 'WHERE' not in clause and not force:
+            raise QueryError(f'Update statement without WHERE clause')
+
         query = QSqlQuery(self._connection)
 
         query.prepare(
@@ -256,9 +283,16 @@ class DatabaseConnection:
         if not query.exec():
             raise QueryError(f'Failed execution on query expression: {query.lastQuery()}')
 
-    # Deleta registros em uma tabela
-    def delete(self, table: str, clause: str, force: bool = False):
-        if not clause and not force:
+    def delete(self, table: str, clause: str, force=False):
+        """
+        Deleta registros em uma tabela.
+
+        :param table: Nome da tabela
+        :param clause: Cláusula para filtrar
+        :param force: Forçar delete sem clause
+        :return:
+        """
+        if 'WHERE' not in clause and not force:
             raise QueryError(f'Delete statement without WHERE clause')
 
         query = QSqlQuery(self._connection)
@@ -274,6 +308,14 @@ class DatabaseConnection:
             raise QueryError(f'Failed execution on query expression: {query.lastQuery()}')
 
     def is_unique(self, table: str, field: str, key: str) -> bool:
+        """
+        Retorna se o registro enviado é único na tabela.
+
+        :param table: Nome da tabela
+        :param field: Nome do campo
+        :param key: Valor do campo
+        :return: True se o valor for único, do contrário False
+        """
         query = QSqlQuery(self._connection)
 
         query.prepare(
@@ -293,6 +335,12 @@ class DatabaseConnection:
         return not bool(query.value(0))
 
     def get_stock(self, bitola_id: int) -> float:
+        """
+        Retorna estoque da bitola enviada.
+
+        :param bitola_id: Id da bitola
+        :return: Quantidade em estoque
+        """
         query = QSqlQuery(self._connection)
 
         query.prepare(
@@ -312,6 +360,11 @@ class DatabaseConnection:
         return query.value(0)
 
     def reset_sequence(self, table: str):
+        """
+        Reseta o histórico da primary key da tabela enviada.
+
+        :param table: Nome da tabela
+        """
         query = QSqlQuery(self._connection)
 
         query.prepare('''
@@ -324,6 +377,11 @@ class DatabaseConnection:
             raise QueryError(f'Failed execution on query expression: {query.lastQuery()}')
 
     def create_temp_table(self):
+        """
+        Cria tabelas temporárias.
+
+        Cria view e a tabela estoque para consultas ao longo do programa.
+        """
         query = QSqlQuery(self._connection)
 
         query.exec('DROP VIEW IF EXISTS resumo')

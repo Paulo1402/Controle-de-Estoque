@@ -1,3 +1,5 @@
+"""Custom models para manipular exibição de dados."""
+
 from PySide6.QtSql import QSqlQueryModel
 from PySide6.QtCore import QModelIndex, Qt
 
