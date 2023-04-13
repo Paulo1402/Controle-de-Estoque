@@ -28,27 +28,9 @@ class DatabaseConnection:
 
     def __init__(self):
         self._connection: QSqlDatabase | None = None
-        self._connection_state: DatabaseState = DatabaseState.NO_DATABASE
 
-    @property
-    def connection(self):
-        return self._connection
-
-    @property
-    def connection_state(self):
-        return self._connection_state
-
-    def check_location(self, path: str) -> bool:
-        """Verifica se a localização do arquivo pode ser encontrada"""
-        if not path:
-            self._connection_state = DatabaseState.NO_DATABASE
-            return False
-
-        if not os.path.exists(path):
-            self._connection_state = DatabaseState.DATABASE_NOT_FOUND
-            return False
-
-        return True
+        self.connection_state: DatabaseState = DatabaseState.NO_DATABASE
+        self.location = ''
 
     def connect(self):
         """Tenta se conectar ao banco de dados"""
@@ -60,11 +42,13 @@ class DatabaseConnection:
             self._connection = None
             return
 
+        self.location = db
+
         self._connection = QSqlDatabase.addDatabase('QSQLITE')
         self._connection.setDatabaseName(db)
 
         if self._connection.open():
-            self._connection_state = DatabaseState.CONNECTED
+            self.connection_state = DatabaseState.CONNECTED
 
             self.create_tables()
             self.create_temp_table()
@@ -73,6 +57,18 @@ class DatabaseConnection:
         """Desconecta conexão caso esteja conectada"""
         if self._connection and self._connection.isOpen():
             self._connection.close()
+
+    def check_location(self, path: str) -> bool:
+        """Verifica se a localização do arquivo pode ser encontrada"""
+        if not path:
+            self.connection_state = DatabaseState.NO_DATABASE
+            return False
+
+        if not os.path.exists(path):
+            self.connection_state = DatabaseState.DATABASE_NOT_FOUND
+            return False
+
+        return True
 
     def create_tables(self):
         """Cria tabelas caso não exista"""
@@ -367,9 +363,12 @@ class DatabaseConnection:
         """
         query = QSqlQuery(self._connection)
 
-        query.prepare('''
-            DELETE FROM sqlite_sequence WHERE name LIKE ?
-        ''')
+        query.prepare(
+            """
+            DELETE FROM sqlite_sequence 
+            WHERE name LIKE ?
+            """
+        )
 
         query.addBindValue(table)
 
@@ -387,39 +386,43 @@ class DatabaseConnection:
         query.exec('DROP VIEW IF EXISTS resumo')
         query.exec('DROP TABLE IF EXISTS estoque')
 
-        query.exec('''
-        CREATE VIEW resumo
-        AS 
-        SELECT
-            bitola.bitola_id,
-            bitola.volume_tratado,
-            IIF(
-                ciclo.finalidade = 'KD', COALESCE(SUM(nfe.volume), 0), 
-                COALESCE(SUM(pezinho.volume), 0)
-            ) AS volume_vendido,
-            COALESCE(residuo.volume, 0) AS residuo
+        query.exec(
+            """
+            CREATE VIEW resumo
+            AS 
+            SELECT
+                bitola.bitola_id,
+                bitola.volume_tratado,
+                IIF(
+                    ciclo.finalidade = 'KD', COALESCE(SUM(nfe.volume), 0), 
+                    COALESCE(SUM(pezinho.volume), 0)
+                ) AS volume_vendido,
+                COALESCE(residuo.volume, 0) AS residuo
+    
+            FROM ciclo
+                LEFT JOIN bitola ON ciclo.ciclo = bitola.ciclo
+                LEFT JOIN pezinho ON bitola.bitola_id = pezinho.bitola_id
+                LEFT JOIN nfe ON bitola.bitola_id = nfe.bitola_id
+                LEFT JOIN residuo ON bitola.bitola_id = residuo.bitola_id
+    
+            GROUP BY bitola.bitola_id
+            """
+        )
 
-        FROM ciclo
-            LEFT JOIN bitola ON ciclo.ciclo = bitola.ciclo
-            LEFT JOIN pezinho ON bitola.bitola_id = pezinho.bitola_id
-            LEFT JOIN nfe ON bitola.bitola_id = nfe.bitola_id
-            LEFT JOIN residuo ON bitola.bitola_id = residuo.bitola_id
-
-        GROUP BY bitola.bitola_id
-        ''')
-
-        query.exec('''
-        CREATE TABLE estoque AS 
-        SELECT 
-            bitola.bitola_id, 
-            bitola.ciclo, 
-            bitola.bitola, 
-            bitola.fardos,
-            ROUND(resumo.volume_tratado, 3) AS volume_tratado,
-            ROUND(resumo.volume_vendido, 3) AS volume_vendido,
-            ROUND(resumo.residuo, 3) AS residuo,
-            ROUND(resumo.volume_tratado - resumo.volume_vendido - resumo.residuo, 3) AS estoque
-
-        FROM bitola
-            LEFT JOIN resumo ON bitola.bitola_id = resumo.bitola_id;
-        ''')
+        query.exec(
+            """
+            CREATE TABLE estoque AS 
+            SELECT 
+                bitola.bitola_id, 
+                bitola.ciclo, 
+                bitola.bitola, 
+                bitola.fardos,
+                ROUND(resumo.volume_tratado, 3) AS volume_tratado,
+                ROUND(resumo.volume_vendido, 3) AS volume_vendido,
+                ROUND(resumo.residuo, 3) AS residuo,
+                ROUND(resumo.volume_tratado - resumo.volume_vendido - resumo.residuo, 3) AS estoque
+    
+            FROM bitola
+                LEFT JOIN resumo ON bitola.bitola_id = resumo.bitola_id;
+            """
+        )

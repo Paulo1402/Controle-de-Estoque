@@ -5,7 +5,7 @@ from abc import ABC, abstractmethod
 from PySide6.QtWidgets import QTableWidget, QPushButton, QLineEdit, QComboBox, QHeaderView, QTableWidgetItem
 from PySide6.QtCore import Qt, QModelIndex
 
-from . import Message, BitolaValidator, VolumeValidator, clear_fields, check_empty_fields
+from . import Message, BitolaValidator, VolumeValidator, clear_fields, check_empty_fields, check_connection
 from services import DatabaseConnection
 
 
@@ -141,32 +141,36 @@ class CycleTableWidgetHandler(TableWidgetHandler):
         Remove bitola da QTableWidget
 
         Essa função precisa ser sobreposta porque ao remover um item da QTableWidget enquanto estivermos em
-        modo de edição, ou seja, com um ID_register != -1 será necessário apagar esse registro do banco de dados
+        modo de edição, ou seja, com ID_register != -1 será necessário apagar esse registro do banco de dados
         imediatamente. Isso vai evitar equívocos do usuário acabar removendo ou alterando um registro sem perceber.
         """
-        if self._ID_register != -1:
+
+        # Worker para lidar com a exclusão da bitola em modo de edição. Essa função precisa ser decorada para checar
+        # a conexão com o banco de dados no momento em que ela for chamada.
+        def delete_bitola(parent):
             if self.table_widget.rowCount() == 1:
-                Message.warning(self.parent, 'ATENÇÃO', 'Ao menos uma bitola deve ser especificada!')
+                Message.warning(parent, 'ATENÇÃO', 'Ao menos uma bitola deve ser especificada!')
                 return
 
             if Message.warning_question(
-                    self.parent,
+                    parent,
                     'Se remover essa bitola todos os registros dependentes dela serão deletados '
                     'também. Deseja continuar?'
             ) == Message.NO:
                 return
 
-            database: DatabaseConnection = self.parent.database
-
-            if database.connection_state != DatabaseConnection.State.CONNECTED:
-                Message.critical(self.parent, 'CRÍTICO', 'Sem conexão com o banco de dados!')
-                return
-
+            database: DatabaseConnection = parent.database
             database.delete(table='bitola', clause=f'WHERE bitola_id LIKE {self._ID_register}')
 
-            self.parent.refresh_data()
-            self.parent.setup_data()
+            parent.refresh_data()
+            parent.setup_data()
 
+        if self._ID_register != -1:
+            # Cria uma nova função usando o decorador check_connection e a executa
+            worker = check_connection(delete_bitola)
+            worker(self.parent)
+
+        # Chama a função original e remove a linha em questão da QTableWidget
         super().remove()
 
 

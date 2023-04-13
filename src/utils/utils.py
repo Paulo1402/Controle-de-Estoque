@@ -1,11 +1,12 @@
 """Classes, enums e namedtuples usadas ao longo do programa."""
+
 import os
 import functools
 import logging
 from enum import Enum
 from typing import Any, NamedTuple
 
-from PySide6.QtCore import QEasingCurve, QPropertyAnimation
+from PySide6.QtCore import QEasingCurve, QPropertyAnimation, QObject, QEvent
 from PySide6.QtWidgets import QMessageBox, QWidget
 
 from . import BASEDIR
@@ -127,23 +128,41 @@ class Logger(logging.Logger):
         self.addHandler(handler)
 
 
+class StatusTipEventFilter(QObject):
+    """Filtro para o evento status tip."""
+
+    def eventFilter(self, watched: QObject, event: QEvent) -> bool:
+        if event.type() == QEvent.Type.StatusTip:
+            return True
+
+        return False
+
+
 class Mode(Enum):
+    """Enum para lidar com modos de interação."""
+
     INSERT = 1
     UPDATE = 2
 
 
 class DateMinMax(Enum):
+    """Enum para a função parse_date."""
+
     MIN = 1
     MAX = 2
 
 
 class ConfigSection(Enum):
+    """Enum para a função get_config e set_config."""
+
     ALL = 1
     APP = 2
     DATABASE = 3
 
 
 class BitolaInfo(NamedTuple):
+    """NamedTuple para armazenar dados de bitolas."""
+
     id: str
     bitola_id: str
     volume: float
@@ -151,6 +170,8 @@ class BitolaInfo(NamedTuple):
 
 
 class OldestBackup(NamedTuple):
+    """NamedTuple para armazenar dados de backup."""
+
     creation: str
     fullname: str
     parent: str

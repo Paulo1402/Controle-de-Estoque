@@ -30,3 +30,6 @@ TABLES = {
     'estufa': ['nome'],
     'cliente': ['nome']
 }
+
+# Tabelas com primary keys automáticas
+AUTO_INCREMENTED_TABLES = ['cliente', 'estufa', 'nfe', 'pezinho', 'residuo']

@@ -204,7 +204,9 @@ def check_connection(func):
     """
 
     def inner(self, *args, **kwargs):
-        if self.database.connection_state != DatabaseConnection.State.CONNECTED:
+        database: DatabaseConnection = self.database
+
+        if not database.check_location(database.location):
             Message.critical(self, 'CRÍTICO', 'Sem conexão com o banco de dados!')
             return
 

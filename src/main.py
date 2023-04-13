@@ -22,16 +22,12 @@ from dialog import *
 # todo FrontEnd
 
 # todo BackEnd
-# Verificar conexão e tratar exceção para todas as chamadas ao banco de dados, alertar usuário.
 
 # todo Refactoring
 
 # todo Testes
-# Verificar encoding dos arquivos de backup, tanto para read quanto para write
 
 # todo Bugs
-# Problemas com a criação dos arquivos de backup, provavelmente devido a encoding.
-# Com dados da seed, aparentemente não está tendo problemas
 
 
 class MainWindow(QMainWindow, Ui_MainWindow):
@@ -161,15 +157,17 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.action_import_backup.triggered.connect(lambda: ImportBackupDialog(self, self.database).show())
         self.action_dark_theme.triggered.connect(lambda: self.handle_theme('dark'))
         self.action_light_theme.triggered.connect(lambda: self.handle_theme('light'))
-
         self.action_help.triggered.connect(lambda: webbrowser.open(HELP))
         self.action_license.triggered.connect(lambda: LicenseDialog(self).show())
+
+        # É necessário suprimir esse evento para não remover a mensagem de edição da status bar
+        # quando o menu bar disparar o evento de hover
+        self.menuBar().installEventFilter(StatusTipEventFilter(self))
 
         # Adiciona widgets a status bar
         status_bar = self.statusBar()
         status_bar.addPermanentWidget(self.backup_label)
         status_bar.addPermanentWidget(self.backup_bar)
-
         self.backup_label.setVisible(False)
         self.backup_bar.setVisible(False)
 

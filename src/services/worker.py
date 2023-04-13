@@ -1,18 +1,19 @@
 """Workers para trabalhar em outras threads."""
 
-import itertools
-import functools
 import csv
-import os
+import functools
+import itertools
 import json
+import os
+import time
 import shutil
 from datetime import datetime
 
 from PySide6.QtCore import QThread, Signal
 from PySide6.QtSql import QSqlQuery
 
+from utils import TABLES, AUTO_INCREMENTED_TABLES, Logger, get_config, ConfigSection, OldestBackup
 from . import DatabaseConnection, QueryError
-from utils import TABLES, Logger, get_config, ConfigSection, OldestBackup
 
 
 class DoBackupWorker(QThread):
@@ -124,7 +125,7 @@ class DoBackupWorker(QThread):
 
             # Cria backup em um arquivo .csv
             self._write_csv(filename, header, query)
-
+            time.sleep(2)
             progress = int((count / len(TABLES)) * 100)
             self.progress.emit(progress)
 
@@ -182,7 +183,7 @@ class ImportBackupWorker(QThread):
     def run(self):
         """Executa tarefa do Worker."""
         expected_files = [f'{t}.csv' for t in TABLES.keys()]
-        files = [f for f in os.listdir(self.source) if f in expected_files]
+        files = [f for f in os.listdir(self.source) if f == expected_files]
 
         # Verifica se todas as tabelas estão no diretório enviado
         if len(files) != len(expected_files):
@@ -223,6 +224,10 @@ class ImportBackupWorker(QThread):
                 # Deleta dados atuais
                 self.database.delete(table=table, clause='', force=True)
 
+                # Zera sequência a tabela possui uma primary key que possa ser zerada
+                if table in AUTO_INCREMENTED_TABLES:
+                    self.database.reset_sequence(table)
+
                 # Pega total de linhas
                 row_count = 1
                 total_rows = functools.reduce(lambda count, _: count + 1, reader_total_rows, 0)
@@ -252,8 +257,7 @@ class ImportBackupWorker(QThread):
 
                     self.error.emit(message)
 
-                    logger = Logger()
-                    logger.error(f'Failed to import backup on line {row_count} from "{file}".')
+                    Logger().error(f'Failed to import backup on line {row_count} from "{file}".')
                     return
 
             # Emite signal de progresso principal
