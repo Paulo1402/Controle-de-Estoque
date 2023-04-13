@@ -14,8 +14,9 @@ from PySide6.QtGui import QIcon, QCloseEvent, QRegularExpressionValidator
 from PySide6.QtCore import QModelIndex, Qt, QRegularExpression, Slot
 
 from ui.MainWindow import Ui_MainWindow
-# from services import *
+from services import *
 from utils import *
+from dialog import *
 
 
 # todo FrontEnd
@@ -24,8 +25,6 @@ from utils import *
 # Verificar conexão e tratar exceção para todas as chamadas ao banco de dados, alertar usuário.
 
 # todo Refactoring
-# Verificar se é necessário decorar com @check_connection funções que alteram o banco de dados
-# Reorganizar código
 
 # todo Testes
 # Verificar encoding dos arquivos de backup, tanto para read quanto para write
@@ -33,6 +32,7 @@ from utils import *
 # todo Bugs
 # Problemas com a criação dos arquivos de backup, provavelmente devido a encoding.
 # Com dados da seed, aparentemente não está tendo problemas
+
 
 class MainWindow(QMainWindow, Ui_MainWindow):
     """Janela principal do aplicativo."""
@@ -1566,8 +1566,11 @@ def exception_hook(*args, **kwargs):
 
 
 if __name__ == "__main__":
-    # Define localização para usar a biblioteca datetime
     locale.setlocale(locale.LC_ALL, 'pt_BR.utf8')
+    sys.excepthook = exception_hook
+
+    if not DEBUG:
+        warnings.filterwarnings("ignore", category=DeprecationWarning)
 
     # Altera id do aplicativo para evitar bugs com o ícone na barra de tarefas
     try:
@@ -1578,17 +1581,6 @@ if __name__ == "__main__":
         windll.shell32.SetCurrentProcessExplicitAppUserModelID(myappid)
     except ImportError:
         pass
-
-    # Desativa warnings durante desenvolvimento
-    DEBUG = False
-
-    if not DEBUG:
-        warnings.filterwarnings("ignore", category=DeprecationWarning)
-
-    # Vincula hook para receber logs durante desenvolvimento
-    sys.excepthook = exception_hook
-
-    logger = Logger()
 
     # noinspection PyBroadException
     try:
@@ -1602,8 +1594,8 @@ if __name__ == "__main__":
         tb = app.exec()
 
         if tb != 0:
-            logger.error(tb)
+            Logger().error(tb)
 
         sys.exit(tb)
     except Exception:
-        logger.exception('')
+        Logger().exception('')

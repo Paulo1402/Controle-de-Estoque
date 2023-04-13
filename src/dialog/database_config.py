@@ -2,7 +2,8 @@ from PySide6.QtWidgets import QDialog, QFileDialog
 from PySide6.QtGui import QCloseEvent
 
 from ui.DatabaseConfigDialog import Ui_Dialog
-from utils import set_config, get_config, ConfigSection, DatabaseConnection
+from utils import set_config, get_config, ConfigSection
+from services import DatabaseConnection
 
 
 class DatabaseConfigDialog(QDialog, Ui_Dialog):

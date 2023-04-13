@@ -1,5 +1,5 @@
-from services.connection import DatabaseConnection, QueryError
-from services.worker import DoBackupWorker, ImportBackupWorker
+from .connection import DatabaseConnection, QueryError
+from .worker import DoBackupWorker, ImportBackupWorker
 
 __all__ = [
     'DatabaseConnection',

@@ -1,6 +1,7 @@
+"""Classes, enums e namedtuples usadas ao longo do programa."""
+import os
 import functools
 import logging
-import os
 from enum import Enum
 from typing import Any, NamedTuple
 

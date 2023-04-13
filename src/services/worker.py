@@ -11,7 +11,8 @@ from datetime import datetime
 from PySide6.QtCore import QThread, Signal
 from PySide6.QtSql import QSqlQuery
 
-from . import TABLES, Logger, get_config, ConfigSection, OldestBackup, DatabaseConnection, QueryError
+from . import DatabaseConnection, QueryError
+from utils import TABLES, Logger, get_config, ConfigSection, OldestBackup
 
 
 class DoBackupWorker(QThread):

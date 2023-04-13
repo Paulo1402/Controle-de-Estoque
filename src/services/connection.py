@@ -11,7 +11,7 @@ from utils import get_config, ConfigSection
 class QueryError(Exception):
     """Exceção lançada ao falhar uma query"""
 
-    def __init__(self, query):
+    def __init__(self, query: str):
         self.query = query
 
 

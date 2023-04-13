@@ -1,10 +1,9 @@
 """Encapsula todos as funções e classes usadas para dentro de um apenas um arquivo."""
 
-from utils.globals import BASEDIR, TABLES, DEFAULT_SHORT_SKIDS, DEFAULT_LONG_SKIDS, HELP
-from utils.utils import Animation, Message, Logger, BitolaInfo, Mode, DateMinMax, ConfigSection, OldestBackup
-from utils.config import get_config, set_config
-from utils.connection import DatabaseConnection, QueryError
-from utils.function import (
+from .globals import BASEDIR, TABLES, DEFAULT_SHORT_SKIDS, DEFAULT_LONG_SKIDS, HELP, DEBUG, DARK_COLOR, LIGHT_COLOR
+from .utils import Animation, Message, Logger, BitolaInfo, Mode, DateMinMax, ConfigSection, OldestBackup
+from .config import get_config, set_config
+from .function import (
     clear_fields,
     check_empty_fields,
     get_skids_volume,
@@ -14,12 +13,10 @@ from utils.function import (
     get_today,
     check_connection
 )
-from utils.parse import parse_date, from_float_to_volume, from_volume_to_float
-from utils.model import TableModel, ListModel
-from utils.validator import BitolaValidator, VolumeValidator, DateValidator
-from utils.handler import TableWidgetHandler, CycleTableWidgetHandler, NfeTableWidgetHandler
-from utils.worker import ImportBackupWorker, DoBackupWorker
-from utils.dialog import *
+from .parse import parse_date, from_float_to_volume, from_volume_to_float
+from .model import TableModel, ListModel
+from .validator import BitolaValidator, VolumeValidator, DateValidator
+from .handler import TableWidgetHandler, CycleTableWidgetHandler, NfeTableWidgetHandler
 
 __all__ = [
     'BASEDIR',
@@ -27,19 +24,10 @@ __all__ = [
     'DEFAULT_SHORT_SKIDS',
     'HELP',
     'TABLES',
-    'DatabaseConnection',
-    'QueryError',
-    'SkidsConfigDialog',
-    'DatabaseConfigDialog',
-    'LicenseDialog',
-    'CalendarDialog',
-    'ImportBackupDialog',
-    'GenericDialog',
+    'DEBUG',
     'TableWidgetHandler',
     'NfeTableWidgetHandler',
     'CycleTableWidgetHandler',
-    'ImportBackupWorker',
-    'DoBackupWorker',
     'BitolaValidator',
     'VolumeValidator',
     'DateValidator',

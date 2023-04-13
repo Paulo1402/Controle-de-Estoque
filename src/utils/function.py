@@ -5,7 +5,8 @@ from datetime import datetime
 import qdarktheme
 from PySide6.QtWidgets import QLineEdit, QComboBox
 
-from . import get_config, ConfigSection, Message, DatabaseConnection
+from . import get_config, ConfigSection, Message, DARK_COLOR, LIGHT_COLOR
+from services import DatabaseConnection
 
 
 def get_skids_volume(n_bitola_skids: int, packs: int) -> list[float]:
@@ -178,10 +179,10 @@ def load_theme(theme: str):
 
     custom_colors = {
         '[dark]': {
-            'primary': '#f4d1ae'
+            'primary': DARK_COLOR
         },
         '[light]': {
-            'primary': '#12263a'
+            'primary': LIGHT_COLOR
         }
     }
 
@@ -202,11 +203,11 @@ def check_connection(func):
     :return: Uma nova função para ser executada no lugar da função original
     """
 
-    def inner(self, *_, **__):
+    def inner(self, *args, **kwargs):
         if self.database.connection_state != DatabaseConnection.State.CONNECTED:
             Message.critical(self, 'CRÍTICO', 'Sem conexão com o banco de dados!')
             return
 
-        func(self)
+        func(self, *args, **kwargs)
 
     return inner

@@ -1,16 +1,23 @@
+"""Constantes usadas ao longo do programa."""
 import os
 from pathlib import Path
 
 # Caminho relativo ao main.py
 BASEDIR = Path(__file__).parent.parent
-print('ROOT', BASEDIR, __name__)
 
 # HTML com instruções do aplicativo
 HELP = os.path.join(BASEDIR, 'static', 'help.html')
 
+# Desativa warnings
+DEBUG = False
+
 # Constantes para o cálculo do pezinho
 DEFAULT_LONG_SKIDS = 0.00306
 DEFAULT_SHORT_SKIDS = 0.00405
+
+# Cores dos temas
+DARK_COLOR = '#f4d1ae'
+LIGHT_COLOR = '#346685'
 
 # Tabelas e campos da tabela
 TABLES = {

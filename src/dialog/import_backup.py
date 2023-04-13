@@ -1,7 +1,8 @@
 from PySide6.QtWidgets import QDialog, QFileDialog
 
 from ui.ImportBackupDialog import Ui_Dialog
-from utils import Message, ImportBackupWorker, DatabaseConnection
+from utils import Message
+from services import DatabaseConnection, ImportBackupWorker
 
 
 class ImportBackupDialog(QDialog, Ui_Dialog):

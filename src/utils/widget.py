@@ -6,7 +6,8 @@ Esse módulo é importado em 'ui./MainWindow.py' para aplicar os widgets customi
 from PySide6.QtWidgets import QComboBox, QStackedWidget, QTableWidget, QGraphicsOpacityEffect
 from PySide6.QtCore import QEasingCurve, QRect
 
-from . import CalendarDialog, TableWidgetHandler, Animation
+from . import TableWidgetHandler, Animation
+from dialog import CalendarDialog
 
 
 class CustomComboBox(QComboBox):

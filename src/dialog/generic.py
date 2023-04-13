@@ -5,7 +5,8 @@ from PySide6.QtCore import QModelIndex
 from PySide6.QtGui import QCloseEvent
 
 from ui.GenericDialog import Ui_Dialog
-from utils import Message, ListModel, DatabaseConnection, QueryError
+from utils import Message, ListModel
+from services import DatabaseConnection
 
 
 class GenericDialog(QDialog, Ui_Dialog):

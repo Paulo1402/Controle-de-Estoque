@@ -33,6 +33,9 @@ class Ui_Dialog(object):
         self.horizontalLayout_2.setObjectName(u"horizontalLayout_2")
         self.txt_license = QTextEdit(self.frame)
         self.txt_license.setObjectName(u"txt_license")
+        self.txt_license.setStyleSheet(u"QTextEdit::link {\n"
+"	color: red\n"
+"}")
         self.txt_license.setReadOnly(True)
         self.txt_license.setTextInteractionFlags(Qt.TextBrowserInteraction)
 
@@ -65,6 +68,6 @@ class Ui_Dialog(object):
 "<p align=\"center\" style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><br /></p>\n"
 "<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:10pt; font-weight:700;\">Icons</span></p>\n"
 "<p align=\"cente"
-                        "r\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">Icons8 - <a href=\"https://icons8.com.br\"><span style=\" text-decoration: underline; color:#0000ff;\">https://icons8.com.br</span></a></p></body></html>", None))
+                        "r\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">Icons8 - <a href=\"https://icons8.com.br\"><span style=\" text-decoration: underline; color:#00aaff;\">https://icons8.com.br</span></a></p></body></html>", None))
     # retranslateUi
 

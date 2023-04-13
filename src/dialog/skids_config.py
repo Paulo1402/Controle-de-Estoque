@@ -2,8 +2,8 @@ from PySide6.QtWidgets import QDialog
 from PySide6.QtGui import QCloseEvent
 
 from ui.SkidsConfigDialog import Ui_Dialog
-from utils import Message, get_config, set_config, ConfigSection, DEFAULT_SHORT_SKIDS, DEFAULT_LONG_SKIDS, \
-    DatabaseConnection
+from utils import Message, get_config, set_config, ConfigSection, DEFAULT_SHORT_SKIDS, DEFAULT_LONG_SKIDS
+from services import DatabaseConnection
 
 
 class SkidsConfigDialog(QDialog, Ui_Dialog):
