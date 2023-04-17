@@ -72,6 +72,7 @@ class TableWidgetHandler(ABC):
         clear_fields(self.fields)
 
         self._ID_register = -1
+        self.table_widget.clearSelection()
         self.remove_button.setDisabled(True)
 
     def remove_rows(self):
@@ -147,7 +148,7 @@ class CycleTableWidgetHandler(TableWidgetHandler):
 
         # Worker para lidar com a exclusão da bitola em modo de edição. Essa função precisa ser decorada para checar
         # a conexão com o banco de dados no momento em que ela for chamada.
-        def delete_bitola(parent):
+        def delete_bitola(parent) -> bool:
             if self.table_widget.rowCount() == 1:
                 Message.warning(parent, 'ATENÇÃO', 'Ao menos uma bitola deve ser especificada!')
                 return
@@ -165,10 +166,14 @@ class CycleTableWidgetHandler(TableWidgetHandler):
             parent.refresh_data()
             parent.setup_data()
 
+            return True
+
         if self._ID_register != -1:
             # Cria uma nova função usando o decorador check_connection e a executa
             worker = check_connection(delete_bitola)
-            worker(self.parent)
+
+            if not worker(self.parent):
+                return
 
         # Chama a função original e remove a linha em questão da QTableWidget
         super().remove()

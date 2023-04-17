@@ -4,14 +4,14 @@ import csv
 
 from PySide6.QtSql import QSqlQuery
 
-from src.utils import parse_date, from_volume_to_float
 from src.services import DatabaseConnection
+from src.utils import parse_date, from_volume_to_float
 
 if __name__ == '__main__':
     database = DatabaseConnection()
     database.connect()
 
-    connection = database.connection
+    connection = database._connection
 
     # Deleta conteúdo das tabelas
     QSqlQuery(connection).exec('DELETE FROM ciclo')

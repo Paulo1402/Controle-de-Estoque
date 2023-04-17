@@ -183,7 +183,7 @@ class ImportBackupWorker(QThread):
     def run(self):
         """Executa tarefa do Worker."""
         expected_files = [f'{t}.csv' for t in TABLES.keys()]
-        files = [f for f in os.listdir(self.source) if f == expected_files]
+        files = [f for f in os.listdir(self.source) if f in expected_files]
 
         # Verifica se todas as tabelas estão no diretório enviado
         if len(files) != len(expected_files):
@@ -224,7 +224,7 @@ class ImportBackupWorker(QThread):
                 # Deleta dados atuais
                 self.database.delete(table=table, clause='', force=True)
 
-                # Zera sequência a tabela possui uma primary key que possa ser zerada
+                # Zera sequência da primary key
                 if table in AUTO_INCREMENTED_TABLES:
                     self.database.reset_sequence(table)
 

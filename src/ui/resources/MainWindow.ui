@@ -3387,9 +3387,6 @@ QGroupBox{
          <property name="cursor">
           <cursorShape>PointingHandCursor</cursorShape>
          </property>
-         <property name="toolTip">
-          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; color:#000000;&quot;&gt;Ctrl+1&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-         </property>
          <property name="statusTip">
           <string/>
          </property>
@@ -3422,9 +3419,6 @@ QGroupBox{
          <property name="cursor">
           <cursorShape>PointingHandCursor</cursorShape>
          </property>
-         <property name="toolTip">
-          <string>Ctrl+2</string>
-         </property>
          <property name="text">
           <string> NFE</string>
          </property>
@@ -3453,9 +3447,6 @@ QGroupBox{
          </property>
          <property name="cursor">
           <cursorShape>PointingHandCursor</cursorShape>
-         </property>
-         <property name="toolTip">
-          <string>Ctrl+3</string>
          </property>
          <property name="text">
           <string> ESTOQUE</string>
@@ -3486,9 +3477,6 @@ QGroupBox{
          <property name="cursor">
           <cursorShape>PointingHandCursor</cursorShape>
          </property>
-         <property name="toolTip">
-          <string>Ctrl+4</string>
-         </property>
          <property name="text">
           <string> ESTUFAS</string>
          </property>
@@ -3518,9 +3506,6 @@ QGroupBox{
          <property name="cursor">
           <cursorShape>PointingHandCursor</cursorShape>
          </property>
-         <property name="toolTip">
-          <string>Ctrl+5</string>
-         </property>
          <property name="text">
           <string> CLIENTES</string>
          </property>
@@ -3549,9 +3534,6 @@ QGroupBox{
          </property>
          <property name="cursor">
           <cursorShape>PointingHandCursor</cursorShape>
-         </property>
-         <property name="toolTip">
-          <string>Esc</string>
          </property>
          <property name="text">
           <string> SAIR</string>

@@ -344,4 +344,3 @@ output/
 *.exe
 *.ifp
 dev/database/*
-temp.*

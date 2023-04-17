@@ -30,7 +30,7 @@ class Message(QMessageBox):
     @classmethod
     def warning_question(cls, parent, message: str, default_button=QMessageBox.StandardButton.No) -> int:
         """
-        Cria e executa uma message box de aviso com botões de Sim e Não
+        Cria e executa uma message box de aviso com botões de Sim e Não.
 
         :param parent: Parent
         :param message: Mensagem para exibir
@@ -57,10 +57,10 @@ class Message(QMessageBox):
             default_button: QMessageBox.StandardButton | None = None
     ) -> int:
         """
-        Executa MessageBox
+        Exibe a MessageBox.
 
-        :param title: título do popup
-        :param message: mensagem do popup
+        :param title: Título do popup
+        :param message: Mensagem do popup
         :param icon: Ícone do popup
         :param default_button: Botão padrão
         :return: Resposta do usuário
@@ -140,21 +140,18 @@ class StatusTipEventFilter(QObject):
 
 class Mode(Enum):
     """Enum para lidar com modos de interação."""
-
     INSERT = 1
     UPDATE = 2
 
 
 class DateMinMax(Enum):
     """Enum para a função parse_date."""
-
     MIN = 1
     MAX = 2
 
 
 class ConfigSection(Enum):
     """Enum para a função get_config e set_config."""
-
     ALL = 1
     APP = 2
     DATABASE = 3
@@ -162,16 +159,14 @@ class ConfigSection(Enum):
 
 class BitolaInfo(NamedTuple):
     """NamedTuple para armazenar dados de bitolas."""
-
     id: str
     bitola_id: str
     volume: float
-    rework: str | None = None
+    rework: str = ''
 
 
 class OldestBackup(NamedTuple):
     """NamedTuple para armazenar dados de backup."""
-
     creation: str
     fullname: str
     parent: str
