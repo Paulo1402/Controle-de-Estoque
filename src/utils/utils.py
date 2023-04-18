@@ -9,7 +9,7 @@ from typing import Any, NamedTuple
 from PySide6.QtCore import QEasingCurve, QPropertyAnimation, QObject, QEvent
 from PySide6.QtWidgets import QMessageBox, QWidget
 
-from . import BASEDIR
+from . import APPDATA_DIR
 
 
 class Message(QMessageBox):
@@ -120,7 +120,7 @@ class Logger(logging.Logger):
 
         self.setLevel(logging.WARNING)
 
-        log_file = os.path.join(BASEDIR, 'LOG.log')
+        log_file = os.path.join(APPDATA_DIR, 'LOG.log')
         handler = logging.FileHandler(log_file, mode='a')
         formatter = logging.Formatter('%(asctime)s | %(levelname)s - %(message)s', datefmt='%d/%m/%y %H:%M:%S')
 

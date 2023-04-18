@@ -179,7 +179,7 @@ QGroupBox{
            <enum>QTabWidget::Rounded</enum>
           </property>
           <property name="currentIndex">
-           <number>1</number>
+           <number>0</number>
           </property>
           <property name="elideMode">
            <enum>Qt::ElideLeft</enum>
@@ -695,6 +695,9 @@ QGroupBox{
                      <property name="cursor">
                       <cursorShape>PointingHandCursor</cursorShape>
                      </property>
+                     <property name="toolTip">
+                      <string>ADICIONAR</string>
+                     </property>
                      <property name="text">
                       <string/>
                      </property>
@@ -729,6 +732,9 @@ QGroupBox{
                      </property>
                      <property name="cursor">
                       <cursorShape>PointingHandCursor</cursorShape>
+                     </property>
+                     <property name="toolTip">
+                      <string>REMOVER</string>
                      </property>
                      <property name="text">
                       <string/>
@@ -950,7 +956,7 @@ QGroupBox{
                <string notr="true"/>
               </property>
               <property name="currentIndex">
-               <number>1</number>
+               <number>0</number>
               </property>
               <widget class="QWidget" name="page_cycle_historic">
                <layout class="QVBoxLayout" name="verticalLayout_12">
@@ -1293,6 +1299,9 @@ QGroupBox{
                        <property name="cursor">
                         <cursorShape>PointingHandCursor</cursorShape>
                        </property>
+                       <property name="toolTip">
+                        <string>PESQUISAR</string>
+                       </property>
                        <property name="text">
                         <string/>
                        </property>
@@ -1316,6 +1325,9 @@ QGroupBox{
                        <property name="cursor">
                         <cursorShape>PointingHandCursor</cursorShape>
                        </property>
+                       <property name="toolTip">
+                        <string>LIMPAR</string>
+                       </property>
                        <property name="text">
                         <string/>
                        </property>
@@ -1338,6 +1350,9 @@ QGroupBox{
                       <widget class="QPushButton" name="bt_edit_cycle_history">
                        <property name="cursor">
                         <cursorShape>PointingHandCursor</cursorShape>
+                       </property>
+                       <property name="toolTip">
+                        <string>EDITAR</string>
                        </property>
                        <property name="text">
                         <string/>
@@ -1664,6 +1679,9 @@ QGroupBox{
                     <widget class="QPushButton" name="bt_back_track_history">
                      <property name="cursor">
                       <cursorShape>PointingHandCursor</cursorShape>
+                     </property>
+                     <property name="toolTip">
+                      <string>VOLTAR</string>
                      </property>
                      <property name="text">
                       <string/>
@@ -2334,6 +2352,9 @@ QGroupBox{
                      <property name="cursor">
                       <cursorShape>PointingHandCursor</cursorShape>
                      </property>
+                     <property name="toolTip">
+                      <string>ADICIONAR</string>
+                     </property>
                      <property name="text">
                       <string/>
                      </property>
@@ -2368,6 +2389,9 @@ QGroupBox{
                      </property>
                      <property name="cursor">
                       <cursorShape>PointingHandCursor</cursorShape>
+                     </property>
+                     <property name="toolTip">
+                      <string>REMOVER</string>
                      </property>
                      <property name="text">
                       <string/>
@@ -2788,6 +2812,9 @@ QGroupBox{
                    <property name="cursor">
                     <cursorShape>PointingHandCursor</cursorShape>
                    </property>
+                   <property name="toolTip">
+                    <string>PESQUISAR</string>
+                   </property>
                    <property name="text">
                     <string/>
                    </property>
@@ -2811,6 +2838,9 @@ QGroupBox{
                    <property name="cursor">
                     <cursorShape>PointingHandCursor</cursorShape>
                    </property>
+                   <property name="toolTip">
+                    <string>LIMPAR</string>
+                   </property>
                    <property name="text">
                     <string/>
                    </property>
@@ -2833,6 +2863,9 @@ QGroupBox{
                   <widget class="QPushButton" name="bt_edit_nfe_history">
                    <property name="cursor">
                     <cursorShape>PointingHandCursor</cursorShape>
+                   </property>
+                   <property name="toolTip">
+                    <string>EDITAR</string>
                    </property>
                    <property name="text">
                     <string/>
@@ -3076,6 +3109,9 @@ QGroupBox{
                <property name="cursor">
                 <cursorShape>PointingHandCursor</cursorShape>
                </property>
+               <property name="toolTip">
+                <string>PESQUISAR</string>
+               </property>
                <property name="text">
                 <string/>
                </property>
@@ -3104,6 +3140,9 @@ QGroupBox{
                </property>
                <property name="cursor">
                 <cursorShape>PointingHandCursor</cursorShape>
+               </property>
+               <property name="toolTip">
+                <string>LIMPAR</string>
                </property>
                <property name="text">
                 <string/>

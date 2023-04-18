@@ -3,7 +3,7 @@
 import json
 import os
 
-from . import BASEDIR, DEFAULT_SHORT_SKIDS, DEFAULT_LONG_SKIDS, ConfigSection
+from . import APPDATA_DIR, DEFAULT_SHORT_SKIDS, DEFAULT_LONG_SKIDS, ConfigSection, Logger
 
 
 def get_config(section: ConfigSection = ConfigSection.ALL) -> dict:
@@ -13,7 +13,7 @@ def get_config(section: ConfigSection = ConfigSection.ALL) -> dict:
     :param section: Sessão desejada
     :return: Dicionário com as configurações
     """
-    path = os.path.join(BASEDIR, 'config.json')
+    path = os.path.join(APPDATA_DIR, 'config.json')
 
     # Caso o arquivo não exista ou não possa ser validado, cria um arquivo novo
     try:
@@ -73,15 +73,8 @@ def set_config(config: dict, section: ConfigSection = ConfigSection.ALL):
 
         config = old_config
 
-    path = os.path.join(BASEDIR, 'config.json')
+    path = os.path.join(APPDATA_DIR, 'config.json')
     print('set config', config)
 
-    # Devido bugs durante desenvolvimento, aparentemente é necessário limpar o conteúdo do arquivo antes de abrir-lo
-    # com previlégios
-    with open(path, 'w'):
-        pass
-
-    # Cria um arquivo com permissões para escrita e leitura para o SO não impedir a manipulação após compilado e
-    # instalado na pasta de aplicativos do Windows
-    with open(os.open(path, os.O_RDWR), 'w', encoding='utf8') as f:
+    with open(path, 'w', encoding='utf8') as f:
         f.write(json.dumps(config, indent=4))

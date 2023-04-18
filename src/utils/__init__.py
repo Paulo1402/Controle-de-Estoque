@@ -1,7 +1,7 @@
 """Encapsula todos as funções e classes usadas para dentro de um apenas um arquivo."""
 
-from .globals import (BASEDIR, TABLES, AUTO_INCREMENTED_TABLES, DEFAULT_SHORT_SKIDS, DEFAULT_LONG_SKIDS, HELP, DEBUG,
-                      LIGHT_COLOR, DARK_COLOR)
+from .globals import (BASEDIR, APPDATA_DIR, APP_NAME, TABLES, AUTO_INCREMENTED_TABLES, HELP, DEBUG,
+                      DEFAULT_SHORT_SKIDS, DEFAULT_LONG_SKIDS, LIGHT_COLOR, DARK_COLOR)
 from .utils import Animation, Message, Logger, BitolaInfo, Mode, DateMinMax, ConfigSection, OldestBackup, \
     StatusTipEventFilter
 from .config import get_config, set_config
@@ -14,6 +14,8 @@ from .handler import TableWidgetHandler, CycleTableWidgetHandler, NfeTableWidget
 
 __all__ = [
     'BASEDIR',
+    'APPDATA_DIR',
+    'APP_NAME',
     'DEFAULT_LONG_SKIDS',
     'DEFAULT_SHORT_SKIDS',
     'HELP',

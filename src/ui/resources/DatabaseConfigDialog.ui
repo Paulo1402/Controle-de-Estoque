@@ -220,7 +220,7 @@
          <item>
           <widget class="QGroupBox" name="group_max_backup">
            <property name="toolTip">
-            <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;QUANTIDADE MÁXIMA ARMAZENADA ATÉ OS REGISTROS MAIS ANTIGOS SEREM DELETADOS&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+            <string/>
            </property>
            <property name="title">
             <string>QUANTIDADE MAXÍMA</string>

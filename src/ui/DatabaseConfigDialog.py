@@ -208,7 +208,7 @@ class Ui_Dialog(object):
         self.radio_weekly.setText(QCoreApplication.translate("Dialog", u"SEMANAL", None))
         self.radio_monthly.setText(QCoreApplication.translate("Dialog", u"MENSAL", None))
 #if QT_CONFIG(tooltip)
-        self.group_max_backup.setToolTip(QCoreApplication.translate("Dialog", u"<html><head/><body><p>QUANTIDADE M\u00c1XIMA ARMAZENADA AT\u00c9 OS REGISTROS MAIS ANTIGOS SEREM DELETADOS</p></body></html>", None))
+        self.group_max_backup.setToolTip("")
 #endif // QT_CONFIG(tooltip)
         self.group_max_backup.setTitle(QCoreApplication.translate("Dialog", u"QUANTIDADE MAX\u00cdMA", None))
         self.radio_3.setText(QCoreApplication.translate("Dialog", u"3", None))

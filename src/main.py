@@ -29,7 +29,6 @@ from dialog import *
 
 # todo Bugs
 
-
 class MainWindow(QMainWindow, Ui_MainWindow):
     """Janela principal do aplicativo."""
 
@@ -811,7 +810,6 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
         # Define modo de interação
         mode = Mode.INSERT if self.ID_nfe == -1 else Mode.UPDATE
-        print()
 
         fields = [
             self.cb_date_nfe,
@@ -900,10 +898,6 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
         bitola_list = []
 
-        print(f'{original_bitola_list=}')
-        print(f'{original_skids_list=}')
-        print()
-
         # Verifica estoque das bitolas
         for row in range(self.tw_nfe.rowCount()):
             nfe_id = self.tw_nfe.item(row, 0).text()
@@ -915,14 +909,10 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
             stock = self.database.get_stock(bitola_id)
 
-            print(bitola_id, 'estoque atual:', stock)
-
             # Soma estoque atual com estoque anterior caso esteja em modo de edição
             for bitola_info in original_bitola_list:
                 if bitola_info.bitola_id == bitola_id:
                     stock += bitola_info.volume
-
-            print(bitola_id, 'somando com estoque anterior:', stock)
 
             # Subtrai estoque de bitolas existentes já na tabela
             for bitola_info in bitola_list:
@@ -930,7 +920,6 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     stock -= bitola_info.volume
 
             stock = round(stock, 3)
-            print(bitola_id, 'subtraindo bitolas da tabela:', stock)
 
             if volume > stock:
                 Message.warning(
@@ -944,7 +933,6 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
             bitola_info = BitolaInfo(id=nfe_id, bitola_id=bitola_id, volume=volume, rework=rework)
             bitola_list.append(bitola_info)
-            print()
 
         # Verifica estoque do pezinho
         skids_cycle = fields['ciclo_pezinho']
@@ -973,20 +961,16 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             bitola = query.value(1)
             stock = self.database.get_stock(bitola_id)
 
-            print(bitola_id, 'estoque atual:', stock)
-
             # Soma estoque de pezinho anterior caso esteja em modo de edição
             for bitola_info in original_skids_list:
                 if bitola_info.bitola_id == bitola_id:
                     stock += bitola_info.volume
 
-            print(bitola_id, 'estoque atual + estoque anterior:', stock)
+            stock = round(stock, 3)
 
             skids_data['bitola_id'].append(bitola_id)
             skids_data['bitola'].append(bitola)
             skids_data['stock'].append(stock)
-
-        print()
 
         # Retorna volumes para baixa nos pezinhos
         volumes = get_skids_volume(len(skids_data['bitola_id']), int(fields['fardos']))
@@ -1016,7 +1000,6 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
         # Salva dados para inserir posteriormente
         skids_list = list(zip(skids_data['skids_id'], skids_data['bitola_id'], volumes))
-        print(f'{skids_list=}')
 
         message = 'Deseja {} essa nfe no banco de dados?'
         message = message.format('inserir' if mode == Mode.INSERT else 'editar')
@@ -1045,7 +1028,6 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 }
 
                 new_bitolas.append(nfe_id)
-                print(nfe_id, fields)
 
                 if nfe_id == '-1':
                     self.database.create(table='nfe', fields=fields)
@@ -1055,11 +1037,9 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             # Remove bitolas que foram removidas do registro original
             for bitola_info in original_bitola_list:
                 if bitola_info.id not in new_bitolas:
-                    print('deleting nfe bitola', bitola_info.id)
                     self.database.delete(table='nfe', clause=f'WHERE nfe_id LIKE {bitola_info.id}')
 
             new_skids = []
-            print()
 
             # Insere ou atualiza bitolas de pezinho na tabela de saída de pezinhos
             for skids_id, bitola_id, volume in skids_list:
@@ -1070,7 +1050,6 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 }
 
                 new_skids.append(skids_id)
-                print(skids_id, fields)
 
                 if skids_id == '-1':
                     self.database.create(table='pezinho', fields=fields)
@@ -1080,7 +1059,6 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             # Remove bitolas que foram removidas do registro original
             for bitola_info in original_skids_list:
                 if bitola_info.id not in new_skids:
-                    print('deleting pezinho', bitola_info.id)
                     self.database.delete(table='pezinho', clause=f'WHERE pezinho_id LIKE {bitola_info.id}')
 
             # Avisa usuário e recarrega dados

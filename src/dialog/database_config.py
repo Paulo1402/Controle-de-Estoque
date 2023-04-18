@@ -1,8 +1,11 @@
+import os
+from pathlib import Path
+
 from PySide6.QtWidgets import QDialog, QFileDialog
 from PySide6.QtGui import QCloseEvent
 
 from ui.DatabaseConfigDialog import Ui_Dialog
-from utils import set_config, get_config, ConfigSection
+from utils import set_config, get_config, ConfigSection, Message
 from services import DatabaseConnection
 
 
@@ -14,6 +17,7 @@ class DatabaseConfigDialog(QDialog, Ui_Dialog):
         self.setupUi(self)
 
         self.database = database
+        self.root = str(Path.home())
 
         self.frequency_radios = {
             'no_backups': self.radio_no_backup,
@@ -82,21 +86,36 @@ class DatabaseConfigDialog(QDialog, Ui_Dialog):
         event.accept()
 
     def new_file(self):
-        """Abre caixa de diálogo para criar um arquivo."""
-        path = QFileDialog.getSaveFileName(self, 'Salvar banco de dados', filter='(*.sqlite)')[0]
+        """Abre caixa de diálogo para criar um diretório."""
+
+        path = QFileDialog.getExistingDirectory(self, 'Selecione um diretório para salvar', self.root)
 
         if not path:
             return
 
-        # Cria o arquivo do banco de dados
-        with open(path, 'w', encoding='utf8'):
-            pass
+        path = Path(path)
 
-        self.txt_source.setText(path)
+        if len(os.listdir(path)) > 0:
+            Message.warning(self, 'ATENÇÃO', 'O diretório precisa estar vazio! Crie uma nova pasta nesse local e '
+                                             'a selecione.')
+            return
+
+        try:
+            database = path / 'db.sqlite'
+            backups = path / 'backups'
+
+            database.touch()
+            backups.mkdir()
+        except PermissionError:
+            Message.warning(self, 'ATENÇÃO', 'O diretório especificado possui restrições para escrita! Por favor '
+                                             'selecione outro.')
+            return
+
+        self.txt_source.setText(str(path))
 
     def open_file(self):
         """Abre caixa de diálogo para selecionar um arquivo."""
-        path = QFileDialog.getOpenFileName(self, 'Selecionar banco de dados', filter='(*.sqlite)')[0]
+        path = QFileDialog.getOpenFileName(self, 'Selecionar banco de dados', self.root, filter='(*.sqlite)')[0]
 
         if not path:
             return

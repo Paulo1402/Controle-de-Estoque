@@ -15,7 +15,7 @@
   },
   {
    "optionDest": "console",
-   "value": true
+   "value": false
   },
   {
    "optionDest": "icon_file",
@@ -92,6 +92,7 @@
  ],
  "nonPyinstallerOptions": {
   "increaseRecursionLimit": true,
-  "manualArguments": ""
+  "manualArguments": "",
+   "outputDirectory": "C:/Users/Kamua/OneDrive/Programa\u00e7\u00e3o/Python/Projetos/Controle de Estoque/dist"
  }
 }

@@ -344,3 +344,4 @@ output/
 *.exe
 *.ifp
 dev/database/*
+config.json

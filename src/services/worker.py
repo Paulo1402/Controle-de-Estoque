@@ -5,7 +5,6 @@ import functools
 import itertools
 import json
 import os
-import time
 import shutil
 from datetime import datetime
 
@@ -41,8 +40,6 @@ class DoBackupWorker(QThread):
 
             while query.next():
                 values = [query.value(i) if not query.isNull(i) else None for i in range(len(header))]
-
-                print(filename.split('\\')[-1], values)
                 writer.writerow(values)
 
     def run(self):
@@ -125,7 +122,7 @@ class DoBackupWorker(QThread):
 
             # Cria backup em um arquivo .csv
             self._write_csv(filename, header, query)
-            time.sleep(2)
+
             progress = int((count / len(TABLES)) * 100)
             self.progress.emit(progress)
 
@@ -162,8 +159,6 @@ class DoBackupWorker(QThread):
         # Salva data do último backup
         with open(backup_config_path, 'w', encoding='utf8') as f:
             f.write(json.dumps({"last_backup": last_backup}, indent=4))
-
-        print('finished backup')
 
 
 class ImportBackupWorker(QThread):
@@ -238,7 +233,6 @@ class ImportBackupWorker(QThread):
                         row_count += 1
                         parsed_row = [i if i else None for i in row]
                         fields = {field: value for field, value in list(zip(header, parsed_row))}
-                        print(table, fields)
 
                         self.database.create(
                             table=table,
