@@ -1,6 +1,6 @@
 # Controle de Estoque de Madeira Tratada
 
-Para baixar a versão de distribuição clique [aqui](https://www.google.com). (Apenas para Windows).
+Para baixar a versão de distribuição clique [aqui](https://github.com/Paulo1402/Controle-de-Estoque/releases/download/v1.0.0/installer.exe). (Apenas para Windows).
 
 Com o aplicativo aberto, basta clicar em _Sobre/Ajuda_ no menu superior para abrir um rápido overview no navegador.
 
