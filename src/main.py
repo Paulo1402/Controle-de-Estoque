@@ -364,6 +364,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
         self.tw_cycle.handler.remove_rows()
         clear_fields(fields)
+        fields[0].setFocus()
 
         query = self.database.read(
             table='ciclo',
@@ -372,12 +373,12 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
         query.first()
         last_cycle = query.value(0)
+        query.finish()
 
         if not last_cycle:
             last_cycle = 0
 
         self.txt_cycle_cycle.setText(str(last_cycle + 1))
-        query.finish()
 
         if self.ID_cycle != -1:
             self.load_kilns()
@@ -796,6 +797,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
         self.tw_nfe.handler.remove_rows()
         clear_fields(fields)
+        fields[0].setFocus()
 
         if self.ID_nfe != -1:
             self.load_clients()
@@ -1360,11 +1362,15 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
         # Retorna dados da table view
         cycle = model.index(row, 1).data()
+        finality = model.index(row, 2).data()
         bitola = model.index(row, 3).data()
 
         # Seta dados retornados na página de novo registro
-        self.cb_cycle_nfe.setCurrentText(str(cycle))
-        self.cb_bitola_nfe.setCurrentText(bitola)
+        if finality == 'KD':
+            self.cb_cycle_nfe.setCurrentText(str(cycle))
+            self.cb_bitola_nfe.setCurrentText(bitola)
+        else:
+            self.cb_skids_nfe.setCurrentText(str(cycle))
 
         # Seta ID_nfe como novo registro
         self.bt_nfe_menu.click()
