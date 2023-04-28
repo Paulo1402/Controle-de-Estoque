@@ -44,9 +44,9 @@ class BitolaValidator(QRegularExpressionValidator):
 
     def fixup(self, input_text: str) -> str:
         """
-        Seta auto-format.
+        Seta autoformat.
 
-        Esse método é chamado automaticamente para tentar auto validar um campo quer perdeu o foco e que ainda não
+        Esse método é chamado automaticamente para tentar autovalidar um campo quer perdeu o foco e que ainda não
         foi validado.
 
         :param input_text: Texto de entrada
@@ -96,9 +96,9 @@ class VolumeValidator(QRegularExpressionValidator):
 
     def fixup(self, input_text: str) -> str:
         """
-        Seta auto-format.
+        Seta autoformat.
 
-        Esse método é chamado automaticamente para tentar auto validar um campo quer perdeu o foco e que ainda não
+        Esse método é chamado automaticamente para tentar autovalidar um campo quer perdeu o foco e que ainda não
         foi validado.
 
         :param input_text: Texto de entrada
@@ -145,9 +145,9 @@ class DateValidator(QRegularExpressionValidator):
 
     def fixup(self, input_text: str) -> str:
         """
-        Seta auto-format.
+        Seta autoformat.
 
-        Esse método é chamado automaticamente para tentar auto validar um campo quer perdeu o foco e que ainda não
+        Esse método é chamado automaticamente para tentar autovalidar um campo quer perdeu o foco e que ainda não
         foi validado.
 
         :param input_text: Texto de entrada

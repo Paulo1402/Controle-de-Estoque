@@ -175,6 +175,10 @@ def load_theme(theme: str):
         QGroupBox{
             margin: 0;
         } 
+        
+        QToolTip {
+            color: black;
+        }
     ''' % border_color
 
     custom_colors = {

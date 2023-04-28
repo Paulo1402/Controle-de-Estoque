@@ -3626,7 +3626,7 @@ QGroupBox{
       <string>Banco de dados</string>
      </property>
      <property name="icon">
-      <iconset resource="resource.qrc">
+      <iconset>
        <normaloff>:/icons/assets/db.png</normaloff>:/icons/assets/db.png</iconset>
      </property>
      <addaction name="action_config"/>
@@ -3740,6 +3740,12 @@ QGroupBox{
  </widget>
  <customwidgets>
   <customwidget>
+   <class>CustomStackedWidget</class>
+   <extends>QStackedWidget</extends>
+   <header location="global">utils.widget</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
    <class>CustomComboBox</class>
    <extends>QComboBox</extends>
    <header location="global">utils.widget</header>
@@ -3748,12 +3754,6 @@ QGroupBox{
    <class>CustomTableWidget</class>
    <extends>QTableWidget</extends>
    <header location="global">utils.widget</header>
-  </customwidget>
-  <customwidget>
-   <class>CustomStackedWidget</class>
-   <extends>QStackedWidget</extends>
-   <header location="global">utils.widget</header>
-   <container>1</container>
   </customwidget>
  </customwidgets>
  <tabstops>

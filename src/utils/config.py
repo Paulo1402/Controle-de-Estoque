@@ -3,7 +3,7 @@
 import json
 import os
 
-from . import APPDATA_DIR, DEFAULT_SHORT_SKIDS, DEFAULT_LONG_SKIDS, ConfigSection, Logger
+from . import APPDATA_DIR, DEFAULT_SHORT_SKIDS, DEFAULT_LONG_SKIDS, ConfigSection
 
 
 def get_config(section: ConfigSection = ConfigSection.ALL) -> dict:

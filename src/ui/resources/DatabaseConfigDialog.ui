@@ -88,7 +88,7 @@
           </property>
           <property name="icon">
            <iconset resource="resource.qrc">
-            <normaloff>:/icons/assets/db.png</normaloff>:/icons/assets/db.png</iconset>
+            <normaloff>:/icons/assets/db-32.png</normaloff>:/icons/assets/db-32.png</iconset>
           </property>
           <property name="iconSize">
            <size>
@@ -122,7 +122,7 @@
           </property>
           <property name="icon">
            <iconset resource="resource.qrc">
-            <normaloff>:/icons/assets/folder.png</normaloff>:/icons/assets/folder.png</iconset>
+            <normaloff>:/icons/assets/folder-32.png</normaloff>:/icons/assets/folder-32.png</iconset>
           </property>
           <property name="iconSize">
            <size>

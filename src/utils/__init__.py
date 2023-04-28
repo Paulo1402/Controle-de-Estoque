@@ -1,9 +1,9 @@
-"""Encapsula todos as funções e classes usadas para dentro de um apenas um arquivo."""
+"""Encapsula todos as funções e classes usadas para dentro de apenas um arquivo."""
 
 from .globals import (BASEDIR, APPDATA_DIR, APP_NAME, TABLES, AUTO_INCREMENTED_TABLES, HELP, DEBUG,
                       DEFAULT_SHORT_SKIDS, DEFAULT_LONG_SKIDS, LIGHT_COLOR, DARK_COLOR)
-from .utils import Animation, Message, Logger, BitolaInfo, Mode, DateMinMax, ConfigSection, OldestBackup, \
-    StatusTipEventFilter
+from .utils import (Animation, Message, Logger, BitolaInfo, Mode, DateMinMax, ConfigSection, OldestBackup,
+                    StatusTipEventFilter)
 from .config import get_config, set_config
 from .function import (clear_fields, check_empty_fields, get_skids_volume, order_set, load_theme, is_date_range_valid,
                        get_today, check_connection)

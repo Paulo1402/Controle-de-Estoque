@@ -3,7 +3,6 @@ Ponto de entrada do programa.
 
 Esse arquivo é compilado usando a lib PyInstaller para gerar um executável para distribuição.
 """
-
 import sys
 import locale
 import warnings
@@ -158,7 +157,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
     def init_ui(self):
         """Realiza conexões de signals e slots"""
-        self.setWindowTitle('CONTROLE DE MADEIRA TRATADA')
+        self.setWindowTitle(APP_NAME.upper())
 
         # Conecta botões do menu principal
         self.bt_cycle_menu.clicked.connect(lambda: self.mp_main.setCurrentIndex(0))
@@ -302,12 +301,13 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         # Verifica conexão
         connected = self.database.connection_state == DatabaseConnection.State.CONNECTED
 
+        # Se não houver conexão desabilita funções do aplicativo
         self.action_import_backup.setDisabled(not connected)
         self.mp_main.setDisabled(not connected)
         self.bt_client_menu.setDisabled(not connected)
         self.bt_kiln_menu.setDisabled(not connected)
 
-        # Carrega dados para dentro do app
+        # Carrega dados
         if connected:
             self.load_clients()
             self.load_kilns()
@@ -437,6 +437,9 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         cycle = fields['ciclo']
 
         # Verifica se o campo ciclo não existe no banco de dados
+        # Se o ciclo diferir do ID, significa que estamos em modo de insert com o ID valendo -1 e o ciclo
+        # possuindo obrigatoriamente um valor positivo, ou estamos em modo de update e o valor do ciclo atual
+        # difere do ID inicial
         if int(cycle) != self.ID_cycle and not self.database.is_unique('ciclo', 'ciclo', cycle):
             Message.warning(self, 'ATENÇÃO', 'Esse ciclo já consta no banco de dados!')
 
@@ -1564,7 +1567,7 @@ if __name__ == "__main__":
         # noinspection PyUnresolvedReferences
         from ctypes import windll
 
-        myappid = 'apps.controle_de_estoque.1.0.0'
+        myappid = 'kamua.controle_de_estoque.1.0.0'
         windll.shell32.SetCurrentProcessExplicitAppUserModelID(myappid)
     except ImportError:
         pass

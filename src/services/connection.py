@@ -9,21 +9,21 @@ from utils import get_config, ConfigSection
 
 
 class QueryError(Exception):
-    """Exceção lançada ao falhar uma query"""
+    """Exceção lançada ao falhar uma query."""
 
     def __init__(self, query: str):
         self.query = query
 
 
 class DatabaseState(Enum):
-    """Estados de conexão com o banco de dados"""
+    """Estados de conexão com o banco de dados."""
     CONNECTED = 1
     NO_DATABASE = 2
     DATABASE_NOT_FOUND = 3
 
 
 class DatabaseConnection:
-    """Classe responsável por manter a conexão com o banco de dados"""
+    """Classe responsável por manter a conexão com o banco de dados."""
     State: DatabaseState = DatabaseState
 
     def __init__(self):
@@ -33,7 +33,7 @@ class DatabaseConnection:
         self.location = ''
 
     def connect(self):
-        """Tenta se conectar ao banco de dados"""
+        """Tenta se conectar ao banco de dados."""
         config = get_config(ConfigSection.DATABASE)
         db = config['name']
 
