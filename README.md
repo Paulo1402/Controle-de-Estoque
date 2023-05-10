@@ -15,3 +15,12 @@ Com o aplicativo aberto, basta clicar em _Sobre/Ajuda_ no menu superior para abr
 - Com a pasta do repositório aberta no terminal rode o comando `pip install ./dev/requirements.txt` para instalar as
   dependências (De preferência com um virtual environment ativo).
 - Rodar o script de entrada usando `python ./src/main.py`.
+
+## 🛠 Tecnologias e Libs
+
+- Python
+- PySide6
+- PyQtDarkTheme
+- AutoPyToExe
+
+#### Icons8 - https://icons8.com.br
