@@ -56,10 +56,10 @@ class DoBackupWorker(QThread):
         if not db or frequency == 'no_backups':
             return
 
-        # Pega raíz da pasta de backups
+        # Pega raiz da pasta de backups
         root = os.path.join(os.path.dirname(db), 'backups')
 
-        # Cria raíz caso não exista
+        # Cria raiz caso não exista
         if not os.path.exists(root):
             os.makedirs(root)
 
@@ -119,6 +119,7 @@ class DoBackupWorker(QThread):
                 table=table,
                 fields=header
             )
+            print(table)
 
             # Cria backup em um arquivo .csv
             self._write_csv(filename, header, query)
@@ -189,8 +190,8 @@ class ImportBackupWorker(QThread):
 
         file_count = 0
 
-        # É necessário usar a variável 'expected_files' por que precisamos inserir os dados na ordem correta das
-        # tabelas. Usando a lista retornada em 'files' é possível que alguma tabela esteja fora de ordem.
+        # É necessário usar a variável 'expected_files' por que precisamos inserir os dados na ordem correta
+        # das tabelas. Usando a lista retornada em 'files' é possível que alguma tabela esteja fora de ordem.
         for file in expected_files:
             # Pega nome da tabela
             table = file.replace('.csv', '')

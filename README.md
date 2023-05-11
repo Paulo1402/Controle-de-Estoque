@@ -1,10 +1,26 @@
 # Controle de Estoque de Madeira Tratada
 
-Para baixar a versão de distribuição clique [aqui](https://github.com/Paulo1402/Controle-de-Estoque/releases/download/v1.0.0/installer.exe). (Apenas para Windows).
+Aplicação feita exclusivamente para uso interno de uma empresa na qual fiz parte.
+
+Aplicativo para controle de estoque de madeira tratada seguindo lógica interna da empresa, banco de dados
+compartilhado na rede com possibilidade de acesso simultâneo, sistema de backup automático, dark / light mode e mais!
+
+Para baixar a versão de distribuição
+clique [aqui](https://github.com/Paulo1402/Controle-de-Estoque/releases/download/v1.0.0/installer.exe). (Apenas para
+Windows).
 
 Com o aplicativo aberto, basta clicar em _Sobre/Ajuda_ no menu superior para abrir um rápido overview no navegador.
 
-![preview](.github/preview.png)
+![preview](.github/preview_home.png)
+
+## 🖼️ Imagens
+
+![preview](.github/preview_cycle.png)
+![preview](.github/preview_nfe.png)
+![preview](.github/preview_kiln.png)
+![preview](.github/preview_history.png)
+![preview](.github/preview_config.png)
+![preview](.github/preview_import.png)
 
 ---
 
@@ -22,5 +38,6 @@ Com o aplicativo aberto, basta clicar em _Sobre/Ajuda_ no menu superior para abr
 - PySide6
 - PyQtDarkTheme
 - AutoPyToExe
+- sqlite
 
 #### Icons8 - https://icons8.com.br

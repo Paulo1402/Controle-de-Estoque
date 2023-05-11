@@ -18,16 +18,6 @@ from utils import *
 from dialog import *
 
 
-# todo FrontEnd
-
-# todo BackEnd
-
-# todo Refactoring
-
-# todo Testes
-
-# todo Bugs
-
 class MainWindow(QMainWindow, Ui_MainWindow):
     """Janela principal do aplicativo."""
 
