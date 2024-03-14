@@ -7,6 +7,7 @@ import sys
 import locale
 import warnings
 import webbrowser
+import datetime
 
 from PySide6.QtWidgets import QApplication, QMainWindow, QHeaderView, QTableWidgetItem, QLabel, QProgressBar
 from PySide6.QtGui import QIcon, QCloseEvent, QRegularExpressionValidator
@@ -1546,6 +1547,11 @@ def exception_hook(*args, **kwargs):
 
 
 if __name__ == "__main__":
+    TRIAL_MAX_DATE = datetime.date(2024, 3, 31)
+
+    if datetime.date.today() >= TRIAL_MAX_DATE:
+        raise PermissionError("Tempo limite para teste expirado!")
+
     locale.setlocale(locale.LC_ALL, 'pt_BR.utf8')
     sys.excepthook = exception_hook
 

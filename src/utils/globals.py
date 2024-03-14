@@ -19,6 +19,9 @@ windows_installation_paths = [
 # Caso o app for instalado em um dos diretórios com restrições de escrita no Windows altera o diretório
 # para criar arquivos auxiliares.
 for path in windows_installation_paths:
+    if not path:
+        continue
+
     if BASEDIR.is_relative_to(path):
         APPDATA_DIR = os.path.join(os.getenv('APPDATA'), APP_NAME)
 
